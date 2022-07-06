@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const initialForm = {
-  data: "",  
-  password: ""
+  data: "",
+  password: "",
 };
 
 const Login = () => {
@@ -21,25 +21,36 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const uri = "/login";
-    await axios
-      .post(uri, form)
+    
+    const options = {
+      url: "/api/login",     
+      headers: {
+       'Content-Type': 'application/json', 
+       'Access-Control-Allow-Origin': '*',   
+       'Access-Control-Allow-Headers': '*',
+       Accept: 'application/json',    
+      },
+      params: form,   
+      timeout: 3000,          
+   }
+    console.log(form);
+    await axios.request(options)
       .then((res) => {
-        console.log(res);
-        if (res.data) {
+        console.log(res.data);
+        if (res.data) {          
           alert("Logueo exitoso!");
-          console.log("Usuario: ", res.data.email, ", bienvenido!");
+          console.log("Usuario: ", res.data.username, ", bienvenido!");
           const uri = "/user";
-          const userData=res.data;
-          navigate(uri, {state: {userData}});
+          const userData = res.data;
+          navigate(uri, { state: { userData } });
         } else {
           alert("Error: credenciales incorrectas! :(");
         }
       })
-      .catch((error) => {       
+      .catch((error) => {
         console.error(error);
       });
-      handleReset();
+    handleReset();
   };
 
   return (

@@ -20,10 +20,24 @@ const SignUp = () => {
   const [form, setForm] = useState(initialForm);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const uri = "/signup";
+    e.preventDefault();    
+    
+    const options = {
+      url: "/api/signup",    
+      method: 'post', 
+      headers: {
+       'Content-Type': 'application/json', 
+       'Access-Control-Allow-Origin': '*',   
+       'Access-Control-Allow-Headers': '*',
+       Accept: 'application/json',    
+      },
+      data: form,   
+      timeout: 3000,         
+   }
+    console.log(form);
+
     await axios
-      .post(uri, form)
+      .request(options)
       .then((res) => {
         console.log(res);
         if (!res.data) {
