@@ -45,6 +45,12 @@ function App() {
 
             <Route
               exact
+              path="/admin"
+              element={<Components.MainAdmin />}
+            />
+
+            <Route
+              exact
               path="/admin/orders/all"
               element={<Components.AllOrders />}
             />

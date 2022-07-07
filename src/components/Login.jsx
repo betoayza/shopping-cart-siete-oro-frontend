@@ -40,9 +40,17 @@ const Login = () => {
         if (res.data) {          
           alert("Logueo exitoso!");
           console.log("Usuario: ", res.data.username, ", bienvenido!");
-          const uri = "/user";
-          const userData = res.data;
-          navigate(uri, { state: { userData } });
+          //case generic user
+          if(res.data.type === 'Estandar'){
+            const uri = "/user";
+            const userData = res.data;
+            navigate(uri, { state: { userData } });
+          //case admin user
+          }else{
+            const uri = "/admin";
+            const userData = res.data;
+            navigate(uri, { state: { userData } });
+          }
         } else {
           alert("Error: credenciales incorrectas! :(");
         }

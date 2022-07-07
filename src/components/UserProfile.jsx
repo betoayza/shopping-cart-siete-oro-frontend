@@ -19,6 +19,7 @@ const initialForm = {
 const UserProfile = () => {
   const [form, setForm] = useState(initialForm);
   let location = useLocation();
+  //Receives user data
   const userData = location.state.userData;
   const { code } = userData;
   console.log("Datos usuario profile: ", userData);
@@ -42,9 +43,23 @@ const UserProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const uri = "/user/profile/edit";
+   
+    const options = {
+      url: "/api/user/profile/edit",    
+      method: 'put', 
+      headers: {
+       'Content-Type': 'application/json', 
+       'Access-Control-Allow-Origin': '*',   
+       'Access-Control-Allow-Headers': '*',
+       Accept: 'application/json',    
+      },
+      data: form,   
+      timeout: 3000,         
+   }
+    console.log(form);
+    
     await axios
-      .put(uri, { form })
+      .request(options)
       .then((res) => {
         alert("Datos actualizados!");
         console.log("Ahora el usuario tiene estos datos: ", res.data);

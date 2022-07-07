@@ -11,20 +11,27 @@ const ShoppingCart = () => {
   useEffect(() => {
     const getShoppingCart = async (code) => {
       const options = {
-        url: "/user/shopping-cart",
-        method: "get",
-        headers: { "X-Requested-With": "XMLHttpRequest" },
-        data: { code },
+        url: "/api/user/shopping-cart",
+        
+        headers: {
+          'Content-Type': 'application/json', 
+          'Access-Control-Allow-Origin': '*',   
+          'Access-Control-Allow-Headers': '*',
+          Accept: 'application/json',    
+         },
+         params: {code},   
+         timeout: 3000, 
       };
 
       await axios
         .request(options)
         .then((res) => {
-          if (res.data) {
+          if (res.data && res.data.length > 0 ) {
+            console.log(res.data)
             setShoppingCart(res.data);
             alert("Carrito encontrado!");
           } else {
-            alert("Carrito no encontrado :(");
+            alert("Carrito vacío :(");
           }
         })
         .catch((error) => {
