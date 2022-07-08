@@ -6,6 +6,9 @@ const DeleteProduct = () => {
     const handleSumbit = async (e) => {
         e.preventDefault();
         const url = '/admin/delete-product';
+
+
+        
         axios.post(url, e.target.value)
             .then( res => {
                  console.log("Baja exitosa! :) ");

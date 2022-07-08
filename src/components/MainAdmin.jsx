@@ -13,7 +13,7 @@ import {
 const MainAdmin = () => {
   return (
     <>
-      <h1>Elija una opción:</h1>
+      <h3>Admin</h3>
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
@@ -64,7 +64,15 @@ const MainAdmin = () => {
                     </li>
                     <li>
                       <a className="dropdown-item" href="/cars/delete">
-                        Eliminar
+                        Dar de baja
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="dropdown-item"
+                        href="/car-workshop-frontend/#/clients/add"
+                      >
+                        Ver todos
                       </a>
                     </li>
                     <li>
@@ -72,7 +80,7 @@ const MainAdmin = () => {
                         className="dropdown-item"
                         href="/car-workshop-frontend/#/cars/search"
                       >
-                        Buscar
+                        Por Codigo
                       </a>
                     </li>
                     <li>
@@ -112,17 +120,17 @@ const MainAdmin = () => {
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/clients/delete"
+                        href="/car-workshop-frontend/#/clients/add"
                       >
-                        Eliminar
+                        Por Codigo
                       </a>
                     </li>
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/clients/search"
+                        href="/car-workshop-frontend/#/clients/delete"
                       >
-                        Buscar
+                        Dar de baja
                       </a>
                     </li>
                   </ul>
@@ -148,31 +156,15 @@ const MainAdmin = () => {
                         className="dropdown-item"
                         href="/car-workshop-frontend/#/services/add"
                       >
-                        Por Usuario
+                        Todos
                       </a>
                     </li>
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/services/delete"
+                        href="/car-workshop-frontend/#/services/add"
                       >
-                        Delete
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="/car-workshop-frontend/#/services/search"
-                      >
-                        Search
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="/car-workshop-frontend/#/services/modify"
-                      >
-                        Modify
+                        Por ID Usuario
                       </a>
                     </li>
                   </ul>
