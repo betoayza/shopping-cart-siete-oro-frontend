@@ -1,6 +1,4 @@
-//import logo from './logo.svg';
 import "./App.css";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import * as Components from "./components/indexComponents";
 
@@ -73,7 +71,7 @@ function App() {
 
             <Route
               exact
-              path="/admin/delete-product"
+              path="/admin/products/delete"
               element={<Components.DeleteProduct />}
             />
 
@@ -91,7 +89,7 @@ function App() {
 
             <Route
               exact
-              path="/all-products"
+              path="/products/all"
               element={<Components.AllProducts />}
             />
 

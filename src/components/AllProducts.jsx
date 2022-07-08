@@ -1,56 +1,44 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ProductsTable } from "./ProductsTable";
 
 const AllProducts = () => {
-  const [productsTable, setProductsTable] = useState([]); //static data
-
-  //function to search all products
-  const getAllProducts = async () => {
-    const url = "/all-products";
-    await axios
-      .get(url)
-      .then((res) => {
-        setProductsTable(res.data);
-        console.log(setProductsTable);
-      })
-      .catch((error) => {
-        console.log("El error es: ", error);
-      });
-  };
-
-  //const addToCart =
+  const [products, setProducts] = useState(null);
 
   useEffect(() => {
+    const options = {
+      url: "/api/products/all",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+      },
+      params: { products },
+      timeout: 3000,
+    };
+    const getAllProducts = async () => {
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            setProducts(res.data);
+            alert("Productos encontrados!");
+          } else {
+            alert("Por el momento no hay productos :(");
+          }
+        })
+        .catch((error) => error);
+    };
+
     getAllProducts();
   }, []);
 
   return (
-    <div className="responsible-table">
-      <table class="table table-dark">
-        <thead>
-          <tr>
-            <th scope="col">Producto</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Quedan</th>
-            <th scope="col">Agregar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productsTable &&
-            productsTable.forEach((prod) => {
-              <tr>
-                <td>prod.name</td>
-                <td>prod.description</td>
-                <td>prod.price</td>
-                <td>prod.stock</td>
-                <td>
-                  <button /*onClick=addToCart*/>Agregar</button>
-                </td>
-              </tr>;
-            })}
-        </tbody>
-      </table>
+    <div>
+      <h3>Productos: </h3>
+      {products && <ProductsTable products={products} />}
     </div>
   );
 };

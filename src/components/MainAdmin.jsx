@@ -63,14 +63,14 @@ const MainAdmin = () => {
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/cars/delete">
+                      <a className="dropdown-item" href="/admin/products/delete">
                         Dar de baja
                       </a>
                     </li>
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/clients/add"
+                        href="/products/all"
                       >
                         Ver todos
                       </a>
