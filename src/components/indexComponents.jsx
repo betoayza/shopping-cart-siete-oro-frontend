@@ -8,11 +8,10 @@ import ReceivedOrders from "./ReceivedOrders";
 import OrderByCode from "./OrderByCode";
 import UserOrders from "./UserOrders";
 
-
 import AllProducts from "./AllProducts";
 import DeleteProduct from "./DeleteProduct";
 import ModifyProduct from "./ModifyProduct";
-import ProductByID from "./ProductByID";
+import ProductByCode from "./ProductByCode";
 import AddProduct from "./AddProduct";
 import AddProduct2 from "./AddProduct2";
 import SearchingBar from "./SearchingBar";
@@ -41,5 +40,5 @@ export {
   SignUp,
   UserOrders,
   UserProfile,
-  ProductByID,
+  ProductByCode,
 };

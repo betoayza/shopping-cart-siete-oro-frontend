@@ -7,7 +7,7 @@ import {
   DeleteProduct,
   ModifyProduct,
   AllProducts,
-  ProductByID,
+  ProductByCode,
 } from "./indexComponents";
 
 const MainAdmin = () => {
@@ -63,22 +63,22 @@ const MainAdmin = () => {
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/admin/products/delete">
+                      <a
+                        className="dropdown-item"
+                        href="/admin/products/delete"
+                      >
                         Dar de baja
                       </a>
                     </li>
                     <li>
-                      <a
-                        className="dropdown-item"
-                        href="/products/all"
-                      >
+                      <a className="dropdown-item" href="/products/all">
                         Ver todos
                       </a>
                     </li>
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/cars/search"
+                        href="/admin/products/search/code"
                       >
                         Por Codigo
                       </a>

@@ -83,8 +83,8 @@ function App() {
 
             <Route
               exact
-              path="/admin/search/product-by-id"
-              element={<Components.ProductByID />}
+              path="/admin/products/search/code"
+              element={<Components.ProductByCode />}
             />
 
             <Route

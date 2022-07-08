@@ -2,6 +2,9 @@ import React from "react";
 import { ProductTableRow } from "./ProductTableRow";
 
 export const ProductsTable = ({ products }) => {
+  if (!Array.isArray(products)) {
+    products = [products];
+  }
   return (
     <div>
       <h3>Productos encontrados:</h3>
