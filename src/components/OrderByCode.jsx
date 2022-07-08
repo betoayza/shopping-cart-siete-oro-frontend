@@ -1,19 +1,32 @@
 import axios from "axios";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { OrdersTable } from "./OrdersTable";
 
-const OrdersByUserID = () => {
+const OrderByCode = () => {
   const [orders, setOrders] = useState(null);
-  const [code, setCode] = useState(null);
+  const [code, setCode] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const uri = "/admin/orders/by-user-id";
+
+    const options = {
+      url: "/api/user/orders/code",
+
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      params: { code },
+    };
+
     await axios
-      .get(uri, {code})
+      .request(options)
       .then((res) => {
+        console.log(res.data);
         if (res.data) {
-          console.log(res.data);
           console.log("Pedidos encontrado! :) ");
           setOrders(res.data);
         } else {
@@ -23,20 +36,20 @@ const OrdersByUserID = () => {
       .catch((error) => {
         console.error(error);
       });
-      handleReset();
+    handleReset();
   };
 
-  const handleChange=e=>{
+  const handleChange = (e) => {
     setCode(e.target.value);
   };
 
-  const handleReset=()=>{
-    setCode(null);
+  const handleReset = () => {
+    setCode("");
   };
 
   return (
     <>
-      <h1>Pedidos por ID de usuario:</h1>
+      <h1>Pedido:</h1>
 
       <div className="form-group w-25">
         <form onSubmit={handleSubmit}>
@@ -71,9 +84,9 @@ const OrdersByUserID = () => {
           </div>
         </form>
       </div>
-      {orders && <OrdersTable data={orders} />}
+      {orders && <OrdersTable orders={orders} />}
     </>
   );
 };
 
-export default OrdersByUserID;
+export default OrderByCode;

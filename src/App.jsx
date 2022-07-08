@@ -45,9 +45,11 @@ function App() {
 
             <Route
               exact
-              path="/admin"
-              element={<Components.MainAdmin />}
+              path="/user/orders/code"
+              element={<Components.OrderByCode />}
             />
+
+            <Route exact path="/admin" element={<Components.MainAdmin />} />
 
             <Route
               exact
@@ -64,7 +66,7 @@ function App() {
             <Route
               exact
               path="/admin/orders/by-user-id"
-              element={<Components.OrdersByUserID />}
+              element={<Components.OrderByCode />}
             />
 
             <Route exact path="/admin" element={<Components.MainAdmin />} />
@@ -108,4 +110,3 @@ function App() {
 }
 
 export default App;
-

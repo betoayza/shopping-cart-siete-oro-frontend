@@ -5,11 +5,11 @@ import ShoppingCart from "./ShoppingCart";
 
 import AllOrders from "./AllOrders";
 import ReceivedOrders from "./ReceivedOrders";
-import OrdersByUserID from "./OrdersByUserID";
-
-import AllProducts from "./AllProducts";
+import OrderByCode from "./OrderByCode";
 import UserOrders from "./UserOrders";
 
+
+import AllProducts from "./AllProducts";
 import DeleteProduct from "./DeleteProduct";
 import ModifyProduct from "./ModifyProduct";
 import ProductsFounded from "./ProductsFounded";
@@ -31,7 +31,7 @@ export {
   ShoppingCart,
   AllOrders,
   ReceivedOrders,
-  OrdersByUserID,
+  OrderByCode,
   AllProducts,
   DeleteProduct,
   ModifyProduct,

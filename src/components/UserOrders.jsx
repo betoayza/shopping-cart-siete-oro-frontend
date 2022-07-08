@@ -37,6 +37,7 @@ const UserOrders = () => {
 
   return (
     <div className="responsible-table" id="user-orders-div">
+      <h3>Todos sus pedidos:</h3>
       {orders && <OrdersTable orders={orders} />}
     </div>
   );
