@@ -1,51 +1,69 @@
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-//import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ProductsTable } from "./ProductsTable";
 
 const SearchingBar = () => {
-  const [product, setProduct] = useState("");
+  const [products, setProducts] = useState("");
+  const [name, setName] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //para que no se refresque la pagina
-    try {
-      console.log("Es producto enviado es: ", product);
-      const result = await axios.get("/products-founded", {
-        params: { name: product },
-      });
-      let data = result.data;
-      console.log("Resultado del await: ", data);
-      navigate("/products-founded", { state: { data } });
-    } catch (error) {
-      console.error(error);
-    }
+
+    const options = {
+      url: "/api/products/get",
+
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      params: { name },
+    };
+
+    await axios
+      .request(options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setProducts(res.data);
+        } else {
+          alert("Sin coincidencias :(");
+        }
+      })
+      .catch((error) => error);
+    //navigate("/products-founded", { state: { data } });
   };
 
   //Only controls typing
   const handleChange = (e) => {
-    setProduct(e.target.value);
-    console.log("Tipeado: ", e.target.value); //se imprime el e.target.value, no el state
-    //e.preventDefault();
+    setName(e.target.value);
+    console.log("Tipeado: ", e.target.value);
   };
 
   return (
     <>
-      <div className="text-center border searching-bar-div"> 
+      <div className="text-center border searching-bar-div">
         <div id="login-reg-div">
-          <button className="btn btn-dark" onClick={()=>navigate('/login')}>Login</button>
-          <button className="btn btn-dark" onClick={()=>navigate('/signup')}>Registrarse</button>        
-        </div>       
+          <button className="btn btn-dark" onClick={() => navigate("/login")}>
+            Login
+          </button>
+          <button className="btn btn-dark" onClick={() => navigate("/signup")}>
+            Registrarse
+          </button>
+        </div>
         <h1>Panadería Siete de Oro</h1>
         <div className="d-flex justify-content-center">
           <form onSubmit={handleSubmit}>
             <div className="row ">
-            <div className="col-md-9">
+              <div className="col-md-9">
                 <input
                   className="form-control"
                   name="producto"
-                  value={product}
+                  value={name}
                   placeholder="¿Qué está buscando?..."
                   onChange={handleChange}
                 />
@@ -62,6 +80,8 @@ const SearchingBar = () => {
         </div>
         <br />
       </div>
+
+      {products && <ProductsTable products={products} />}
     </>
   );
 };

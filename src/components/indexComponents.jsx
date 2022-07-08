@@ -12,7 +12,6 @@ import UserOrders from "./UserOrders";
 import AllProducts from "./AllProducts";
 import DeleteProduct from "./DeleteProduct";
 import ModifyProduct from "./ModifyProduct";
-import ProductsFounded from "./ProductsFounded";
 import ProductByID from "./ProductByID";
 import AddProduct from "./AddProduct";
 import AddProduct2 from "./AddProduct2";
@@ -35,7 +34,6 @@ export {
   AllProducts,
   DeleteProduct,
   ModifyProduct,
-  ProductsFounded,
   AddProduct,
   AddProduct2,
   Error404,

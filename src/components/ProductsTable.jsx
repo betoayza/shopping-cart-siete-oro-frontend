@@ -1,10 +1,10 @@
 import React from "react";
+import { ProductTableRow } from "./ProductTableRow";
 
-export const ProductsTable = ({products}) => {    
-  
-    return (
+export const ProductsTable = ({ products }) => {
+  return (
     <div>
-      <h1>Productos encontrados</h1>
+      <h3>Productos encontrados:</h3>
       <table id="products-table" className="table table-success">
         <thead>
           <tr>

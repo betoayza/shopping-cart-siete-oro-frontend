@@ -13,12 +13,6 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Components.Home />} />
 
-            <Route
-              exact
-              path="/products-founded"
-              element={<Components.ProductsFounded />}
-            />
-
             <Route exact path="/login" element={<Components.Login />} />
 
             <Route exact path="/signup" element={<Components.SignUp />} />
