@@ -17,13 +17,36 @@ const AddProduct2 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const uri = "/admin/product/add";
+
     console.log(form);
 
+    const data = new FormData();
+    data.append("code", form.code);
+    data.append("name", form.name);
+    data.append("description", form.description);
+    data.append("price", form.price);
+    data.append("stock", form.stock);
+    data.append("status", form.status);
+    data.append("image", form.image);
+    console.log(data);
+
+    const options = {
+      url: "/api/admin/product/add",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      data: data,
+    };
+
     await axios
-      .post(uri, form)
+      .request(options)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         if (res.data) {
           alert("Alta exitosa!");
         } else {
@@ -46,7 +69,7 @@ const AddProduct2 = () => {
       <h2>Agregar Producto:</h2>
 
       <div className="form-group w-25">
-        <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        <form>
           <div className="row">
             <input
               type="hidden"
@@ -64,6 +87,7 @@ const AddProduct2 = () => {
               placeholder="Nombre..."
               value={form.name}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -75,6 +99,7 @@ const AddProduct2 = () => {
               placeholder="Descripcion..."
               value={form.description}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -86,6 +111,7 @@ const AddProduct2 = () => {
               placeholder="Precio..."
               value={form.price}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -97,6 +123,7 @@ const AddProduct2 = () => {
               placeholder="Stock..."
               value={form.stock}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -105,11 +132,13 @@ const AddProduct2 = () => {
               type="file"
               className="form-control"
               name="image"
+              id="image"
               ref={fileRef}
               onChange={(e) => {
                 console.log(e.target.files[0]);
                 setForm({ ...form, image: e.target.files[0] });
               }}
+              required
             />
           </div>
 

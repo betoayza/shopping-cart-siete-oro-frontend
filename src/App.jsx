@@ -65,7 +65,7 @@ function App() {
 
             <Route
               exact
-              path="/admin/product/add"
+              path="/admin/products/add"
               element={<Components.AddProduct2 />}
             />
 
@@ -77,7 +77,7 @@ function App() {
 
             <Route
               exact
-              path="/admin/modif-product"
+              path="/admin/products/modify"
               element={<Components.ModifyProduct />}
             />
 

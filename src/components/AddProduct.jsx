@@ -24,15 +24,24 @@ const AddProduct = () => {
   const onError = (errors, e) => console.log(errors, e);
 
   const onSubmit = async (data, e) => {
-    //e.preventDefault();
-    const uri = "/admin/product/add";
-    //setValue("image", fileInput.current.files[0]);
-    console.log(data);
-    //console.log(data.image);
+    //e.preventDefault();   
 
-    await axios.post(uri, data)
+    const options = {
+      url: '/api/admin/product/add',  
+      method: 'post',    
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,        
+      },
+      data: form,
+    };
+
+    await axios.request(options)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         if (res.data) {
           alert("Alta exitosa!");
         } else {

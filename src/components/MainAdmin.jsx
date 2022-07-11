@@ -57,7 +57,7 @@ const MainAdmin = () => {
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/cars/add"
+                        href="/admin/products/add"
                       >
                         Agregar
                       </a>
@@ -86,7 +86,7 @@ const MainAdmin = () => {
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/cars/modify"
+                        href="/admin/products/modify"
                       >
                         Modificar
                       </a>
@@ -112,7 +112,7 @@ const MainAdmin = () => {
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/clients/add"
+                        href="/clients/add"
                       >
                         Ver todos
                       </a>
@@ -120,7 +120,7 @@ const MainAdmin = () => {
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/clients/add"
+                        href="/clients/add"
                       >
                         Por Codigo
                       </a>
@@ -128,7 +128,7 @@ const MainAdmin = () => {
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/clients/delete"
+                        href="/clients/delete"
                       >
                         Dar de baja
                       </a>

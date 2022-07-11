@@ -1,44 +1,209 @@
-import axios from 'axios';
-import React, {useEffect} from 'react';
+import axios from "axios";
+import React, { useState } from "react";
 
+const initialForm = {
+  code: "",
+  name: "",
+  description: "",
+  price: "",
+  stock: "",
+  image: "",
+  status: "Active",
+};
 
-//a travez de un formulario maneja la modificacion
+const ModifyProduct = () => {
+  const [form, setForm] = useState(initialForm);
+  const [product, setProduct] = useState(null);
+  const [code, setCode] = useState("");
 
-const ModifyProduct = () => {    
+  const handleChange = (e) => {
+    setCode(e.target.value);
+  };
 
-    const handleSubmit = async (e) => {
-        const url = "/admin/modif-product"; 
-        await axios.post(url, e.value.target)
-            .then( res => {
-                console.log("Modificación exitosa!");
-            })
-            .catch( error => {
-                console.error("El error es: ", error);
-            });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const options = {
+      url: '/api/admin/products/search/code',
+     
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      params: { code },
     };
 
-    useEffect( () => {
-        handleSubmit()
-    } , [])
+    await axios
+      .request(options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setProduct(res.data);
+          setForm(res.data);
+          alert("Producto encontrado!");
+        } else {
+          alert("No hay coincidencias :(");
+        }
+      })
+      .catch((error) => error);
+    handleReset();
+  };
 
-    return(
-        <>
-            <h1>Modifique un producto</h1>
-            <h2>Ingrese los nuevos datos:</h2>
-            <form>
-                <label for="name">Nombre: </label>
-                <input id="name" name="name"/>
-                <label for="desc">Descripciopn: </label>
-                <input id="desc" name="desc"/>
-                <label>Precio: </label>
-                <input id="price" name="price"/>
-                <label>Cantidad: </label>
-                <input id="stock" name="stock"/>
-                <label>Imagen: </label>
-                <input onClick={ handleSubmit } type="submit" value="Enviar!"/>
+  const handleReset = (e) => {
+    setCode("");
+  };
+
+  //---------
+  //Handle Update Form
+  const handleChange2 = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit2 = async (e) => {
+    e.preventDefault();
+
+    const options = {
+      url: "/api/cars/modify",
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      data: form,
+    };
+
+    await axios
+      .request(options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {          
+          alert("Producto actualizado!");
+        } else {
+          alert("Error en la actualización :(");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    handleReset2();
+  };
+
+  const handleReset2 = (e) => {
+    setForm(initialForm);
+  };
+
+  return (
+    <>
+      <h2>Codigo producto: </h2>
+      <div className="form-group w-25">
+        <form onSubmit={handleSubmit}>
+          <div className="input-group mb-3">
+            <input
+              type="number"
+              className="form-control"
+              name="code"
+              placeholder="Code..."
+              value={code}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button className="btn btn-primary" type="submit">
+            Find!
+          </button>
+
+          <button className="btn btn-danger" type="reset" onClick={handleReset}>
+            Reset
+          </button>
+        </form>
+      </div>
+
+      {product && (
+        <div>
+          <h1>Modifique Producto:</h1>
+          <div className="form-group w-25">
+            <form onSubmit={handleSubmit2}>
+              <div className="input-group mb-3">
+                {/* code isnt updatable */}
+                <label>Codigo: {form.code}</label>
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="name"                 
+                  placeholder="Nombre..."
+                  value={form.name}
+                  onChange={handleChange2}
+                  required
+                />
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="description"
+                  placeholder="Descripcion..."
+                  value={form.description}
+                  onChange={handleChange2}
+                  required
+                />
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="number"
+                  className="form-control"
+                  name="price"
+                  placeholder="Precio..."
+                  value={form.price}
+                  onChange={handleChange2}
+                  required
+                />
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="number"
+                  className="form-control"
+                  name="stock"
+                  placeholder="Stock..."
+                  value={form.stock}
+                  onChange={handleChange2}
+                  required
+                />
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="file"
+                  className="form-control"
+                  name="image"   
+                  required
+                />
+              </div>
+
+              <button className="btn btn-primary" type="submit">
+                Update
+              </button>
+
+              <button
+                className="btn btn-danger"
+                type="reset"
+                onClick={handleReset2}
+              >
+                Reset
+              </button>
             </form>
-        </>
-    );
-}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 export default ModifyProduct;
