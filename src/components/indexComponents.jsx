@@ -13,7 +13,7 @@ import DeleteProduct from "./DeleteProduct";
 import ModifyProduct from "./ModifyProduct";
 import ProductByCode from "./ProductByCode";
 import AddProduct from "./AddProduct";
-import AddProduct2 from "./AddProduct2";
+
 import SearchingBar from "./SearchingBar";
 
 import UserProfile from "./UserProfile";
@@ -33,8 +33,7 @@ export {
   AllProducts,
   DeleteProduct,
   ModifyProduct,
-  AddProduct,
-  AddProduct2,
+  AddProduct,  
   Error404,
   Login,
   SignUp,

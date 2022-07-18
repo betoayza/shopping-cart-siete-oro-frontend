@@ -66,7 +66,7 @@ function App() {
             <Route
               exact
               path="/admin/products/add"
-              element={<Components.AddProduct2 />}
+              element={<Components.AddProduct />}
             />
 
             <Route
