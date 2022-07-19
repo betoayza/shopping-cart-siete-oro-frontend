@@ -28,6 +28,7 @@ const DeleteProduct = () => {
         }
       })
       .catch((error) => error);
+      handleReset();
   };
 
   const handleChange = (e) => {

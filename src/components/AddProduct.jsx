@@ -8,7 +8,7 @@ const initialForm = {
   price: "",
   stock: "",
   image: "",
-  status: "Active",
+  status: "Activo",
 };
 
 const AddProduct = () => {
