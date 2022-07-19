@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ProductsTable } from "./ProductsTable";
 
-const ProductByCode = () => {
+const SearchProductByCode = () => {
   const [code, setCode] = useState("");
   const [product, setProduct] = useState(null);
+
+  const handleChange = (e) => {
+    setCode(e.target.value);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const options = {
-      url: "/api/admin/products/search/code",
-
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -23,21 +25,16 @@ const ProductByCode = () => {
     };
 
     await axios
-      .request(options)
+      .get("/api/admin/product/search", options)
       .then((res) => {
         console.log(res.data);
         if (res.data) {
           setProduct(res.data);
           alert("Producto encontrado!");
-        } else {
-          alert("Sin coincidencias :(");
-        }
+        } else alert("Sin coincidencias :(");
       })
       .catch((error) => error);
-  };
-
-  const handleChange = (e) => {
-    setCode(e.target.value);
+    handleReset();
   };
 
   const handleReset = (e) => {
@@ -46,9 +43,10 @@ const ProductByCode = () => {
 
   return (
     <div>
-      <h1>Codigo Producto:</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group w-25">
+      <h2> Encontrar producto: </h2>
+
+      <div className="form-group w-25">
+        <form onSubmit={handleSubmit}>
           <div className="input-group mb-3">
             <input
               type="number"
@@ -62,17 +60,19 @@ const ProductByCode = () => {
           </div>
 
           <button className="btn btn-primary" type="submit">
-            Enviar
+            Enviar!
           </button>
 
           <button className="btn btn-danger" type="reset" onClick={handleReset}>
             Reset
           </button>
-        </div>
-      </form>
-      {product && <ProductsTable products={product} />}
+        </form>
+      </div>
+      <br />
+      <br />
+      {product && <ProductsTable products={product} setProducts={setProduct} />}
     </div>
   );
 };
 
-export default ProductByCode;
+export default SearchProductByCode;

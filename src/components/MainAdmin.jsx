@@ -7,7 +7,7 @@ import {
   DeleteProduct,
   ModifyProduct,
   AllProducts,
-  ProductByCode,
+  SearchProductByCode,
 } from "./indexComponents";
 
 const MainAdmin = () => {

@@ -11,7 +11,7 @@ import UserOrders from "./UserOrders";
 import AllProducts from "./AllProducts";
 import DeleteProduct from "./DeleteProduct";
 import ModifyProduct from "./ModifyProduct";
-import ProductByCode from "./ProductByCode";
+import SearchProductByCode from "./SearchProductByCode";
 import AddProduct from "./AddProduct";
 
 import SearchingBar from "./SearchingBar";
@@ -34,10 +34,10 @@ export {
   DeleteProduct,
   ModifyProduct,
   AddProduct,  
+  SearchProductByCode,
   Error404,
   Login,
   SignUp,
   UserOrders,
   UserProfile,
-  ProductByCode,
 };
