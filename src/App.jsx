@@ -51,6 +51,12 @@ function App() {
 
             <Route
               exact
+              path="/admin/users/all"
+              element={<Components.AllUsers />}
+            />
+
+            <Route
+              exact
               path="/admin/orders/received"
               element={<Components.ReceivedOrders />}
             />

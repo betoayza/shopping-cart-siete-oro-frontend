@@ -14,6 +14,8 @@ import ModifyProduct from "./ModifyProduct";
 import SearchProductByCode from "./SearchProductByCode";
 import AddProduct from "./AddProduct";
 
+import { AllUsers } from "./AllUsers";
+
 import SearchingBar from "./SearchingBar";
 
 import UserProfile from "./UserProfile";
@@ -35,6 +37,7 @@ export {
   ModifyProduct,
   AddProduct,  
   SearchProductByCode,
+  AllUsers,
   Error404,
   Login,
   SignUp,

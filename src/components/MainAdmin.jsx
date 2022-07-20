@@ -112,7 +112,7 @@ const MainAdmin = () => {
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/clients/add"
+                        href="/admin/users/all"
                       >
                         Ver todos
                       </a>
