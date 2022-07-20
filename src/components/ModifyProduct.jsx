@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const initialForm = {
   code: "",
@@ -8,13 +8,14 @@ const initialForm = {
   price: "",
   stock: "",
   image: "",
-  status: "Active",
+  status: "",
 };
 
 const ModifyProduct = () => {
   const [form, setForm] = useState(initialForm);
   const [product, setProduct] = useState(null);
   const [code, setCode] = useState("");
+  const fileRef = useRef(null);
 
   const handleChange = (e) => {
     setCode(e.target.value);
@@ -24,8 +25,8 @@ const ModifyProduct = () => {
     e.preventDefault();
 
     const options = {
-      url: '/api/admin/products/search/code',
-     
+      url: "/api/admin/products/search/code",
+
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -65,8 +66,18 @@ const ModifyProduct = () => {
   const handleSubmit2 = async (e) => {
     e.preventDefault();
 
+    const data = new FormData();
+    data.append("code", form.code);
+    data.append("name", form.name);
+    data.append("description", form.description);
+    data.append("price", form.price);
+    data.append("stock", form.stock);
+    data.append("status", form.status);
+    data.append("image", form.image);
+    console.log(data);
+
     const options = {
-      url: "/api/cars/modify",
+      url: "/api/admin/product/modify", //Add url works for modify too
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -75,14 +86,14 @@ const ModifyProduct = () => {
         Accept: "application/json",
         timeout: 3000,
       },
-      data: form,
+      data: data,
     };
 
     await axios
       .request(options)
       .then((res) => {
         console.log(res.data);
-        if (res.data) {          
+        if (res.data) {
           alert("Producto actualizado!");
         } else {
           alert("Error en la actualización :(");
@@ -96,6 +107,7 @@ const ModifyProduct = () => {
 
   const handleReset2 = (e) => {
     setForm(initialForm);
+    setProduct(null);
   };
 
   return (
@@ -132,13 +144,20 @@ const ModifyProduct = () => {
             <form onSubmit={handleSubmit2}>
               <div className="input-group mb-3">
                 {/* code isnt updatable */}
-                <label>Codigo: {form.code}</label>
+                <input
+                  type="number"
+                  name="code"
+                  value={form.code}
+                  className="form-control"
+                  disabled
+                  readOnly
+                />
               </div>
               <div className="input-group mb-3">
                 <input
                   type="text"
                   className="form-control"
-                  name="name"                 
+                  name="name"
                   placeholder="Nombre..."
                   value={form.name}
                   onChange={handleChange2}
@@ -182,7 +201,13 @@ const ModifyProduct = () => {
                 <input
                   type="file"
                   className="form-control"
-                  name="image"   
+                  name="image"
+                  id="image"
+                  ref={fileRef}
+                  onChange={(e) => {
+                    console.log(e.target.files[0]);
+                    setForm({ ...form, image: e.target.files[0] });
+                  }}
                   required
                 />
               </div>
