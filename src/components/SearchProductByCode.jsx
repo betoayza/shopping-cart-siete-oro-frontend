@@ -25,7 +25,7 @@ const SearchProductByCode = () => {
     };
 
     await axios
-      .get("/api/admin/product/search", options)
+      .get("/api/admin/products/search", options)
       .then((res) => {
         console.log(res.data);
         if (res.data) {
