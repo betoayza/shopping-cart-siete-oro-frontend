@@ -1,7 +1,15 @@
 import React from "react";
 import { UserTableRow } from "./UserTableRow";
 
-export const UsersTable = ({ users }) => {
+export const UsersTable = ({ users, setUsers }) => {
+  if (!Array.isArray(users)) {
+    users = [users];
+  }
+
+  const handleCloseTable = () => {
+    setUsers(null);
+  };
+
   return (
     <div>
       <h1>Usuarios encontrados:</h1>
@@ -12,7 +20,7 @@ export const UsersTable = ({ users }) => {
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Email</th>
-            <th scope="col">Usuario</th>           
+            <th scope="col">Usuario</th>
             <th scope="col">Domicilio</th>
             <th scope="col">Barrio</th>
             <th scope="col">Telefono</th>
@@ -28,6 +36,13 @@ export const UsersTable = ({ users }) => {
             })}
         </tbody>
       </table>
+      <button
+        className="btn btn-danger"
+        type="reset"
+        onClick={handleCloseTable}
+      >
+        Close
+      </button>
     </div>
   );
 };
