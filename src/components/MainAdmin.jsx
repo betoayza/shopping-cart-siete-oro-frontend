@@ -120,7 +120,7 @@ const MainAdmin = () => {
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/clients/add"
+                        href="/admin/users/code"
                       >
                         Por Codigo
                       </a>

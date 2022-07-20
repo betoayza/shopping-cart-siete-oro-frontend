@@ -15,6 +15,7 @@ import SearchProductByCode from "./SearchProductByCode";
 import AddProduct from "./AddProduct";
 
 import { AllUsers } from "./AllUsers";
+import UserByCode from "./UserByCode";
 
 import SearchingBar from "./SearchingBar";
 
@@ -38,6 +39,7 @@ export {
   AddProduct,  
   SearchProductByCode,
   AllUsers,
+  UserByCode,
   Error404,
   Login,
   SignUp,
