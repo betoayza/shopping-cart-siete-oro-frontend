@@ -10,7 +10,7 @@ const OrderByCode = () => {
     e.preventDefault();
 
     const options = {
-      url: "/api/user/orders/code",
+      url: "/api/admin/orders/code",
 
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const OrderByCode = () => {
           </div>
         </form>
       </div>
-      {order && <OrdersTable orders={order} />}
+      {order && <OrdersTable orders={order} setOrders={setOrder} />}
     </>
   );
 };
