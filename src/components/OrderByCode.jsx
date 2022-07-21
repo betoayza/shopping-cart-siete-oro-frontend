@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { OrdersTable } from "./OrdersTable";
 
 const OrderByCode = () => {
-  const [orders, setOrders] = useState(null);
+  const [order, setOrder] = useState(null);
   const [code, setCode] = useState("");
 
   const handleSubmit = async (e) => {
@@ -27,10 +27,10 @@ const OrderByCode = () => {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          console.log("Pedidos encontrado! :) ");
-          setOrders(res.data);
+          alert("Pedido encontrado! :) ");
+          setOrder(res.data);
         } else {
-          alert("Pedidos no encontrados :(");
+          alert("Pedido no encontrado :(");
         }
       })
       .catch((error) => {
@@ -58,7 +58,7 @@ const OrderByCode = () => {
               type="number"
               className="form-control"
               name="code"
-              placeholder="Code..."
+              placeholder="Codigo..."
               value={code}
               onChange={handleChange}
             />
@@ -84,7 +84,7 @@ const OrderByCode = () => {
           </div>
         </form>
       </div>
-      {orders && <OrdersTable orders={orders} />}
+      {order && <OrdersTable orders={order} />}
     </>
   );
 };

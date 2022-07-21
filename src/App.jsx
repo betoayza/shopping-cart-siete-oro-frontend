@@ -75,7 +75,7 @@ function App() {
 
             <Route
               exact
-              path="/admin/orders/by-user-id"
+              path="/admin/orders/code"
               element={<Components.OrderByCode />}
             />
 
