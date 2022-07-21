@@ -1,7 +1,15 @@
 import React from "react";
 import { OrderTableRow } from "./OrderTableRow";
 
-export const OrdersTable = ({ orders }) => {
+export const OrdersTable = ({ orders, setOrders }) => {
+  if (!Array.isArray(orders)) {
+    orders = [orders];
+  }
+
+  const handleCloseTable = () => {
+    setOrders(null);
+  };
+
   return (
     <div>
       <h1>Pedidos encontrados</h1>
@@ -10,7 +18,7 @@ export const OrdersTable = ({ orders }) => {
           <tr>
             <th scope="col">Codigo</th>
             <th scope="col">Usuario</th>
-            <th scope="col">Items</th>
+            <th scope="col">Productos</th>
             <th scope="col">Monto</th>
             <th scope="col">Fecha</th>
             <th scope="col">Estado</th>
@@ -23,6 +31,13 @@ export const OrdersTable = ({ orders }) => {
             })}
         </tbody>
       </table>
+      <button
+        className="btn btn-danger"
+        type="reset"
+        onClick={handleCloseTable}
+      >
+        Close
+      </button>
     </div>
   );
 };

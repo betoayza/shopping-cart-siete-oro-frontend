@@ -1,79 +1,35 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-//import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { OrdersTable } from "./OrdersTable";
 
-const AllOrders = () => {
-        //const [orders, setOrders] = useState([]); // dinamic data 
-        const [ordersTable, setOrdersTable] = useState([]); // static data 
-        //const [orderSearch, setOrderSearch] = useState(""); // typing control in searching bar 
+export const AllOrders = () => {
+  const [orders, setOrders] = useState(null);
 
-        const url = "/admin/orders/all";
+  useEffect(() => {
+    const getAllOrders = async () => {
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          timeout: 3000,
+        },
+      };
 
-        const getOrders = async () => {
-              await axios.get(url)
-                    .then(res => {
-                        const orders = res.data;   
-                        setOrdersTable(orders);
-                    })
-                    .catch(error => {
-                        console.log('Error al conectar con backend!...');
-                    });
-    
-        }
+      await axios
+        .get("/api/admin/orders/all", options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            setOrders(res.data);
+            alert("Orders found!");
+          } else alert("No orders yet :(");
+        })
+        .catch((error) => error);
+    };
+    getAllOrders();
+  }, []);
 
-        //execute function with hook
-        useEffect( () => {
-                getOrders(); 
-        }, []); 
-    
-        //ver si hace falta usar hook useEffect
-        return(
-                <>            
-                    <p>Lista Ordenes Totales</p>          
-
-                
-                    {/*Seaching Bar
-                    <div className='containerInput'>
-                        <input className='form-control inputBuscar'
-                            value={ orderSearch }
-                            placeholder="Qué está buscando?..."
-                            onChange={ handleChange }
-                        />
-                        <button className='btn btn-success'>
-                            <FontAwesomeIcon icon='{faSearch}' />          
-                        </button>
-                    </div>
-                */ }
-                    {/*Table*/}
-                    <div className='responsible-table'>
-                        <table class="table table-dark">
-                            <thead>
-                                <tr>                
-                                    <th scope="col">ID</th>
-                                    <th scope="col">ID usuario</th>
-                                    <th scope="col">Incluye</th>
-                                    <th scope="col">Monto</th>
-                                    <th scope="col">Fecha compra</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    ordersTable.map( (order) =>                                     
-                                    <tr>
-                                        <td>{order._id}</td>
-                                        <td>{order.userID}</td>
-                                        <td>{order.items}</td>
-                                        <td>{order.price}</td>
-                                        <td>{order.date}</td>                               
-                                    </tr>
-                                            )
-                                }           
-                            </tbody>
-                        </table>
-                    </div>
-                    </>
-        );
-}
-
-export default AllOrders;
+  return <div>{orders && <OrdersTable orders={orders} setOrders={setOrders} />}</div>;
+};

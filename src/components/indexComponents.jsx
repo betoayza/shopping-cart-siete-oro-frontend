@@ -3,7 +3,7 @@ import MainUser from "./MainUser";
 import Home from "./Home";
 import ShoppingCart from "./ShoppingCart";
 
-import AllOrders from "./AllOrders";
+import { AllOrders } from "./AllOrders";
 import ReceivedOrders from "./ReceivedOrders";
 import OrderByCode from "./OrderByCode";
 import UserOrders from "./UserOrders";
@@ -16,7 +16,7 @@ import AddProduct from "./AddProduct";
 
 import { AllUsers } from "./AllUsers";
 import UserByCode from "./UserByCode";
-import DeleteUser from './DeleteUser';
+import DeleteUser from "./DeleteUser";
 
 import SearchingBar from "./SearchingBar";
 
@@ -37,7 +37,7 @@ export {
   AllProducts,
   DeleteProduct,
   ModifyProduct,
-  AddProduct,  
+  AddProduct,
   SearchProductByCode,
   AllUsers,
   UserByCode,

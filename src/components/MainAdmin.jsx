@@ -1,14 +1,4 @@
 import React from "react";
-import {
-  AllOrders,
-  ReceivedOrders,
-  OrderByCode,
-  AddProduct,
-  DeleteProduct,
-  ModifyProduct,
-  AllProducts,
-  SearchProductByCode,
-} from "./indexComponents";
 
 const MainAdmin = () => {
   return (
@@ -154,7 +144,7 @@ const MainAdmin = () => {
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/car-workshop-frontend/#/services/add"
+                        href="/admin/orders/all"
                       >
                         Todos
                       </a>
