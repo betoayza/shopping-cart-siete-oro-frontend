@@ -43,6 +43,12 @@ function App() {
 
             <Route
               exact
+              path="/admin/users/delete"
+              element={<Components.DeleteUser />}
+            />
+
+            <Route
+              exact
               path="/user/orders"
               element={<Components.UserOrders />}
             />

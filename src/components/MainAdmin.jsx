@@ -128,7 +128,7 @@ const MainAdmin = () => {
                     <li>
                       <a
                         className="dropdown-item"
-                        href="/clients/delete"
+                        href="/admin/users/delete"
                       >
                         Dar de baja
                       </a>
