@@ -39,7 +39,7 @@ const Login = () => {
         console.log(res.data);
         if (res.data) {          
           alert("Logueo exitoso!");
-          console.log("Usuario: ", res.data.username, ", bienvenido!");
+          console.log("Bienvenido ", res.data.username, "!");
           //case generic user
           if(res.data.type === 'Estandar'){
             const uri = "/user";

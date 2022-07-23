@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import {
+  useNavigate,
+  useLocation,
+  NavLink,
+  Route,
+  Routes,
+} from "react-router-dom";
+import { UserProfile } from "./indexComponents";
 
 const MainUser = () => {
   const [choice, setChoice] = useState("");
@@ -35,34 +42,119 @@ const MainUser = () => {
   };
 
   return (
-    <>
+    <div>
       <h2>Elija su opción:</h2>
-
-      <div className="form-group w-25">
-        <form onSubmit={handleSubmit}>
-          <select
-            className="form-select"
-            aria-label="Default select example"
-            value={choice}
-            onChange={handleChange}
+      {/* la que va */}
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="#">
+            Menu
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
           >
-            <option value="0">Seleccione</option>
-            <option value="1">Mis Datos</option>
-            <option value="2">Carrito</option>
-            <option value="3">Todos Pedidos</option>
-            <option value="4">Buscar pedido</option>
-          </select>
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <NavLink to="/">
+                  {({ isActive }) => (
+                    <p
+                      className={
+                        isActive ? "nav-link active" : "nav-link active"
+                      }
+                    >
+                      Home
+                    </p>
+                  )}
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to={`/user/profile/${userData.code}`}>
+                  {({ isActive }) => (
+                    <p className={isActive ? "nav-link" : "nav-link"}>
+                      Mi perfil
+                    </p>
+                  )}
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/">
+                  {({ isActive }) => (
+                    <p className={isActive ? "nav-link" : "nav-link"}>
+                      Mi carrito
+                    </p>
+                  )}
+                </NavLink>
+              </li>
 
-          <div className="row">
-            <div className="col-12">
-              <button type="submit" className="btn btn-primary">
-                Elegir
-              </button>
-            </div>
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Pedidos
+                </a>
+                <ul className="dropdown-menu">
+                  <li>
+                    <NavLink to="/">
+                      {({ isActive }) => (
+                        <p
+                          className={
+                            isActive ? "dropdown-item" : "dropdown-item"
+                          }
+                        >
+                          Todos
+                        </p>
+                      )}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/">
+                      {({ isActive }) => (
+                        <p
+                          className={
+                            isActive ? "dropdown-item" : "dropdown-item"
+                          }
+                        >
+                          Buscar
+                        </p>
+                      )}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/">
+                      {({ isActive }) => (
+                        <p
+                          className={
+                            isActive ? "dropdown-item" : "dropdown-item"
+                          }
+                        >
+                          Cancelar
+                        </p>
+                      )}
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </div>
-        </form>
-      </div>
-    </>
+        </div>
+      </nav>
+      {/* <Routes>
+        <Route exact path="/user/profile/:code" element={<UserProfile />} />
+      </Routes> */}
+    </div>
   );
 };
 

@@ -19,7 +19,7 @@ function App() {
 
             <Route
               exact
-              path="/user/profile"
+              path="/user/profile/:code"
               element={<Components.UserProfile />}
             />
 
