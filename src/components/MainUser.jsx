@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import {
-  useNavigate,
-  useLocation,
-  NavLink,
-  Route,
-  Routes,
+  useNavigate,  
+  NavLink,  
+  useParams,
 } from "react-router-dom";
 import { UserProfile } from "./indexComponents";
+
 
 const MainUser = () => {
   const [choice, setChoice] = useState("");
   const navigate = useNavigate();
-  let location = useLocation();
-  const userData = location.state.userData;
-  console.log(userData);
+  const params=useParams();
+  const {code} = params;
+
+  console.log(code);
 
   const handleChange = (e) => {
     setChoice(e.target.value);
@@ -77,7 +77,7 @@ const MainUser = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to={`/user/profile/${userData.code}`}>
+                <NavLink to={`/user/profile/${code}`}>
                   {({ isActive }) => (
                     <p className={isActive ? "nav-link" : "nav-link"}>
                       Mi perfil
@@ -107,7 +107,7 @@ const MainUser = () => {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <NavLink to="/">
+                    <NavLink to={`/user/orders/${code}`}>
                       {({ isActive }) => (
                         <p
                           className={

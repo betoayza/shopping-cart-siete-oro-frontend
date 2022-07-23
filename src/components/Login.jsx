@@ -42,14 +42,12 @@ const Login = () => {
           console.log("Bienvenido ", res.data.username, "!");
           //case generic user
           if(res.data.type === 'Estandar'){
-            const uri = "/user";
-            const userData = res.data;
-            navigate(uri, { state: { userData } });
-          //case admin user
+            const uri = `/user/${res.data.code}`;            
+            navigate(uri);
+          //case admin
           }else{
-            const uri = "/admin";
-            const userData = res.data;
-            navigate(uri, { state: { userData } });
+            const uri = "/admin";           
+            navigate(uri);
           }
         } else {
           alert("Error: credenciales incorrectas! :(");
