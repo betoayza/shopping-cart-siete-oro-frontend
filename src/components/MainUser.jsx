@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import {
-  useNavigate,  
-  NavLink,  
-  useParams,
-} from "react-router-dom";
+import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { UserProfile } from "./indexComponents";
-
 
 const MainUser = () => {
   const [choice, setChoice] = useState("");
   const navigate = useNavigate();
-  const params=useParams();
-  const {code} = params;
+  const params = useParams();
+  const { code } = params;
 
   console.log(code);
 
@@ -120,7 +115,7 @@ const MainUser = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/">
+                    <NavLink to={`/`}>
                       {({ isActive }) => (
                         <p
                           className={

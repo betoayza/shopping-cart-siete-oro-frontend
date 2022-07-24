@@ -23,8 +23,8 @@ export const AllOrders = () => {
           console.log(res.data);
           if (res.data) {
             setOrders(res.data);
-            alert("Orders found!");
-          } else alert("No orders yet :(");
+            alert("Pedidos encontrados!");
+          } else alert("Aun no hay pedidos :(");
         })
         .catch((error) => error);
     };

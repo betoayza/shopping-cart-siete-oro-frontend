@@ -7,6 +7,7 @@ import { AllOrders } from "./AllOrders";
 import ReceivedOrders from "./ReceivedOrders";
 import OrderByCode from "./OrderByCode";
 import UserOrders from "./UserOrders";
+import { UserOrderByCode } from "./UserOrderByCode";
 
 import AllProducts from "./AllProducts";
 import DeleteProduct from "./DeleteProduct";
@@ -34,6 +35,7 @@ export {
   AllOrders,
   ReceivedOrders,
   OrderByCode,
+  UserOrderByCode,
   AllProducts,
   DeleteProduct,
   ModifyProduct,

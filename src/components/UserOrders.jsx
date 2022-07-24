@@ -11,7 +11,7 @@ const UserOrders = () => {
   useEffect(() => {
     const getUserOrders = async () => {
       const options = {
-        url: "/api/user/orders",
+        url: "/api/user/orders/all",
 
         headers: {
           "Content-Type": "application/json",

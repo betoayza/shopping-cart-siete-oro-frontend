@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { OrdersTable } from "./OrdersTable";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export const UserOrderByCode = () => {
-  const [code, setCode] = useState("");
+  const [orderCode, setOrderCode] = useState("");
   const [order, setOrder] = useState(null);
+  const params = useParams();
+  const { userCode } = params;
 
   const handleChange = (e) => {
-    setCode(e.target.value);
+    setOrderCode(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -21,7 +24,7 @@ export const UserOrderByCode = () => {
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
       },
-      params: { code },
+      params: { orderCode, userCode },
       timeout: 3000,
     };
 
@@ -30,8 +33,7 @@ export const UserOrderByCode = () => {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          console.log(res.data);
-          setOrder(res.data);
+          setOrderCode(res.data);
           alert("Pedido encontrado!");
         } else alert("Pedido no encontrado :(");
       })
@@ -52,9 +54,9 @@ export const UserOrderByCode = () => {
             <input
               type="number"
               className="form-control"
-              name="code"
+              name="orderCode"
               placeholder="Codigo..."
-              value={code}
+              value={orderCode}
               onChange={handleChange}
               required
             />
@@ -79,7 +81,7 @@ export const UserOrderByCode = () => {
       </div>
 
       <h2>Pedido:</h2>
-      {order && <OrdersTable orders={order} />}
+      {order && <OrdersTable orders={order} setOrders={setOrder} />}
     </>
   );
 };
