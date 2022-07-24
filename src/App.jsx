@@ -55,7 +55,7 @@ function App() {
 
             <Route
               exact
-              path="/user/orders/:userCode"
+              path="/user/orders/code/:userCode"
               element={<Components.UserOrderByCode />}
             />
 

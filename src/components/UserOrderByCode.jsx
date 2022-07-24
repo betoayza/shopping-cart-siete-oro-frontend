@@ -33,7 +33,7 @@ export const UserOrderByCode = () => {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          setOrderCode(res.data);
+          setOrder(res.data);
           alert("Pedido encontrado!");
         } else alert("Pedido no encontrado :(");
       })
@@ -42,7 +42,7 @@ export const UserOrderByCode = () => {
   };
 
   const handleReset = (e) => {
-    setCode("");
+    setOrderCode("");
   };
 
   return (
