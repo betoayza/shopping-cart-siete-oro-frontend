@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const DeleteProduct = () => {
+const DeleteOrder = () => {
   const [code, setCode] = useState("");
+  const params = useParams();
+  const { userCode } = params;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,11 +18,11 @@ const DeleteProduct = () => {
         Accept: "application/json",
         timeout: 3000,
       },
-      data: { code },
+      data: { code, userCode },
     };
 
     await axios
-      .delete("/api/admin/products/delete", options)
+      .delete("/api/user/orders/delete", options)
       .then((res) => {
         console.log(res.data);
         if (res.data) {
@@ -42,7 +45,7 @@ const DeleteProduct = () => {
 
   return (
     <div>
-      <h1>Codigo Producto:</h1>
+      <h1>Codigo Pedido:</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group w-25">
           <div className="input-group mb-3">
@@ -50,7 +53,7 @@ const DeleteProduct = () => {
               type="number"
               className="form-control"
               name="code"
-              placeholder="Code..."
+              placeholder="Codigo..."
               value={code}
               onChange={handleChange}
               required
@@ -58,7 +61,7 @@ const DeleteProduct = () => {
           </div>
 
           <button className="btn btn-primary" type="submit">
-            Enviar
+            Eliminar
           </button>
 
           <button className="btn btn-danger" type="reset" onClick={handleReset}>
@@ -70,4 +73,4 @@ const DeleteProduct = () => {
   );
 };
 
-export default DeleteProduct;
+export default DeleteOrder;

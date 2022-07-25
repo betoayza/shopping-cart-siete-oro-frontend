@@ -59,6 +59,12 @@ function App() {
               element={<Components.UserOrderByCode />}
             />
 
+            <Route
+              exact
+              path="/user/orders/delete/:userCode"
+              element={<Components.DeleteOrder />}
+            />
+
             <Route exact path="/admin" element={<Components.MainAdmin />} />
 
             <Route
@@ -77,7 +83,7 @@ function App() {
               exact
               path="/admin/orders/code"
               element={<Components.OrderByCode />}
-            />            
+            />
 
             <Route
               exact

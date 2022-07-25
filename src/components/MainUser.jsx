@@ -128,7 +128,7 @@ const MainUser = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to="/">
+                    <NavLink to={`/user/orders/delete/${code}`}>
                       {({ isActive }) => (
                         <p
                           className={
