@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ProductsTable } from "./ProductsTable";
+import { ProductsTableUsers } from "./ProductsTableUsers";
 
-const SearchingBar = () => {
+const SearchingBar = ({ userCode }) => {
   const [products, setProducts] = useState("");
   const [name, setName] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); //para que no se refresque la pagina
+    e.preventDefault();
 
     const options = {
       url: "/api/products/get",
@@ -21,7 +19,7 @@ const SearchingBar = () => {
         Accept: "application/json",
         timeout: 3000,
       },
-      params: { name },
+      params: { name, userCode },
     };
 
     await axios
@@ -47,14 +45,6 @@ const SearchingBar = () => {
   return (
     <>
       <div className="text-center border searching-bar-div">
-        <div id="login-reg-div">
-          <button className="btn btn-dark" onClick={() => navigate("/login")}>
-            Login
-          </button>
-          <button className="btn btn-dark" onClick={() => navigate("/signup")}>
-            Registrarse
-          </button>
-        </div>
         <h1>Panadería Siete de Oro</h1>
         <div className="d-flex justify-content-center">
           <form onSubmit={handleSubmit}>
@@ -81,7 +71,9 @@ const SearchingBar = () => {
         <br />
       </div>
 
-      {products && <ProductsTable products={products} />}
+      {products && (
+        <ProductsTableUsers products={products} setProducts={setProducts} />
+      )}
     </>
   );
 };

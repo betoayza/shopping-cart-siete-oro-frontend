@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ShoppingCartTable } from "./ShoppingCartTable";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState(null);
-  let location=useLocation();
-  const code=location.state.code;
+  const params = useParams();
+  const { userCode } = params;
 
   useEffect(() => {
-    const getShoppingCart = async (code) => {
+    const getShoppingCart = async (userCode) => {
       const options = {
         url: "/api/user/shopping-cart",
-        
+
         headers: {
-          'Content-Type': 'application/json', 
-          'Access-Control-Allow-Origin': '*',   
-          'Access-Control-Allow-Headers': '*',
-          Accept: 'application/json',    
-         },
-         params: {code},   
-         timeout: 3000, 
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+        },
+        params: { userCode },
+        timeout: 3000,
       };
 
       await axios
         .request(options)
         .then((res) => {
-          if (res.data && res.data.length > 0 ) {
-            console.log(res.data)
+          console.log(res.data);
+          if (res.data) {
             setShoppingCart(res.data);
             alert("Carrito encontrado!");
           } else {
@@ -38,8 +38,8 @@ const ShoppingCart = () => {
           console.error(error);
         });
     };
-    getShoppingCart(code);
-  }, [code]);
+    getShoppingCart(userCode);
+  }, [userCode]);
 
   return (
     <>

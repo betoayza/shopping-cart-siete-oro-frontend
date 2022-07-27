@@ -1,7 +1,7 @@
 import React from "react";
-import { ProductTableRow } from "./ProductTableRow";
+import { ProductTableRowUsers } from "./ProductTableRowUsers";
 
-export const ProductsTable = ({ products, setProducts }) => {
+export const ProductsTableUsers = ({ products, setProducts }) => {
   if (!Array.isArray(products)) {
     products = [products];
   }
@@ -15,20 +15,19 @@ export const ProductsTable = ({ products, setProducts }) => {
       <h3>Productos encontrados:</h3>
       <table id="products-table" className="table table-success">
         <thead>
-          <tr>
-            <th scope="col">Codigo</th>
+          <tr>            
             <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Precio</th>
-            <th scope="col">Stock</th>
+            <th scope="col">Disponibles</th>
             <th scope="col">Foto</th>
-            <th scope="col">Estado</th> 
+            <th scope="col">Accion</th> 
           </tr>
         </thead>
         <tbody>
           {products &&
             products.map((product) => {
-              return <ProductTableRow key={product._id} product={product} />;
+              return <ProductTableRowUsers key={product._id} product={product} />;
             })}
         </tbody>
       </table>

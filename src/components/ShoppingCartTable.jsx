@@ -1,19 +1,25 @@
-import axios from 'axios';
-import React from 'react'
-import { ShoppingCartTableRow } from './ShoppingCartTableRow'
+import axios from "axios";
+import React from "react";
+import { ShoppingCartTableRow } from "./ShoppingCartTableRow";
 
 export const ShoppingCartTable = ({ shoppingCart, setShoppingCart }) => {
+  if (!Array.isArray(shoppingCart)) {
+    shoppingCart = [shoppingCart];
+  }
 
+  const handleCloseTable = () => {
+    setShoppingCart(null);
+  };
 
   const removeItem = async (prodCode) => {
     console.log(prodCode);
 
-    const options={
+    const options = {
       url: `/user/profile/shopping-cart/delete/${prodCode}`,
-       method: 'delete',
-       headers: {'X-Requested-With': 'XMLHttpRequest'},
-       data: { prodCode },  
-    }
+      method: "delete",
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+      data: { prodCode },
+    };
 
     await axios
       .request(options)
@@ -32,48 +38,59 @@ export const ShoppingCartTable = ({ shoppingCart, setShoppingCart }) => {
   const removeAllItems = async (e) => {
     console.log(e.target);
 
-    const options={
-      url: `/user/shopping-cart/delete/all`,
-       method: 'delete',
-       headers: {'X-Requested-With': 'XMLHttpRequest'},
-       data: { code: shoppingCart.code },  
-    }
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      data: { code },
+    };
 
-    await axios.request(options)
-      .then(res=>{
+    await axios
+      .request(options)
+      .then((res) => {
         //if shopping cart exists
-        if(res.data){
+        if (res.data) {
           console.log(res.data);
           setShoppingCart([]);
           alert("Items borrados!");
-        }else{
+        } else {
           alert("Carrito inexistente :(");
         }
       })
-      .catch(error=>error);
+      .catch((error) => error);
   };
 
   return (
     <div className="responsible-table" id="shopping-cart-div">
-        <table class="table table-dark">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Producto</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shoppingCart &&
-              shoppingCart.products.forEeach((product) => {
-                <ShoppingCartTableRow key={product._id} product={product} removeItem={removeItem}/>
-              })}
-          </tbody>
-        </table>        
-        <button onClick={removeAllItems}>Remove all</button>
-      </div>
-  )
-}
+      <table className="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Productos</th> 
+          </tr>
+        </thead>
+        <tbody>
+          {shoppingCart &&
+            shoppingCart[0].products.forEach((product) => {
+              <ShoppingCartTableRow
+                key={product._id}
+                product={product}
+                removeItem={removeItem}
+              />;
+            })}
+        </tbody>
+      </table>
+      <button onClick={removeAllItems}>Remove all</button>
+      <button
+        className="btn btn-danger"
+        type="reset"
+        onClick={handleCloseTable}
+      >
+        Close
+      </button>
+    </div>
+  );
+};

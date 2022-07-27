@@ -1,43 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { UserProfile } from "./indexComponents";
+import SearchingBar from './SearchingBar';
 
-const MainUser = () => {
-  const [choice, setChoice] = useState("");
-  const navigate = useNavigate();
+const MainUser = () => {  
   const params = useParams();
   const { code } = params;
 
   console.log(code);
 
-  const handleChange = (e) => {
-    setChoice(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    switch (choice) {
-      case "1":
-        navigate("/user/profile", { state: { userData } });
-        break;
-      case "2":
-        const code = userData.code;
-        navigate("/user/shopping-cart", { state: { code } });
-        break;
-      case "3":
-        navigate("/user/orders");
-        break;
-      case "4":
-        navigate("/user/orders/code");
-        break;
-      default:
-        navigate("/user");
-        break;
-    }
-  };
-
   return (
     <div>
+      <SearchingBar userCode={code} />
       <h2>Elija su opción:</h2>
       {/* la que va */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -81,7 +55,7 @@ const MainUser = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/">
+                <NavLink to={`/user/shopping-cart/${code}`}>
                   {({ isActive }) => (
                     <p className={isActive ? "nav-link" : "nav-link"}>
                       Mi carrito

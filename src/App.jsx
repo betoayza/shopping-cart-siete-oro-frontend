@@ -5,8 +5,7 @@ import * as Components from "./components/indexComponents";
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Components.SearchingBar />
+      <BrowserRouter>        
         <div id="components-div">
           <Routes>
             <Route exact path="/" element={<Components.Home />} />
@@ -25,7 +24,7 @@ function App() {
 
             <Route
               exact
-              path="/user/shopping-cart"
+              path="/user/shopping-cart/:userCode"
               element={<Components.ShoppingCart />}
             />
 

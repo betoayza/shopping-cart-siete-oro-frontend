@@ -1,7 +1,6 @@
 import React from "react";
 
 export const ProductTableRow = ({ product }) => {
-  let reader = new FileReader();
   console.log(product.image, typeof product.image);
 
   const toBase64 = (arr) => {
