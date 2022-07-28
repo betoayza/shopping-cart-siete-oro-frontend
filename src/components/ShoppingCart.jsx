@@ -44,6 +44,7 @@ const ShoppingCart = () => {
   return (
     <>
       <h1>Mi carrito</h1>
+      {console.log(shoppingCart)}
       {shoppingCart && (
         <ShoppingCartTable
           shoppingCart={shoppingCart}
