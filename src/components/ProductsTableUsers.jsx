@@ -1,7 +1,7 @@
 import React from "react";
 import { ProductTableRowUsers } from "./ProductTableRowUsers";
 
-export const ProductsTableUsers = ({ products, setProducts }) => {
+export const ProductsTableUsers = ({ products, setProducts, userCode }) => {
   if (!Array.isArray(products)) {
     products = [products];
   }
@@ -27,7 +27,7 @@ export const ProductsTableUsers = ({ products, setProducts }) => {
         <tbody>
           {products &&
             products.map((product) => {
-              return <ProductTableRowUsers key={product._id} product={product} />;
+              return <ProductTableRowUsers key={product._id} product={product} userCode={userCode} />;
             })}
         </tbody>
       </table>

@@ -19,7 +19,7 @@ const SearchingBar = ({ userCode }) => {
         Accept: "application/json",
         timeout: 3000,
       },
-      params: { name, userCode },
+      params: { name },
     };
 
     await axios
@@ -72,7 +72,11 @@ const SearchingBar = ({ userCode }) => {
       </div>
 
       {products && (
-        <ProductsTableUsers products={products} setProducts={setProducts} />
+        <ProductsTableUsers
+          products={products}
+          setProducts={setProducts}
+          userCode={userCode}
+        />
       )}
     </>
   );

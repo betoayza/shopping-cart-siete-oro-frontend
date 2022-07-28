@@ -28,7 +28,7 @@ const ShoppingCart = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setShoppingCart(res.data);
+            setShoppingCart(res.data.products);
             alert("Carrito encontrado!");
           } else {
             alert("Carrito vacío :(");
@@ -48,6 +48,7 @@ const ShoppingCart = () => {
         <ShoppingCartTable
           shoppingCart={shoppingCart}
           setShoppingCart={setShoppingCart}
+          userCode={userCode}
         />
       )}
     </>

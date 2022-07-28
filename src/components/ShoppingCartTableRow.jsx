@@ -1,6 +1,7 @@
 import React from "react";
 
-export const ShoppingCartTableRow = ({ product, removeItem }) => {
+export const ShoppingCartTableRow = ({ product, userCode, removeItem }) => {  
+
   return (
     <tr>
       <td>{product.name}</td>
@@ -9,7 +10,7 @@ export const ShoppingCartTableRow = ({ product, removeItem }) => {
       <td>{product.stock}</td>
       <td>{product.image}</td>
       <td>
-        <button onClick={removeItem(product.code)}>Eliminar</button>
+        <button onClick={removeItem(product.code, userCode)}>Eliminar</button>
       </td>
     </tr>
   );

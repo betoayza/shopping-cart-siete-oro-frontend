@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { ShoppingCartTableRow } from "./ShoppingCartTableRow";
 
-export const ShoppingCartTable = ({ shoppingCart, setShoppingCart }) => {
+export const ShoppingCartTable = ({ shoppingCart, setShoppingCart, userCode }) => {
   if (!Array.isArray(shoppingCart)) {
     shoppingCart = [shoppingCart];
   }
@@ -11,21 +11,23 @@ export const ShoppingCartTable = ({ shoppingCart, setShoppingCart }) => {
     setShoppingCart(null);
   };
 
-  const removeItem = async (prodCode) => {
-    console.log(prodCode);
-
+  const removeItem = async (prodCode, userCode) => {
     const options = {
-      url: `/user/profile/shopping-cart/delete/${prodCode}`,
-      method: "delete",
-      headers: { "X-Requested-With": "XMLHttpRequest" },
-      data: { prodCode },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      data: { prodCode, userCode },
     };
 
     await axios
-      .request(options)
+      .delete(`/api/user/shopping-cart/delete`, options)
       .then((res) => {
+        console.log(res.data);
         if (res.data) {
-          console.log(res.data);
           setShoppingCart(res.data);
           alert("Eliminacion exitosa");
         } else {
@@ -36,32 +38,31 @@ export const ShoppingCartTable = ({ shoppingCart, setShoppingCart }) => {
   };
 
   const removeAllItems = async (e) => {
-    console.log(e.target);
+    // console.log(e.target);
 
-    const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-        timeout: 3000,
-      },
-      data: { code },
-    };
+    // const options = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Access-Control-Allow-Origin": "*",
+    //     "Access-Control-Allow-Headers": "*",
+    //     Accept: "application/json",
+    //     timeout: 3000,
+    //   },
+    //   data: { code },
+    // };
 
-    await axios
-      .request(options)
-      .then((res) => {
-        //if shopping cart exists
-        if (res.data) {
-          console.log(res.data);
-          setShoppingCart([]);
-          alert("Items borrados!");
-        } else {
-          alert("Carrito inexistente :(");
-        }
-      })
-      .catch((error) => error);
+    // await axios
+    //   .request(options)
+    //   .then((res) => {
+    //     console.log(res.data);        
+    //     if (res.data) {
+    //       setShoppingCart([]);
+    //       alert("Items borrados!");
+    //     } else {
+    //       alert("Carrito inexistente :(");
+    //     }
+    //   })
+    //   .catch((error) => error);
   };
 
   return (
@@ -69,16 +70,21 @@ export const ShoppingCartTable = ({ shoppingCart, setShoppingCart }) => {
       <table className="table table-dark">
         <thead>
           <tr>
-            <th scope="col">Productos</th> 
+            <th scope="col">Articulo</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Precio</th>            
+            <th scope="col">Imagen</th>
+            <th scope="col">Accion</th>
           </tr>
         </thead>
         <tbody>
           {shoppingCart &&
-            shoppingCart[0].products.forEach((product) => {
+            shoppingCart.map((product) => {
               <ShoppingCartTableRow
                 key={product._id}
                 product={product}
-                removeItem={removeItem}
+                userCode={userCode} 
+                removeItem={removeItem}               
               />;
             })}
         </tbody>

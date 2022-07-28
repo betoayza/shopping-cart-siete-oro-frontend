@@ -1,14 +1,14 @@
 import React from "react";
-import axios from 'axios';
+import axios from "axios";
 
-export const ProductTableRowUsers = ({ product }) => {
+export const ProductTableRowUsers = ({ product, userCode }) => {
   console.log(product.image, typeof product.image);
+  let productCode = product.code;
 
   const addToCart = async () => {
-
     const options = {
       url: "/api/user/shopping-cart/add",
-      method: "post",
+      method: "put",
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -16,7 +16,7 @@ export const ProductTableRowUsers = ({ product }) => {
         Accept: "application/json",
         timeout: 3000,
       },
-      data: data,
+      data: { productCode, userCode },
     };
 
     await axios
@@ -29,8 +29,7 @@ export const ProductTableRowUsers = ({ product }) => {
           alert("Un error ocurrió :(");
         }
       })
-      .catch((error) => error);
-    handleReset();
+      .catch((error) => error);    
   };
 
   const toBase64 = (arr) => {
