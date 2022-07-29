@@ -1,15 +1,8 @@
 import React from "react";
 
 export const ShoppingCartTableRow = ({ product, userCode, removeItem }) => {
-  console.log("Producto fila: ", product);
-  console.log(product.image);
-
-  const toBase64 = (arr) => {
-    //arr = new Uint8Array(arr) if it's an ArrayBuffer
-    return btoa(
-      arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
-    );
-  };
+  // console.log("Producto fila: ", product);
+  // console.log(product.image);
 
   return (
     <tr>
@@ -18,14 +11,15 @@ export const ShoppingCartTableRow = ({ product, userCode, removeItem }) => {
       <td>{product.price}</td>
       <td>
         <img
-          src={"data:image/png;base64," + product.image}
-          alt="Producto"
+          src={"data:image/png;base64," + product.image}          
           height={200}
           width={300}
         />
       </td>
       <td>
-        <button onClick={removeItem(product.code, userCode)}>Quitar</button>
+        <button onClick={() => removeItem(product.code, userCode)}>
+          Quitar
+        </button>
       </td>
     </tr>
   );
