@@ -27,9 +27,9 @@ const ShoppingCart = () => {
         .request(options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) {
+          if (res.data && res.data.products.length) {
             setShoppingCart(res.data.products);
-            alert("Carrito encontrado!");
+            alert("Carrito con items!");
           } else {
             alert("Carrito vacío :(");
           }

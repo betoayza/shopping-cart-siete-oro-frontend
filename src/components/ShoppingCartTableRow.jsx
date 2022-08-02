@@ -11,7 +11,8 @@ export const ShoppingCartTableRow = ({ product, userCode, removeItem }) => {
       <td>{product.price}</td>
       <td>
         <img
-          src={"data:image/png;base64," + product.image}          
+          src={"data:image/png;base64," + product.image}   
+          alt="Producto"       
           height={200}
           width={300}
         />

@@ -9,6 +9,8 @@ export const ShoppingCartTable = ({
 }) => {
   if (!Array.isArray(shoppingCart)) {
     shoppingCart = [shoppingCart];
+  } else {
+    if (!shoppingCart.length) setShoppingCart(null);
   }
 
   const handleCloseTable = () => {
@@ -32,7 +34,7 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          setShoppingCart(res.data);
+          setShoppingCart(res.data.products);
           alert("Eliminacion exitosa");
         } else {
           alert("No se encontró producto");
@@ -84,10 +86,10 @@ export const ShoppingCartTable = ({
           </thead>
           <tbody>
             {shoppingCart &&
-              shoppingCart.map((product) => {
+              shoppingCart.map((product, index) => {
                 return (
                   <ShoppingCartTableRow
-                    key={product._id}
+                    key={index}
                     product={product}
                     userCode={userCode}
                     removeItem={removeItem}
