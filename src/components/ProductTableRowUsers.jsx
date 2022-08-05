@@ -26,10 +26,10 @@ export const ProductTableRowUsers = ({ product, userCode }) => {
         if (res.data) {
           alert("Agregado exitosamente!");
         } else {
-          alert("Un error ocurrió :(");
+          alert("Ya tiene este articulo en el carrito");
         }
       })
-      .catch((error) => error);    
+      .catch((error) => error);
   };
 
   const toBase64 = (arr) => {
@@ -46,6 +46,7 @@ export const ProductTableRowUsers = ({ product, userCode }) => {
         <td>{product.description}</td>
         <td>{product.price}</td>
         <td>{product.stock}</td>
+        <td>{product.toBuy}</td>
         <td>
           <img
             src={"data:image/png;base64," + toBase64(product.image.data)}

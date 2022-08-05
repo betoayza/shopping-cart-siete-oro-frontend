@@ -17,7 +17,9 @@ export const ShoppingCartTable = ({
     setShoppingCart(null);
   };
 
-  const removeItem = async (prodCode, userCode) => {
+  const handlePurchase = () => {};
+
+  const removeItem = async (prodCode, userCode, index) => {
     const options = {
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +28,7 @@ export const ShoppingCartTable = ({
         Accept: "application/json",
         timeout: 3000,
       },
-      data: { prodCode, userCode },
+      data: { prodCode, userCode, index },
     };
 
     await axios
@@ -80,6 +82,7 @@ export const ShoppingCartTable = ({
               <th scope="col">Articulo</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Precio</th>
+              <th scope="col">A comprar</th>
               <th scope="col">Imagen</th>
               <th scope="col">Accion</th>
             </tr>
@@ -87,24 +90,27 @@ export const ShoppingCartTable = ({
           <tbody>
             {shoppingCart &&
               shoppingCart.map((product, index) => {
+                console.log("asdsd", index);
                 return (
                   <ShoppingCartTableRow
                     key={index}
                     product={product}
                     userCode={userCode}
                     removeItem={removeItem}
+                    index={index}
                   />
                 );
               })}
           </tbody>
         </table>
-        <button onClick={removeAllItems}>Remove all</button>
-        <button
-          className="btn btn-danger"
-          type="reset"
-          onClick={handleCloseTable}
-        >
+        <button className="btn btn-primary" onClick={removeAllItems}>
+          Limpiar
+        </button>
+        <button className="btn btn-danger" onClick={handleCloseTable}>
           Close
+        </button>
+        <button className="btn btn-success" onClick={handlePurchase}>
+          Pagar
         </button>
       </div>
     </div>

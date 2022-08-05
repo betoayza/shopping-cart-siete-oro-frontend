@@ -157,6 +157,14 @@ const MainAdmin = () => {
                         Por ID Usuario
                       </a>
                     </li>
+                    <li>
+                      <a
+                        className="dropdown-item"
+                        href="/admin/orders/code"
+                      >
+                        Entregados
+                      </a>
+                    </li>
                   </ul>
                 </li>
               </ul>

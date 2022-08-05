@@ -26,6 +26,7 @@ const AddProduct = () => {
     data.append("description", form.description);
     data.append("price", form.price);
     data.append("stock", form.stock);
+    data.append("toBuy", 1);
     data.append("status", form.status);
     data.append("image", form.image);
     console.log(data);

@@ -20,6 +20,7 @@ export const ProductsTableUsers = ({ products, setProducts, userCode }) => {
             <th scope="col">Descripcion</th>
             <th scope="col">Precio</th>
             <th scope="col">Disponibles</th>
+            <th scope="col">A comprar</th>
             <th scope="col">Foto</th>
             <th scope="col">Accion</th> 
           </tr>
