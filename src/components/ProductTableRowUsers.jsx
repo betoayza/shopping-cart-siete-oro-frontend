@@ -24,7 +24,7 @@ export const ProductTableRowUsers = ({ product, userCode }) => {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          alert("Agregado exitosamente!");
+          alert("Item agregado!");
         } else {
           alert("Ya tiene este articulo en el carrito");
         }

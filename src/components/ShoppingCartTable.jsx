@@ -45,30 +45,29 @@ export const ShoppingCartTable = ({
       .catch((error) => error);
   };
 
-  const removeAllItems = async (e) => {
-    // console.log(e.target);
-    // const options = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Access-Control-Allow-Origin": "*",
-    //     "Access-Control-Allow-Headers": "*",
-    //     Accept: "application/json",
-    //     timeout: 3000,
-    //   },
-    //   data: { code },
-    // };
-    // await axios
-    //   .request(options)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     if (res.data) {
-    //       setShoppingCart([]);
-    //       alert("Items borrados!");
-    //     } else {
-    //       alert("Carrito inexistente :(");
-    //     }
-    //   })
-    //   .catch((error) => error);
+  const removeAllItems = async (e) => {    
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      data: { userCode },
+    };
+    await axios
+      .delete('/api/user/shopping-cart/delete/all', options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setShoppingCart(null);
+          alert("Items borrados!");
+        } else {
+          alert("Carrito inexistente :(");
+        }
+      })
+      .catch((error) => error);
   };
 
   return (
