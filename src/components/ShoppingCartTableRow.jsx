@@ -20,7 +20,7 @@ export const ShoppingCartTableRow = ({
           // value={product.toBuy}
           style={{ width: "80px" }}
           max={product.stock}
-          min={1}
+          min={1}          
         />
       </td>
       <td>
