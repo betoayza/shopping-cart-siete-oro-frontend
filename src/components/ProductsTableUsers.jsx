@@ -15,26 +15,32 @@ export const ProductsTableUsers = ({ products, setProducts, userCode }) => {
       <h3>Productos encontrados:</h3>
       <table id="products-table" className="table table-success">
         <thead>
-          <tr>            
+          <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Precio</th>
             <th scope="col">Disponibles</th>
             <th scope="col">A comprar</th>
             <th scope="col">Foto</th>
-            <th scope="col">Accion</th> 
+            <th scope="col">Accion</th>
           </tr>
         </thead>
         <tbody>
           {products &&
             products.map((product) => {
-              return <ProductTableRowUsers key={product._id} product={product} userCode={userCode} />;
+              return (
+                <ProductTableRowUsers
+                  key={product._id}
+                  product={product}
+                  userCode={userCode}
+                />
+              );
             })}
         </tbody>
       </table>
       <button
         className="btn btn-danger"
-        type="reset"
+        type="Clean"
         onClick={handleCloseTable}
       >
         Close

@@ -50,10 +50,10 @@ const ModifyProduct = () => {
         }
       })
       .catch((error) => error);
-    handleReset();
+    handleClean();
   };
 
-  const handleReset = (e) => {
+  const handleClean = (e) => {
     setCode("");
   };
 
@@ -102,10 +102,10 @@ const ModifyProduct = () => {
       .catch((error) => {
         console.error(error);
       });
-    handleReset2();
+    handleClean2();
   };
 
-  const handleReset2 = (e) => {
+  const handleClean2 = (e) => {
     setForm(initialForm);
     setProduct(null);
   };
@@ -131,8 +131,8 @@ const ModifyProduct = () => {
             Find!
           </button>
 
-          <button className="btn btn-danger" type="reset" onClick={handleReset}>
-            Reset
+          <button className="btn btn-danger" type="Clean" onClick={handleClean}>
+            Clean
           </button>
         </form>
       </div>
@@ -218,10 +218,10 @@ const ModifyProduct = () => {
 
               <button
                 className="btn btn-danger"
-                type="reset"
-                onClick={handleReset2}
+                type="Clean"
+                onClick={handleClean2}
               >
-                Reset
+                Clean
               </button>
             </form>
           </div>

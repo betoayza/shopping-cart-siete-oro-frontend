@@ -62,7 +62,7 @@ const SearchingBar = ({ userCode }) => {
                 <input
                   className="btn btn-success fas fa-paper-plane"
                   type="submit"
-                  value="Enviar"
+                  value="Send"
                 />
               </div>
             </div>

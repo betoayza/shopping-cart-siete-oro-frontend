@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export const ShoppingCartTableRow = ({
   product,
   userCode,
   removeItem,
+  updateToBuy,
   index,
 }) => {
-  // console.log("Producto fila: ", product);
-  // console.log(product.image);
+  const [toBuy, setToBuy] = useState(1);
+
+  useEffect(() => {
+    updateToBuy(toBuy, index);
+  }, [toBuy]);
+
+  const handleToBuy = (e) => {
+    setToBuy(parseInt(e.target.value));
+  };
 
   return (
     <tr>
@@ -17,10 +25,13 @@ export const ShoppingCartTableRow = ({
       <td>
         <input
           type="number"
-          // value={product.toBuy}
           style={{ width: "80px" }}
           max={product.stock}
-          min={1}          
+          min={1}
+          value={toBuy}
+          onChange={(e) => {
+            handleToBuy(e);
+          }}
         />
       </td>
       <td>

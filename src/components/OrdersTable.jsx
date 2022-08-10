@@ -33,7 +33,7 @@ export const OrdersTable = ({ orders, setOrders }) => {
       </table>
       <button
         className="btn btn-danger"
-        type="reset"
+        type="Clean"
         onClick={handleCloseTable}
       >
         Close

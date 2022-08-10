@@ -22,7 +22,7 @@ export const ProductsTable = ({ products, setProducts }) => {
             <th scope="col">Precio</th>
             <th scope="col">Stock</th>
             <th scope="col">Foto</th>
-            <th scope="col">Estado</th> 
+            <th scope="col">Estado</th>
           </tr>
         </thead>
         <tbody>
@@ -34,7 +34,7 @@ export const ProductsTable = ({ products, setProducts }) => {
       </table>
       <button
         className="btn btn-danger"
-        type="reset"
+        type="Clean"
         onClick={handleCloseTable}
       >
         Close

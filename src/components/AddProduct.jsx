@@ -55,7 +55,7 @@ const AddProduct = () => {
         }
       })
       .catch((error) => error);
-    handleReset();
+    handleClean();
 
     // await axios.post("https://httpbin.org/anything", data).then(res=>console.log(res)).catch(error=>error)
   };
@@ -64,7 +64,7 @@ const AddProduct = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleReset = (e) => {
+  const handleClean = (e) => {
     setForm({ ...initialForm, code: Date.now() });
   };
 
@@ -162,14 +162,14 @@ const AddProduct = () => {
                 className="btn btn-primary"
                 onClick={handleSubmit}
               >
-                Enviar
+                Send
               </button>
               <button
-                type="reset"
+                type="Clean"
                 className="btn btn-danger"
-                onClick={handleReset}
+                onClick={handleClean}
               >
-                Reset
+                Clean
               </button>
             </div>
           </div>

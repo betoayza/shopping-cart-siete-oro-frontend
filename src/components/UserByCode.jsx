@@ -34,10 +34,10 @@ const UserByCode = () => {
         } else alert("Sin coincidencias :(");
       })
       .catch((error) => error);
-    handleReset();
+    handleClean();
   };
 
-  const handleReset = (e) => {
+  const handleClean = (e) => {
     setCode("");
   };
 
@@ -60,11 +60,11 @@ const UserByCode = () => {
           </div>
 
           <button className="btn btn-primary" type="submit">
-            Enviar!
+            Send!
           </button>
 
-          <button className="btn btn-danger" type="reset" onClick={handleReset}>
-            Reset
+          <button className="btn btn-danger" type="Clean" onClick={handleClean}>
+            Clean
           </button>
         </form>
       </div>

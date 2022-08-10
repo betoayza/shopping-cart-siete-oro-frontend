@@ -32,14 +32,14 @@ const DeleteOrder = () => {
         }
       })
       .catch((error) => error);
-    handleReset();
+    handleClean();
   };
 
   const handleChange = (e) => {
     setCode(e.target.value);
   };
 
-  const handleReset = (e) => {
+  const handleClean = (e) => {
     setCode("");
   };
 
@@ -64,8 +64,8 @@ const DeleteOrder = () => {
             Eliminar
           </button>
 
-          <button className="btn btn-danger" type="reset" onClick={handleReset}>
-            Reset
+          <button className="btn btn-danger" type="Clean" onClick={handleClean}>
+            Clean
           </button>
         </div>
       </form>

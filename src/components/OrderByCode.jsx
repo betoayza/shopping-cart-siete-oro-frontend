@@ -36,14 +36,14 @@ const OrderByCode = () => {
       .catch((error) => {
         console.error(error);
       });
-    handleReset();
+    handleClean();
   };
 
   const handleChange = (e) => {
     setCode(e.target.value);
   };
 
-  const handleReset = () => {
+  const handleClean = () => {
     setCode("");
   };
 
@@ -71,14 +71,14 @@ const OrderByCode = () => {
                 className="btn btn-primary"
                 onClick={handleSubmit}
               >
-                Enviar
+                Send
               </button>
               <button
-                type="reset"
+                type="Clean"
                 className="btn btn-danger"
-                onClick={handleReset}
+                onClick={handleClean}
               >
-                Reset
+                Clean
               </button>
             </div>
           </div>

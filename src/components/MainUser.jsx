@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { UserProfile } from "./indexComponents";
-import SearchingBar from './SearchingBar';
+import SearchingBar from "./SearchingBar";
 
-const MainUser = () => {  
+const MainUser = () => {
   const params = useParams();
   const { code } = params;
 
@@ -83,7 +83,7 @@ const MainUser = () => {
                             isActive ? "dropdown-item" : "dropdown-item"
                           }
                         >
-                          Todos
+                          Ver Todos
                         </p>
                       )}
                     </NavLink>
@@ -115,6 +115,15 @@ const MainUser = () => {
                     </NavLink>
                   </li>
                 </ul>
+              </li>
+              <li className="nav-item">
+                <NavLink to={`/user/signout`}>
+                  {({ isActive }) => (
+                    <p className={isActive ? "nav-link" : "nav-link"}>
+                      Cerrar sesión
+                    </p>
+                  )}
+                </NavLink>
               </li>
             </ul>
           </div>

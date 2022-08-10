@@ -78,23 +78,23 @@ const UserProfile = () => {
       .request(options)
       .then((res) => {
         console.log(res.data);
-        if(res.data){
+        if (res.data) {
           alert("Datos actualizados!");
-        }else{
+        } else {
           alert("Error en la actualización :(");
-        }        
+        }
       })
-      .catch((error) => {        
+      .catch((error) => {
         console.error(error);
       });
-      handleReset();
+    handleClean();
   };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleReset = (e) => {
+  const handleClean = (e) => {
     setForm(initialForm);
     setUser(false);
   };
@@ -235,11 +235,11 @@ const UserProfile = () => {
                     Actualizar
                   </button>
                   <button
-                    type="reset"
+                    type="Clean"
                     className="btn btn-danger"
-                    onClick={handleReset}
+                    onClick={handleClean}
                   >
-                    Reset
+                    Clean
                   </button>
                 </div>
               </div>

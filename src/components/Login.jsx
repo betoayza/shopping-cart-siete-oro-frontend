@@ -15,38 +15,39 @@ const Login = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleReset = (e) => {
+  const handleClean = (e) => {
     setForm(initialForm);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const options = {
-      url: "/api/login",     
+      url: "/api/login",
       headers: {
-       'Content-Type': 'application/json', 
-       'Access-Control-Allow-Origin': '*',   
-       'Access-Control-Allow-Headers': '*',
-       Accept: 'application/json',    
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
       },
-      params: form,   
-      timeout: 3000,          
-   }
+      params: form,
+      timeout: 3000,
+    };
     console.log(form);
-    await axios.request(options)
+    await axios
+      .request(options)
       .then((res) => {
         console.log(res.data);
-        if (res.data) {          
+        if (res.data) {
           alert("Logueo exitoso!");
           console.log("Bienvenido ", res.data.username, "!");
           //case generic user
-          if(res.data.type === 'Estandar'){
-            const uri = `/user/${res.data.code}`;            
+          if (res.data.type === "Estandar") {
+            const uri = `/user/${res.data.code}`;
             navigate(uri);
-          //case admin
-          }else{
-            const uri = "/admin";           
+            //case admin
+          } else {
+            const uri = "/admin";
             navigate(uri);
           }
         } else {
@@ -56,7 +57,7 @@ const Login = () => {
       .catch((error) => {
         console.error(error);
       });
-    handleReset();
+    handleClean();
   };
 
   return (
@@ -89,14 +90,14 @@ const Login = () => {
           <div className="row">
             <div className="col-12">
               <button type="submit" className="btn btn-primary">
-                Enviar
+                Send
               </button>
               <button
-                type="reset"
+                type="Clean"
                 className="btn btn-danger"
-                onClick={handleReset}
+                onClick={handleClean}
               >
-                Reset
+                Clean
               </button>
             </div>
           </div>

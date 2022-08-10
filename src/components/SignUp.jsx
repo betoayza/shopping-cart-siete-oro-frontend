@@ -20,20 +20,20 @@ const SignUp = () => {
   const [form, setForm] = useState(initialForm);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();    
-    
+    e.preventDefault();
+
     const options = {
-      url: "/api/signup",    
-      method: 'post', 
+      url: "/api/signup",
+      method: "post",
       headers: {
-       'Content-Type': 'application/json', 
-       'Access-Control-Allow-Origin': '*',   
-       'Access-Control-Allow-Headers': '*',
-       Accept: 'application/json',    
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
       },
-      data: form,   
-      timeout: 3000,         
-   }
+      data: form,
+      timeout: 3000,
+    };
     console.log(form);
 
     await axios
@@ -46,19 +46,20 @@ const SignUp = () => {
           if (res.data.type === "Admin") {
             alert("Administrador creado!");
           } else {
-            if (res.data.type === "Estandar") {           
+            if (res.data.type === "Estandar") {
               alert("Usuario registrado!");
-              console.log("Los datos son: ", res.data);            
+              console.log("Los datos son: ", res.data);
             }
           }
-      }})
+        }
+      })
       .catch((error) => {
         console.error(error);
       });
-    handleReset();
+    handleClean();
   };
 
-  const handleReset = (e) => {
+  const handleClean = (e) => {
     setForm({ ...initialForm, code: Date.now() });
   };
 
@@ -204,14 +205,14 @@ const SignUp = () => {
                 className="btn btn-primary"
                 onClick={handleSubmit}
               >
-                Enviar
+                Send
               </button>
               <button
-                type="reset"
+                type="Clean"
                 className="btn btn-danger"
-                onClick={handleReset}
+                onClick={handleClean}
               >
-                Reset
+                Clean
               </button>
             </div>
           </div>

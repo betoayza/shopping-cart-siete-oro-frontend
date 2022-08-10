@@ -9,10 +9,9 @@ const ShoppingCart = () => {
   const { userCode } = params;
 
   useEffect(() => {
-    const getShoppingCart = async (userCode) => {
+    const getShoppingCart = async () => {
       const options = {
         url: "/api/user/shopping-cart",
-
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -20,16 +19,15 @@ const ShoppingCart = () => {
           Accept: "application/json",
         },
         params: { userCode },
-        timeout: 3000,
+        timeout: 5000,
       };
 
       await axios
         .request(options)
         .then((res) => {
           console.log(res.data);
-          if (res.data && res.data.products.length) {
-            setShoppingCart(res.data.products);
-            alert("Carrito con items!");
+          if (res.data) {
+            setShoppingCart(res.data);            
           } else {
             alert("Carrito vacío :(");
           }
@@ -39,7 +37,7 @@ const ShoppingCart = () => {
         });
     };
     getShoppingCart(userCode);
-  }, [userCode]);
+  }, []);
 
   return (
     <>

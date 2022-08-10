@@ -146,7 +146,7 @@ const MainAdmin = () => {
                         className="dropdown-item"
                         href="/admin/orders/all"
                       >
-                        Todos
+                        Ver Todos
                       </a>
                     </li>
                     <li>
@@ -154,7 +154,7 @@ const MainAdmin = () => {
                         className="dropdown-item"
                         href="/admin/orders/code"
                       >
-                        Por ID Usuario
+                        Por Codigo Usuario
                       </a>
                     </li>
                     <li>

@@ -38,10 +38,10 @@ export const UserOrderByCode = () => {
         } else alert("Pedido no encontrado :(");
       })
       .catch((error) => error);
-    handleReset();
+    handleClean();
   };
 
-  const handleReset = (e) => {
+  const handleClean = (e) => {
     setOrderCode("");
   };
 
@@ -71,10 +71,10 @@ export const UserOrderByCode = () => {
           <div className="col-12">
             <button
               className="btn btn-danger"
-              type="reset"
-              onClick={handleReset}
+              type="Clean"
+              onClick={handleClean}
             >
-              Reset
+              Clean
             </button>
           </div>
         </form>

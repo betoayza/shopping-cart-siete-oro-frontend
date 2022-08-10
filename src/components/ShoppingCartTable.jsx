@@ -1,23 +1,93 @@
 import axios from "axios";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ShoppingCartTableRow } from "./ShoppingCartTableRow";
+import moment from "moment";
 
 export const ShoppingCartTable = ({
   shoppingCart,
   setShoppingCart,
   userCode,
 }) => {
-  if (!Array.isArray(shoppingCart)) {
-    shoppingCart = [shoppingCart];
-  } else {
-    if (!shoppingCart.length) setShoppingCart(null);
-  }
+  if (!shoppingCart.products.length) setShoppingCart(null);
 
-  const handleCloseTable = () => {
-    setShoppingCart(null);
+  const [toBuy, setToBuy] = useState(1);
+  const [itemIndex, setItemIndex] = useState(null);
+
+  useEffect(() => {
+    console.log("dsa: ", toBuy, itemIndex);
+    const updateToBuy = async (toBuy, itemIndex) => {
+      const options = {
+        url: "/api/user/shopping-cart/update/toBuy",
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          timeout: 3000,
+        },
+        data: { userCode, toBuy, itemIndex },
+      };
+
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            alert("Cantidad actualizada!");
+          } else {
+            alert("Error en la actualización :(");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      };
+      updateToBuy(toBuy, itemIndex);
+  }, [toBuy, itemIndex]);
+
+  const updateToBuy = (toBuy, itemIndex) => {
+    //console.log("fasdasd: ", toBuy, itemIndex);
+    setToBuy(toBuy);
+    setItemIndex(itemIndex);   
   };
 
-  const handlePurchase = () => {};
+  const handlePurchase = async () => {
+    const date = moment(new Date()).format("DD/MM/YYYY");
+    const amount = shoppingCart.reduce(() => a + b);
+    const purchase = {
+      code: Date.now(),
+      userCode,
+      products: shoppingCart,
+      amount,
+      date,
+      status: "Activo",
+    };
+
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      data: {},
+    };
+
+    await axios
+      .post(`/api/user/shopping-cart/delete`, options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setShoppingCart(res.data.products);
+          alert("Eliminacion exitosa");
+        } else {
+          alert("No se encontró producto");
+        }
+      })
+      .catch((error) => error);
+  };
 
   const removeItem = async (prodCode, userCode, index) => {
     const options = {
@@ -36,7 +106,7 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          setShoppingCart(res.data.products);
+          setShoppingCart(res.data);
           alert("Eliminacion exitosa");
         } else {
           alert("No se encontró producto");
@@ -45,7 +115,7 @@ export const ShoppingCartTable = ({
       .catch((error) => error);
   };
 
-  const removeAllItems = async (e) => {    
+  const removeAllItems = async (e) => {
     const options = {
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +127,7 @@ export const ShoppingCartTable = ({
       data: { userCode },
     };
     await axios
-      .delete('/api/user/shopping-cart/delete/all', options)
+      .delete("/api/user/shopping-cart/delete/all", options)
       .then((res) => {
         console.log(res.data);
         if (res.data) {
@@ -72,7 +142,7 @@ export const ShoppingCartTable = ({
 
   return (
     <div>
-      {console.log("lista: ", shoppingCart)}
+      {console.log("lista: ", shoppingCart.products)}
 
       <div className="responsible-table" id="shopping-cart-div">
         <table className="table table-dark">
@@ -88,7 +158,7 @@ export const ShoppingCartTable = ({
           </thead>
           <tbody>
             {shoppingCart &&
-              shoppingCart.map((product, index) => {
+              shoppingCart.products.map((product, index) => {
                 console.log("asdsd", index);
                 return (
                   <ShoppingCartTableRow
@@ -96,20 +166,19 @@ export const ShoppingCartTable = ({
                     product={product}
                     userCode={userCode}
                     removeItem={removeItem}
+                    updateToBuy={updateToBuy}
                     index={index}
                   />
                 );
               })}
           </tbody>
         </table>
+
         <button className="btn btn-primary" onClick={removeAllItems}>
           Limpiar
         </button>
-        <button className="btn btn-danger" onClick={handleCloseTable}>
-          Close
-        </button>
         <button className="btn btn-success" onClick={handlePurchase}>
-          Pagar
+          Comprar
         </button>
       </div>
     </div>

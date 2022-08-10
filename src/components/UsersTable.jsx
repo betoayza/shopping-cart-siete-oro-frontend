@@ -38,7 +38,7 @@ export const UsersTable = ({ users, setUsers }) => {
       </table>
       <button
         className="btn btn-danger"
-        type="reset"
+        type="Clean"
         onClick={handleCloseTable}
       >
         Close
