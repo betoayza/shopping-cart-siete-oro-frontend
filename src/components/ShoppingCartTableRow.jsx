@@ -7,7 +7,7 @@ export const ShoppingCartTableRow = ({
   updateToBuy,
   index,
 }) => {
-  const [toBuy, setToBuy] = useState(1);
+  const [toBuy, setToBuy] = useState(product.toBuy);
 
   useEffect(() => {
     updateToBuy(toBuy, index);

@@ -32,7 +32,7 @@ export const ShoppingCartTable = ({
       await axios
         .request(options)
         .then((res) => {
-          console.log(res.data);
+          console.log(res);
           if (res.data) {
             alert("Cantidad actualizada!");
           } else {
