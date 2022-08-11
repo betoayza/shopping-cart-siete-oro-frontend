@@ -45,19 +45,8 @@ const MainAdmin = () => {
                     aria-labelledby="navbarDropdownMenuLink"
                   >
                     <li>
-                      <a
-                        className="dropdown-item"
-                        href="/admin/products/add"
-                      >
+                      <a className="dropdown-item" href="/admin/products/add">
                         Agregar
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="/admin/products/delete"
-                      >
-                        Dar de baja
                       </a>
                     </li>
                     <li>
@@ -70,15 +59,7 @@ const MainAdmin = () => {
                         className="dropdown-item"
                         href="/admin/products/search/code"
                       >
-                        Por Codigo
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="/admin/products/modify"
-                      >
-                        Modificar
+                        Buscar
                       </a>
                     </li>
                   </ul>
@@ -100,27 +81,13 @@ const MainAdmin = () => {
                     aria-labelledby="navbarDropdownMenuLink"
                   >
                     <li>
-                      <a
-                        className="dropdown-item"
-                        href="/admin/users/all"
-                      >
+                      <a className="dropdown-item" href="/admin/users/all">
                         Ver todos
                       </a>
                     </li>
                     <li>
-                      <a
-                        className="dropdown-item"
-                        href="/admin/users/code"
-                      >
-                        Por Codigo
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="/admin/users/delete"
-                      >
-                        Dar de baja
+                      <a className="dropdown-item" href="/admin/users/code">
+                        Buscar
                       </a>
                     </li>
                   </ul>
@@ -142,26 +109,17 @@ const MainAdmin = () => {
                     aria-labelledby="navbarDropdownMenuLink"
                   >
                     <li>
-                      <a
-                        className="dropdown-item"
-                        href="/admin/orders/all"
-                      >
+                      <a className="dropdown-item" href="/admin/orders/all">
                         Ver Todos
                       </a>
                     </li>
                     <li>
-                      <a
-                        className="dropdown-item"
-                        href="/admin/orders/code"
-                      >
+                      <a className="dropdown-item" href="/admin/orders/code">
                         Por Codigo Usuario
                       </a>
                     </li>
                     <li>
-                      <a
-                        className="dropdown-item"
-                        href="/admin/orders/code"
-                      >
+                      <a className="dropdown-item" href="/admin/orders/code">
                         Entregados
                       </a>
                     </li>

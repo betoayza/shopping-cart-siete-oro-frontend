@@ -100,20 +100,7 @@ const MainUser = () => {
                         </p>
                       )}
                     </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to={`/user/orders/delete/${code}`}>
-                      {({ isActive }) => (
-                        <p
-                          className={
-                            isActive ? "dropdown-item" : "dropdown-item"
-                          }
-                        >
-                          Cancelar
-                        </p>
-                      )}
-                    </NavLink>
-                  </li>
+                  </li>                  
                 </ul>
               </li>
               <li className="nav-item">
