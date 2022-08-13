@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ProductTableRow = ({ product }) => {
+export const ProductTableRow = ({ product, handleUpdate, handleDelete }) => {
   console.log(product.image, typeof product.image);
 
   const toBase64 = (arr) => {
@@ -27,6 +27,16 @@ export const ProductTableRow = ({ product }) => {
           />
         </td>
         <td>{product.status}</td>
+        <td>
+          <button
+            className="btn btn-primary"
+            onClick={() => handleUpdate()}
+          ></button>
+          <button
+            className="btn btn-danger"
+            onClick={() => handleDelete()}
+          ></button>
+        </td>
       </tr>
     </>
   );

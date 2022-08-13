@@ -165,7 +165,7 @@ const AddProduct = () => {
                 Send
               </button>
               <button
-                type="Clean"
+                type="reset"
                 className="btn btn-danger"
                 onClick={handleClean}
               >

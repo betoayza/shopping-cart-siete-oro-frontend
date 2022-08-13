@@ -235,7 +235,7 @@ const UserProfile = () => {
                     Actualizar
                   </button>
                   <button
-                    type="Clean"
+                    type="reset"
                     className="btn btn-danger"
                     onClick={handleClean}
                   >

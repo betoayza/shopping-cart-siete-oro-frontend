@@ -131,7 +131,7 @@ const ModifyProduct = () => {
             Find!
           </button>
 
-          <button className="btn btn-danger" type="Clean" onClick={handleClean}>
+          <button className="btn btn-danger" type="reset" onClick={handleClean}>
             Clean
           </button>
         </form>
@@ -218,7 +218,7 @@ const ModifyProduct = () => {
 
               <button
                 className="btn btn-danger"
-                type="Clean"
+                type="reset"
                 onClick={handleClean2}
               >
                 Clean

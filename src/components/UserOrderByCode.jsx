@@ -71,7 +71,7 @@ export const UserOrderByCode = () => {
           <div className="col-12">
             <button
               className="btn btn-danger"
-              type="Clean"
+              type="reset"
               onClick={handleClean}
             >
               Clean

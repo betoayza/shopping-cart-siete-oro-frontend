@@ -40,7 +40,7 @@ export const ProductsTableUsers = ({ products, setProducts, userCode }) => {
       </table>
       <button
         className="btn btn-danger"
-        type="Clean"
+        type="reset"
         onClick={handleCloseTable}
       >
         Close

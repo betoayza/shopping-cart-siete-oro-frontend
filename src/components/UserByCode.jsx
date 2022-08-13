@@ -63,7 +63,7 @@ const UserByCode = () => {
             Send!
           </button>
 
-          <button className="btn btn-danger" type="Clean" onClick={handleClean}>
+          <button className="btn btn-danger" type="reset" onClick={handleClean}>
             Clean
           </button>
         </form>
