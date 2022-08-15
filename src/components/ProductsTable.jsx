@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { ProductTableRow } from "./ProductTableRow";
 import ModifyProduct from "./ModifyProduct";
+import { Modal } from "./Modal";
 
 export const ProductsTable = ({ products, setProducts }) => {
+  const [modal, setModal] = useState(false);
+  const [productCode, setProductCode] = useState(null);
+
   if (!Array.isArray(products)) {
     products = [products];
   }
@@ -11,19 +15,24 @@ export const ProductsTable = ({ products, setProducts }) => {
     setProducts(null);
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = (productCode) => {
+    setModal(true);
+    setProductCode(productCode);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+  };
+
+  const handleDelete = () => {};
+
+  return modal ? (
     <Modal>
-      <ModifyProduct />
+      <ModifyProduct code={productCode} setModal={setModal} />
     </Modal>
-  };
-
-  const handleDelete = () => {
-
-  };
-
-  return (
+  ) : (
     <div>
-      <h3>Productos encontrados:</h3>
+      (<h3>Productos encontrados:</h3>
       <table id="products-table" className="table table-success">
         <thead>
           <tr>
@@ -58,6 +67,7 @@ export const ProductsTable = ({ products, setProducts }) => {
       >
         Close
       </button>
+      )
     </div>
   );
 };

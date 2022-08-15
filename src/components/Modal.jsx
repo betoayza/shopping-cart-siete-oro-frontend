@@ -1,12 +1,10 @@
 import React from "react";
-import "./Modal.css";
+import ("./Modal.css");
 
-const Modal = ({ children }) => {
+export const Modal = ({ children }) => {
   return (
-    <div className="modal ">
-      <div className="modal-update-product-div">{children}</div>
+    <div className={"modal is-open"}>
+      <div className={"modal-div"}>{children}</div>
     </div>
   );
 };
-
-export default Modal;

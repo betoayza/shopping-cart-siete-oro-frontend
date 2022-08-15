@@ -115,7 +115,7 @@ const MainAdmin = () => {
                     </li>
                     <li>
                       <a className="dropdown-item" href="/admin/orders/code">
-                        Por Codigo Usuario
+                        Por Usuario
                       </a>
                     </li>
                     <li>

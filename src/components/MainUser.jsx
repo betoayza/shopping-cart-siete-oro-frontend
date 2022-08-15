@@ -63,45 +63,14 @@ const MainUser = () => {
                   )}
                 </NavLink>
               </li>
-
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Pedidos
-                </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <NavLink to={`/user/orders/${code}`}>
-                      {({ isActive }) => (
-                        <p
-                          className={
-                            isActive ? "dropdown-item" : "dropdown-item"
-                          }
-                        >
-                          Ver Todos
-                        </p>
-                      )}
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to={`/user/orders/code/${code}`}>
-                      {({ isActive }) => (
-                        <p
-                          className={
-                            isActive ? "dropdown-item" : "dropdown-item"
-                          }
-                        >
-                          Buscar
-                        </p>
-                      )}
-                    </NavLink>
-                  </li>                  
-                </ul>
+              <li className="nav-item">
+                <NavLink to={`/user/shopping-cart/${code}`}>
+                  {({ isActive }) => (
+                    <p className={isActive ? "nav-link" : "nav-link"}>
+                      Mis compras
+                    </p>
+                  )}
+                </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to={`/user/signout`}>

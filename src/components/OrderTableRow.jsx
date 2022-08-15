@@ -9,6 +9,11 @@ export const OrderTableRow = ({ order }) => {
       <td>{order.amount}</td>
       <td>{order.date}</td>
       <td>{order.status}</td>
+      <td>
+        <button className="btn btn-danger" onClick={() => handleDelete()}>
+          Accion
+        </button>
+      </td>
     </tr>
   );
 };
