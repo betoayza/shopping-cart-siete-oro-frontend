@@ -14,8 +14,7 @@ const AllProducts = () => {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "*",
           Accept: "application/json",
-        },
-        params: { products },
+        },        
         timeout: 3000,
       };
 
@@ -24,15 +23,11 @@ const AllProducts = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setProducts(res.data);
-            alert("Productos encontrados!");
-          } else {
-            alert("Por el momento no hay productos :(");
-          }
+            setProducts(res.data);            
+          } else return;
         })
         .catch((error) => error);
     };
-
     getAllProducts();
   }, [products]);
 
