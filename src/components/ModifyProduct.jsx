@@ -16,7 +16,7 @@ const ModifyProduct = ({ code, setModal }) => {
   const fileRef = useRef(null);
 
   useEffect(() => {
-    const getProduct = async (e) => {
+    const getProduct = async () => {
       const options = {
         url: "/api/admin/products/search/code",
         headers: {
@@ -44,8 +44,6 @@ const ModifyProduct = ({ code, setModal }) => {
     getProduct();
   }, []);
 
-  //---------
-  //Handle Update Form
   const handleChange2 = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -191,94 +189,3 @@ const ModifyProduct = ({ code, setModal }) => {
 };
 
 export default ModifyProduct;
-
-// {product && (
-//   <div>
-//     <h1>Modifique Producto:</h1>
-//     <div className="form-group w-25">
-//       <form onSubmit={handleSubmit2}>
-//         <div className="input-group mb-3">
-//           {/* code isnt updatable */}
-//           <input
-//             type="number"
-//             name="code"
-//             value={form.code}
-//             className="form-control"
-//             disabled
-//             readOnly
-//           />
-//         </div>
-//         <div className="input-group mb-3">
-//           <input
-//             type="text"
-//             className="form-control"
-//             name="name"
-//             placeholder="Nombre..."
-//             value={form.name}
-//             onChange={handleChange2}
-//             required
-//           />
-//         </div>
-//         <div className="input-group mb-3">
-//           <input
-//             type="text"
-//             className="form-control"
-//             name="description"
-//             placeholder="Descripcion..."
-//             value={form.description}
-//             onChange={handleChange2}
-//             required
-//           />
-//         </div>
-//         <div className="input-group mb-3">
-//           <input
-//             type="number"
-//             className="form-control"
-//             name="price"
-//             placeholder="Precio..."
-//             value={form.price}
-//             onChange={handleChange2}
-//             required
-//           />
-//         </div>
-//         <div className="input-group mb-3">
-//           <input
-//             type="number"
-//             className="form-control"
-//             name="stock"
-//             placeholder="Stock..."
-//             value={form.stock}
-//             onChange={handleChange2}
-//             required
-//           />
-//         </div>
-//         <div className="input-group mb-3">
-//           <input
-//             type="file"
-//             className="form-control"
-//             name="image"
-//             id="image"
-//             ref={fileRef}
-//             onChange={(e) => {
-//               console.log(e.target.files[0]);
-//               setForm({ ...form, image: e.target.files[0] });
-//             }}
-//             required
-//           />
-//         </div>
-
-//         <button className="btn btn-primary" type="submit">
-//           Update
-//         </button>
-
-//         <button
-//           className="btn btn-danger"
-//           type="reset"
-//           onClick={handleClean2}
-//         >
-//           Clean
-//         </button>
-//       </form>
-//     </div>
-//   </div>
-// )}

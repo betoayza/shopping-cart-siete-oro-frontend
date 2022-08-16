@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ProductTableRow } from "./ProductTableRow";
 import ModifyProduct from "./ModifyProduct";
 import { Modal } from "./Modal";
+import axios from "axios";
 
 export const ProductsTable = ({ products, setProducts }) => {
   const [modal, setModal] = useState(false);
   const [productCode, setProductCode] = useState(null);
+  const [productDelCode, setProductDelCode] = useState(null);
 
   if (!Array.isArray(products)) {
     products = [products];
@@ -20,11 +22,36 @@ export const ProductsTable = ({ products, setProducts }) => {
     setProductCode(productCode);
   };
 
-  const closeModal = () => {
-    setModal(false);
+  const handleDelete = (productCode) => {
+    setProductDelCode(productCode);
   };
 
-  const handleDelete = () => {};
+  useEffect(() => {
+    const code = productDelCode;
+    const deleteProduct = async () => {
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          timeout: 3000,
+        },
+        data: { code },
+      };
+
+      await axios
+        .delete("/api/admin/products/delete", options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            alert("Baja exitosa!");
+          } else return;
+        })
+        .catch((error) => error);
+    };
+    deleteProduct();
+  }, [productDelCode]);
 
   return modal ? (
     <Modal>

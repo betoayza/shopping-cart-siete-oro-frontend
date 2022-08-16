@@ -6,18 +6,19 @@ const AllProducts = () => {
   const [products, setProducts] = useState(null);
 
   useEffect(() => {
-    const options = {
-      url: "/api/products/all",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      params: { products },
-      timeout: 3000,
-    };
     const getAllProducts = async () => {
+      const options = {
+        url: "/api/products/all",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+        },
+        params: { products },
+        timeout: 3000,
+      };
+
       await axios
         .request(options)
         .then((res) => {
@@ -33,7 +34,7 @@ const AllProducts = () => {
     };
 
     getAllProducts();
-  }, []);
+  }, [products]);
 
   return (
     <div>

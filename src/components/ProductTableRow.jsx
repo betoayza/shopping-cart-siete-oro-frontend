@@ -28,10 +28,16 @@ export const ProductTableRow = ({ product, handleUpdate, handleDelete }) => {
         </td>
         <td>{product.status}</td>
         <td>
-          <button className="btn btn-primary" onClick={() => handleUpdate(product.code)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => handleUpdate(product.code)}
+          >
             Editar
           </button>
-          <button className="btn btn-danger" onClick={() => handleDelete()}>
+          <button
+            className="btn btn-danger"
+            onClick={() => handleDelete(product.code)}
+          >
             Borrar
           </button>
         </td>
