@@ -54,6 +54,30 @@ export const ProductsTable = ({
           console.log(res.data);
           if (res.data) {
             alert("Baja exitosa!");
+            
+            const getAllProducts = async () => {
+              const options = {
+                url: "/api/products/all",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Headers": "*",
+                  Accept: "application/json",
+                },
+                timeout: 3000,
+              };
+  
+              await axios
+                .request(options)
+                .then((res) => {
+                  console.log(res.data);
+                  if (res.data) {
+                    setProducts(res.data);
+                  } else return;
+                })
+                .catch((error) => error);
+            };
+            getAllProducts();
           } else return;
         })
         .catch((error) => error);
