@@ -4,7 +4,7 @@ import * as Components from "./components/indexComponents";
 
 function App() {
   return (
-    <>
+    <div className={"bg-body text-secondary"}>
       <BrowserRouter>        
         <div id="components-div">
           <Routes>
@@ -118,7 +118,7 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

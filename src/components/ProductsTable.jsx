@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { ProductTableRow } from "./ProductTableRow";
-import ModifyProduct from "./ModifyProduct";
+import { ModifyProduct } from "./ModifyProduct";
 import { Modal } from "./Modal";
 import axios from "axios";
+import { SelectProductsCodes } from "./SelectProductsCodes";
+import { SearchProductByCode } from "./SearchProductByCode";
 
 export const ProductsTable = ({ products, setProducts }) => {
   const [modal, setModal] = useState(false);
   const [productCode, setProductCode] = useState(null);
   const [productDelCode, setProductDelCode] = useState(null);
+  const [modalSearchProduct, setModalSearchProduct] = useState(false);
+  const [modalModifyProduct, setModalModifyProduct] = useState(false);
 
   if (!Array.isArray(products)) {
     products = [products];
@@ -17,13 +21,14 @@ export const ProductsTable = ({ products, setProducts }) => {
     setProducts(null);
   };
 
-  const handleUpdate = (productCode) => {
+  const handleUpdate = (prodCode) => {
     setModal(true);
-    setProductCode(productCode);
+    setProductCode(prodCode);
+    setModalModifyProduct(true);
   };
 
-  const handleDelete = (productCode) => {
-    setProductDelCode(productCode);
+  const handleDelete = (prodCode) => {
+    setProductDelCode(prodCode);
   };
 
   useEffect(() => {
@@ -55,12 +60,30 @@ export const ProductsTable = ({ products, setProducts }) => {
 
   return modal ? (
     <Modal>
-      <ModifyProduct code={productCode} setModal={setModal} />
+      {modalModifyProduct && (
+        <ModifyProduct
+          code={productCode}
+          setModal={setModal}
+          setModalModifyProduct={setModalModifyProduct}
+        />
+      )}
+      {modalSearchProduct && (
+        <SearchProductByCode
+          code={productCode}
+          setModal={setModal}
+          setModalSearchProduct={setModalSearchProduct}
+        />
+      )}
     </Modal>
   ) : (
     <div>
-      (<h3>Productos encontrados:</h3>
-      <table id="products-table" className="table table-success">
+      <SelectProductsCodes
+        setProductCode={setProductCode}
+        setModal={setModal}
+        setModalSearchProduct={setModalSearchProduct}
+      />
+      <h3>Productos encontrados:</h3>
+      <table id="products-table" className="table table-dark">
         <thead>
           <tr>
             <th scope="col">Codigo</th>
@@ -87,14 +110,13 @@ export const ProductsTable = ({ products, setProducts }) => {
             })}
         </tbody>
       </table>
-      <button
+      {/* <button
         className="btn btn-danger"
         type="reset"
         onClick={handleCloseTable}
       >
         Close
-      </button>
-      )
+      </button> */}
     </div>
   );
 };

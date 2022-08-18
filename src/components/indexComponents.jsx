@@ -12,8 +12,8 @@ import DeleteOrder from "./DeleteOrder";
 
 import AllProducts from "./AllProducts";
 import DeleteProduct from "./DeleteProduct";
-import ModifyProduct from "./ModifyProduct";
-import SearchProductByCode from "./SearchProductByCode";
+import { ModifyProduct } from "./ModifyProduct";
+import { SearchProductByCode } from "./SearchProductByCode";
 import AddProduct from "./AddProduct";
 
 import { AllUsers } from "./AllUsers";
