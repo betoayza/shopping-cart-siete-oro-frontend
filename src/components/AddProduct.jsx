@@ -11,8 +11,10 @@ const initialForm = {
   status: "Activo",
 };
 
-const AddProduct = () => {
+export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
   const [form, setForm] = useState(initialForm);
+  const [added, setAdded] = useState(false);
+  const [error, setError] = useState(false);
   const fileRef = useRef(null);
 
   const handleSubmit = async (e) => {
@@ -49,15 +51,35 @@ const AddProduct = () => {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          alert("Alta exitosa!");
-        } else {
-          alert("Alta fallida :(");
-        }
+          setAdded(true);
+
+          const getAllProducts = async () => {
+            const options = {
+              url: "/api/products/all",
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+                Accept: "application/json",
+              },
+              timeout: 3000,
+            };
+
+            await axios
+              .request(options)
+              .then((res) => {
+                console.log(res.data);
+                if (res.data) {
+                  setProducts(res.data);
+                } else return;
+              })
+              .catch((error) => error);
+          };
+          getAllProducts();
+        } else setError(true);
       })
       .catch((error) => error);
     handleClean();
-
-    // await axios.post("https://httpbin.org/anything", data).then(res=>console.log(res)).catch(error=>error)
   };
 
   const handleChange = (e) => {
@@ -68,7 +90,19 @@ const AddProduct = () => {
     setForm({ ...initialForm, code: Date.now() });
   };
 
-  return (
+  const handleClose = () => {
+    setModal(false);
+    setModalAddProduct(false);
+  };
+
+  return error ? (
+    <div>
+      <h3>Alta fallida :(</h3>
+      <button type="reset" className="btn btn-danger" onClick={handleClose}>
+        Cerrar
+      </button>
+    </div>
+  ) : !added ? (
     <div>
       <h2>Agregar Producto:</h2>
 
@@ -114,6 +148,7 @@ const AddProduct = () => {
               name="price"
               placeholder="Precio..."
               value={form.price}
+              min={1}
               onChange={handleChange}
               required
             />
@@ -126,6 +161,7 @@ const AddProduct = () => {
               name="stock"
               placeholder="Stock..."
               value={form.stock}
+              min={1}
               onChange={handleChange}
               required
             />
@@ -159,24 +195,36 @@ const AddProduct = () => {
             <div className="col-12">
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-success"
                 onClick={handleSubmit}
               >
-                Send
+                Agregar
+              </button>
+              <button
+                type="reset"
+                className="btn btn-warning"
+                onClick={handleClean}
+              >
+                Limpiar
               </button>
               <button
                 type="reset"
                 className="btn btn-danger"
-                onClick={handleClean}
+                onClick={handleClose}
               >
-                Clean
+                Cerrar
               </button>
             </div>
           </div>
         </form>
       </div>
     </div>
+  ) : (
+    <div>
+      <h3>Alta exitosa :)</h3>
+      <button type="reset" className="btn btn-danger" onClick={handleClose}>
+        Cerrar
+      </button>
+    </div>
   );
 };
-
-export default AddProduct;

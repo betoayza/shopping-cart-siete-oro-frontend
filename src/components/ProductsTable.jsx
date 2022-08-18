@@ -5,26 +5,24 @@ import { Modal } from "./Modal";
 import axios from "axios";
 import { SelectProductsCodes } from "./SelectProductsCodes";
 import { SearchProductByCode } from "./SearchProductByCode";
+import { AddProduct } from "./AddProduct";
 
 export const ProductsTable = ({
   products,
   setProducts,
-  prodsSelect = true,
+  addAndSearch = true,
 }) => {
   const [modal, setModal] = useState(false);
   const [productCode, setProductCode] = useState(null);
   const [productDelCode, setProductDelCode] = useState(null);
   const [modalSearchProduct, setModalSearchProduct] = useState(false);
   const [modalModifyProduct, setModalModifyProduct] = useState(false);
-  const [productsSelect, setProductsSelect] = useState(prodsSelect);
+  const [showAddAndSearch, setShowAddAndSearch] = useState(addAndSearch);
+  const [modalAddProduct, setModalAddProduct] = useState(false);
 
   if (!Array.isArray(products)) {
     products = [products];
   }
-
-  const handleCloseTable = () => {
-    setProducts(null);
-  };
 
   const handleUpdate = (prodCode) => {
     setModal(true);
@@ -63,6 +61,11 @@ export const ProductsTable = ({
     deleteProduct();
   }, [productDelCode]);
 
+  const handleAddProduct = () => {
+    setModal(true);
+    setModalAddProduct(true);
+  };
+
   return modal ? (
     <Modal>
       {modalModifyProduct && (
@@ -79,15 +82,27 @@ export const ProductsTable = ({
           setModalSearchProduct={setModalSearchProduct}
         />
       )}
+      {modalAddProduct && (
+        <AddProduct
+          setModal={setModal}
+          setModalAddProduct={setModalAddProduct}
+          setProducts={setProducts}
+        />
+      )}
     </Modal>
   ) : (
     <div>
-      {productsSelect && (
-        <SelectProductsCodes
-          setProductCode={setProductCode}
-          setModal={setModal}
-          setModalSearchProduct={setModalSearchProduct}
-        />
+      {showAddAndSearch && (
+        <div>
+          <button className={"btn btn-success"} onClick={handleAddProduct}>
+            Add
+          </button>
+          <SelectProductsCodes
+            setProductCode={setProductCode}
+            setModal={setModal}
+            setModalSearchProduct={setModalSearchProduct}
+          />
+        </div>
       )}
       <h3>Productos encontrados:</h3>
       <table id="products-table" className="table table-dark">

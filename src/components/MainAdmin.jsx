@@ -45,21 +45,8 @@ const MainAdmin = () => {
                     aria-labelledby="navbarDropdownMenuLink"
                   >
                     <li>
-                      <a className="dropdown-item" href="/admin/products/add">
-                        Agregar
-                      </a>
-                    </li>
-                    <li>
                       <a className="dropdown-item" href="/products/all">
                         Ver todos
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="/admin/products/search/code"
-                      >
-                        Buscar
                       </a>
                     </li>
                   </ul>

@@ -49,7 +49,7 @@ export const SearchProductByCode = ({
         <ProductsTable
           products={product}
           setProducts={setProduct}
-          prodsSelect={false}
+          addAndSearch={false}
         />
       )}
       <button className={"btn btn-danger"} onClick={handleClose}>

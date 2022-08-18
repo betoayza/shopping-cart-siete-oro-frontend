@@ -14,7 +14,7 @@ const AllProducts = () => {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "*",
           Accept: "application/json",
-        },        
+        },
         timeout: 3000,
       };
 
@@ -23,7 +23,7 @@ const AllProducts = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setProducts(res.data);            
+            setProducts(res.data);
           } else return;
         })
         .catch((error) => error);
@@ -34,7 +34,9 @@ const AllProducts = () => {
   return (
     <div>
       <h3>Productos: </h3>
-      {products && <ProductsTable products={products} />}
+      {products && (
+        <ProductsTable products={products} setProducts={setProducts} />
+      )}
     </div>
   );
 };
