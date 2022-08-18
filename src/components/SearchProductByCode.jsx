@@ -8,6 +8,7 @@ export const SearchProductByCode = ({
   setModalSearchProduct,
 }) => {
   const [product, setProduct] = useState(null);
+  const [found, setFound] = useState(false);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -26,8 +27,10 @@ export const SearchProductByCode = ({
         .get("/api/admin/products/search/code", options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) setProduct(res.data);
-          else alert("Producto inexistente :(");
+          if (res.data) {
+            setProduct(res.data);
+            setFound(true);
+          } else return;
         })
         .catch((error) => error);
     };
@@ -37,11 +40,25 @@ export const SearchProductByCode = ({
   const handleClose = () => {
     setModal(false);
     setModalSearchProduct(false);
+    setFound(false);
   };
 
-  return (
+  return found ? (
     <div>
-      {product && <ProductsTable products={product} setProducts={setProduct} />}
+      {product && (
+        <ProductsTable
+          products={product}
+          setProducts={setProduct}
+          prodsSelect={false}
+        />
+      )}
+      <button className={"btn btn-danger"} onClick={handleClose}>
+        Close
+      </button>
+    </div>
+  ) : (
+    <div>
+      <h3>No encontrado :(</h3>
       <button className={"btn btn-danger"} onClick={handleClose}>
         Close
       </button>

@@ -6,12 +6,17 @@ import axios from "axios";
 import { SelectProductsCodes } from "./SelectProductsCodes";
 import { SearchProductByCode } from "./SearchProductByCode";
 
-export const ProductsTable = ({ products, setProducts }) => {
+export const ProductsTable = ({
+  products,
+  setProducts,
+  prodsSelect = true,
+}) => {
   const [modal, setModal] = useState(false);
   const [productCode, setProductCode] = useState(null);
   const [productDelCode, setProductDelCode] = useState(null);
   const [modalSearchProduct, setModalSearchProduct] = useState(false);
   const [modalModifyProduct, setModalModifyProduct] = useState(false);
+  const [productsSelect, setProductsSelect] = useState(prodsSelect);
 
   if (!Array.isArray(products)) {
     products = [products];
@@ -77,11 +82,13 @@ export const ProductsTable = ({ products, setProducts }) => {
     </Modal>
   ) : (
     <div>
-      <SelectProductsCodes
-        setProductCode={setProductCode}
-        setModal={setModal}
-        setModalSearchProduct={setModalSearchProduct}
-      />
+      {productsSelect && (
+        <SelectProductsCodes
+          setProductCode={setProductCode}
+          setModal={setModal}
+          setModalSearchProduct={setModalSearchProduct}
+        />
+      )}
       <h3>Productos encontrados:</h3>
       <table id="products-table" className="table table-dark">
         <thead>
@@ -110,13 +117,6 @@ export const ProductsTable = ({ products, setProducts }) => {
             })}
         </tbody>
       </table>
-      {/* <button
-        className="btn btn-danger"
-        type="reset"
-        onClick={handleCloseTable}
-      >
-        Close
-      </button> */}
     </div>
   );
 };
