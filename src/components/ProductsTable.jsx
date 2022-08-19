@@ -54,7 +54,7 @@ export const ProductsTable = ({
           console.log(res.data);
           if (res.data) {
             alert("Baja exitosa!");
-            
+
             const getAllProducts = async () => {
               const options = {
                 url: "/api/products/all",
@@ -128,7 +128,7 @@ export const ProductsTable = ({
           />
         </div>
       )}
-      <h3>Productos encontrados:</h3>
+      <h3>Todso los productos:</h3>
       <table id="products-table" className="table table-dark">
         <thead>
           <tr>

@@ -32,8 +32,7 @@ const AllProducts = () => {
   }, [products]);
 
   return (
-    <div>
-      <h3>Productos: </h3>
+    <div>      
       {products && (
         <ProductsTable products={products} setProducts={setProducts} />
       )}
