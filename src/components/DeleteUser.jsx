@@ -1,71 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const DeleteUser = () => {
-  const [code, setCode] = useState("");
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const DeleteUser = ({ code, setModal, setModalDelete }) => {
+  const [deleted, setDeleted] = useState(false);
 
-    const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-        timeout: 3000,
-      },
-      data: { code },
+  useEffect(() => {
+    const deleteUser = async () => {
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          timeout: 3000,
+        },
+        data: { code },
+      };
+
+      await axios
+        .delete("/api/admin/users/delete", options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) setDeleted(true);
+        })
+        .catch((error) => error);
     };
+    deleteUser();
+  }, []);
 
-    await axios
-      .delete("/api/admin/users/delete", options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          alert("Baja exitosa!");
-        } else {
-          alert("Sin coincidencias :(");
-        }
-      })
-      .catch((error) => error);
-    handleClean();
+  const handleClose = () => {
+    setModal(false);
+    setModalDelete(false);
   };
 
-  const handleChange = (e) => {
-    setCode(e.target.value);
-  };
-
-  const handleClean = (e) => {
-    setCode("");
-  };
-
-  return (
-    <div>
-      <h1>Codigo Producto:</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group w-25">
-          <div className="input-group mb-3">
-            <input
-              type="number"
-              className="form-control"
-              name="code"
-              placeholder="Codigo..."
-              value={code}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button className="btn btn-primary" type="submit">
-            Send
-          </button>
-
-          <button className="btn btn-danger" type="reset" onClick={handleClean}>
-            Clean
-          </button>
-        </div>
-      </form>
-    </div>
+  return deleted ? (
+    <>
+      <h3>Baja exitosa ;)</h3>
+      <button className="btn btn-danger" type="button" onClick={handleClose}>
+        Close
+      </button>
+    </>
+  ) : (
+    <>
+      <h3>Ya estaba dado de baja</h3>
+      <button className="btn btn-danger" type="button" onClick={handleClose}>
+        Close
+      </button>
+    </>
   );
 };
 

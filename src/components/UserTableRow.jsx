@@ -1,6 +1,6 @@
 import React from "react";
 
-export const UserTableRow = ({ user }) => {
+export const UserTableRow = ({ user, handleDelete, handleActivate }) => {
   return (
     <tr>
       <td>{user.code}</td>
@@ -15,6 +15,24 @@ export const UserTableRow = ({ user }) => {
       <td>{user.zip}</td>
       <td>{user.type}</td>
       <td>{user.status}</td>
+      <td>
+        {user.type === "Estandar" && (
+          <>
+            <button
+              className="btn btn-danger"
+              onClick={() => handleDelete(user.code)}
+            >
+              Borrar
+            </button>
+            <button
+              className="btn btn-warning"
+              onClick={() => handleActivate(user.code)}
+            >
+              Activate
+            </button>
+          </>
+        )}
+      </td>
     </tr>
   );
 };

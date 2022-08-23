@@ -22,15 +22,12 @@ export const AllUsers = () => {
         .get("/api/admin/users/all", options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) {
-            setUsers(res.data);
-            alert("Users found!");
-          } else alert("No users yet :(");
+          if (res.data) setUsers(res.data);
         })
         .catch((error) => error);
     };
     getAllUsers();
-  }, []);
+  }, [users]);
 
   return <div>{users && <UsersTable users={users} setUsers={setUsers} />}</div>;
 };

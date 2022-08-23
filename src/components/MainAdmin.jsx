@@ -29,27 +29,10 @@ const MainAdmin = () => {
                   </a>
                 </li>
 
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
+                <li className="nav-item">
+                  <a className="nav-link active" href="/products/all">
                     Productos
                   </a>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
-                    <li>
-                      <a className="dropdown-item" href="/products/all">
-                        Ver todos
-                      </a>
-                    </li>
-                  </ul>
                 </li>
 
                 <li className="nav-item dropdown">
