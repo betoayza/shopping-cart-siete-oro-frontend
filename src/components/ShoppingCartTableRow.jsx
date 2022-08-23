@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export const ShoppingCartTableRow = ({
   product,
@@ -38,13 +40,13 @@ export const ShoppingCartTableRow = ({
         <img
           src={"data:image/png;base64," + product.image}
           alt="Producto"
-          height={200}
-          width={300}
+          height={100}
+          width={150}
         />
       </td>
       <td>
-        <button onClick={() => removeItem(product.code, userCode, index)}>
-          Quitar
+        <button className={"btn btn-danger"} onClick={() => removeItem(product.code, userCode, index)}>
+          <FontAwesomeIcon icon={faTrashCan} />
         </button>
       </td>
     </tr>

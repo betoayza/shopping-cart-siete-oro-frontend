@@ -38,9 +38,7 @@ const Login = () => {
       .request(options)
       .then((res) => {
         console.log(res.data);
-        if (res.data) {
-          alert("Logueo exitoso!");
-          console.log("Bienvenido ", res.data.username, "!");
+        if (res.data) {                
           //case generic user
           if (res.data.type === "Estandar") {
             const uri = `/user/${res.data.code}`;
@@ -90,14 +88,14 @@ const Login = () => {
           <div className="row">
             <div className="col-12">
               <button type="submit" className="btn btn-primary">
-                Send
+                Entrar
               </button>
               <button
                 type="reset"
                 className="btn btn-danger"
                 onClick={handleClean}
               >
-                Clean
+                Limpiar
               </button>
             </div>
           </div>

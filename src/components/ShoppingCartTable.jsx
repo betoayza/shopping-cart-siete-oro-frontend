@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ShoppingCartTableRow } from "./ShoppingCartTableRow";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {  } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
 export const ShoppingCartTable = ({
@@ -35,21 +37,19 @@ export const ShoppingCartTable = ({
           console.log(res);
           if (res.data) {
             alert("Cantidad actualizada!");
-          } else {
-            alert("Error en la actualización :(");
-          }
+          } 
         })
         .catch((error) => {
           console.error(error);
         });
-      };
-      updateToBuy(toBuy, itemIndex);
+    };
+    updateToBuy(toBuy, itemIndex);
   }, [toBuy, itemIndex]);
 
   const updateToBuy = (toBuy, itemIndex) => {
     //console.log("fasdasd: ", toBuy, itemIndex);
     setToBuy(toBuy);
-    setItemIndex(itemIndex);   
+    setItemIndex(itemIndex);
   };
 
   const handlePurchase = async () => {
@@ -145,7 +145,7 @@ export const ShoppingCartTable = ({
       {console.log("lista: ", shoppingCart.products)}
 
       <div className="responsible-table" id="shopping-cart-div">
-        <table className="table table-dark">
+        <table className="table table-hover">
           <thead>
             <tr>
               <th scope="col">Articulo</th>
@@ -174,8 +174,8 @@ export const ShoppingCartTable = ({
           </tbody>
         </table>
 
-        <button className="btn btn-primary" onClick={removeAllItems}>
-          Limpiar
+        <button className="btn btn-warning" onClick={removeAllItems}>          
+          Vaciar
         </button>
         <button className="btn btn-success" onClick={handlePurchase}>
           Comprar

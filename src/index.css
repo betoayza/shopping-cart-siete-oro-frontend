@@ -30,9 +30,9 @@ form {
   place-items: center;
 }
 
-.searching-bar-div {
-  color: aqua;  
-}
+/* .searching-bar-div {
+  /* color: aqua;   */
+/* }  */
 
 #login-reg-div {
   display: flex;

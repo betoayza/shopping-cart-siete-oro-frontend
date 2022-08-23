@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ProductsTableUsers } from "./ProductsTableUsers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const SearchingBar = ({ userCode }) => {
   const [products, setProducts] = useState("");
@@ -44,7 +46,7 @@ const SearchingBar = ({ userCode }) => {
 
   return (
     <>
-      <div className="text-center border searching-bar-div">
+      <div className="text-center searching-bar-div">
         <h1>Panadería Siete de Oro</h1>
         <div className="d-flex justify-content-center">
           <form onSubmit={handleSubmit}>
@@ -59,11 +61,13 @@ const SearchingBar = ({ userCode }) => {
                 />
               </div>
               <div className="col-md-2">
-                <input
-                  className="btn btn-success fas fa-paper-plane"
-                  type="submit"
-                  value="Send"
-                />
+                <button
+                  className="btn btn-success"
+                  type="button"
+                  onClick={handleSubmit}
+                >
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </button>
               </div>
             </div>
           </form>

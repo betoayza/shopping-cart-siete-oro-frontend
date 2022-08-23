@@ -19,6 +19,7 @@ export const ProductsTable = ({
   const [modalModifyProduct, setModalModifyProduct] = useState(false);
   const [showAddAndSearch, setShowAddAndSearch] = useState(addAndSearch);
   const [modalAddProduct, setModalAddProduct] = useState(false);
+  const [modalActivateProduct, setModalActivateProduct] = useState(false);
 
   if (!Array.isArray(products)) {
     products = [products];
@@ -66,7 +67,7 @@ export const ProductsTable = ({
                 },
                 timeout: 3000,
               };
-  
+
               await axios
                 .request(options)
                 .then((res) => {
@@ -88,6 +89,12 @@ export const ProductsTable = ({
   const handleAddProduct = () => {
     setModal(true);
     setModalAddProduct(true);
+  };
+
+  const handleActivate = (prodCode) => {
+    setProductCode(prodCode);
+    setModal(true);
+    setModalActivateProduct(true);
   };
 
   return modal ? (
@@ -113,6 +120,13 @@ export const ProductsTable = ({
           setProducts={setProducts}
         />
       )}
+      {modalActivateProduct && (
+        <ActivateProduct
+          code={productCode}
+          setModal={setModal}
+          setModalActivateProduct={setModalActivateProduct}
+        />
+      )}
     </Modal>
   ) : (
     <div>
@@ -128,8 +142,8 @@ export const ProductsTable = ({
           />
         </div>
       )}
-      <h3>Todso los productos:</h3>
-      <table id="products-table" className="table table-dark">
+      <h3>Todos los productos:</h3>
+      <table id="products-table" className="table table-hover">
         <thead>
           <tr>
             <th scope="col">Codigo</th>
@@ -151,6 +165,7 @@ export const ProductsTable = ({
                   product={product}
                   handleUpdate={handleUpdate}
                   handleDelete={handleDelete}
+                  handleActivate={handleActivate}
                 />
               );
             })}

@@ -13,7 +13,7 @@ export const ProductsTableUsers = ({ products, setProducts, userCode }) => {
   return (
     <div>
       <h3>Productos encontrados:</h3>
-      <table id="products-table" className="table table-success">
+      <table id="products-table" className="table table-hover">
         <thead>
           <tr>
             <th scope="col">Nombre</th>
@@ -37,14 +37,7 @@ export const ProductsTableUsers = ({ products, setProducts, userCode }) => {
               );
             })}
         </tbody>
-      </table>
-      <button
-        className="btn btn-danger"
-        type="reset"
-        onClick={handleCloseTable}
-      >
-        Close
-      </button>
+      </table>      
     </div>
   );
 };

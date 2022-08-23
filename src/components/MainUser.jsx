@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { UserProfile } from "./indexComponents";
 import SearchingBar from "./SearchingBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 const MainUser = () => {
   const params = useParams();
@@ -57,14 +59,14 @@ const MainUser = () => {
               <li className="nav-item">
                 <NavLink to={`/user/shopping-cart/${code}`}>
                   {({ isActive }) => (
-                    <p className={isActive ? "nav-link" : "nav-link"}>
-                      Mi carrito
-                    </p>
+                    <span className={isActive ? "nav-link" : "nav-link"}>
+                      <FontAwesomeIcon icon={faCartShopping} />
+                    </span>
                   )}
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to={`/user/shopping-cart/${code}`}>
+                <NavLink to={`/user/${code}/orders`}>
                   {({ isActive }) => (
                     <p className={isActive ? "nav-link" : "nav-link"}>
                       Mis compras
@@ -73,7 +75,7 @@ const MainUser = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to={`/user/signout`}>
+                <NavLink to={`/`}>
                   {({ isActive }) => (
                     <p className={isActive ? "nav-link" : "nav-link"}>
                       Cerrar sesión

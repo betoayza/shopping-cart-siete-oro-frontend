@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const initialForm = {
-  code: "",
+const initialForm = { 
   name: "",
   lastName: "",
   email: "",
@@ -46,11 +45,8 @@ const UserProfile = () => {
           console.log(res.data);
           if (res.data) {
             setUser(true);
-            setForm(res.data);
-            alert("Datos recibidos!");
-          } else {
-            alert("Sin datos :(");
-          }
+            setForm(res.data);            
+          } 
         })
         .catch((error) => error);
     };
@@ -71,8 +67,7 @@ const UserProfile = () => {
       },
       data: form,
       timeout: 3000,
-    };
-    console.log(form);
+    };    
 
     await axios
       .request(options)
@@ -94,16 +89,15 @@ const UserProfile = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleClean = (e) => {
-    setForm(initialForm);
-    setUser(false);
+  const handleClean = () => {
+    setForm(initialForm);    
   };
 
   return (
     <div>
       {user && (
         <>
-          <h2>Datos:</h2>
+          <h2>Mis datos:</h2>
           <div className="form-group w-25">
             <form onSubmit={handleSubmit}>
               <div className="row">
@@ -239,7 +233,7 @@ const UserProfile = () => {
                     className="btn btn-danger"
                     onClick={handleClean}
                   >
-                    Clean
+                    Limpiar
                   </button>
                 </div>
               </div>

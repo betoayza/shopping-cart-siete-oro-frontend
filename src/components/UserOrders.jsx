@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { OrdersTable } from "./OrdersTable";
+import { OrdersTableUser } from "./OrdersTableUser";
 import { useParams } from "react-router-dom";
 
 const UserOrders = () => {
@@ -28,11 +28,8 @@ const UserOrders = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setOrders(res.data);
-            alert("Pedidos encontrados!");
-          } else {
-            alert("Todavía no tiene pedidos hechos :(");
-          }
+            setOrders(res.data);            
+          } 
         })
         .catch((error) => error);
     };
@@ -40,9 +37,8 @@ const UserOrders = () => {
   }, []);
 
   return (
-    <div className="responsible-table" id="user-orders-div">
-      <h3>Todos sus pedidos:</h3>
-      {orders && <OrdersTable orders={orders} setOrders={setOrders}/>}
+    <div>      
+      {orders && <OrdersTableUser orders={orders} setOrders={setOrders}/>}
     </div>
   );
 };

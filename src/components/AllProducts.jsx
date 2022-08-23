@@ -24,7 +24,7 @@ const AllProducts = () => {
           console.log(res.data);
           if (res.data) {
             setProducts(res.data);
-          } else return;
+          } 
         })
         .catch((error) => error);
     };

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ProductTableRow = ({ product, handleUpdate, handleDelete }) => {
+export const ProductTableRow = ({ product, handleUpdate, handleDelete, handleActivate }) => {
   console.log(product.image, typeof product.image);
 
   const toBase64 = (arr) => {
@@ -39,6 +39,12 @@ export const ProductTableRow = ({ product, handleUpdate, handleDelete }) => {
             onClick={() => handleDelete(product.code)}
           >
             Borrar
+          </button>
+          <button
+            className="btn btn-success"
+            onClick={() => handleActivate(product.code)}
+          >
+            Activar
           </button>
         </td>
       </tr>
