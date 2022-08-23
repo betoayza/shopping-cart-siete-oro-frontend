@@ -5,9 +5,9 @@
   background-size: cover;
   } */
 
-  .bg-light.bg-gradient {
+  /* .bg-light.bg-gradient {
     background-image: var(--bs-gradient);
-  }
+  } */
 
 h1 {
   color: purple;
@@ -37,4 +37,13 @@ form {
 #login-reg-div {
   display: flex;
   justify-content: flex-end;  
+}
+
+td, th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+img {
+  border-radius: 0.5rem;
 }

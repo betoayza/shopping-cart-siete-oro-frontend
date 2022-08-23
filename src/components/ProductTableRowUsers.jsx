@@ -46,7 +46,6 @@ export const ProductTableRowUsers = ({ product, userCode }) => {
         <td>{product.description}</td>
         <td>{product.price}</td>
         <td>{product.stock}</td>
-        <td>{product.toBuy}</td>
         <td>
           <img
             src={"data:image/png;base64," + toBase64(product.image.data)}
@@ -56,7 +55,9 @@ export const ProductTableRowUsers = ({ product, userCode }) => {
           />
         </td>
         <td>
-          <button onClick={addToCart}>Agregar</button>
+          <button className={"btn btn-primary"} onClick={addToCart}>
+            Agregar
+          </button>
         </td>
       </tr>
     </>

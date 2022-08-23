@@ -36,7 +36,7 @@ export const ShoppingCartTable = ({
         .then((res) => {
           console.log(res);
           if (res.data) {
-            alert("Cantidad actualizada!");
+            //alert("Cantidad actualizada!");
           } 
         })
         .catch((error) => {
@@ -148,10 +148,10 @@ export const ShoppingCartTable = ({
         <table className="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Articulo</th>
+              <th scope="col">Item</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Precio</th>
-              <th scope="col">A comprar</th>
+              <th scope="col">A llevar</th>
               <th scope="col">Imagen</th>
               <th scope="col">Accion</th>
             </tr>
