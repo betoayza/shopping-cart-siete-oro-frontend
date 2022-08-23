@@ -30,7 +30,7 @@ export const SearchProductByCode = ({
           if (res.data) {
             setProduct(res.data);
             setFound(true);
-          } else return;
+          }
         })
         .catch((error) => error);
     };
@@ -44,7 +44,7 @@ export const SearchProductByCode = ({
   };
 
   return found ? (
-    <div>
+    <>
       {product && (
         <ProductsTable
           products={product}
@@ -55,13 +55,13 @@ export const SearchProductByCode = ({
       <button className={"btn btn-danger"} onClick={handleClose}>
         Close
       </button>
-    </div>
+    </>
   ) : (
-    <div>
+    <>
       <h3>No encontrado :(</h3>
       <button className={"btn btn-danger"} onClick={handleClose}>
         Close
       </button>
-    </div>
+    </>
   );
 };

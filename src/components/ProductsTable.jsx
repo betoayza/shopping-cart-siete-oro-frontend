@@ -6,6 +6,8 @@ import axios from "axios";
 import { SelectProductsCodes } from "./SelectProductsCodes";
 import { SearchProductByCode } from "./SearchProductByCode";
 import { AddProduct } from "./AddProduct";
+import { ActivateProduct } from "./ActivateProduct";
+import DeleteProduct from "./DeleteProduct";
 
 export const ProductsTable = ({
   products,
@@ -14,12 +16,12 @@ export const ProductsTable = ({
 }) => {
   const [modal, setModal] = useState(false);
   const [productCode, setProductCode] = useState(null);
-  const [productDelCode, setProductDelCode] = useState(null);
   const [modalSearchProduct, setModalSearchProduct] = useState(false);
   const [modalModifyProduct, setModalModifyProduct] = useState(false);
   const [showAddAndSearch, setShowAddAndSearch] = useState(addAndSearch);
   const [modalAddProduct, setModalAddProduct] = useState(false);
   const [modalActivateProduct, setModalActivateProduct] = useState(false);
+  const [modalDeleteProduct, setModalDeleteProduct] = useState(false);
 
   if (!Array.isArray(products)) {
     products = [products];
@@ -32,59 +34,10 @@ export const ProductsTable = ({
   };
 
   const handleDelete = (prodCode) => {
-    setProductDelCode(prodCode);
-  };
-
-  useEffect(() => {
-    const code = productDelCode;
-    const deleteProduct = async () => {
-      const options = {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-          timeout: 3000,
-        },
-        data: { code },
-      };
-
-      await axios
-        .delete("/api/admin/products/delete", options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            alert("Baja exitosa!");
-
-            const getAllProducts = async () => {
-              const options = {
-                url: "/api/products/all",
-                headers: {
-                  "Content-Type": "application/json",
-                  "Access-Control-Allow-Origin": "*",
-                  "Access-Control-Allow-Headers": "*",
-                  Accept: "application/json",
-                },
-                timeout: 3000,
-              };
-
-              await axios
-                .request(options)
-                .then((res) => {
-                  console.log(res.data);
-                  if (res.data) {
-                    setProducts(res.data);
-                  } else return;
-                })
-                .catch((error) => error);
-            };
-            getAllProducts();
-          } else return;
-        })
-        .catch((error) => error);
-    };
-    deleteProduct();
-  }, [productDelCode]);
+    setProductCode(prodCode);
+    setModal(true);
+    setModalDeleteProduct(true);
+  };  
 
   const handleAddProduct = () => {
     setModal(true);
@@ -127,6 +80,14 @@ export const ProductsTable = ({
           setModalActivateProduct={setModalActivateProduct}
         />
       )}
+      {modalDeleteProduct && (
+        <DeleteProduct
+          code={productCode}
+          setModal={setModal}
+          setModalDeleteProduct={setModalDeleteProduct}
+          setProducts={setProducts}
+        />
+      )}
     </Modal>
   ) : (
     <div>
@@ -143,7 +104,7 @@ export const ProductsTable = ({
         </div>
       )}
       <h3>Todos los productos:</h3>
-      <table id="products-table" className="table table-hover">
+      <table className="table table-light table-hover">
         <thead>
           <tr>
             <th scope="col">Codigo</th>
