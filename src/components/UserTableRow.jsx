@@ -22,13 +22,13 @@ export const UserTableRow = ({ user, handleDelete, handleActivate }) => {
               className="btn btn-danger"
               onClick={() => handleDelete(user.code)}
             >
-              Borrar
+              Bannear
             </button>
             <button
               className="btn btn-warning"
               onClick={() => handleActivate(user.code)}
             >
-              Activate
+              Activar
             </button>
           </>
         )}

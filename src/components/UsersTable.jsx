@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ActivateUser } from "./ActivateUser";
 import DeleteUser from "./DeleteUser";
 import { Modal } from "./Modal";
 import { UserTableRow } from "./UserTableRow";
@@ -7,6 +8,7 @@ export const UsersTable = ({ users, setUsers }) => {
   const [userCode, setUserCode] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
+  const [modalActivate, setModalActivate] = useState(false);
 
   if (!Array.isArray(users)) {
     users = [users];
@@ -15,6 +17,12 @@ export const UsersTable = ({ users, setUsers }) => {
   const handleDelete = (userCode) => {
     setModal(true);
     setModalDelete(true);
+    setUserCode(userCode);
+  };
+
+  const handleActivate = (userCode) => {
+    setModal(true);
+    setModalActivate(true);
     setUserCode(userCode);
   };
 
@@ -27,11 +35,18 @@ export const UsersTable = ({ users, setUsers }) => {
           setModalDelete={setModalDelete}
         />
       )}
+      {modalActivate && (
+        <ActivateUser
+          code={userCode}
+          setModal={setModal}
+          setModalActivate={setModalActivate}
+        />
+      )}
     </Modal>
   ) : (
     <div>
       <h1>Usuarios encontrados:</h1>
-      <table id="users-table" className="table table-hover table-light">
+      <table className="table table-hover table-light">
         <thead>
           <tr>
             <th scope="col">Codigo</th>
@@ -56,6 +71,7 @@ export const UsersTable = ({ users, setUsers }) => {
                   key={user._id}
                   user={user}
                   handleDelete={handleDelete}
+                  handleActivate={handleActivate}
                 />
               );
             })}
