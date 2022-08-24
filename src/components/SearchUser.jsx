@@ -22,14 +22,12 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
         .get("/api/admin/users/search", options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) {
-            setUser(res.data);
-          }
+          if (res.data) setUser(res.data);
         })
         .catch((error) => error);
     };
     getUser();
-  }, []);
+  }, [user]);
 
   const handleClose = () => {
     setModal(false);
