@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { OrdersTable } from "./OrdersTable";
 
-const OrderByCode = () => {
+export const OrderByCode = () => {
   const [order, setOrder] = useState(null);
   const [code, setCode] = useState("");
 
@@ -89,4 +89,4 @@ const OrderByCode = () => {
   );
 };
 
-export default OrderByCode;
+

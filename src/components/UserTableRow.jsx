@@ -16,21 +16,21 @@ export const UserTableRow = ({ user, handleDelete, handleActivate }) => {
       <td>{user.type}</td>
       <td>{user.status}</td>
       <td>
-        {user.type === "Estandar" && (
-          <>
-            <button
-              className="btn btn-danger"
-              onClick={() => handleDelete(user.code)}
-            >
-              Bannear
-            </button>
-            <button
-              className="btn btn-warning"
-              onClick={() => handleActivate(user.code)}
-            >
-              Activar
-            </button>
-          </>
+        {user.type === "Estandar" && user.status === "Activo" && (
+          <button
+            className="btn btn-danger"
+            onClick={() => handleDelete(user.code)}
+          >
+            Bannear
+          </button>
+        )}
+        {user.type === "Estandar" && user.status === "Banneado" && (
+          <button
+            className="btn btn-warning"
+            onClick={() => handleActivate(user.code)}
+          >
+            Activar
+          </button>
         )}
       </td>
     </tr>

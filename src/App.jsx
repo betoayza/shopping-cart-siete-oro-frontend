@@ -4,7 +4,7 @@ import * as Components from "./components/indexComponents";
 function App() {
   return (
     <div className={"bg-body text-secondary"}>
-      <BrowserRouter>        
+      <BrowserRouter>
         <div id="components-div">
           <Routes>
             <Route exact path="/" element={<Components.Home />} />
@@ -36,7 +36,7 @@ function App() {
             <Route
               exact
               path="/admin/users/code"
-              element={<Components.UserByCode />}
+              element={<Components.SearchUser />}
             />
 
             <Route

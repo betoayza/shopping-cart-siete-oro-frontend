@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { ActivateUser } from "./ActivateUser";
 import DeleteUser from "./DeleteUser";
 import { Modal } from "./Modal";
+import { SelectUsersCodes } from "./SelectUsersCodes";
+import { SearchUser } from "./SearchUser";
 import { UserTableRow } from "./UserTableRow";
 
-export const UsersTable = ({ users, setUsers }) => {
+export const UsersTable = ({ users, setUsers, showSearchUser = true }) => {
   const [userCode, setUserCode] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalActivate, setModalActivate] = useState(false);
+  const [modalSearchUser, setModalSearchUser] = useState(false);
 
   if (!Array.isArray(users)) {
     users = [users];
@@ -42,10 +45,27 @@ export const UsersTable = ({ users, setUsers }) => {
           setModalActivate={setModalActivate}
         />
       )}
+      {modalSearchUser && (
+        <SearchUser
+          code={userCode}
+          setModal={setModal}
+          setModalSearchUser={setModalSearchUser}
+        />
+      )}
     </Modal>
   ) : (
     <div>
-      <h1>Usuarios encontrados:</h1>
+      {showSearchUser && (
+        <>
+          <SelectUsersCodes
+            users={users}
+            setUserCode={setUserCode}
+            setModal={setModal}
+            setModalSearchUser={setModalSearchUser}
+          />
+        </>
+      )}
+      {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}
       <table className="table table-hover table-light">
         <thead>
           <tr>

@@ -5,7 +5,7 @@ import ShoppingCart from "./ShoppingCart";
 
 import { AllOrders } from "./AllOrders";
 import ReceivedOrders from "./ReceivedOrders";
-import OrderByCode from "./OrderByCode";
+import { OrderByCode } from "./OrderByCode";
 import UserOrders from "./UserOrders";
 import { UserOrderByCode } from "./UserOrderByCode";
 import DeleteOrder from "./DeleteOrder";
@@ -17,7 +17,7 @@ import { SearchProductByCode } from "./SearchProductByCode";
 import { AddProduct } from "./AddProduct";
 
 import { AllUsers } from "./AllUsers";
-import UserByCode from "./UserByCode";
+import {SearchUser} from "./SearchUser";
 import DeleteUser from "./DeleteUser";
 
 import SearchingBar from "./SearchingBar";
@@ -44,7 +44,7 @@ export {
   AddProduct,
   SearchProductByCode,
   AllUsers,
-  UserByCode,
+  SearchUser,
   DeleteUser,
   Error404,
   Login,

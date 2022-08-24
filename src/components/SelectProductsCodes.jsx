@@ -42,7 +42,7 @@ export const SelectProductsCodes = ({ setProductCode, setModal, setModalSearchPr
     <div>      
       <label>
         Buscar: {" "}
-      <select value={selected} onChange={handleChange}>
+      <select className={"form-select"} value={selected} onChange={handleChange}>
         <option value="">---</option>
         {products &&
           products.map((product) => (
