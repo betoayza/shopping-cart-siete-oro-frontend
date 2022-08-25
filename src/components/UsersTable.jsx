@@ -5,6 +5,8 @@ import { Modal } from "./Modal";
 import { SelectUsersCodes } from "./SelectUsersCodes";
 import { SearchUser } from "./SearchUser";
 import { UserTableRow } from "./UserTableRow";
+import MainAdmin from "./MainAdmin";
+
 
 export const UsersTable = ({ users, setUsers, showSearchUser = true }) => {
   const [userCode, setUserCode] = useState(null);
@@ -55,6 +57,7 @@ export const UsersTable = ({ users, setUsers, showSearchUser = true }) => {
     </Modal>
   ) : (
     <div>
+      <MainAdmin />
       {showSearchUser && (
         <>
           <SelectUsersCodes
@@ -64,7 +67,7 @@ export const UsersTable = ({ users, setUsers, showSearchUser = true }) => {
             setModalSearchUser={setModalSearchUser}
           />
         </>
-      )}
+      )}      
       {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}
       <table className="table table-hover table-light">
         <thead>

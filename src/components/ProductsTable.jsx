@@ -8,6 +8,7 @@ import { SearchProductByCode } from "./SearchProductByCode";
 import { AddProduct } from "./AddProduct";
 import { ActivateProduct } from "./ActivateProduct";
 import DeleteProduct from "./DeleteProduct";
+import MainAdmin from "./MainAdmin";
 
 export const ProductsTable = ({
   products,
@@ -91,6 +92,7 @@ export const ProductsTable = ({
     </Modal>
   ) : (
     <div>
+      <MainAdmin />
       {showAddAndSearch && (
         <div>
           <button className={"btn btn-success"} onClick={handleAddProduct}>

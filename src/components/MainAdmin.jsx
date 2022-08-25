@@ -1,9 +1,9 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const MainAdmin = () => {
   return (
-    <>
-      <h3>Admin</h3>
+    <>      
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
@@ -27,41 +27,35 @@ const MainAdmin = () => {
                   <a className="nav-link active" aria-current="page" href="/">
                     Home
                   </a>
+                </li>                
+
+                <li className="nav-item">
+                  <NavLink to="/products/all">
+                    {({ isActive }) => (
+                      <p
+                        className={
+                          isActive ? "nav-link active" : "nav-link active"
+                        }
+                      >
+                        Productos
+                      </p>
+                    )}
+                  </NavLink>
                 </li>
 
                 <li className="nav-item">
-                  <a className="nav-link active" href="/products/all">
-                    Productos
-                  </a>
-                </li>
-
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Usuarios
-                  </a>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
-                    <li>
-                      <a className="dropdown-item" href="/admin/users/all">
-                        Ver todos
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/admin/users/code">
-                        Buscar
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                  <NavLink to="/users/all">
+                    {({ isActive }) => (
+                      <p
+                        className={
+                          isActive ? "nav-link active" : "nav-link active"
+                        }
+                      >
+                        Usuarios
+                      </p>
+                    )}
+                  </NavLink>
+                </li>                
 
                 <li className="nav-item dropdown">
                   <a

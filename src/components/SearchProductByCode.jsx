@@ -35,7 +35,7 @@ export const SearchProductByCode = ({
         .catch((error) => error);
     };
     getProduct();
-  }, []);
+  }, [product]);
 
   const handleClose = () => {
     setModal(false);
