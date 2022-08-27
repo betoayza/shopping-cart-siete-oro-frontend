@@ -50,7 +50,7 @@ export const ProductsSearchingBar = ({ setModal, setModalSearchProduct }) => {
         value={term}
         placeholder={"Buscar..."}
         onChange={handleChange}
-        className={"form-control w-25"}
+        className={"form-control w-100"}
       />
       <br />
       {!term && (

@@ -1,6 +1,11 @@
 import React from "react";
 
-export const ProductTableRow = ({ product, handleUpdate, handleDelete, handleActivate }) => {
+export const ProductTableRow = ({
+  product,
+  handleUpdate,
+  handleDelete,
+  handleActivate,
+}) => {
   console.log(product.image, typeof product.image);
 
   const toBase64 = (arr) => {
@@ -34,18 +39,22 @@ export const ProductTableRow = ({ product, handleUpdate, handleDelete, handleAct
           >
             Editar
           </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => handleDelete(product.code)}
-          >
-            Borrar
-          </button>
-          <button
-            className="btn btn-success"
-            onClick={() => handleActivate(product.code)}
-          >
-            Activar
-          </button>
+          {product.status === "Activo" && (
+            <button
+              className="btn btn-danger"
+              onClick={() => handleDelete(product.code)}
+            >
+              Borrar
+            </button>
+          )}
+          {product.status === "Dado de baja" && (
+            <button
+              className="btn btn-success"
+              onClick={() => handleActivate(product.code)}
+            >
+              Activar
+            </button>
+          )}
         </td>
       </tr>
     </>

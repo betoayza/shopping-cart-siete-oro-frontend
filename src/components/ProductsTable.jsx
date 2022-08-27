@@ -96,9 +96,9 @@ export const ProductsTable = ({
     </Modal>
   ) : (
     <div>
-      {modal===true && <MainAdmin />}
       {showAddAndSearch && (
         <div>
+          <MainAdmin />
           <button className={"btn btn-success"} onClick={handleAddProduct}>
             Add
           </button>
@@ -109,34 +109,36 @@ export const ProductsTable = ({
       )}
 
       {products.length == 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
-      <table className={"table table-light table-hover"}>
-        <thead>
-          <tr>
-            <th scope="col">Codigo</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Foto</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Accion</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products &&
-            products.map((product) => {
-              return (
-                <ProductTableRow
-                  key={product._id}
-                  product={product}
-                  handleUpdate={handleUpdate}
-                  handleDelete={handleDelete}
-                  handleActivate={handleActivate}
-                />
-              );
-            })}
-        </tbody>
-      </table>
+      <div className={"table-responsive"}>
+        <table className={"table table-light table-hover"}>
+          <thead>
+            <tr>
+              <th scope="col">Codigo</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Foto</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Accion</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products &&
+              products.map((product) => {
+                return (
+                  <ProductTableRow
+                    key={product._id}
+                    product={product}
+                    handleUpdate={handleUpdate}
+                    handleDelete={handleDelete}
+                    handleActivate={handleActivate}
+                  />
+                );
+              })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
