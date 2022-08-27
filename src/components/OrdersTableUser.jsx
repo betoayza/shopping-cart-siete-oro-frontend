@@ -15,6 +15,7 @@ export const OrdersTableUser = ({ orders, setOrders }) => {
   return (
     <div>
       <h1>Mis pedidos:</h1>
+      
       <table classNa me="table table-hover">
         <thead>
           <tr>

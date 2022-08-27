@@ -44,7 +44,7 @@ const MainAdmin = () => {
                 </li>
 
                 <li className="nav-item">
-                  <NavLink to="/users/all">
+                  <NavLink to="/admin/users/all">
                     {({ isActive }) => (
                       <p
                         className={

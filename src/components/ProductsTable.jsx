@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { ProductTableRow } from "./ProductTableRow";
 import { ModifyProduct } from "./ModifyProduct";
 import { Modal } from "./Modal";
-import axios from "axios";
 import { SelectProductsCodes } from "./SelectProductsCodes";
 import { SearchProductByCode } from "./SearchProductByCode";
 import { AddProduct } from "./AddProduct";
 import { ActivateProduct } from "./ActivateProduct";
 import DeleteProduct from "./DeleteProduct";
 import MainAdmin from "./MainAdmin";
+import { ProductsSearchingBar } from "./ProductsSearchingBar";
 
 export const ProductsTable = ({
   products,
@@ -38,7 +38,7 @@ export const ProductsTable = ({
     setProductCode(prodCode);
     setModal(true);
     setModalDeleteProduct(true);
-  };  
+  };
 
   const handleAddProduct = () => {
     setModal(true);
@@ -51,6 +51,11 @@ export const ProductsTable = ({
     setModalActivateProduct(true);
   };
 
+  const handleSearchProduct = () => {
+    setModal(true);
+    setModalSearchProduct(true);
+  };
+
   return modal ? (
     <Modal>
       {modalModifyProduct && (
@@ -61,8 +66,7 @@ export const ProductsTable = ({
         />
       )}
       {modalSearchProduct && (
-        <SearchProductByCode
-          code={productCode}
+        <ProductsSearchingBar
           setModal={setModal}
           setModalSearchProduct={setModalSearchProduct}
         />
@@ -92,21 +96,20 @@ export const ProductsTable = ({
     </Modal>
   ) : (
     <div>
-      <MainAdmin />
+      {modal===true && <MainAdmin />}
       {showAddAndSearch && (
         <div>
           <button className={"btn btn-success"} onClick={handleAddProduct}>
             Add
           </button>
-          <SelectProductsCodes
-            setProductCode={setProductCode}
-            setModal={setModal}
-            setModalSearchProduct={setModalSearchProduct}
-          />
+          <button className={"btn btn-primary"} onClick={handleSearchProduct}>
+            Buscar
+          </button>
         </div>
       )}
-      <h3>Todos los productos:</h3>
-      <table className="table table-light table-hover">
+
+      {products.length == 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
+      <table className={"table table-light table-hover"}>
         <thead>
           <tr>
             <th scope="col">Codigo</th>

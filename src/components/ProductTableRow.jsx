@@ -22,8 +22,8 @@ export const ProductTableRow = ({ product, handleUpdate, handleDelete, handleAct
           <img
             src={"data:image/png;base64," + toBase64(product.image.data)}
             alt="Producto"
-            height={200}
-            width={300}
+            height={150}
+            width={200}
           />
         </td>
         <td>{product.status}</td>

@@ -13,9 +13,9 @@ h1 {
   color: purple;
 }
 
-/* div {
-  border: 2px solid;  
-} */
+div {
+  border: 2px solid;    
+}
 
 form {
   width: 450px;
@@ -23,12 +23,12 @@ form {
   place-items: center;
 }
 
-#components-div {
+/* #components-div {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto auto;
   place-items: center;
-}
+} */
 
 /* .searching-bar-div {
   /* color: aqua;   */
@@ -46,4 +46,11 @@ td, th {
 
 img {
   border-radius: 0.5rem;
+}
+
+#searching-bar-product-div {
+  display: grid;
+  place-items: center;
+  border-color: aqua;
+  max-height: 100vh;
 }

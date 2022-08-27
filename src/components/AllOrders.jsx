@@ -21,15 +21,14 @@ export const AllOrders = () => {
         .get("/api/admin/orders/all", options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) {
-            setOrders(res.data);
-            alert("Pedidos encontrados!");
-          } else alert("Aun no hay pedidos :(");
+          if (res.data) setOrders(res.data);
         })
         .catch((error) => error);
     };
     getAllOrders();
   }, []);
 
-  return <div>{orders && <OrdersTable orders={orders} setOrders={setOrders} />}</div>;
+  return (
+    <div>{orders && <OrdersTable orders={orders} setOrders={setOrders} />}</div>
+  );
 };
