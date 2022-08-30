@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { useNavigate, NavLink, useParams } from "react-router-dom";
-import { UserProfile } from "./indexComponents";
+import React from "react";
 import SearchingBar from "./SearchingBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +10,7 @@ const MainUser = () => {
   console.log(code);
 
   return (
-    <div>
+    <>
       <SearchingBar userCode={code} />
       <h2>Elija su opción:</h2>
       {/* la que va */}
@@ -90,7 +88,7 @@ const MainUser = () => {
       {/* <Routes>
         <Route exact path="/user/profile/:code" element={<UserProfile />} />
       </Routes> */}
-    </div>
+    </>
   );
 };
 

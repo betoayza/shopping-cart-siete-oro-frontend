@@ -19,7 +19,7 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
       };
 
       await axios
-        .get("/api/admin/users/search", options)
+        .get("/api/admin/users/search/one", options)
         .then((res) => {
           console.log(res.data);
           if (res.data) setUser(res.data);
@@ -37,7 +37,11 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
   return (
     user && (
       <>
-        <UsersTable users={user} setUsers={setUser} showSearchUser={false} />
+        <UsersTable
+          users={user}
+          setUsers={setUser}
+          showSearchUserAndAdminNavBar={false}
+        />
         <button className="btn btn-danger" onClick={handleClose}>
           Cerrar
         </button>

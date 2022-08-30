@@ -99,10 +99,10 @@ export const ProductsTable = ({
       {showAddAndSearch && (
         <div>
           <MainAdmin />
-          <button className={"btn btn-success"} onClick={handleAddProduct}>
+          <button className={"btn btn-success w-10"} onClick={handleAddProduct}>
             Add
           </button>
-          <button className={"btn btn-primary"} onClick={handleSearchProduct}>
+          <button className={"btn btn-primary w-10"} onClick={handleSearchProduct}>
             Buscar
           </button>
         </div>

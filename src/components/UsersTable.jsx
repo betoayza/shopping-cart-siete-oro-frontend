@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import { ActivateUser } from "./ActivateUser";
 import DeleteUser from "./DeleteUser";
 import { Modal } from "./Modal";
-import { SelectUsersCodes } from "./SelectUsersCodes";
-import { SearchUser } from "./SearchUser";
 import { UserTableRow } from "./UserTableRow";
 import MainAdmin from "./MainAdmin";
+import { UsersSearchingBar } from "./UsersSearchingBar";
 
-export const UsersTable = ({ users, setUsers, showSearchUser = true }) => {
+export const UsersTable = ({
+  users,
+  setUsers,
+  showSearchUserAndAdminNavBar = true,
+}) => {
   const [userCode, setUserCode] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalActivate, setModalActivate] = useState(false);
-  const [modalSearchUser, setModalSearchUser] = useState(false);
+  const [modalSearchUsers, setModalSearchUsers] = useState(false);
+  const [usersFound, setUsersFound] = useState(null);
 
   if (!Array.isArray(users)) {
     users = [users];
@@ -28,6 +32,11 @@ export const UsersTable = ({ users, setUsers, showSearchUser = true }) => {
     setModal(true);
     setModalActivate(true);
     setUserCode(userCode);
+  };
+
+  const handleSearchUsers = () => {
+    setModal(true);
+    setModalSearchUsers(true);
   };
 
   return modal ? (
@@ -46,25 +55,27 @@ export const UsersTable = ({ users, setUsers, showSearchUser = true }) => {
           setModalActivate={setModalActivate}
         />
       )}
-      {modalSearchUser && (
-        <SearchUser
-          code={userCode}
+      {modalSearchUsers && (
+        <UsersSearchingBar
+          users={usersFound}
+          setUsers={setUsersFound}
           setModal={setModal}
-          setModalSearchUser={setModalSearchUser}
+          setModalSearchUsers={setModalSearchUsers}
         />
       )}
     </Modal>
   ) : (
     <div>
-      <MainAdmin />
-      {showSearchUser && (
+      {showSearchUserAndAdminNavBar && (
         <>
-          <SelectUsersCodes
-            users={users}
-            setUserCode={setUserCode}
-            setModal={setModal}
-            setModalSearchUser={setModalSearchUser}
-          />
+          <MainAdmin />
+          <button
+            type={"button"}
+            className={"btn btn-primary"}
+            onClick={handleSearchUsers}
+          >
+            Buscar
+          </button>
         </>
       )}
       {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}

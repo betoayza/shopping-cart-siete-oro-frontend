@@ -38,7 +38,7 @@ const Login = () => {
       .request(options)
       .then((res) => {
         console.log(res.data);
-        if (res.data) {                
+        if (res.data) {
           //case generic user
           if (res.data.type === "Estandar") {
             const uri = `/user/${res.data.code}`;
@@ -59,49 +59,37 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div>
       <h2>Login</h2>
-      <div className="form-group w-25">
+      
         <form onSubmit={handleSubmit}>
-          <div className="row">
-            <input
-              type="text"
-              className="form-control"
-              name="data"
-              placeholder="Email o usuario..."
-              value={form.data}
-              onChange={handleChange}
-            />
-          </div>
+          <input
+            type="text"
+            className="form-control"
+            name="data"
+            placeholder="Email o usuario..."
+            value={form.data}
+            onChange={handleChange}
+          />
 
-          <div className="row">
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              placeholder="Password..."
-              value={form.password}
-              onChange={handleChange}
-            />
-          </div>
+          <input
+            type="password"
+            className="form-control"
+            name="password"
+            placeholder="Password..."
+            value={form.password}
+            onChange={handleChange}
+          />
 
-          <div className="row">
-            <div className="col-12">
-              <button type="submit" className="btn btn-primary">
-                Entrar
-              </button>
-              <button
-                type="reset"
-                className="btn btn-danger"
-                onClick={handleClean}
-              >
-                Limpiar
-              </button>
-            </div>
-          </div>
+          <button type="submit" className="btn btn-primary">
+            Entrar
+          </button>
+          <button type="reset" className="btn btn-danger" onClick={handleClean}>
+            Limpiar
+          </button>
         </form>
-      </div>
-    </>
+      
+    </div>
   );
 };
 
