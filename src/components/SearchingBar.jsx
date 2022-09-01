@@ -1,87 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-import { ProductsTableUsers } from "./ProductsTableUsers";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const SearchingBar = ({ userCode }) => {
-  const [products, setProducts] = useState("");
-  const [name, setName] = useState("");
+const SearchingBar = ({
+  term = "",
+  setTerm,
+  setProducts,
+  setModal,
+  setModalSearchProducts,
+}) => {  
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const getProducts = async () => {
+      const options = {
+        url: "/api/products/get",
 
-    const options = {
-      url: "/api/products/get",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          timeout: 3000,
+        },
+        params: { term },
+      };
 
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-        timeout: 3000,
-      },
-      params: { name },
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            setProducts(res.data);
+            setModal(true);
+            setModalSearchProducts(true);
+          } else {
+            setProducts(null);
+            setModal(false);
+            setModalSearchProducts(false);
+          }
+        })
+        .catch((error) => error);
     };
+    if(term !== "") getProducts();
+  }, [term]);
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          setProducts(res.data);
-        } else {
-          alert("Sin coincidencias :(");
-        }
-      })
-      .catch((error) => error);
-    //navigate("/products-founded", { state: { data } });
-  };
-
-  //Only controls typing
   const handleChange = (e) => {
-    setName(e.target.value);
-    console.log("Tipeado: ", e.target.value);
+    console.log(e.target.value);
+    setTerm(e.target.value);
   };
 
   return (
     <>
-      <div className="text-center searching-bar-div">
+      <div className={"text-center searching-bar-div"}>
         <h1>Panadería Siete de Oro</h1>
-        <div className="d-flex justify-content-center">
-          <form onSubmit={handleSubmit}>
-            <div className="row ">
-              <div className="col-md-9">
-                <input
-                  className="form-control"
-                  name="producto"
-                  value={name}
-                  placeholder="¿Qué está buscando?..."
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="col-md-2">
-                <button
-                  className="btn btn-success"
-                  type="button"
-                  onClick={handleSubmit}
-                >
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </button>
-              </div>
-            </div>
-          </form>
+        <div className={"d-flex justify-content-center"}>
+          <input
+            className={"form-control w-25"}
+            value={term}
+            placeholder={"¿Qué está buscando?..."}
+            onChange={handleChange}
+          />
         </div>
-        <br />
       </div>
-
-      {products && (
-        <ProductsTableUsers
-          products={products}
-          setProducts={setProducts}
-          userCode={userCode}
-        />
-      )}
     </>
   );
 };

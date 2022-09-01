@@ -1,21 +1,26 @@
 import React from "react";
 import { ProductTableRowUsers } from "./ProductTableRowUsers";
 
-export const ProductsTableUsers = ({ products, setProducts, userCode }) => {
+export const ProductsTableUsers = ({
+  products,
+  setProducts,
+  userCode,
+  showSearchingBar = true,
+}) => {
   if (!Array.isArray(products)) {
     products = [products];
-  }  
+  }
 
   return (
     <div>
-      <h3>Productos encontrados:</h3>
+      {products.length === 1 ? <h3>Producto:</h3> : <h3>Productos:</h3>}
       <table id="products-table" className="table table-hover">
         <thead>
           <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Descripcion</th>
             <th scope="col">Precio</th>
-            <th scope="col">Disponibles</th>           
+            <th scope="col">Disponibles</th>
             <th scope="col">Foto</th>
             <th scope="col">Accion</th>
           </tr>
@@ -32,7 +37,7 @@ export const ProductsTableUsers = ({ products, setProducts, userCode }) => {
               );
             })}
         </tbody>
-      </table>      
+      </table>
     </div>
   );
 };

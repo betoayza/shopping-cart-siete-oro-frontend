@@ -6,7 +6,8 @@ export const ProductTableRow = ({
   handleDelete,
   handleActivate,
 }) => {
-  console.log(product.image, typeof product.image);
+  //console.log(product.image, typeof product.image);
+  console.log(product);
 
   const toBase64 = (arr) => {
     //arr = new Uint8Array(arr) if it's an ArrayBuffer

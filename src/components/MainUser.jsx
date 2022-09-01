@@ -1,19 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchingBar from "./SearchingBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { useParams, NavLink } from "react-router-dom";
+import { Modal } from "./Modal";
+import { ProductsTableUsers } from "./ProductsTableUsers";
 
 const MainUser = () => {
+  const [modal, setModal] = useState(false);
+  const [modalSearchProducts, setModalSearchProducts] = useState(false);
+  const [products, setProducts] = useState(null);
+  const [term, setTerm] = useState("");
   const params = useParams();
   const { code } = params;
-
   console.log(code);
 
-  return (
+  const handleClose = () => {
+    setModal(false);
+    setModalSearchProducts(false);
+  };
+
+  return modal ? (
+    <Modal>
+      {modalSearchProducts && (
+        <>
+          <SearchingBar
+            term={term}
+            setTerm={setTerm}
+            setProducts={setProducts}
+            setModal={setModal}
+            setModalSearchProducts={setModalSearchProducts}
+          />
+          <ProductsTableUsers
+            products={products}
+            setProducts={setProducts}
+            userCode={code}
+            showSearchingBar={false}
+          />
+          <button
+            type={"button"}
+            onClick={handleClose}
+            className={"btn btn-danger"}
+          >
+            Cerrar
+          </button>
+        </>
+      )}
+    </Modal>
+  ) : (
     <>
-      <SearchingBar userCode={code} />
+      <SearchingBar
+        term={term}
+        setTerm={setTerm}
+        setProducts={setProducts}
+        setModal={setModal}
+        setModalSearchProducts={setModalSearchProducts}
+      />
       <h2>Elija su opción:</h2>
-      {/* la que va */}
+
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">

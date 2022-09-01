@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ProductTableRow } from "./ProductTableRow";
 import { ModifyProduct } from "./ModifyProduct";
 import { Modal } from "./Modal";
-import { SelectProductsCodes } from "./SelectProductsCodes";
-import { SearchProductByCode } from "./SearchProductByCode";
 import { AddProduct } from "./AddProduct";
 import { ActivateProduct } from "./ActivateProduct";
 import DeleteProduct from "./DeleteProduct";
@@ -95,7 +93,7 @@ export const ProductsTable = ({
       )}
     </Modal>
   ) : (
-    <div>
+    <>
       {showAddAndSearch && (
         <div>
           <MainAdmin />
@@ -108,7 +106,7 @@ export const ProductsTable = ({
         </div>
       )}
 
-      {products.length == 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
+      {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
       <div className={"table-responsive"}>
         <table className={"table table-light table-hover"}>
           <thead>
@@ -139,6 +137,6 @@ export const ProductsTable = ({
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   );
 };

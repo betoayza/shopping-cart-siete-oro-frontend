@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const MainAdmin = () => {
   return (
-    <>      
+    <>
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
@@ -27,7 +27,7 @@ const MainAdmin = () => {
                   <a className="nav-link active" aria-current="page" href="/">
                     Home
                   </a>
-                </li>                
+                </li>
 
                 <li className="nav-item">
                   <NavLink to="/products/all">
@@ -55,39 +55,34 @@ const MainAdmin = () => {
                       </p>
                     )}
                   </NavLink>
-                </li>                
+                </li>
 
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Pedidos
-                  </a>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdownMenuLink"
-                  >
-                    <li>
-                      <a className="dropdown-item" href="/admin/orders/all">
-                        Ver Todos
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/admin/orders/code">
-                        Por Usuario
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/admin/orders/code">
-                        Entregados
-                      </a>
-                    </li>
-                  </ul>
+                <li className="nav-item">
+                  <NavLink to="/admin/orders/all">
+                    {({ isActive }) => (
+                      <p
+                        className={
+                          isActive ? "nav-link active" : "nav-link active"
+                        }
+                      >
+                        Pedidos
+                      </p>
+                    )}
+                  </NavLink>
+                </li>
+
+                <li className="nav-item">
+                  <NavLink to="/">
+                    {({ isActive }) => (
+                      <p
+                        className={
+                          isActive ? "nav-link active" : "nav-link active"
+                        }
+                      >
+                        Cerrar Sesión
+                      </p>
+                    )}
+                  </NavLink>
                 </li>
               </ul>
             </div>

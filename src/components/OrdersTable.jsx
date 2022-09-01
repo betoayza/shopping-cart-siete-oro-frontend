@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Modal } from "./Modal";
 import { OrderTableRow } from "./OrderTableRow";
 import { ProductsTable } from "./ProductsTable";
+import { SearchingBarOrders } from "./SearchingBarOrders";
 import { SearchUser } from "./SearchUser";
-import { SelectOrdersCodes } from "./SelectOrdersCodes";
 
-export const OrdersTable = ({ orders, setOrders }) => {
+export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
   const [orderCode, setOrderCode] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalSearchOrder, setModalSearchOrder] = useState(false);
@@ -28,12 +28,18 @@ export const OrdersTable = ({ orders, setOrders }) => {
     setModal(true);
     setModalSeeProducts(true);
     setProducts(products);
+    console.log(products);
   };
 
   const handleClose = () => {
     setModal(false);
     setModalSeeProducts(false);
     setProducts(null);
+  };
+
+  const handleSearchOrder = () => {
+    setModal(true);
+    setModalSearchOrder(true);
   };
 
   return modal ? (
@@ -57,14 +63,20 @@ export const OrdersTable = ({ orders, setOrders }) => {
           setModalSearchUser={setModalSearchUser}
         />
       )}
+      {modalSearchOrder && (
+        <SearchingBarOrders
+          setModal={setModal}
+          setModalSearchOrder={setModalSearchOrder}
+        />
+      )}
     </Modal>
   ) : (
     <>
-      <SelectOrdersCodes
-        setOrderCode={setOrderCode}
-        setModal={setModal}
-        setModalSearchOrder={setModalSearchOrder}
-      />
+      {showSearchingBar && (
+        <button className={"btn btn-success w-10"} onClick={handleSearchOrder}>
+          Buscar
+        </button>
+      )}
       {orders.length === 1 ? <h3>Pedido:</h3> : <h3>Pedidos:</h3>}
 
       <div className={"table-responsive"}>
