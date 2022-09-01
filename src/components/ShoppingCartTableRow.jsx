@@ -27,6 +27,7 @@ export const ShoppingCartTableRow = ({
       <td>
         <input
           type="number"
+          className={"form-control"}
           style={{ width: "80px" }}
           max={product.stock}
           min={1}

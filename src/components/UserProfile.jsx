@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Modal } from "./Modal";
 
-const initialForm = { 
+const initialForm = {
   name: "",
   lastName: "",
   email: "",
@@ -12,14 +13,15 @@ const initialForm = {
   neighborhood: "",
   phone: "",
   zip: "",
-  status: "Activo",
 };
 
 const UserProfile = () => {
   const [form, setForm] = useState(initialForm);
-  const [user, setUser] = useState(false);
-  const params = useParams();
+  const [modal, setModal] = useState(false);
+  const [error, setError] = useState(false);
+  const [updated, setUpdated] = useState(false);
 
+  const params = useParams();
   console.log(params);
   const { code } = params;
   console.log(code);
@@ -27,7 +29,7 @@ const UserProfile = () => {
   useEffect(() => {
     const getUser = async () => {
       const options = {
-        url: "/api/admin/users/search",
+        url: "/api/admin/users/search/one",
 
         headers: {
           "Content-Type": "application/json",
@@ -44,14 +46,13 @@ const UserProfile = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setUser(true);
             setForm(res.data);            
-          } 
+          }
         })
         .catch((error) => error);
     };
     getUser();
-  }, []);
+  }, [updated]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,180 +68,164 @@ const UserProfile = () => {
       },
       data: form,
       timeout: 3000,
-    };    
+    };
 
     await axios
       .request(options)
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          alert("Datos actualizados!");
+          setModal(true);
+          setUpdated(true);                 
         } else {
-          alert("Error en la actualización :(");
+          setModal(true);
+          setError(true);
+          setUpdated(false);
         }
       })
       .catch((error) => {
         console.error(error);
-      });
-    handleClean();
+      });    
   };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleClean = () => {
-    setForm(initialForm);    
+  // const handleClean = () => {
+  //   setForm(initialForm);
+  // };
+
+  const handleClose = () => {
+    setModal(false);
+    setError(false);
+    setUpdated(false);
   };
 
-  return (
-    <div>
-      {user && (
-        <>
-          <h2>Mis datos:</h2>
-          <div className="form-group w-25">
-            <form onSubmit={handleSubmit}>
-              <div className="row">
-                <input
-                  type="hidden"
-                  className="form-control"
-                  name="code"
-                  value={code}
-                />
-              </div>
-              <div className="row">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="name"
-                  placeholder="Nombre..."
-                  value={form.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="row">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="lastName"
-                  placeholder="Apellido..."
-                  value={form.lastName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+  return error ? (
+    <Modal>
+      <h3>Actualización fallida :(</h3>
+      <button className="btn btn-danger" onClick={handleClose}>
+        Cerrar
+      </button>
+    </Modal>
+  ) : updated ? (
+    <Modal>
+      <h3>Actualizado! ;)</h3>
+      <button className="btn btn-danger" onClick={handleClose}>
+        Cerrar
+      </button>
+    </Modal>
+  ) : (
+    <div className={"general-div"}>
+      <h2>Mis datos:</h2>
+      <div className={"form-group w-50"}>
+        <form onSubmit={handleSubmit}>
+          <input
+            type={"hidden"}
+            className={"form-control w-75"}
+            name={"code"}
+            value={code}
+          />
 
-              <div className="row">
-                <input
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  placeholder="Email..."
-                  value={form.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+          <input
+            type="text"
+            className="form-control"
+            name="name"
+            placeholder="Nombre..."
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="row">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  placeholder="Username..."
-                  value={form.username}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+          <input
+            type="text"
+            className="form-control"
+            name="lastName"
+            placeholder="Apellido..."
+            value={form.lastName}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="row">
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  placeholder="Password"
-                  value={form.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+          <input
+            type="email"
+            className="form-control"
+            name="email"
+            placeholder="Email..."
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="row">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="address"
-                  placeholder="Direccion..."
-                  value={form.address}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+          <input
+            type="text"
+            className="form-control"
+            name="username"
+            placeholder="Username..."
+            value={form.username}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="row">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="neighborhood"
-                  placeholder="Barrio..."
-                  value={form.neighborhood}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+          <input
+            type="password"
+            className="form-control"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="row">
-                <input
-                  type="phone"
-                  className="form-control"
-                  name="phone"
-                  placeholder="Tel..."
-                  value={form.phone}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+          <input
+            type="text"
+            className="form-control"
+            name="address"
+            placeholder="Direccion..."
+            value={form.address}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="row">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="zip"
-                  placeholder="CP..."
-                  value={form.zip}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+          <input
+            type="text"
+            className="form-control"
+            name="neighborhood"
+            placeholder="Barrio..."
+            value={form.neighborhood}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="row">
-                <input
-                  type="hidden"
-                  className="form-control"
-                  name={form.status}
-                />
-              </div>
+          <input
+            type="phone"
+            className="form-control"
+            name="phone"
+            placeholder="Tel..."
+            value={form.phone}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="row">
-                <div className="col-12">
-                  <button type="submit" className="btn btn-primary">
-                    Actualizar
-                  </button>
-                  <button
-                    type="reset"
-                    className="btn btn-danger"
-                    onClick={handleClean}
-                  >
-                    Limpiar
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </>
-      )}
+          <input
+            type="text"
+            className="form-control"
+            name="zip"
+            placeholder="CP..."
+            value={form.zip}
+            onChange={handleChange}
+            required
+          />
+
+          <button type="submit" className="btn btn-primary">
+            Actualizar
+          </button>
+          {/* <button type="reset" className="btn btn-danger" onClick={handleClean}>
+            Cerrar
+          </button> */}
+        </form>
+      </div>
     </div>
   );
 };

@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ShoppingCartTableRow } from "./ShoppingCartTableRow";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
 export const ShoppingCartTable = ({
@@ -50,6 +48,7 @@ export const ShoppingCartTable = ({
     //console.log("fasdasd: ", toBuy, itemIndex);
     setToBuy(toBuy);
     setItemIndex(itemIndex);
+    handle
   };
 
   const handlePurchase = async () => {

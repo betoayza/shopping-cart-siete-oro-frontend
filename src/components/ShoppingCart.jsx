@@ -26,11 +26,8 @@ const ShoppingCart = () => {
         .request(options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) {
-            setShoppingCart(res.data);            
-          } else {
-            alert("Carrito vacío :(");
-          }
+          if (res.data) setShoppingCart(res.data);
+          else setShoppingCart(null);
         })
         .catch((error) => {
           console.error(error);
@@ -39,17 +36,21 @@ const ShoppingCart = () => {
     getShoppingCart(userCode);
   }, []);
 
-  return (
+  return shoppingCart ? (
     <>
       <h1>Mi carrito</h1>
-      {console.log(shoppingCart)}
-      {shoppingCart && (
-        <ShoppingCartTable
-          shoppingCart={shoppingCart}
-          setShoppingCart={setShoppingCart}
-          userCode={userCode}
-        />
-      )}
+      <ShoppingCartTable
+        shoppingCart={shoppingCart}
+        setShoppingCart={setShoppingCart}
+        userCode={userCode}
+      />
+    </>
+  ) : (
+    <>
+      <h3>Carrito Vacío :(</h3>
+      {/* <button type="button" className={"btn btn-danger"} onClick={handleClose}>
+        Close
+      </button> */}
     </>
   );
 };

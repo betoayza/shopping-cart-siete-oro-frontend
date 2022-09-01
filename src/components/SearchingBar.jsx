@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 
+
 const SearchingBar = ({
   term = "",
   setTerm,
   setProducts,
   setModal,
   setModalSearchProducts,
-}) => {  
-
+}) => {
   useEffect(() => {
     const getProducts = async () => {
       const options = {
@@ -40,7 +40,7 @@ const SearchingBar = ({
         })
         .catch((error) => error);
     };
-    if(term !== "") getProducts();
+    if (term !== "") getProducts();
   }, [term]);
 
   const handleChange = (e) => {
@@ -52,14 +52,13 @@ const SearchingBar = ({
     <>
       <div className={"text-center searching-bar-div"}>
         <h1>Panadería Siete de Oro</h1>
-        <div className={"d-flex justify-content-center"}>
-          <input
-            className={"form-control w-25"}
-            value={term}
-            placeholder={"¿Qué está buscando?..."}
-            onChange={handleChange}
-          />
-        </div>
+
+        <input
+          className={"form-control w-50"}
+          value={term}
+          placeholder={"¿Qué está buscando?..."}
+          onChange={handleChange}
+        />
       </div>
     </>
   );

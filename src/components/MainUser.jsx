@@ -23,7 +23,7 @@ const MainUser = () => {
   return modal ? (
     <Modal>
       {modalSearchProducts && (
-        <>
+        <div className={"searching-bar-div table-responsive"}>
           <SearchingBar
             term={term}
             setTerm={setTerm}
@@ -44,7 +44,7 @@ const MainUser = () => {
           >
             Cerrar
           </button>
-        </>
+        </div>
       )}
     </Modal>
   ) : (
