@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { OrderTableRowUser } from "./OrderTableRowUser";
+// import { useParams } from "react-router-dom";
 
 export const OrdersTableUser = ({ orders, setOrders }) => {
   const [orderProducts, setOrderProducts] = useState(null);
+  // const params = useParams();
+  // const { userCode } = params;
 
   if (!Array.isArray(orders)) {
     orders = [orders];
@@ -13,10 +16,11 @@ export const OrdersTableUser = ({ orders, setOrders }) => {
   };
 
   return (
-    <div>
-      <h1>Mis pedidos:</h1>
+    <div>    
 
-      <table classNa me="table table-hover">
+      <h2>Mis pedidos:</h2>
+
+      <table className={"table table-hover"}>
         <thead>
           <tr>
             <th scope="col">Codigo</th>

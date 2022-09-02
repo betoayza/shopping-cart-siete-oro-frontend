@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ShoppingCartTable } from "./ShoppingCartTable";
 import { useParams } from "react-router-dom";
+import { NavBarUser } from "./NavBarUser";
 
 const ShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState(null);
@@ -38,7 +39,10 @@ const ShoppingCart = () => {
 
   return shoppingCart ? (
     <>
-      <h1>Mi carrito</h1>
+      <NavBarUser code={userCode} />
+      {console.log(userCode)}
+
+      <h2>Mi carrito</h2>
       <ShoppingCartTable
         shoppingCart={shoppingCart}
         setShoppingCart={setShoppingCart}
@@ -47,6 +51,8 @@ const ShoppingCart = () => {
     </>
   ) : (
     <>
+      <NavBarUser code={userCode} />
+      {console.log(userCode)}
       <h3>Carrito Vacío :(</h3>
       {/* <button type="button" className={"btn btn-danger"} onClick={handleClose}>
         Close

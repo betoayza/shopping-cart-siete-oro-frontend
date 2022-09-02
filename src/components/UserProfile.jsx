@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Modal } from "./Modal";
+import { NavBarUser } from "./NavBarUser";
 
 const initialForm = {
   name: "",
@@ -46,7 +47,7 @@ const UserProfile = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setForm(res.data);            
+            setForm(res.data);
           }
         })
         .catch((error) => error);
@@ -76,7 +77,7 @@ const UserProfile = () => {
         console.log(res.data);
         if (res.data) {
           setModal(true);
-          setUpdated(true);                 
+          setUpdated(true);
         } else {
           setModal(true);
           setError(true);
@@ -85,7 +86,7 @@ const UserProfile = () => {
       })
       .catch((error) => {
         console.error(error);
-      });    
+      });
   };
 
   const handleChange = (e) => {
@@ -117,116 +118,120 @@ const UserProfile = () => {
       </button>
     </Modal>
   ) : (
-    <div className={"general-div"}>
-      <h2>Mis datos:</h2>
-      <div className={"form-group w-50"}>
-        <form onSubmit={handleSubmit}>
-          <input
-            type={"hidden"}
-            className={"form-control w-75"}
-            name={"code"}
-            value={code}
-          />
+    <>
+      {console.log(code)}
+      <NavBarUser code={code} />
+      <div className={"general-div"}>
+        <h2>Mis datos:</h2>
+        <div className={"form-group w-50"}>
+          <form onSubmit={handleSubmit}>
+            <input
+              type={"hidden"}
+              className={"form-control w-75"}
+              name={"code"}
+              value={code}
+            />
 
-          <input
-            type="text"
-            className="form-control"
-            name="name"
-            placeholder="Nombre..."
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="text"
+              className="form-control"
+              name="name"
+              placeholder="Nombre..."
+              value={form.name}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="text"
-            className="form-control"
-            name="lastName"
-            placeholder="Apellido..."
-            value={form.lastName}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="text"
+              className="form-control"
+              name="lastName"
+              placeholder="Apellido..."
+              value={form.lastName}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="email"
-            className="form-control"
-            name="email"
-            placeholder="Email..."
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="email"
+              className="form-control"
+              name="email"
+              placeholder="Email..."
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="text"
-            className="form-control"
-            name="username"
-            placeholder="Username..."
-            value={form.username}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="text"
+              className="form-control"
+              name="username"
+              placeholder="Username..."
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="password"
+              className="form-control"
+              name="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="text"
-            className="form-control"
-            name="address"
-            placeholder="Direccion..."
-            value={form.address}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="text"
+              className="form-control"
+              name="address"
+              placeholder="Direccion..."
+              value={form.address}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="text"
-            className="form-control"
-            name="neighborhood"
-            placeholder="Barrio..."
-            value={form.neighborhood}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="text"
+              className="form-control"
+              name="neighborhood"
+              placeholder="Barrio..."
+              value={form.neighborhood}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="phone"
-            className="form-control"
-            name="phone"
-            placeholder="Tel..."
-            value={form.phone}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="phone"
+              className="form-control"
+              name="phone"
+              placeholder="Tel..."
+              value={form.phone}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="text"
-            className="form-control"
-            name="zip"
-            placeholder="CP..."
-            value={form.zip}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="text"
+              className="form-control"
+              name="zip"
+              placeholder="CP..."
+              value={form.zip}
+              onChange={handleChange}
+              required
+            />
 
-          <button type="submit" className="btn btn-primary">
-            Actualizar
-          </button>
-          {/* <button type="reset" className="btn btn-danger" onClick={handleClean}>
+            <button type="submit" className="btn btn-primary">
+              Actualizar
+            </button>
+            {/* <button type="reset" className="btn btn-danger" onClick={handleClean}>
             Cerrar
           </button> */}
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { OrdersTableUser } from "./OrdersTableUser";
+import { OrdersTable } from "./OrdersTable";
 import { useParams } from "react-router-dom";
 
-const UserOrders = () => {
+const UsersOrdersAdmin = () => {
   const [orders, setOrders] = useState(null);
   const params = useParams();
   const { code } = params;
@@ -28,8 +28,8 @@ const UserOrders = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setOrders(res.data);            
-          } 
+            setOrders(res.data);
+          }
         })
         .catch((error) => error);
     };
@@ -37,10 +37,8 @@ const UserOrders = () => {
   }, []);
 
   return (
-    <div>      
-      {orders && <OrdersTableUser orders={orders} setOrders={setOrders}/>}
-    </div>
+    <div>{orders && <OrdersTable orders={orders} setOrders={setOrders} />}</div>
   );
 };
 
-export default UserOrders;
+export default UsersOrdersAdmin;

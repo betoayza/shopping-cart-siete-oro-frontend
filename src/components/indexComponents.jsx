@@ -6,8 +6,8 @@ import ShoppingCart from "./ShoppingCart";
 import { AllOrders } from "./AllOrders";
 import ReceivedOrders from "./ReceivedOrders";
 import { OrderByCode } from "./OrderByCode";
-import UserOrders from "./UserOrders";
-import { UserOrderByCode } from "./UserOrderByCode";
+import UsersOrdersAdmin from "./UsersOrdersAdmin";
+import { UserOrdersUser } from "./UserOrdersUser";
 import DeleteOrder from "./DeleteOrder";
 
 import AllProducts from "./AllProducts";
@@ -17,7 +17,7 @@ import { SearchProductByCode } from "./SearchProductByCode";
 import { AddProduct } from "./AddProduct";
 
 import { AllUsers } from "./AllUsers";
-import {SearchUser} from "./SearchUser";
+import { SearchUser } from "./SearchUser";
 import DeleteUser from "./DeleteUser";
 
 import SearchingBar from "./SearchingBar";
@@ -36,7 +36,7 @@ export {
   AllOrders,
   ReceivedOrders,
   OrderByCode,
-  UserOrderByCode,
+  UserOrdersUser,
   DeleteOrder,
   AllProducts,
   DeleteProduct,
@@ -49,6 +49,6 @@ export {
   Error404,
   Login,
   SignUp,
-  UserOrders,
+  UsersOrdersAdmin,
   UserProfile,
 };
