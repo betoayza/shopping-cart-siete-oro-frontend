@@ -4,11 +4,13 @@ import { ShoppingCartTable } from "./ShoppingCartTable";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
 
+
 const ShoppingCart = () => {
-  const [shoppingCart, setShoppingCart] = useState(null);
+  const [shoppingCart, setShoppingCart] = useState(null);  
   const params = useParams();
   const { userCode } = params;
 
+  //Finds All Items
   useEffect(() => {
     const getShoppingCart = async () => {
       const options = {
@@ -37,6 +39,11 @@ const ShoppingCart = () => {
     getShoppingCart(userCode);
   }, []);
 
+  // const handlePurchase = () => {
+  //   setModal(true);
+  //   setModalPaymentForm(true);
+  // };
+
   return shoppingCart ? (
     <>
       <NavBarUser code={userCode} />
@@ -48,6 +55,14 @@ const ShoppingCart = () => {
         setShoppingCart={setShoppingCart}
         userCode={userCode}
       />
+
+      {/* <button
+        type={"button"}
+        className={"btn btn-success"}
+        onClick={handlePurchase}
+      >
+        Purchase
+      </button> */}      
     </>
   ) : (
     <>

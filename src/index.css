@@ -26,6 +26,11 @@ img {
   width: 150px;
 }
 
+form {
+  display: grid;
+  place-items: center;
+}
+
 
 /* div {
   border: solid 2px;  
