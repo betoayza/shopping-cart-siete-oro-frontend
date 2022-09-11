@@ -1,180 +1,129 @@
-import React, { useEffect, useState } from "react";
-import { mp } from "../mp/mp";
+import React, { useState } from "react";
 import "../css/styles_payment_form.css";
 
-// const wind = window.open();
-
-const cardForm = mp.cardForm({
-  amount: "100.5",
-  iframe: true,
-  form: {
-    id: "form-checkout",
-    cardNumber: {
-      id: "form-checkout__cardNumber",
-      placeholder: "Card Number",
-    },
-    expirationDate: {
-      id: "form-checkout__expirationDate",
-      placeholder: "MM/YY",
-    },
-    securityCode: {
-      id: "form-checkout__securityCode",
-      placeholder: "Security Code",
-    },
-    cardholderName: {
-      id: "form-checkout__cardholderName",
-      placeholder: "Cardholder",
-    },
-    issuer: {
-      id: "form-checkout__issuer",
-      placeholder: "Issuing bank",
-    },
-    installments: {
-      id: "form-checkout__installments",
-      placeholder: "Installments",
-    },
-    identificationType: {
-      id: "form-checkout__identificationType",
-      placeholder: "Document type",
-    },
-    identificationNumber: {
-      id: "form-checkout__identificationNumber",
-      placeholder: "Document number",
-    },
-    cardholderEmail: {
-      id: "form-checkout__cardholderEmail",
-      placeholder: "Email",
-    },
-  },
-  callbacks: {
-    onFormMounted: (error) => {
-      if (error) return console.warn("Form Mounted handling error: ", error);
-      console.log("Form mounted");
-    },
-    onSubmit: (event) => {
-      event.preventDefault();
-
-      const {
-        paymentMethodId: payment_method_id,
-        issuerId: issuer_id,
-        cardholderEmail: email,
-        amount,
-        token,
-        installments,
-        identificationNumber,
-        identificationType,
-      } = cardForm.getCardFormData();
-
-      fetch("/process_payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          token,
-          issuer_id,
-          payment_method_id,
-          transaction_amount: Number(amount),
-          installments: Number(installments),
-          description: "Product Description",
-          payer: {
-            email,
-            identification: {
-              type: identificationType,
-              number: identificationNumber,
-            },
-          },
-        }),
-      });
-    },
-    onFetching: (resource) => {
-      console.log("Fetching resource: ", resource);
-
-      // Animate progress bar
-      const progressBar = document.querySelector(".progress-bar");
-      progressBar.removeAttribute("value");
-
-      return () => {
-        progressBar.setAttribute("value", "0");
-      };
-    },
-  },
-});
+const initialForm = {
+  card: "",
+  date: "",
+  secCode: null,
+  cardHolder: "",
+  issuer: "",
+  installments: null,
+  idType: "",
+  idNumber: null,
+  email: "",
+};
 
 export const PaymentForm = ({ setModal, setModalPaymentForm }) => {
   const [error, setError] = useState(false);
+  const [form, setForm] = useState(initialForm);
 
   const handleClose = () => {
     setModal(false);
     setModalPaymentForm(false);
   };
 
-  // useEffect(() => {
-  //   wind.postMessage(cardForm, "https://www.mercadolibre.com");
-  //   wind.addEventListener(
-  //     cardForm,
-  //     (event) => {
-  //       if (event.origin !== "https://www.mercadolibre.com") setError(true);
+  const handleChange=(e)=>{
+    setForm({...form, [e.target.name]: e.target.value});
+  }
 
-  //       // …
-  //     },
-  //     false
-  //   );
-  // }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = new FormData();
+
+    const options = {
+      url: "/payment",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      data: data,
+    };
+
+    await axios
+      .request(options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setAdded(true);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
-    //   <>
-    //     <h3>An error happened :(</h3>
-    //   </>
-    // ) : (
-    // <iframe src={cardForm} frameBorder="0">
-
     <div className={"form-control general-div"}>
-      <form id={"form-checkout"}>
-        <div id={"form-checkout__cardNumber"} className={"container"}></div>
-        <div id={"form-checkout__expirationDate"} className={"container"}></div>
-        <div id={"form-checkout__securityCode"} className={"container"}></div>
+      <form>
         <input
-          type={"text"}
-          id={"form-checkout__cardholderName"}
+          type={"number"}
+          placeholder={"XXXX XXXX XXXX XXXX"}
           className={"form-control"}
+          value={form.card}
         />
-        <select className={"form-select"} id="form-checkout__issuer"></select>
+        <input
+          type={"text"}
+          placeholder={"Fecha"}
+          className={"form-control"}
+          value={form.date}
+        />
+        <input
+          type={"text"}
+          placeholder={"CVV | CVC"}
+          className={"form-control"}
+          max={4}
+          value={form.secCode}
+        />
+        <input
+          type={"text"}
+          placeholder={"Titular"}
+          className={"form-control"}
+          value={form.cardHolder}
+        />
         <select
           className={"form-select"}
-          id={"form-checkout__installments"}
+          placeholder={"Emisor"}
+          value={form.issuer}
         ></select>
         <select
           className={"form-select"}
-          id={"form-checkout__identificationType"}
+          placeholder={"Installments"}
+          value={form.installments}
+        ></select>
+        <select
+          className={"form-select"}
+          placeholder={"Tipo identificacion"}
+          value={form.idType}
         ></select>
         <input
           type={"text"}
-          id={"form-checkout__identificationNumber"}
+          placeholder={"Número"}
           className={"form-control"}
+          value={form.idNumber}
         />
         <input
           type={"email"}
-          id={"form-checkout__cardholderEmail"}
+          placeholder={"example@gmail.com"}
           className={"form-control"}
+          value={form.email}
         />
 
         <button
           type={"submit"}
-          id={"form-checkout__submit"}
           className={"btn btn-primary w-25"}
+          onClick={handleSubmit}
         >
           Pagar
         </button>
-        <progress value={"0"} className={"progress-bar"}>
-          Loading...
-        </progress>
       </form>
       <button className={"btn btn-danger"} onClick={handleClose}>
         Cancelar
       </button>
     </div>
-    // </iframe>
   );
 };
