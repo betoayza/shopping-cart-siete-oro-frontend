@@ -4,12 +4,12 @@ import "../css/styles_payment_form.css";
 const initialForm = {
   card: "",
   date: "",
-  secCode: null,
+  secCode: "",
   cardHolder: "",
   issuer: "",
-  installments: null,
+  installments: "",
   idType: "",
-  idNumber: null,
+  idNumber: "",
   email: "",
 };
 
@@ -22,9 +22,9 @@ export const PaymentForm = ({ setModal, setModalPaymentForm }) => {
     setModalPaymentForm(false);
   };
 
-  const handleChange=(e)=>{
-    setForm({...form, [e.target.name]: e.target.value});
-  }
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,12 +65,14 @@ export const PaymentForm = ({ setModal, setModalPaymentForm }) => {
           placeholder={"XXXX XXXX XXXX XXXX"}
           className={"form-control"}
           value={form.card}
+          onChange={handleChange}
         />
         <input
           type={"text"}
           placeholder={"Fecha"}
           className={"form-control"}
           value={form.date}
+          onChange={handleChange}
         />
         <input
           type={"text"}
@@ -78,39 +80,51 @@ export const PaymentForm = ({ setModal, setModalPaymentForm }) => {
           className={"form-control"}
           max={4}
           value={form.secCode}
+          onChange={handleChange}
         />
         <input
           type={"text"}
           placeholder={"Titular"}
           className={"form-control"}
           value={form.cardHolder}
+          onChange={handleChange}
         />
         <select
           className={"form-select"}
           placeholder={"Emisor"}
           value={form.issuer}
-        ></select>
+          onChange={handleChange}          
+        >
+          <option value="">Emisor</option>
+          <option value="Visa">Visa</option>
+          <option value="MasterCard">MasterCard</option>
+          <option value="">Emisor</option>
+        </select>
         <select
           className={"form-select"}
           placeholder={"Installments"}
           value={form.installments}
+          onChange={handleChange}
         ></select>
         <select
           className={"form-select"}
           placeholder={"Tipo identificacion"}
           value={form.idType}
+          onChange={handleChange}
         ></select>
         <input
           type={"text"}
           placeholder={"Número"}
           className={"form-control"}
           value={form.idNumber}
+          onChange={handleChange}
         />
         <input
           type={"email"}
           placeholder={"example@gmail.com"}
           className={"form-control"}
           value={form.email}
+          onChange={handleChange}
         />
 
         <button

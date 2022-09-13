@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ShoppingCartTableRow } from "./ShoppingCartTableRow";
-import { PaymentForm } from "./PaymentForm";
+import { useNavigate } from "react-router-dom";
 import { Modal } from "./Modal";
 // import moment from "moment";
 
@@ -17,36 +17,38 @@ export const ShoppingCartTable = ({
   const [modal, setModal] = useState(false);
   const [modalPaymentForm, setModalPaymentForm] = useState(false);
 
-  // useEffect(() => {
-  //   console.log("dsa: ", toBuy, itemIndex);
-  //   const updateToBuy = async (toBuy, itemIndex) => {
-  //     const options = {
-  //       url: "/api/user/shopping-cart/update/toBuy",
-  //       method: "put",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Origin": "*",
-  //         "Access-Control-Allow-Headers": "*",
-  //         Accept: "application/json",
-  //         timeout: 3000,
-  //       },
-  //       data: { userCode, toBuy, itemIndex },
-  //     };
+  let navigate = useNavigate();
 
-  //     await axios
-  //       .request(options)
-  //       .then((res) => {
-  //         console.log(res);
-  //         if (res.data) {
-  //           alert("Cantidad actualizada!");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   };
-  //   updateToBuy(toBuy, itemIndex);
-  // }, [toBuy, itemIndex]);
+  useEffect(() => {
+    console.log("dsa: ", toBuy, itemIndex);
+    const updateToBuy = async (toBuy, itemIndex) => {
+      const options = {
+        url: "/api/user/shopping-cart/update/toBuy",
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          timeout: 3000,
+        },
+        data: { userCode, toBuy, itemIndex },
+      };
+
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res);
+          if (res.data) {
+            alert("Cantidad actualizada!");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    updateToBuy(toBuy, itemIndex);
+  }, [toBuy, itemIndex]);
 
   const updateToBuy = async (toBuy, itemIndex) => {
     //console.log("fasdasd: ", toBuy, itemIndex);
@@ -79,7 +81,7 @@ export const ShoppingCartTable = ({
       });
   };
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     // const date = moment(new Date()).format("DD/MM/YYYY");
     // const amount = shoppingCart.reduce(() => a + b);
     // const purchase = {
@@ -90,30 +92,36 @@ export const ShoppingCartTable = ({
     //   date,
     //   status: "Activo",
     // };
-    // const options = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Access-Control-Allow-Origin": "*",
-    //     "Access-Control-Allow-Headers": "*",
-    //     Accept: "application/json",
-    //     timeout: 3000,
-    //   },
-    //   data: {},
-    // };
-    // await axios
-    //   .post(`/api/user/shopping-cart/delete`, options)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     if (res.data) {
-    //       setShoppingCart(res.data.products);
-    //       alert("Eliminacion exitosa");
-    //     } else {
-    //       alert("No se encontró producto");
-    //     }
-    //   })
-    //   .catch((error) => error);
-    setModal(true);
-    setModalPaymentForm(true);
+
+    let products = shoppingCart.products;
+
+    const options = {
+      url: "/api/payment",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      data: { products },
+    };
+
+    await axios
+      .request(options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          // navigate(res.data.init_point);
+          window.location.href = res.data.init_point;
+        } else {
+          navigate(res.data.back_urls.failure);
+        }
+      })
+      .catch((error) => error);
+    // setModal(true);
+    // setModalPaymentForm(true);
   };
 
   const removeItem = async (prodCode, userCode, index) => {
@@ -167,18 +175,19 @@ export const ShoppingCartTable = ({
       .catch((error) => error);
   };
 
-  return modal ? (
-    <>
-      <Modal>
-        {modalPaymentForm && (
-          <PaymentForm
-            setModal={setModal}
-            setModalPaymentForm={setModalPaymentForm}
-          />
-        )}
-      </Modal>
-    </>
-  ) : (
+  //modal ? (
+  //   <>
+  //     <Modal>
+  //       {modalPaymentForm && (
+  //         <PaymentForm
+  //           setModal={setModal}
+  //           setModalPaymentForm={setModalPaymentForm}
+  //         />
+  //       )}
+  //     </Modal>
+  //   </>
+  // ) : (
+  return (
     <div>
       {console.log("lista: ", shoppingCart.products)}
 
@@ -221,4 +230,5 @@ export const ShoppingCartTable = ({
       </div>
     </div>
   );
+  // );
 };
