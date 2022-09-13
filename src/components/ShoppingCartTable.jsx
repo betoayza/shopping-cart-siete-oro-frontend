@@ -16,11 +16,13 @@ export const ShoppingCartTable = ({
   const [itemIndex, setItemIndex] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalPaymentForm, setModalPaymentForm] = useState(false);
+  const [products, setProducts] = useState(null);
 
   let navigate = useNavigate();
 
   useEffect(() => {
     console.log("dsa: ", toBuy, itemIndex);
+    //UPDATE QUANTITY TO BUY
     const updateToBuy = async (toBuy, itemIndex) => {
       const options = {
         url: "/api/user/shopping-cart/update/toBuy",
@@ -40,7 +42,34 @@ export const ShoppingCartTable = ({
         .then((res) => {
           console.log(res);
           if (res.data) {
-            alert("Cantidad actualizada!");
+            //GET SHOPPING CART UPDATED
+            const getShoppingCart = async () => {
+              const options = {
+                url: "/api/user/shopping-cart",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Headers": "*",
+                  Accept: "application/json",
+                },
+                params: { userCode },
+                timeout: 5000,
+              };
+
+              await axios
+                .request(options)
+                .then((res) => {
+                  console.log(res);
+                  if (res.data) {
+                    setShoppingCart(res.data);
+                    setProducts(res.data.products);
+                  }
+                })
+                .catch((error) => {
+                  console.error(error);
+                });
+            };
+            getShoppingCart(userCode);
           }
         })
         .catch((error) => {
@@ -50,51 +79,13 @@ export const ShoppingCartTable = ({
     updateToBuy(toBuy, itemIndex);
   }, [toBuy, itemIndex]);
 
+  //SET NEW QUANTITY TO BUY
   const updateToBuy = async (toBuy, itemIndex) => {
-    //console.log("fasdasd: ", toBuy, itemIndex);
     setToBuy(toBuy);
     setItemIndex(itemIndex);
-
-    const options = {
-      url: "/api/user/shopping-cart/update/toBuy",
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-        timeout: 3000,
-      },
-      data: { userCode, toBuy, itemIndex },
-    };
-
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res);
-        // if (res.data) {
-        //   alert("Cantidad actualizada!");
-        // }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const handlePurchase = async () => {
-    // const date = moment(new Date()).format("DD/MM/YYYY");
-    // const amount = shoppingCart.reduce(() => a + b);
-    // const purchase = {
-    //   code: Date.now(),
-    //   userCode,
-    //   products: shoppingCart,
-    //   amount,
-    //   date,
-    //   status: "Activo",
-    // };
-
-    let products = shoppingCart.products;
-
     const options = {
       url: "/api/payment",
       method: "post",
@@ -113,15 +104,12 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          // navigate(res.data.init_point);
           window.location.href = res.data.init_point;
         } else {
           navigate(res.data.back_urls.failure);
         }
       })
       .catch((error) => error);
-    // setModal(true);
-    // setModalPaymentForm(true);
   };
 
   const removeItem = async (prodCode, userCode, index) => {
@@ -139,18 +127,13 @@ export const ShoppingCartTable = ({
     await axios
       .delete(`/api/user/shopping-cart/delete`, options)
       .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          setShoppingCart(res.data);
-          alert("Eliminacion exitosa");
-        } else {
-          alert("No se encontró producto");
-        }
+        console.log(res);
+        setShoppingCart(res.data);
       })
       .catch((error) => error);
   };
 
-  const removeAllItems = async (e) => {
+  const removeAllItems = async () => {
     const options = {
       headers: {
         "Content-Type": "application/json",
@@ -167,7 +150,6 @@ export const ShoppingCartTable = ({
         console.log(res.data);
         if (res.data) {
           setShoppingCart(null);
-          alert("Items borrados!");
         } else {
           alert("Carrito inexistente :(");
         }
@@ -175,18 +157,6 @@ export const ShoppingCartTable = ({
       .catch((error) => error);
   };
 
-  //modal ? (
-  //   <>
-  //     <Modal>
-  //       {modalPaymentForm && (
-  //         <PaymentForm
-  //           setModal={setModal}
-  //           setModalPaymentForm={setModalPaymentForm}
-  //         />
-  //       )}
-  //     </Modal>
-  //   </>
-  // ) : (
   return (
     <div>
       {console.log("lista: ", shoppingCart.products)}
