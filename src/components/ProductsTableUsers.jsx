@@ -14,7 +14,7 @@ export const ProductsTableUsers = ({
   return (
     <div>
       {products.length === 1 ? <h3>Producto:</h3> : <h3>Productos:</h3>}
-      <table id="products-table" className="table table-hover">
+      <table id={"products-table"} className={"table table-light table-hover"}>
         <thead>
           <tr>
             <th scope="col">Nombre</th>

@@ -86,6 +86,11 @@ export const ShoppingCartTable = ({
   };
 
   const handlePurchase = async () => {
+    let items = products.map((product) => ({
+      ...product,
+      image: "",
+    }));
+
     const options = {
       url: "/api/payment",
       method: "post",
@@ -96,7 +101,7 @@ export const ShoppingCartTable = ({
         Accept: "application/json",
         timeout: 3000,
       },
-      data: { products },
+      data: { items },
     };
 
     await axios
