@@ -49,7 +49,7 @@ function App() {
               exact
               path="/user/:code/orders"
               element={<Components.UserOrdersUser />}
-            />          
+            />
 
             <Route
               exact
@@ -105,6 +105,24 @@ function App() {
               exact
               path="/products/all"
               element={<Components.AllProducts />}
+            />
+
+            <Route
+              exact
+              path="/success/:userCode"
+              element={<Components.SuccessPayment />}
+            />
+
+            <Route
+              exact
+              path="/failure"
+              element={<Components.FailedPayment />}
+            />
+
+            <Route
+              exact
+              path="/pending"
+              element={<Components.PendingPayment />}
             />
 
             <Route exact path="*" element={<Components.Error404 />} />

@@ -101,7 +101,7 @@ export const ShoppingCartTable = ({
         Accept: "application/json",
         timeout: 3000,
       },
-      data: { items },
+      data: { items, userCode },
     };
 
     await axios

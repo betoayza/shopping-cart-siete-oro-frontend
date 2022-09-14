@@ -25,7 +25,12 @@ import SearchingBar from "./SearchingBar";
 import UserProfile from "./UserProfile";
 import Login from "./Login";
 import SignUp from "./SignUp";
+
 import Error404 from "./Error404";
+import { SuccessPayment } from "./SuccessPayment";
+import { PendingPayment } from "./PendingPayment";
+import { FailedPayment } from "./FailedPayment";
+
 
 export {
   SearchingBar,
@@ -51,4 +56,7 @@ export {
   SignUp,
   UsersOrdersAdmin,
   UserProfile,
+  FailedPayment,
+  SuccessPayment,
+  PendingPayment
 };
