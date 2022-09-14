@@ -65,14 +65,14 @@ const ShoppingCart = () => {
       </button> */}      
     </>
   ) : (
-    <>
+    <div className={"nav-bar"}>
       <NavBarUser code={userCode} />
       {console.log(userCode)}
       <h3>Carrito Vacío :(</h3>
       {/* <button type="button" className={"btn btn-danger"} onClick={handleClose}>
         Close
       </button> */}
-    </>
+    </div>
   );
 };
 

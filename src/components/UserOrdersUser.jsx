@@ -1,57 +1,52 @@
-import React, { useState } from "react";
-import { OrdersTable } from "./OrdersTable";
+import React, { useState, useEffect } from "react";
+import { OrdersTableUser } from "./OrdersTableUser";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
 
 export const UserOrdersUser = () => {
-  const [orderCode, setOrderCode] = useState("");
-  const [order, setOrder] = useState(null);
+  const [orders, setOrders] = useState(null);
   const params = useParams();
   const { code } = params;
 
-  const handleChange = (e) => {
-    setOrderCode(e.target.value);
-  };
+  useEffect(() => {
+    const getAllOrders = async () => {
+      const options = {
+        url: `/api/user/orders`,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+        },
+        params: { code },
+        timeout: 3000,
+      };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const options = {
-      url: `/api/user/orders`,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      params: { code },
-      timeout: 3000,
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            setOrder(res.data);
+          }
+        })
+        .catch((error) => error);
     };
+    getAllOrders();
+  }, []);
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          setOrder(res.data);
-          alert("Pedido encontrado!");
-        } else alert("Pedido no encontrado :(");
-      })
-      .catch((error) => error);
-    handleClean();
-  };
-
-  const handleClean = (e) => {
-    setOrderCode("");
-  };
-
-  return (
-    <>
+  return orders ? (
+    <div className={"nav-bar"}>
       {console.log(code)}
       <NavBarUser code={code} />
       <h2>Pedidos:</h2>
-      {order && <OrdersTableUser orders={order} setOrders={setOrder} />}
-    </>
+      {order && <OrdersTableUser orders={orders} setOrders={setOrders} />}
+    </div>
+  ) : (
+    <div className={"nav-bar"}>
+      <NavBarUser code={code} />
+      <h2>No hay pedidos :(</h2>
+    </div>
   );
 };

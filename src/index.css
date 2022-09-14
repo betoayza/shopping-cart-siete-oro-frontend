@@ -40,10 +40,10 @@ form {
 /* ELEMENTS */
 #app-div {
   min-height: 100vh;
-  border-color: lawngreen;
-  border: solid 2px;
-  display: grid;
-  place-content: center;   
+  border: solid 3px;
+  border-color: crimson;
+  /* display: grid;
+  place-content: center;    */
   text-align: center;
 }
 
@@ -71,9 +71,20 @@ form {
 
 .general-div {
   display: grid;
-  place-items: center;
-  border: solid 1px;
-  border-color: blue;
+  place-items: center; 
+  border: solid 2px;
+  border-color: coral;
+  min-width: 100vh;
+  min-height: 100vh;  
+}
+
+.nav-bar {
+  width: 100%;
+  min-height: 100vh;
+  border: solid 3px;
+  border-color: blueviolet; 
+  display: grid;
+  align-items: start;
 }
 
 

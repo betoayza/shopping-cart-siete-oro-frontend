@@ -5,7 +5,7 @@ function App() {
   return (
     <div id={"app-div"} className={"bg-body text-secondary container-fluid"}>
       <BrowserRouter>
-        <div id="components-div">
+        <div className={"general-div"}>
           <Routes>
             <Route exact path="/" element={<Components.Home />} />
 

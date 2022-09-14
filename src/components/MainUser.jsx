@@ -47,7 +47,7 @@ const MainUser = () => {
       )}
     </Modal>
   ) : (
-    <>
+    <div className={"nav-bar"}>
       <NavBarUser code={code} />
       <SearchingBar
         term={term}
@@ -56,7 +56,7 @@ const MainUser = () => {
         setModal={setModal}
         setModalSearchProducts={setModalSearchProducts}
       />
-    </>
+    </div>
   );
 };
 
