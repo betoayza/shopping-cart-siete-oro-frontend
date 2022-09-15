@@ -5,8 +5,8 @@ import { Modal } from "./Modal";
 import { AddProduct } from "./AddProduct";
 import { ActivateProduct } from "./ActivateProduct";
 import DeleteProduct from "./DeleteProduct";
-import MainAdmin from "./MainAdmin";
 import { ProductsSearchingBar } from "./ProductsSearchingBar";
+import { NavBarAdmin } from "./NavBarAdmin";
 
 export const ProductsTable = ({
   products,
@@ -93,14 +93,17 @@ export const ProductsTable = ({
       )}
     </Modal>
   ) : (
-    <>
+    <div>
       {showAddAndSearch && (
         <div>
-          <MainAdmin />
+          <NavBarAdmin />
           <button className={"btn btn-success w-10"} onClick={handleAddProduct}>
             Add
           </button>
-          <button className={"btn btn-primary w-10"} onClick={handleSearchProduct}>
+          <button
+            className={"btn btn-primary w-10"}
+            onClick={handleSearchProduct}
+          >
             Buscar
           </button>
         </div>
@@ -137,6 +140,6 @@ export const ProductsTable = ({
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };

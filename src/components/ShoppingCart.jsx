@@ -45,7 +45,7 @@ const ShoppingCart = () => {
   // };
 
   return shoppingCart ? (
-    <>
+    <div className={"nav-bar"}>
       <NavBarUser code={userCode} />
       {console.log(userCode)}
 
@@ -63,7 +63,7 @@ const ShoppingCart = () => {
       >
         Purchase
       </button> */}      
-    </>
+    </div>
   ) : (
     <div className={"nav-bar"}>
       <NavBarUser code={userCode} />

@@ -41,9 +41,7 @@ form {
 #app-div {
   min-height: 100vh;
   border: solid 3px;
-  border-color: crimson;
-  /* display: grid;
-  place-content: center;    */
+  border-color: crimson;  
   text-align: center;
 }
 

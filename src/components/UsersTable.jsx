@@ -3,8 +3,8 @@ import { ActivateUser } from "./ActivateUser";
 import DeleteUser from "./DeleteUser";
 import { Modal } from "./Modal";
 import { UserTableRow } from "./UserTableRow";
-import MainAdmin from "./MainAdmin";
 import { UsersSearchingBar } from "./UsersSearchingBar";
+import { NavBarAdmin } from "./NavBarAdmin";
 
 export const UsersTable = ({
   users,
@@ -67,8 +67,8 @@ export const UsersTable = ({
   ) : (
     <div>
       {showSearchUserAndAdminNavBar && (
-        <>
-          <MainAdmin />
+        <div>
+          <NavBarAdmin />
           <button
             type={"button"}
             className={"btn btn-primary"}
@@ -76,7 +76,7 @@ export const UsersTable = ({
           >
             Buscar
           </button>
-        </>
+        </div>
       )}
       {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}
       <div className={"table-responsive"}>

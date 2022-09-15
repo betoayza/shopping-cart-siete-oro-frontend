@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "./Modal";
+import { NavBarAdmin } from "./NavBarAdmin";
 import { OrderTableRow } from "./OrderTableRow";
 import { ProductsTable } from "./ProductsTable";
 import { SearchingBarOrders } from "./SearchingBarOrders";
@@ -71,11 +72,17 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
       )}
     </Modal>
   ) : (
-    <>
+    <div>
       {showSearchingBar && (
-        <button className={"btn btn-success w-10"} onClick={handleSearchOrder}>
-          Buscar
-        </button>
+        <div>
+          <NavBarAdmin />
+          <button
+            className={"btn btn-success w-10"}
+            onClick={handleSearchOrder}
+          >
+            Buscar
+          </button>
+        </div>
       )}
       {orders.length === 1 ? <h3>Pedido:</h3> : <h3>Pedidos:</h3>}
 
@@ -106,6 +113,6 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
