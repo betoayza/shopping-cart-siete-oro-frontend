@@ -86,7 +86,7 @@ export const ShoppingCartTable = ({
   };
 
   const handlePurchase = async () => {
-    let items = products.map((product) => ({
+    let items = await products.map((product) => ({
       ...product,
       image: "",
     }));

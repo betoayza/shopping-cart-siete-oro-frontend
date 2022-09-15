@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 export const SuccessPayment = () => {
   let navigate = useNavigate(null);
-  let { userCode } = useParams();
+  let { userCode, items } = useParams();
 
   const handleRedirect = () => {
     const url = `/user/shopping-cart/${userCode}`;
@@ -12,6 +12,7 @@ export const SuccessPayment = () => {
   };
 
   useEffect(() => {
+    //clean shopping cart
     const removeAllItems = async () => {
       const options = {
         headers: {
@@ -34,6 +35,35 @@ export const SuccessPayment = () => {
         .catch((error) => error);
     };
     removeAllItems();
+
+    //post order
+    const addOrder = async () => {
+      const options = {
+        url: "/api/user/orders/add",
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          timeout: 3000,
+        },
+        data: { userCode, items },
+      };
+
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            alert("Orden agregada ;)");
+          } else {
+            alert("no se pudo agragar el pedido :(");
+          }
+        })
+        .catch((error) => error);
+    };
+    addOrder();
   }, []);
 
   return (
