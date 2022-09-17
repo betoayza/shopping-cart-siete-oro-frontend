@@ -5,6 +5,7 @@ import axios from "axios";
 export const SuccessPayment = () => {
   let navigate = useNavigate(null);
   let { userCode, items } = useParams();
+  console.log("Los items: ", items);
 
   const handleRedirect = () => {
     const url = `/user/shopping-cart/${userCode}`;
@@ -13,28 +14,28 @@ export const SuccessPayment = () => {
 
   useEffect(() => {
     //clean shopping cart
-    const removeAllItems = async () => {
-      const options = {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-          timeout: 3000,
-        },
-        data: { userCode },
-      };
-      await axios
-        .delete("/api/user/shopping-cart/delete/all", options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setShoppingCart(null);
-          }
-        })
-        .catch((error) => error);
-    };
-    removeAllItems();
+    // const removeAllItems = async () => {
+    //   const options = {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Access-Control-Allow-Headers": "*",
+    //       Accept: "application/json",
+    //       timeout: 3000,
+    //     },
+    //     data: { userCode },
+    //   };
+    //   await axios
+    //     .delete("/api/user/shopping-cart/delete/all", options)
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       if (res.data) {
+    //         setShoppingCart(null);
+    //       }
+    //     })
+    //     .catch((error) => error);
+    // };
+    // removeAllItems();
 
     //post order
     const addOrder = async () => {
