@@ -29,7 +29,7 @@ export const NavBarUser = ({ code }) => {
                   <p
                     className={isActive ? "nav-link active" : "nav-link active"}
                   >
-                    Home
+                    Buscar
                   </p>
                 )}
               </NavLink>

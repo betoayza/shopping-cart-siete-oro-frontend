@@ -10,20 +10,20 @@ export const ShoppingCartTable = ({
   setShoppingCart,
   userCode,
 }) => {
-  if (!shoppingCart.products.length) setShoppingCart(null);
+  
 
   const [toBuy, setToBuy] = useState(1);
   const [itemIndex, setItemIndex] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalPaymentForm, setModalPaymentForm] = useState(false);
-  const [products, setProducts] = useState(null);
+  //const [products, setProducts] = useState(null);
 
   let navigate = useNavigate();
 
   useEffect(() => {
     console.log("dsa: ", toBuy, itemIndex);
     //UPDATE QUANTITY TO BUY
-    const updateToBuy = async (toBuy, itemIndex) => {
+    const updateToBuy = async () => {
       const options = {
         url: "/api/user/shopping-cart/update/toBuy",
         method: "put",
@@ -62,7 +62,7 @@ export const ShoppingCartTable = ({
                   console.log(res);
                   if (res.data) {
                     setShoppingCart(res.data);
-                    setProducts(res.data.products);
+                    //setProducts(res.data.products);
                   }
                 })
                 .catch((error) => {
@@ -76,7 +76,7 @@ export const ShoppingCartTable = ({
           console.error(error);
         });
     };
-    updateToBuy(toBuy, itemIndex);
+    updateToBuy();
   }, [toBuy, itemIndex]);
 
   //SET NEW QUANTITY TO BUY
@@ -86,7 +86,7 @@ export const ShoppingCartTable = ({
   };
 
   const handlePurchase = async () => {
-    let items = await products.map((product) => ({
+    let items = await shoppingCart.products.map((product) => ({
       ...product,
       image: "",
     }));
@@ -154,7 +154,7 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          setShoppingCart(null);
+          setShoppingCart(res.data);
         } else {
           alert("Carrito inexistente :(");
         }
@@ -162,7 +162,7 @@ export const ShoppingCartTable = ({
       .catch((error) => error);
   };
 
-  return (
+  return shoppingCart.products.length ? (
     <div>
       {console.log("lista: ", shoppingCart.products)}
 
@@ -181,7 +181,7 @@ export const ShoppingCartTable = ({
           <tbody>
             {shoppingCart &&
               shoppingCart.products.map((product, index) => {
-                console.log("asdsd", index);
+                console.log("Index: ", index);
                 return (
                   <ShoppingCartTableRow
                     key={index}
@@ -204,6 +204,8 @@ export const ShoppingCartTable = ({
         </button>
       </div>
     </div>
+  ) : (
+    <h2>Carrito vacío</h2>
   );
   // );
 };

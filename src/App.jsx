@@ -109,7 +109,7 @@ function App() {
 
             <Route
               exact
-              path="/success/:userCode/:items"
+              path="/user/shopping-cart/:userCode/success"
               element={<Components.SuccessPayment />}
             />
 

@@ -4,9 +4,8 @@ import { ShoppingCartTable } from "./ShoppingCartTable";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
 
-
 const ShoppingCart = () => {
-  const [shoppingCart, setShoppingCart] = useState(null);  
+  const [shoppingCart, setShoppingCart] = useState(null);
   const params = useParams();
   const { userCode } = params;
 
@@ -62,7 +61,7 @@ const ShoppingCart = () => {
         onClick={handlePurchase}
       >
         Purchase
-      </button> */}      
+      </button> */}
     </div>
   ) : (
     <div className={"nav-bar"}>
