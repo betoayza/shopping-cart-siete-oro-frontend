@@ -8,12 +8,50 @@ export const SuccessPayment = () => {
   const [orderAdded, setOrderAdded] = useState(false);
   const [itemsRemoved, setItemsRemoved] = useState(false);
   const [products, setProducts] = useState(null);
+  const [installments, setInstallments] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(null);
   let navigate = useNavigate(null);
   let location = useLocation();
-
   let { userCode } = useParams();
 
-  console.log(location.pathname, " | ", userCode);
+  console.log(location, " | ", userCode);
+
+  const search = useLocation().search;
+  const payment_id = new URLSearchParams(search).get("payment_id");
+
+  console.log(payment_id);
+
+  useEffect(() => {
+    const getPayment = async () => {
+      const options = {
+        url: `https://api.mercadopago.com/v1/payments/${payment_id}`,
+
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
+        },
+        timeout: 5000,
+      };
+
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            console.log("El pago es: ", res.data);
+            setInstallments(res.data.installments);
+            setTotalAmount(res.data.transaction_details.total_paid_amount);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    getPayment();
+  }, []);
 
   useEffect(() => {
     //mount fase
@@ -67,7 +105,7 @@ export const SuccessPayment = () => {
           Accept: "application/json",
           timeout: 3000,
         },
-        data: { userCode, items },
+        data: { userCode, items, installments, totalAmount },
       };
 
       await axios
@@ -84,7 +122,7 @@ export const SuccessPayment = () => {
         .catch((error) => error);
     };
     //if (shoppingCart.products.length > 0)
-    if (shoppingCart) addOrder();
+    if (shoppingCart && installments && totalAmount) addOrder();
 
     //3) clean shopping cart
     const removeAllItems = async () => {
@@ -111,9 +149,9 @@ export const SuccessPayment = () => {
         .catch((error) => error);
     };
     //if (shoppingCart.products.length > 0)
-    if (shoppingCart) removeAllItems();
+    if (shoppingCart && installments && totalAmount) removeAllItems();
     // };
-  }, [shoppingCart]);
+  }, [shoppingCart, installments, totalAmount]);
 
   return orderAdded && itemsRemoved ? (
     <div className={"nav-bar"}>
