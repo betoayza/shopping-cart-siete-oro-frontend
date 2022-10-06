@@ -21,18 +21,18 @@ export const OrderTableRowUser = ({
       <td>{order.date}</td>
       <td>{order.status}</td>
       <td>
-        {order.status === "En curso" && (
+        {order.status === "En curso" ? (
           <button className="btn btn-danger" onClick={() => handleCancelOrder(order.code)}>
             Cancelar
           </button>
-        )}
-        {order.status === "Entregado" && null}
+        ): null}
+        {/* {order.status === "Entregado" && null} */}
 
-        {order.status === "Cancelado" && (
-          <button className="btn btn-danger" onClick={() => handleActivateOrder()}>
+        {/* {order.status === "Cancelado" && (
+          <button className="btn btn-success" onClick={() => handleActivateOrder(order.code)}>
             Activar
           </button>
-        )}
+        )} */}
       </td>
     </tr>
   );

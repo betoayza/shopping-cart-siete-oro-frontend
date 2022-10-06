@@ -11,6 +11,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
   const [products, setProducts] = useState(null);
   const [isOrderCanceled, setIsOrderCanceled] = useState(false);
   const [orderCode, setOrderCode] = useState(null);
+  const [isOrderReActivated, setIsOrderReActivated] = useState(false);
 
   const params = useParams(); 
   console.log();
@@ -89,7 +90,10 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
     setOrderCode(orderCode);
   };
 
-  const handleActivateOrder = () => {};
+  const handleActivateOrder = (orderCode) => {
+    setIsOrderReActivated(true);
+    setOrderCode(orderCode);
+  };
 
   const handleClose = () => {
     setModal(false);
