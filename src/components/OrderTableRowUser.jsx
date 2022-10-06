@@ -2,7 +2,7 @@ import React from "react";
 
 export const OrderTableRowUser = ({
   order,
-  handleSeeOrder,
+  handleSeeItems,
   handleDelete,
   handleActivate,
 }) => {
@@ -12,7 +12,7 @@ export const OrderTableRowUser = ({
       <td>
         <button
           className="btn btn-dark"
-          onClick={() => handleSeeOrder(order.products)}
+          onClick={() => handleSeeItems(order.products)}
         >
           Ver
         </button>

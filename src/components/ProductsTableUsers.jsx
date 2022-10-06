@@ -27,10 +27,10 @@ export const ProductsTableUsers = ({
         </thead>
         <tbody>
           {products &&
-            products.map((product) => {
+            products.map((product, index) => {
               return (
                 <ProductTableRowUsers
-                  key={product._id}
+                  key={index}
                   product={product}
                   userCode={userCode}
                 />

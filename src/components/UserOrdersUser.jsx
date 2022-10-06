@@ -6,20 +6,22 @@ import { NavBarUser } from "./NavBarUser";
 
 export const UserOrdersUser = () => {
   const [orders, setOrders] = useState(null);
+  
   const params = useParams();
   const { code } = params;
 
   useEffect(() => {
     const getAllOrders = async () => {
+      const userCode = code;
       const options = {
-        url: `/api/user/orders`,
+        url: `/api/user/orders/all`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "*",
           Accept: "application/json",
         },
-        params: { code },
+        params: { userCode },
         timeout: 3000,
       };
 
@@ -28,7 +30,7 @@ export const UserOrdersUser = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setOrder(res.data);
+            setOrders(res.data);
           }
         })
         .catch((error) => error);
@@ -36,17 +38,17 @@ export const UserOrdersUser = () => {
     getAllOrders();
   }, []);
 
-  return orders ? (
+  return (
     <div className={"nav-bar"}>
       {console.log(code)}
       <NavBarUser code={code} />
-      <h2>Pedidos:</h2>
-      {order && <OrdersTableUser orders={orders} setOrders={setOrders} />}
-    </div>
-  ) : (
-    <div className={"nav-bar"}>
-      <NavBarUser code={code} />
-      <h2>No hay pedidos :(</h2>
+      {orders ? (
+        <div>          
+          <OrdersTableUser orders={orders} setOrders={setOrders} />
+        </div>
+      ) : (
+        <h2>No hay pedidos :(</h2>
+      )}
     </div>
   );
 };
