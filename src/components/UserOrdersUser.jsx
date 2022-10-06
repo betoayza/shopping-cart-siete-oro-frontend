@@ -44,7 +44,7 @@ export const UserOrdersUser = () => {
       <NavBarUser code={code} />
       {orders ? (
         <div>          
-          <OrdersTableUser orders={orders} setOrders={setOrders} />
+          <OrdersTableUser orders={orders} setOrders={setOrders} userCode={code} />
         </div>
       ) : (
         <h2>No hay pedidos :(</h2>

@@ -51,11 +51,11 @@ function App() {
               element={<Components.UserOrdersUser />}
             />
 
-            <Route
+            {/* <Route
               exact
               path="/user/orders/delete/:userCode"
               element={<Components.DeleteOrder />}
-            />
+            /> */}
 
             <Route exact path="/admin" element={<Components.MainAdmin />} />
 

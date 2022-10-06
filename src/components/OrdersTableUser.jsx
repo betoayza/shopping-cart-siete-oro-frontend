@@ -5,13 +5,15 @@ import { Modal } from "./Modal";
 import { ProductsTableUsers } from "./ProductsTableUsers";
 import axios from "axios";
 
-export const OrdersTableUser = ({ orders, setOrders }) => {
+export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
   const [isModalSeeItems, setIsModalSeeItems] = useState(false);
   const [modal, setModal] = useState(false);
   const [products, setProducts] = useState(null);
+  const [isOrderCanceled, setIsOrderCanceled] = useState(false);
+  const [orderCode, setOrderCode] = useState(null);
 
-  const params = useParams();
-  const { userCode } = params;
+  const params = useParams(); 
+  console.log();
 
   if (!Array.isArray(orders)) {
     orders = [orders];
@@ -49,14 +51,45 @@ export const OrdersTableUser = ({ orders, setOrders }) => {
     if (isModalSeeItems) getAllProducts();
   }, [isModalSeeItems]);
 
+  useEffect(() => {
+    const cancelOrder = async () => {
+      let code = orderCode;
+      console.log(userCode, "|", code);
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          timeout: 3000,
+        },
+        data: { code, userCode },
+      };
+
+      await axios
+        .delete("/api/user/orders/delete", options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            setOrders(res.data);
+          }
+        })
+        .catch((error) => error);
+    };
+    if (isOrderCanceled && orderCode) cancelOrder();
+  }, [isOrderCanceled, userCode]);
+
   const handleSeeItems = (orderProducts) => {
     setModal(true);
     setIsModalSeeItems(true);
   };
 
-  const handleDelete = () => {};
+  const handleCancelOrder = (orderCode) => {
+    setIsOrderCanceled(true);
+    setOrderCode(orderCode);
+  };
 
-  const handleActivate = () => {};
+  const handleActivateOrder = () => {};
 
   const handleClose = () => {
     setModal(false);
@@ -102,8 +135,8 @@ export const OrdersTableUser = ({ orders, setOrders }) => {
                   key={index}
                   order={order}
                   handleSeeItems={handleSeeItems}
-                  handleDelete={handleDelete}
-                  handleActivate={handleActivate}
+                  handleCancelOrder={handleCancelOrder}
+                  handleActivateOrder={handleActivateOrder}
                 />
               );
             })

@@ -3,8 +3,8 @@ import React from "react";
 export const OrderTableRowUser = ({
   order,
   handleSeeItems,
-  handleDelete,
-  handleActivate,
+  handleCancelOrder,
+  handleActivateOrder,
 }) => {
   return (
     <tr>
@@ -22,14 +22,14 @@ export const OrderTableRowUser = ({
       <td>{order.status}</td>
       <td>
         {order.status === "En curso" && (
-          <button className="btn btn-danger" onClick={() => handleDelete()}>
+          <button className="btn btn-danger" onClick={() => handleCancelOrder(order.code)}>
             Cancelar
           </button>
         )}
         {order.status === "Entregado" && null}
 
         {order.status === "Cancelado" && (
-          <button className="btn btn-danger" onClick={() => handleActivate()}>
+          <button className="btn btn-danger" onClick={() => handleActivateOrder()}>
             Activar
           </button>
         )}
