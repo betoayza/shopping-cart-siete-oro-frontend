@@ -13,7 +13,7 @@ function App() {
 
             <Route exact path="/signup" element={<Components.SignUp />} />
 
-            <Route exact path="/user" element={<Components.MainUser />} />
+            <Route exact path="/user/:code" element={<Components.MainUser />} />
             
             <Route exact path="/admin" element={<Components.MainAdmin />} />
 

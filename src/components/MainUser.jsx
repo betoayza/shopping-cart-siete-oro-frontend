@@ -5,11 +5,13 @@ import { Modal } from "./Modal";
 import { ProductsTableUsers } from "./ProductsTableUsers";
 import { NavBarUser } from "./NavBarUser";
 
-const MainUser = ({ code }) => {
+const MainUser = () => {
   const [modal, setModal] = useState(false);
   const [modalSearchProducts, setModalSearchProducts] = useState(false);
   const [products, setProducts] = useState(null);
   const [term, setTerm] = useState("");
+
+  const { code } = useParams();
 
   // const handleClose = () => {
   //   setModal(false);

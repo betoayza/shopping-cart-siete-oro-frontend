@@ -1,8 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MainAdmin from "./MainAdmin";
-import MainUser from "./MainUser";
 
 const initialForm = {
   data: "",
@@ -21,7 +19,8 @@ const Login = () => {
     setForm(initialForm);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const options = {
       url: "/api/login",
       headers: {
@@ -41,10 +40,10 @@ const Login = () => {
         if (res.data) {
           //case generic user
           if (res.data.type === "Estandar") {
-            return <MainUser code={res.data.code} />;
+            navigate(`/user/${res.data.code}`);            
             //case admin
           } else {
-            return <MainAdmin />;
+            navigate('/admin');
           }
         } else {
           alert("Error: credenciales incorrectas! :(");
