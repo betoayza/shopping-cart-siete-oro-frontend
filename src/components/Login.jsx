@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import MainAdmin from "./MainAdmin";
+import MainUser from "./MainUser";
 
 const initialForm = {
   data: "",
@@ -19,9 +21,7 @@ const Login = () => {
     setForm(initialForm);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     const options = {
       url: "/api/login",
       headers: {
@@ -41,12 +41,10 @@ const Login = () => {
         if (res.data) {
           //case generic user
           if (res.data.type === "Estandar") {
-            const uri = `/user/${res.data.code}`;
-            navigate(uri);
+            return <MainUser code={res.data.code} />;
             //case admin
           } else {
-            const uri = "/admin";
-            navigate(uri);
+            return <MainAdmin />;
           }
         } else {
           alert("Error: credenciales incorrectas! :(");
@@ -61,34 +59,33 @@ const Login = () => {
   return (
     <div>
       <h2>Login</h2>
-      
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            className="form-control"
-            name="data"
-            placeholder="Email o usuario..."
-            value={form.data}
-            onChange={handleChange}
-          />
 
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            placeholder="Password..."
-            value={form.password}
-            onChange={handleChange}
-          />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          className="form-control"
+          name="data"
+          placeholder="Email o usuario..."
+          value={form.data}
+          onChange={handleChange}
+        />
 
-          <button type="submit" className="btn btn-primary">
-            Entrar
-          </button>
-          <button type="reset" className="btn btn-danger" onClick={handleClean}>
-            Limpiar
-          </button>
-        </form>
-      
+        <input
+          type="password"
+          className="form-control"
+          name="password"
+          placeholder="Password..."
+          value={form.password}
+          onChange={handleChange}
+        />
+
+        <button type="submit" className="btn btn-primary">
+          Entrar
+        </button>
+        <button type="reset" className="btn btn-danger" onClick={handleClean}>
+          Limpiar
+        </button>
+      </form>
     </div>
   );
 };

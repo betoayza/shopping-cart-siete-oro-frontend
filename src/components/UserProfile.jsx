@@ -121,9 +121,10 @@ const UserProfile = () => {
     <div className={"w-100"}>
       {console.log(code)}
       <NavBarUser code={code} />
-      <div className={"general-div w-100"}>
-        <h2>Mis datos:</h2>
-        <div className={"form-group w-50"}>
+      <div className={"general-div w-100 vh-100"}>
+        <div className={"general-div vh-50"}>
+          <h2>Mis datos:</h2>
+          {/* <div className={"form-group w-50"}> */}
           <form onSubmit={handleSubmit}>
             <input
               type={"hidden"}
@@ -229,6 +230,7 @@ const UserProfile = () => {
             Cerrar
           </button> */}
           </form>
+          {/* </div> */}
         </div>
       </div>
     </div>

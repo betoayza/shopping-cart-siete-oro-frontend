@@ -5,19 +5,16 @@ import { Modal } from "./Modal";
 import { ProductsTableUsers } from "./ProductsTableUsers";
 import { NavBarUser } from "./NavBarUser";
 
-const MainUser = () => {
+const MainUser = ({ code }) => {
   const [modal, setModal] = useState(false);
   const [modalSearchProducts, setModalSearchProducts] = useState(false);
   const [products, setProducts] = useState(null);
   const [term, setTerm] = useState("");
-  const params = useParams();
-  const { code } = params;
-  console.log(code);
 
-  const handleClose = () => {
-    setModal(false);
-    setModalSearchProducts(false);
-  };
+  // const handleClose = () => {
+  //   setModal(false);
+  //   setModalSearchProducts(false);
+  // };
 
   return modal ? (
     <Modal>
@@ -36,13 +33,6 @@ const MainUser = () => {
             userCode={code}
             showSearchingBar={false}
           />
-          <button
-            type={"button"}
-            onClick={handleClose}
-            className={"btn btn-danger"}
-          >
-            Cerrar
-          </button>
         </div>
       )}
     </Modal>

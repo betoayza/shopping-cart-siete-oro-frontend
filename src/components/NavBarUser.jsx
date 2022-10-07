@@ -2,9 +2,39 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import 'bootstrap-icons/font/bootstrap-icons.css'
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const NavBarUser = ({ code }) => {
+  const [counterItems, setCounterItems] = useState(0);
+
+  useEffect(() => {
+    const getShoppingCart = async () => {
+      let userCode = code;
+      const options = {
+        url: "/api/user/shopping-cart",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+        },
+        params: { userCode },
+        timeout: 5000,
+      };
+
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) setCounterItems(res.data.products.length);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    getShoppingCart();
+  }, [counterItems]);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -48,7 +78,12 @@ export const NavBarUser = ({ code }) => {
               <NavLink to={`/user/shopping-cart/${code}`}>
                 {({ isActive }) => (
                   <span className={isActive ? "nav-link" : "nav-link"}>
-                    <FontAwesomeIcon icon={faCartShopping} />
+                    <span className="position-relative">
+                      <FontAwesomeIcon icon={faCartShopping} />
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {counterItems}
+                      </span>
+                    </span>
                   </span>
                 )}
               </NavLink>

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const ProductTableRowUsers = ({ product, userCode }) => {
   console.log(product.image, typeof product.image);
@@ -55,8 +56,11 @@ export const ProductTableRowUsers = ({ product, userCode }) => {
           />
         </td>
         <td>
-          <button className={"btn btn-primary"} onClick={addToCart}>
-            Agregar
+          <button className={"btn btn-success"} onClick={addToCart}>
+            <i
+              className="bi-plus-lg"
+              style={{ color: "white", fontSize: "20px" }}
+            ></i>
           </button>
         </td>
       </tr>

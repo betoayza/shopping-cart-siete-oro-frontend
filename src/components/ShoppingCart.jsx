@@ -36,7 +36,7 @@ const ShoppingCart = () => {
         });
     };
     getShoppingCart(userCode);
-  }, []);
+  }, [shoppingCart]);
 
   // const handlePurchase = () => {
   //   setModal(true);

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 
-
 const SearchingBar = ({
   term = "",
   setTerm,
@@ -33,10 +32,12 @@ const SearchingBar = ({
             setModal(true);
             setModalSearchProducts(true);
           } else {
-            setProducts(null);
-            setModal(false);
-            setModalSearchProducts(false);
+            setProducts([]);
           }
+          //else {
+          //   setModal(false);
+          //   setModalSearchProducts(false);
+          // }
         })
         .catch((error) => error);
     };
@@ -46,21 +47,24 @@ const SearchingBar = ({
   const handleChange = (e) => {
     console.log(e.target.value);
     setTerm(e.target.value);
+    if (e.target.value === "") {
+      setProducts(null);
+      setModal(false);
+      setModalSearchProducts(false);
+    }
   };
 
   return (
-    <>
-      <div className={"text-center searching-bar-div"}>
-        <h1>Panadería Siete de Oro</h1>
+    <div className={"text-center searching-bar-div"}>
+      <h1>Panadería Siete de Oro</h1>
 
-        <input
-          className={"form-control w-50"}
-          value={term}
-          placeholder={"¿Qué está buscando?..."}
-          onChange={handleChange}
-        />
-      </div>
-    </>
+      <input
+        className={"form-control w-50"}
+        value={term}
+        placeholder={"¿Qué está buscando?..."}
+        onChange={handleChange}
+      />
+    </div>
   );
 };
 
