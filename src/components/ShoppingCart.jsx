@@ -45,7 +45,7 @@ const ShoppingCart = () => {
 
   return shoppingCart ? (
     <div className={"nav-bar"}>
-      <NavBarUser code={userCode} />
+      <NavBarUser code={shoppingCart.code} /> //se actualiza shopping cart y se actualiza el contador de carrito
       {console.log(userCode)}
 
       <h2>Mi carrito</h2>

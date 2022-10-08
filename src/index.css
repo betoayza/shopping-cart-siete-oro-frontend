@@ -85,6 +85,11 @@ form {
   border-color: blueviolet; 
 }
 
+.products-list {
+  display: flex;
+  align-content: space-between;
+  padding: 2rem;
+}
 
 
 

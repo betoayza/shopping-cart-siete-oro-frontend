@@ -10,8 +10,6 @@ export const ShoppingCartTable = ({
   setShoppingCart,
   userCode,
 }) => {
-  
-
   const [toBuy, setToBuy] = useState(1);
   const [itemIndex, setItemIndex] = useState(null);
   const [modal, setModal] = useState(false);

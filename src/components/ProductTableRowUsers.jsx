@@ -3,46 +3,46 @@ import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const ProductTableRowUsers = ({ product, userCode }) => {
-  console.log(product.image, typeof product.image);
-  let productCode = product.code;
+  // console.log(product.image, typeof product.image);
+  // let productCode = product.code;
 
-  const addToCart = async () => {
-    const options = {
-      url: "/api/user/shopping-cart/add",
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-        timeout: 3000,
-      },
-      data: { productCode, userCode },
-    };
+  // const addToCart = async () => {
+  //   const options = {
+  //     url: "/api/user/shopping-cart/add",
+  //     method: "put",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Access-Control-Allow-Origin": "*",
+  //       "Access-Control-Allow-Headers": "*",
+  //       Accept: "application/json",
+  //       timeout: 3000,
+  //     },
+  //     data: { productCode, userCode },
+  //   };
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          alert("Item agregado!");
-        } else {
-          alert("Ya tiene este articulo en el carrito");
-        }
-      })
-      .catch((error) => error);
-  };
+  //   await axios
+  //     .request(options)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       if (res.data) {
+  //         alert("Item agregado!");
+  //       } else {
+  //         alert("Ya tiene este articulo en el carrito");
+  //       }
+  //     })
+  //     .catch((error) => error);
+  // };
 
-  const toBase64 = (arr) => {
-    //arr = new Uint8Array(arr) if it's an ArrayBuffer
-    return btoa(
-      arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
-    );
-  };
+  // const toBase64 = (arr) => {
+  //   //arr = new Uint8Array(arr) if it's an ArrayBuffer
+  //   return btoa(
+  //     arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
+  //   );
+  // };
 
   return (
     <>
-      <tr>
+      {/* <tr>
         <td>{product.name}</td>
         <td>{product.description}</td>
         <td>{product.price}</td>
@@ -63,7 +63,7 @@ export const ProductTableRowUsers = ({ product, userCode }) => {
             ></i>
           </button>
         </td>
-      </tr>
+      </tr> */}
     </>
   );
 };
