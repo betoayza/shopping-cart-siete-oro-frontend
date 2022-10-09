@@ -46,7 +46,10 @@ export const ShoppingCartTableRow = ({
         />
       </td>
       <td>
-        <button className={"btn btn-danger"} onClick={() => removeItem(product.code, userCode, index)}>
+        <button
+          className={"btn btn-danger"}
+          onClick={() => removeItem(product.code, userCode, index)}
+        >
           <FontAwesomeIcon icon={faTrashCan} />
         </button>
       </td>

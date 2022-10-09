@@ -177,20 +177,19 @@ export const ShoppingCartTable = ({
             </tr>
           </thead>
           <tbody>
-            {shoppingCart &&
-              shoppingCart.products.map((product, index) => {
-                console.log("Index: ", index);
-                return (
-                  <ShoppingCartTableRow
-                    key={index}
-                    product={product}
-                    userCode={userCode}
-                    removeItem={removeItem}
-                    updateToBuy={updateToBuy}
-                    index={index}
-                  />
-                );
-              })}
+            {shoppingCart.products.map((product, index) => {
+              console.log("Index: ", index);
+              return (
+                <ShoppingCartTableRow
+                  key={index}
+                  product={product}
+                  userCode={userCode}
+                  removeItem={removeItem}
+                  updateToBuy={updateToBuy}
+                  index={index}
+                />
+              );
+            })}
           </tbody>
         </table>
 

@@ -1,40 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+// import { CodeContext } from "./ShoppingCart";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-export const NavBarUser = ({ code }) => {
-  const [counterItems, setCounterItems] = useState(0);
+export const NavBarUser = ({ code, cartCounter }) => {
+  // const [counterItems, setCounterItems] = useState(0);
+  // const { shoppingCart } = useContext(CodeContext);
 
-  useEffect(() => {
-    const getShoppingCart = async () => {
-      let userCode = code;
-      const options = {
-        url: "/api/user/shopping-cart",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        params: { userCode },
-        timeout: 5000,
-      };
+  // useEffect(() => {
+  //   const getShoppingCart = async () => {
+  //     let userCode = code;
+  //     const options = {
+  //       url: "/api/user/shopping-cart",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Access-Control-Allow-Origin": "*",
+  //         "Access-Control-Allow-Headers": "*",
+  //         Accept: "application/json",
+  //       },
+  //       params: { userCode },
+  //       timeout: 3000,
+  //     };
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) setCounterItems(res.data.products.length);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
-    getShoppingCart();
-  }, [counterItems]);
+  //     await axios
+  //       .request(options)
+  //       .then((res) => {
+  //         console.log(res.data);
+  //         if (res.data) setCounterItems(res.data.products.length);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   };
+  //   getShoppingCart();
+  // }, [counterItems]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -82,7 +84,7 @@ export const NavBarUser = ({ code }) => {
                     <span className="position-relative">
                       <FontAwesomeIcon icon={faCartShopping} />
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {counterItems}
+                        {cartCounter}
                       </span>
                     </span>
                   </span>

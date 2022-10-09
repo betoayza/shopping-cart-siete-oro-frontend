@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import { ShoppingCartTable } from "./ShoppingCartTable";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
 
+export const CodeContext = createContext(null);
+
 const ShoppingCart = () => {
-  const [shoppingCart, setShoppingCart] = useState(null);
+  const [shoppingCart, setShoppingCart] = useState({ products: [] });
   const params = useParams();
-  const { userCode } = params;
+  const { userCode } = params; //userCode = shoppingCart.code
 
   //Finds All Items
   useEffect(() => {
@@ -35,42 +37,28 @@ const ShoppingCart = () => {
           console.error(error);
         });
     };
-    getShoppingCart(userCode);
+    getShoppingCart();
   }, [shoppingCart]);
 
-  // const handlePurchase = () => {
-  //   setModal(true);
-  //   setModalPaymentForm(true);
-  // };
-
-  return shoppingCart ? (
+  return (
     <div className={"nav-bar"}>
-      <NavBarUser code={shoppingCart.code} /> //se actualiza shopping cart y se actualiza el contador de carrito
-      {console.log(userCode)}
-
-      <h2>Mi carrito</h2>
-      <ShoppingCartTable
-        shoppingCart={shoppingCart}
-        setShoppingCart={setShoppingCart}
-        userCode={userCode}
+      {/* <CodeContext.Provider value={shoppingCart}> */}
+      {/* se actualiza shopping cart y se actualiza el contador de carrito */}
+      <NavBarUser
+        code={shoppingCart.code}
+        cartCounter={shoppingCart.products.length}
       />
-
-      {/* <button
-        type={"button"}
-        className={"btn btn-success"}
-        onClick={handlePurchase}
-      >
-        Purchase
-      </button> */}
-    </div>
-  ) : (
-    <div className={"nav-bar"}>
-      <NavBarUser code={userCode} />
       {console.log(userCode)}
-      <h3>Carrito Vacío :(</h3>
-      {/* <button type="button" className={"btn btn-danger"} onClick={handleClose}>
-        Close
-      </button> */}
+      <h2>Mi carrito</h2>
+      {shoppingCart.products.length ? (
+        <ShoppingCartTable
+          shoppingCart={shoppingCart}
+          setShoppingCart={setShoppingCart}
+          userCode={userCode}
+        />
+      ) : (
+        <h3>Carrito Vacío :(</h3>
+      )}
     </div>
   );
 };

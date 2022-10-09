@@ -40,7 +40,8 @@ const Login = () => {
         if (res.data) {
           //case generic user
           if (res.data.type === "Estandar") {
-            navigate(`/user/${res.data.code}`);            
+            const code = res.data.code;
+            navigate(`/user/${code}`);            
             //case admin
           } else {
             navigate('/admin');
