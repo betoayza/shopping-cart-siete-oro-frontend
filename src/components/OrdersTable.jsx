@@ -46,7 +46,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
   return modal ? (
     <Modal>
       {modalSeeProducts && (
-        <>
+        <div className={""}>
           <ProductsTable
             products={products}
             setProducts={setProducts}
@@ -55,7 +55,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
           <button className="btn btn-dark" onClick={handleClose}>
             Cerrar
           </button>
-        </>
+        </div>
       )}
       {modalSearchUser && (
         <SearchUser
@@ -72,49 +72,51 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
       )}
     </Modal>
   ) : (
-    <>
-      <div className={"nav-bar"}>
-        <NavBarAdmin />
-        {showSearchingBar && (
-          <div>
-            <button
-              className={"btn btn-success w-10"}
-              onClick={handleSearchOrder}
-            >
-              Buscar
-            </button>
-          </div>
-        )}
-        {orders.length === 1 ? <h3>Pedido:</h3> : <h3>Pedidos:</h3>}
+    <div className={"d-grid align-content-center w-100"}>
+      <NavBarAdmin />
+      <div className={"vh-100 w-100 border d-flex justify-content-center"}>
+        <div className={"border vh-100 w-75"}>
+          {showSearchingBar && (
+            <div>
+              <button
+                className={"btn btn-success w-10"}
+                onClick={handleSearchOrder}
+              >
+                Buscar
+              </button>
+            </div>
+          )}
+          {orders.length === 1 ? <h3>Pedido:</h3> : <h3>Pedidos:</h3>}
 
-        <div className={"table-responsive"}>
-          <table className={"table table-light table-hover"}>
-            <thead>
-              <tr>
-                <th scope="col">Codigo</th>
-                <th scope="col">Usuario</th>
-                <th scope="col">Productos</th>
-                <th scope="col">Monto</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders &&
-                orders.map((order) => {
-                  return (
-                    <OrderTableRow
-                      key={order._id}
-                      order={order}
-                      handleSearchUser={handleSearchUser}
-                      handleSeeProducts={handleSeeProducts}
-                    />
-                  );
-                })}
-            </tbody>
-          </table>
+          <div className={"table-responsive"}>
+            <table className={"table table-light table-hover"}>
+              <thead>
+                <tr>
+                  <th scope="col">Codigo</th>
+                  <th scope="col">Usuario</th>
+                  <th scope="col">Productos</th>
+                  <th scope="col">Monto</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders &&
+                  orders.map((order) => {
+                    return (
+                      <OrderTableRow
+                        key={order._id}
+                        order={order}
+                        handleSearchUser={handleSearchUser}
+                        handleSeeProducts={handleSeeProducts}
+                      />
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

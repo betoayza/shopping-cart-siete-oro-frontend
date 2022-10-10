@@ -29,6 +29,6 @@ export const AllOrders = () => {
   }, []);
 
   return (
-    <div>{orders && <OrdersTable orders={orders} setOrders={setOrders} />}</div>
+    <div className={"w-100 vh-100"}>{orders && <OrdersTable orders={orders} setOrders={setOrders} />}</div>
   );
 };

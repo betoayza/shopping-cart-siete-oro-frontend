@@ -205,14 +205,14 @@ const SignUp = () => {
                 className="btn btn-primary"
                 onClick={handleSubmit}
               >
-                Send
+                Registrarse
               </button>
               <button
                 type="reset"
                 className="btn btn-danger"
                 onClick={handleClean}
               >
-                Clean
+                Limpiar
               </button>
             </div>
           </div>

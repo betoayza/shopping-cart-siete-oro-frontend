@@ -91,6 +91,13 @@ form {
   padding: 2rem;
 }
 
+#login-reg-div {
+  display: flex;
+  justify-content: end;
+  min-width: 100%;
+  border: solid;
+}
+
 
 
 

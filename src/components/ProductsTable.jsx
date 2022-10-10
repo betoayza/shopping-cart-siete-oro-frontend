@@ -93,9 +93,9 @@ export const ProductsTable = ({
       )}
     </Modal>
   ) : (
-    <div>
+    <div className={"w-100"}>
       {showAddAndSearch && (
-        <div>
+        <div className={""}>
           <NavBarAdmin />
           <button className={"btn btn-success w-10"} onClick={handleAddProduct}>
             Add

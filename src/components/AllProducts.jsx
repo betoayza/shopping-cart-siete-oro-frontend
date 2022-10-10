@@ -32,7 +32,7 @@ const AllProducts = () => {
   }, [products]);
 
   return (
-    <div>      
+    <div className={"general-div w-100"}>      
       {products && (
         <ProductsTable products={products} setProducts={setProducts} />
       )}
