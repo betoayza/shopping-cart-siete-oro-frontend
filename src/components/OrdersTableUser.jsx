@@ -13,9 +13,6 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
   const [orderCode, setOrderCode] = useState(null);
   const [isOrderReActivated, setIsOrderReActivated] = useState(false);
 
-  const params = useParams(); 
-  console.log();
-
   if (!Array.isArray(orders)) {
     orders = [orders];
   }
@@ -52,42 +49,65 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
     if (isModalSeeItems) getAllProducts();
   }, [isModalSeeItems]);
 
-  useEffect(() => {
-    const cancelOrder = async () => {
-      let code = orderCode;
-      console.log(userCode, "|", code);
-      const options = {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-          timeout: 3000,
-        },
-        data: { code, userCode },
-      };
+  // useEffect(() => {
+  //   const cancelOrder = async () => {
+  //     let code = orderCode;
+  //     console.log(userCode, "|", code);
+  //     const options = {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Access-Control-Allow-Origin": "*",
+  //         "Access-Control-Allow-Headers": "*",
+  //         Accept: "application/json",
+  //         timeout: 3000,
+  //       },
+  //       data: { code, userCode },
+  //     };
 
-      await axios
-        .delete("/api/user/orders/delete", options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setOrders(res.data);
-          }
-        })
-        .catch((error) => error);
-    };
-    if (isOrderCanceled && orderCode) cancelOrder();
-  }, [isOrderCanceled, userCode]);
+  //     await axios
+  //       .delete("/api/user/orders/delete", options)
+  //       .then((res) => {
+  //         console.log(res.data);
+  //         if (res.data) {
+  //           setOrders(res.data);
+  //         }
+  //       })
+  //       .catch((error) => error);
+  //   };
+  //   if (isOrderCanceled && orderCode) cancelOrder();
+  // }, [isOrderCanceled, userCode]);
 
   const handleSeeItems = (orderProducts) => {
     setModal(true);
     setIsModalSeeItems(true);
   };
 
-  const handleCancelOrder = (orderCode) => {
-    setIsOrderCanceled(true);
-    setOrderCode(orderCode);
+  const handleCancelOrder = async (orderCode) => {
+    // setIsOrderCanceled(true);
+    // setOrderCode(orderCode);
+
+    let code = orderCode;
+    console.log(userCode, "|", code);
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+        timeout: 3000,
+      },
+      data: { code, userCode },
+    };
+
+    await axios
+      .delete("/api/user/orders/delete", options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setOrders(res.data);
+        }
+      })
+      .catch((error) => error);
   };
 
   const handleActivateOrder = (orderCode) => {

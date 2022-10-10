@@ -25,14 +25,7 @@ export const OrderTableRowUser = ({
           <button className="btn btn-danger" onClick={() => handleCancelOrder(order.code)}>
             Cancelar
           </button>
-        ): null}
-        {/* {order.status === "Entregado" && null} */}
-
-        {/* {order.status === "Cancelado" && (
-          <button className="btn btn-success" onClick={() => handleActivateOrder(order.code)}>
-            Activar
-          </button>
-        )} */}
+        ): null}        
       </td>
     </tr>
   );

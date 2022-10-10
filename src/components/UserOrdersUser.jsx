@@ -36,7 +36,7 @@ export const UserOrdersUser = () => {
         .catch((error) => error);
     };
     getAllOrders();
-  }, []);
+  }, [orders]);
 
   return (
     <div className={"nav-bar"}>
