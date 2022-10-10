@@ -12,32 +12,30 @@ export const ShoppingCartTableRow = ({
 
   useEffect(() => {
     updateToBuy(toBuy, index);
-  }, [toBuy]);
-
-  const handleToBuy = (e) => {
-    setToBuy(parseInt(e.target.value));
-  };
+  }, [toBuy]);  
 
   return (
     <tr>
       <td>{product.name}</td>
       <td>{product.description}</td>
       <td>{product.price}</td>
-      <td className={"p-1"}>
-        <div>
+      <td>
+        <div className={"d-flex justify-content-center"}>
           <input
             type="number"
             className={"form-control"}
-            style={{ width: "80px" }}
+            style={{ width: "100px" }}
             max={product.stock}
             min={1}
-            value={toBuy}
+            value={!toBuy ? "" : toBuy}
             onChange={(e) => {
-              handleToBuy(e);
+              setToBuy(parseInt(e.target.value));
             }}
+            required
           />
         </div>
       </td>
+      <td>{product.stock}</td>
       <td>
         <img
           src={"data:image/png;base64," + product.image}

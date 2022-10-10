@@ -14,6 +14,7 @@ export const ShoppingCartTable = ({
 
   let navigate = useNavigate();
 
+  // update item quatitity brings back shopping cart updated
   useEffect(() => {
     console.log("dsa: ", toBuy, itemIndex);
     //UPDATE QUANTITY TO BUY
@@ -55,8 +56,7 @@ export const ShoppingCartTable = ({
                 .then((res) => {
                   console.log(res);
                   if (res.data) {
-                    setShoppingCart(res.data);
-                    //setProducts(res.data.products);
+                    setShoppingCart(res.data);                    
                   }
                 })
                 .catch((error) => {
@@ -83,32 +83,40 @@ export const ShoppingCartTable = ({
     let items = await shoppingCart.products.map((product) => ({
       ...product,
       image: "",
-    }));
+    }));    
 
-    const options = {
-      url: "/api/payment",
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-        timeout: 3000,
-      },
-      data: { items, userCode },
-    };
+    if (
+      items.filter((item) => {
+        item.toBuy == null;
+      }) === true
+    ) {
+      alert("Debe especificar cantidad!");
+    } else {
+      const options = {
+        url: "/api/payment",
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          timeout: 3000,
+        },
+        data: { items, userCode },
+      };
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          window.location.href = res.data.init_point;
-        } else {
-          navigate(res.data.back_urls.failure);
-        }
-      })
-      .catch((error) => error);
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            window.location.href = res.data.init_point;
+          } else {
+            navigate(res.data.back_urls.failure);
+          }
+        })
+        .catch((error) => error);
+    }
   };
 
   const removeItem = async (prodCode, userCode, index) => {
@@ -158,8 +166,6 @@ export const ShoppingCartTable = ({
 
   return shoppingCart.products.length ? (
     <div>
-      {console.log("lista: ", shoppingCart.products)}
-
       <div className={""}>
         <table className={"table table-light table-hover table-responsive"}>
           <thead>
@@ -168,6 +174,7 @@ export const ShoppingCartTable = ({
               <th scope="col">Descripcion</th>
               <th scope="col">Precio</th>
               <th scope="col">A llevar</th>
+              <th scope="col">Max</th>
               <th scope="col">Imagen</th>
               <th scope="col">Accion</th>
             </tr>
