@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Modal } from "./Modal";
 import { NavBarUser } from "./NavBarUser";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const initialForm = {
   name: "",
@@ -21,6 +22,8 @@ const UserProfile = () => {
   const [modal, setModal] = useState(false);
   const [error, setError] = useState(false);
   const [updated, setUpdated] = useState(false);
+
+  let navigate = useNavigate();
 
   const params = useParams();
   console.log(params);
@@ -101,6 +104,10 @@ const UserProfile = () => {
     setModal(false);
     setError(false);
     setUpdated(false);
+  };
+
+  const handleBack = () => {
+    navigate(`/user/${code}`);
   };
 
   return error ? (
@@ -224,11 +231,17 @@ const UserProfile = () => {
             />
 
             <button type="submit" className="btn btn-primary">
-              Actualizar
+              <i
+                className="bi-cloud-arrow-up-fill"
+                style={{ color: "white", fontSize: "20px" }}
+              ></i>
             </button>
-            {/* <button type="reset" className="btn btn-danger" onClick={handleClean}>
-            Cerrar
-          </button> */}
+            <button type="button" className="btn btn-dark" onClick={handleBack}>
+              <i
+                className="bi-arrow-left-square-fill"
+                style={{ color: "white", fontSize: "20px" }}
+              ></i>
+            </button>
           </form>
           {/* </div> */}
         </div>

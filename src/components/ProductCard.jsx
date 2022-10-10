@@ -58,7 +58,7 @@ export const ProductCard = ({ index, product, userCode }) => {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          alert("Agregado ;)");
+          // alert("Agregado ;)");
           setIsAdded(true);
         }
       })
@@ -83,7 +83,7 @@ export const ProductCard = ({ index, product, userCode }) => {
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          alert("Quitado del carrito :(");
+          // alert("Quitado del carrito :(");
           setIsAdded(false);
         }
       })

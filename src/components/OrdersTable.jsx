@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Modal } from "./Modal";
 import { NavBarAdmin } from "./NavBarAdmin";
@@ -11,7 +12,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
   const [modal, setModal] = useState(false);
   const [modalSearchOrder, setModalSearchOrder] = useState(false);
   const [modalSeeProducts, setModalSeeProducts] = useState(false);
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
   const [modalSearchUser, setModalSearchUser] = useState(null);
   const [userCode, setUserCode] = useState(null);
 
@@ -25,17 +26,41 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
     setUserCode(userCode);
   };
 
-  const handleSeeProducts = (products) => {
+  const handleSeeOrderProducts = async (orderProducts) => {
     setModal(true);
     setModalSeeProducts(true);
-    setProducts(products);
-    console.log(products);
+    console.log(orderProducts);
+
+    let itemsIDs = orderProducts;
+    console.log(itemsIDs); //works
+
+    const options = {
+      url: "/api/products/get/list",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+      },
+      params: { itemsIDs },
+      timeout: 3000,
+    };
+
+    await axios
+      .request(options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setProducts(res.data);
+        }
+      })
+      .catch((error) => error);
   };
 
   const handleClose = () => {
     setModal(false);
     setModalSeeProducts(false);
-    setProducts(null);
+    setProducts([]);
   };
 
   const handleSearchOrder = () => {
@@ -52,7 +77,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
             setProducts={setProducts}
             addAndSearch={false}
           />
-          <button className="btn btn-dark" onClick={handleClose}>
+          <button className={"btn btn-danger"} onClick={handleClose}>
             Cerrar
           </button>
         </div>
@@ -108,7 +133,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
                         key={order._id}
                         order={order}
                         handleSearchUser={handleSearchUser}
-                        handleSeeProducts={handleSeeProducts}
+                        handleSeeOrderProducts={handleSeeOrderProducts}
                       />
                     );
                   })}

@@ -42,8 +42,6 @@ const ShoppingCart = () => {
 
   return (
     <div className={"nav-bar"}>
-      {/* <CodeContext.Provider value={shoppingCart}> */}
-      {/* se actualiza shopping cart y se actualiza el contador de carrito */}
       <NavBarUser
         code={shoppingCart.code}
         cartCounter={shoppingCart.products.length}

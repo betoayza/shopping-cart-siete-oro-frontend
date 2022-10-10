@@ -8,6 +8,7 @@ const SearchingBar = ({
   setModal,
   setModalSearchProducts,
 }) => {
+  
   useEffect(() => {
     const getProducts = async () => {
       const options = {

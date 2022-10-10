@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const ShoppingCartTableRow = ({
   product,
@@ -24,18 +23,20 @@ export const ShoppingCartTableRow = ({
       <td>{product.name}</td>
       <td>{product.description}</td>
       <td>{product.price}</td>
-      <td>
-        <input
-          type="number"
-          className={"form-control"}
-          style={{ width: "80px" }}
-          max={product.stock}
-          min={1}
-          value={toBuy}
-          onChange={(e) => {
-            handleToBuy(e);
-          }}
-        />
+      <td className={"p-1"}>
+        <div>
+          <input
+            type="number"
+            className={"form-control"}
+            style={{ width: "80px" }}
+            max={product.stock}
+            min={1}
+            value={toBuy}
+            onChange={(e) => {
+              handleToBuy(e);
+            }}
+          />
+        </div>
       </td>
       <td>
         <img
@@ -50,7 +51,10 @@ export const ShoppingCartTableRow = ({
           className={"btn btn-danger"}
           onClick={() => removeItem(product.code, userCode, index)}
         >
-          <FontAwesomeIcon icon={faTrashCan} />
+          <i
+            className="bi-trash-fill"
+            style={{ color: "white", fontSize: "20px" }}
+          ></i>
         </button>
       </td>
     </tr>

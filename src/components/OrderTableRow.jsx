@@ -1,9 +1,10 @@
 import React from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const OrderTableRow = ({
   order,
   handleSearchUser,
-  handleSeeProducts,
+  handleSeeOrderProducts,
 }) => {
   return (
     <tr>
@@ -14,16 +15,22 @@ export const OrderTableRow = ({
           className="btn btn-dark"
           onClick={() => handleSearchUser(order.userCode)}
         >
-          Ver
+          <i
+            className="bi-eye-fill"
+            style={{ color: "white", fontSize: "20px" }}
+          ></i>
         </button>
       </td>
       <td>
         <button
           type="button"
           className={"btn btn-primary"}
-          onClick={() => handleSeeProducts(order.products)}
+          onClick={() => handleSeeOrderProducts(order.products)}
         >
-          Ver
+          <i
+            className="bi-eye-fill"
+            style={{ color: "white", fontSize: "20px" }}
+          ></i>
         </button>
       </td>
       <td>{order.amount}</td>

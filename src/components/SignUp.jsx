@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const initialForm = {
   code: Date.now(),
@@ -18,6 +20,8 @@ const initialForm = {
 
 const SignUp = () => {
   const [form, setForm] = useState(initialForm);
+
+  let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,6 +69,10 @@ const SignUp = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleBack = () => {
+    navigate("/");
   };
 
   return (
@@ -200,19 +208,33 @@ const SignUp = () => {
 
           <div className="row">
             <div className="col-12">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                onClick={handleSubmit}
-              >
-                Registrarse
+              <button type="submit" className="btn btn-primary">
+                <i
+                  className="bi-box-arrow-in-right"
+                  style={{ color: "white", fontSize: "20px" }}
+                ></i>
               </button>
+
               <button
                 type="reset"
                 className="btn btn-danger"
                 onClick={handleClean}
               >
-                Limpiar
+                <i
+                  className="bi-x-circle-fill"
+                  style={{ color: "white", fontSize: "20px" }}
+                ></i>
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-dark"
+                onClick={handleBack}
+              >
+                <i
+                  className="bi-arrow-left-square-fill"
+                  style={{ color: "white", fontSize: "20px" }}
+                ></i>
               </button>
             </div>
           </div>

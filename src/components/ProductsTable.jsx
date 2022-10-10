@@ -7,6 +7,7 @@ import { ActivateProduct } from "./ActivateProduct";
 import DeleteProduct from "./DeleteProduct";
 import { ProductsSearchingBar } from "./ProductsSearchingBar";
 import { NavBarAdmin } from "./NavBarAdmin";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const ProductsTable = ({
   products,
@@ -98,7 +99,10 @@ export const ProductsTable = ({
         <div className={""}>
           <NavBarAdmin />
           <button className={"btn btn-success w-10"} onClick={handleAddProduct}>
-            Add
+            <i
+              className="bi-plus-lg"
+              style={{ color: "white", fontSize: "20px" }}
+            ></i>
           </button>
           <button
             className={"btn btn-primary w-10"}
@@ -108,28 +112,27 @@ export const ProductsTable = ({
           </button>
         </div>
       )}
-
       {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
-      <div className={"table-responsive"}>
-        <table className={"table table-light table-hover"}>
-          <thead>
-            <tr>
-              <th scope="col">Codigo</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Stock</th>
-              <th scope="col">Foto</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Accion</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products &&
-              products.map((product) => {
+      {products.length ? (
+        <div className={"table-responsive"}>
+          <table className={"table table-light table-hover"}>
+            <thead>
+              <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Foto</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Accion</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product, index) => {
                 return (
                   <ProductTableRow
-                    key={product._id}
+                    key={index}
                     product={product}
                     handleUpdate={handleUpdate}
                     handleDelete={handleDelete}
@@ -137,9 +140,12 @@ export const ProductsTable = ({
                   />
                 );
               })}
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <h2>No hay productos :(</h2>
+      )}
     </div>
   );
 };

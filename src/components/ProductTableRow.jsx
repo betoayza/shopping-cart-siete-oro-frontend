@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const ProductTableRow = ({
   product,
@@ -17,47 +18,51 @@ export const ProductTableRow = ({
   };
 
   return (
-    <>
-      <tr>
-        <td>{product.code}</td>
-        <td>{product.name}</td>
-        <td>{product.description}</td>
-        <td>{product.price}</td>
-        <td>{product.stock}</td>
-        <td>
-          <img
-            src={"data:image/png;base64," + toBase64(product.image.data)}
-            alt="Producto"
-            height={150}
-            width={200}
-          />
-        </td>
-        <td>{product.status}</td>
-        <td>
+    <tr>
+      <td>{product.code}</td>
+      <td>{product.name}</td>
+      <td>{product.description}</td>
+      <td>{product.price}</td>
+      <td>{product.stock}</td>
+      <td>
+        <img
+          src={"data:image/png;base64," + toBase64(product.image.data)}
+          alt="Producto"
+          height={150}
+          width={200}
+        />
+      </td>
+      <td>{product.status}</td>
+      <td>
+        <button
+          className="btn btn-primary"
+          onClick={() => handleUpdate(product.code)}
+        >
+          <i
+            className="bi-pen-fill"
+            style={{ color: "white", fontSize: "20px" }}
+          ></i>
+        </button>
+        {product.status === "Activo" && (
           <button
-            className="btn btn-primary"
-            onClick={() => handleUpdate(product.code)}
+            className="btn btn-danger"
+            onClick={() => handleDelete(product.code)}
           >
-            Editar
+            <i
+              className="bi-trash-fill"
+              style={{ color: "white", fontSize: "20px" }}
+            ></i>
           </button>
-          {product.status === "Activo" && (
-            <button
-              className="btn btn-danger"
-              onClick={() => handleDelete(product.code)}
-            >
-              Borrar
-            </button>
-          )}
-          {product.status === "Dado de baja" && (
-            <button
-              className="btn btn-success"
-              onClick={() => handleActivate(product.code)}
-            >
-              Activar
-            </button>
-          )}
-        </td>
-      </tr>
-    </>
+        )}
+        {product.status === "Dado de baja" && (
+          <button
+            className="btn btn-success"
+            onClick={() => handleActivate(product.code)}
+          >
+            Activar
+          </button>
+        )}
+      </td>
+    </tr>
   );
 };

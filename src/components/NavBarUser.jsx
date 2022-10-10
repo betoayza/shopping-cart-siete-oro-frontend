@@ -1,42 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-// import { CodeContext } from "./ShoppingCart";
+
+
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-export const NavBarUser = ({ code, cartCounter }) => {
-  // const [counterItems, setCounterItems] = useState(0);
-  // const { shoppingCart } = useContext(CodeContext);
-
-  // useEffect(() => {
-  //   const getShoppingCart = async () => {
-  //     let userCode = code;
-  //     const options = {
-  //       url: "/api/user/shopping-cart",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Origin": "*",
-  //         "Access-Control-Allow-Headers": "*",
-  //         Accept: "application/json",
-  //       },
-  //       params: { userCode },
-  //       timeout: 3000,
-  //     };
-
-  //     await axios
-  //       .request(options)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         if (res.data) setCounterItems(res.data.products.length);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   };
-  //   getShoppingCart();
-  // }, [counterItems]);
+export const NavBarUser = ({ code, cartCounter }) => {  
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -60,52 +28,67 @@ export const NavBarUser = ({ code, cartCounter }) => {
             <li className="nav-item">
               <NavLink to={`/user/${code}`}>
                 {({ isActive }) => (
-                  <p
+                  <a
                     className={isActive ? "nav-link active" : "nav-link active"}
                   >
-                    Buscar
-                  </p>
+                    <i
+                      className="bi-house-door-fill"
+                      style={{ color: "white", fontSize: "20px" }}
+                    ></i>
+                  </a>
                 )}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to={`/user/profile/${code}`}>
                 {({ isActive }) => (
-                  <p className={isActive ? "nav-link" : "nav-link"}>
-                    Mi perfil
-                  </p>
+                  <a className={isActive ? "nav-link" : "nav-link"}>
+                    <i
+                      className="bi-person-circle"
+                      style={{ color: "white", fontSize: "20px" }}
+                    ></i>
+                  </a>
                 )}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to={`/user/shopping-cart/${code}`}>
                 {({ isActive }) => (
-                  <span className={isActive ? "nav-link" : "nav-link"}>
-                    <span className="position-relative">
-                      <FontAwesomeIcon icon={faCartShopping} />
+                  <a className={isActive ? "nav-link" : "nav-link"}>
+                    <span className="position-relative">                      
+                      <i
+                        className="bi-cart-fill"
+                        style={{ color: "white", fontSize: "20px" }}
+                      ></i>
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         {cartCounter}
                       </span>
                     </span>
-                  </span>
+                  </a>
                 )}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to={`/user/${code}/orders`}>
                 {({ isActive }) => (
-                  <p className={isActive ? "nav-link" : "nav-link"}>
-                    Mis compras
-                  </p>
+                  <a className={isActive ? "nav-link" : "nav-link"}>
+                    <i
+                      className="bi-box-seam-fill"
+                      style={{ color: "white", fontSize: "20px" }}
+                    ></i>
+                  </a>
                 )}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to={`/`}>
                 {({ isActive }) => (
-                  <p className={isActive ? "nav-link" : "nav-link"}>
-                    Cerrar sesión
-                  </p>
+                  <a className={isActive ? "nav-link" : "nav-link"}>
+                    <i
+                      className="bi-box-arrow-right"
+                      style={{ color: "white", fontSize: "20px" }}
+                    ></i>
+                  </a>
                 )}
               </NavLink>
             </li>

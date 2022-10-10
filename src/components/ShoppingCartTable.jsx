@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ShoppingCartTableRow } from "./ShoppingCartTableRow";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "./Modal";
-// import moment from "moment";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const ShoppingCartTable = ({
   shoppingCart,
@@ -12,9 +11,6 @@ export const ShoppingCartTable = ({
 }) => {
   const [toBuy, setToBuy] = useState(1);
   const [itemIndex, setItemIndex] = useState(null);
-  const [modal, setModal] = useState(false);
-  const [modalPaymentForm, setModalPaymentForm] = useState(false);
-  //const [products, setProducts] = useState(null);
 
   let navigate = useNavigate();
 
@@ -164,8 +160,8 @@ export const ShoppingCartTable = ({
     <div>
       {console.log("lista: ", shoppingCart.products)}
 
-      <div className={"responsible-table"} id={"shopping-cart-div"}>
-        <table className={"table table-hover"}>
+      <div className={""}>
+        <table className={"table table-light table-hover table-responsive"}>
           <thead>
             <tr>
               <th scope="col">Item</th>
@@ -193,11 +189,17 @@ export const ShoppingCartTable = ({
           </tbody>
         </table>
 
-        <button className="btn btn-danger" onClick={removeAllItems}>
-          Vaciar
+        <button className="btn btn-dark" onClick={removeAllItems}>
+          <i
+            className="bi-cart-x-fill"
+            style={{ color: "white", fontSize: "20px" }}
+          ></i>
         </button>
         <button className="btn btn-success" onClick={handlePurchase}>
-          Comprar
+          <i
+            className="bi-credit-card"
+            style={{ color: "white", fontSize: "20px" }}
+          ></i>
         </button>
       </div>
     </div>

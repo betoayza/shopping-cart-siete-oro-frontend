@@ -5,7 +5,7 @@ export const NavBarAdmin = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/admin">
+        <a className="navbar-brand" href="#">
           Menu
         </a>
         <button
@@ -23,7 +23,10 @@ export const NavBarAdmin = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               <a className="nav-link active" aria-current="page" href="/admin">
-                Home
+                <i
+                  className="bi-house-door-fill"
+                  style={{ color: "white", fontSize: "20px" }}
+                ></i>
               </a>
             </li>
 
@@ -66,11 +69,14 @@ export const NavBarAdmin = () => {
             <li className="nav-item">
               <NavLink to="/">
                 {({ isActive }) => (
-                  <p
+                  <a
                     className={isActive ? "nav-link active" : "nav-link active"}
                   >
-                    Cerrar Sesión
-                  </p>
+                    <i
+                      className="bi-box-arrow-right"
+                      style={{ color: "white", fontSize: "20px" }}
+                    ></i>
+                  </a>
                 )}
               </NavLink>
             </li>

@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const UserTableRow = ({ user, handleDelete, handleActivate }) => {
   return (
@@ -21,15 +22,21 @@ export const UserTableRow = ({ user, handleDelete, handleActivate }) => {
             className="btn btn-danger"
             onClick={() => handleDelete(user.code)}
           >
-            Bannear
+            <i
+              className="bi-trash-fill"
+              style={{ color: "white", fontSize: "20px" }}
+            ></i>
           </button>
         )}
         {user.type === "Estandar" && user.status === "Banneado" && (
           <button
-            className="btn btn-warning"
+            className="btn btn-success"
             onClick={() => handleActivate(user.code)}
           >
-            Activar
+            <i
+              className="bi-plus-square-fill"
+              style={{ color: "white", fontSize: "20px"}}
+            ></i>
           </button>
         )}
       </td>

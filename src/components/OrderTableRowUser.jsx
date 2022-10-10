@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const OrderTableRowUser = ({
   order,
@@ -14,7 +15,10 @@ export const OrderTableRowUser = ({
           className="btn btn-dark"
           onClick={() => handleSeeItems(order.products)}
         >
-          Ver
+          <i
+            className="bi-eye-fill"
+            style={{ color: "white", fontSize: "20px" }}
+          ></i>
         </button>
       </td>
       <td>{order.amount}</td>
@@ -22,10 +26,13 @@ export const OrderTableRowUser = ({
       <td>{order.status}</td>
       <td>
         {order.status === "En curso" ? (
-          <button className="btn btn-danger" onClick={() => handleCancelOrder(order.code)}>
+          <button
+            className="btn btn-danger"
+            onClick={() => handleCancelOrder(order.code)}
+          >
             Cancelar
           </button>
-        ): null}        
+        ) : null}
       </td>
     </tr>
   );

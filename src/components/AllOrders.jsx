@@ -26,7 +26,7 @@ export const AllOrders = () => {
         .catch((error) => error);
     };
     getAllOrders();
-  }, []);
+  }, [orders]);
 
   return (
     <div className={"w-100 vh-100"}>{orders && <OrdersTable orders={orders} setOrders={setOrders} />}</div>
