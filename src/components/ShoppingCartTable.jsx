@@ -17,7 +17,6 @@ export const ShoppingCartTable = ({
   // update item quatitity brings back shopping cart updated
   useEffect(() => {
     console.log("dsa: ", toBuy, itemIndex);
-    //UPDATE QUANTITY TO BUY
     const updateToBuy = async () => {
       const options = {
         url: "/api/user/shopping-cart/update/toBuy",
@@ -56,14 +55,14 @@ export const ShoppingCartTable = ({
                 .then((res) => {
                   console.log(res);
                   if (res.data) {
-                    setShoppingCart(res.data);                    
+                    setShoppingCart(res.data);
                   }
                 })
                 .catch((error) => {
                   console.error(error);
                 });
             };
-            getShoppingCart(userCode);
+            getShoppingCart();
           }
         })
         .catch((error) => {
@@ -83,12 +82,14 @@ export const ShoppingCartTable = ({
     let items = await shoppingCart.products.map((product) => ({
       ...product,
       image: "",
-    }));    
+    }));
+
+    console.log(items);
 
     if (
       items.filter((item) => {
-        item.toBuy == null;
-      }) === true
+        return !item.toBuy || item.toBuy === "";
+      }).length
     ) {
       alert("Debe especificar cantidad!");
     } else {
