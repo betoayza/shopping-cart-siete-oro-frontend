@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useRef, useEffect } from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const initialForm = {
   code: "",
@@ -101,9 +102,9 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
 
   return !updated ? (
     found ? (
-      <div>
+      <div className={"general-div"}>
         <h1>Modifique Producto:</h1>
-        <div className="form-group w-25">
+        <div className="form-group w-75">
           <form onSubmit={handleUpdate}>
             <div className="input-group mb-3">
               {/* code isnt updatable */}
@@ -176,15 +177,20 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
             </div>
 
             <button className="btn btn-primary" type="submit">
-              Actualizar
+              <i
+                className="bi-cloud-arrow-up-fill"
+                style={{ color: "white", fontSize: "20px" }}
+              ></i>
             </button>
-
             <button
               className="btn btn-danger"
               type="reset"
               onClick={handleClose}
             >
-              Cerrar
+              <i
+                className="bi-x-circle-fill"
+                style={{ color: "white", fontSize: "20px" }}
+              ></i>
             </button>
           </form>
         </div>

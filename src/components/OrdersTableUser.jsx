@@ -131,7 +131,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
             userCode={userCode}
           />
           <button className="btn btn-danger" onClick={() => handleClose()}>
-            Cancelar
+            Cerrar
           </button>
         </div>
       )}
@@ -139,36 +139,39 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
   ) : (
     <div>
       <h2>Mis pedidos:</h2>
-
-      <table className={"table table-hover"}>
-        <thead>
-          <tr>
-            <th scope="col">Codigo</th>
-            <th scope="col">Items</th>
-            <th scope="col">Monto</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders ? (
-            orders.map((order, index) => {
-              return (
-                <OrderTableRowUser
-                  key={index}
-                  order={order}
-                  handleSeeItems={handleSeeItems}
-                  handleCancelOrder={handleCancelOrder}
-                  handleActivateOrder={handleActivateOrder}
-                />
-              );
-            })
-          ) : (
-            <h3>No hay pedidos aun :(</h3>
-          )}
-        </tbody>
-      </table>
+      <div className={"w-100 d-flex justify-content-center"}>
+        <div className={"border w-75"}>
+          <table className={"table table-light table-hover table-responsive"}>
+            <thead>
+              <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Items</th>
+                <th scope="col">Monto</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders ? (
+                orders.map((order, index) => {
+                  return (
+                    <OrderTableRowUser
+                      key={index}
+                      order={order}
+                      handleSeeItems={handleSeeItems}
+                      handleCancelOrder={handleCancelOrder}
+                      handleActivateOrder={handleActivateOrder}
+                    />
+                  );
+                })
+              ) : (
+                <h3>No hay pedidos aun :(</h3>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

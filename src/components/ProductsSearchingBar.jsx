@@ -2,8 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ProductsTable } from "./ProductsTable";
 
-export const ProductsSearchingBar = ({ setModal, setModalSearchProduct }) => {
-  const [term, setTerm] = useState("");
+export const ProductsSearchingBar = ({
+  term,
+  setTerm,
+  setModal,
+  setModalSearchProduct,
+}) => {
   const [products, setProducts] = useState(null);
 
   useEffect(() => {
@@ -26,59 +30,62 @@ export const ProductsSearchingBar = ({ setModal, setModalSearchProduct }) => {
           console.log(res.data);
           if (res.data) {
             setProducts(res.data);
-          } else setProducts(null);
+            setModal(true);
+            setModalSearchProduct(true);
+          } else {
+            setProducts([]);
+          }
         })
         .catch((error) => error);
     };
-    getProduct();
-  }, [term]);
 
-  const handleClose = () => {
-    setModal(false);
-    setModalSearchProduct(false);
-  };
+    if (term !== "") getProduct();
+    else {
+      setProducts(null);
+      setModal(false);
+      setModalSearchProduct(false);
+    }
+  }, [term]);
 
   const handleChange = (e) => {
     console.log(e.target.value);
     setTerm(e.target.value);
   };
 
-  return (
+  return products && term !== "" ? (
+    <div
+      className={
+        "w-100 vh-100 border justify-content-center align-items-center "
+      }
+    >
+      <div className={"w-100 border d-flex justify-content-center"}>
+        <input
+          type="text"
+          value={term}
+          placeholder={"Buscar..."}
+          onChange={handleChange}
+          className={"form-control w-50"}
+        />
+      </div>
+      <div>
+        <ProductsTable
+          products={products}
+          setProducts={setProducts}
+          addAndSearch={false}
+        />
+      </div>
+    </div>
+  ) : (
     <div id="searching-bar-product-div">
-      <input
-        type="text"
-        value={term}
-        placeholder={"Buscar..."}
-        onChange={handleChange}
-        className={"form-control w-100"}
-      />
-      <br />
-      {!term && (
-        <button
-          type="button"
-          className={"btn btn-danger"}
-          onClick={handleClose}
-        >
-          Cerrar
-        </button>
-      )}
-
-      {products && term !== "" && (
-        <>
-          <ProductsTable
-            products={products}
-            setProducts={setProducts}
-            addAndSearch={false}
-          />
-          <button
-            type="button"
-            className={"btn btn-danger"}
-            onClick={handleClose}
-          >
-            Cerrar
-          </button>
-        </>
-      )}
+      <div className={"w-50"}>
+        <input
+          type="text"
+          value={term}
+          placeholder={"Buscar..."}
+          onChange={handleChange}
+          className={"form-control w-100"}
+        />
+      </div>
     </div>
   );
 };

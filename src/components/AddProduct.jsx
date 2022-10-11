@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const initialForm = {
   code: Date.now(),

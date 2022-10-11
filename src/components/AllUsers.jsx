@@ -28,5 +28,9 @@ export const AllUsers = () => {
     getAllUsers();
   }, [users]);
 
-  return <div className={""}>{users && <UsersTable users={users} setUsers={setUsers} />}</div>;
+  return (
+    <div className={""}>
+      {users && <UsersTable users={users} setUsers={setUsers} />}
+    </div>
+  );
 };

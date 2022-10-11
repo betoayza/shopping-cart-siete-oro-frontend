@@ -8,6 +8,7 @@ import DeleteProduct from "./DeleteProduct";
 import { ProductsSearchingBar } from "./ProductsSearchingBar";
 import { NavBarAdmin } from "./NavBarAdmin";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { SearchingBarProductsAdmin } from "./SearchingBarProductsAdmin";
 
 export const ProductsTable = ({
   products,
@@ -22,6 +23,7 @@ export const ProductsTable = ({
   const [modalAddProduct, setModalAddProduct] = useState(false);
   const [modalActivateProduct, setModalActivateProduct] = useState(false);
   const [modalDeleteProduct, setModalDeleteProduct] = useState(false);
+  const [term, setTerm] = useState("");
 
   if (!Array.isArray(products)) {
     products = [products];
@@ -50,11 +52,6 @@ export const ProductsTable = ({
     setModalActivateProduct(true);
   };
 
-  const handleSearchProduct = () => {
-    setModal(true);
-    setModalSearchProduct(true);
-  };
-
   return modal ? (
     <Modal>
       {modalModifyProduct && (
@@ -66,6 +63,8 @@ export const ProductsTable = ({
       )}
       {modalSearchProduct && (
         <ProductsSearchingBar
+          term={term}
+          setTerm={setTerm}
           setModal={setModal}
           setModalSearchProduct={setModalSearchProduct}
         />
@@ -94,7 +93,7 @@ export const ProductsTable = ({
       )}
     </Modal>
   ) : (
-    <div className={"w-100"}>
+    <div className={"w-100 vh-100"}>
       {showAddAndSearch && (
         <div className={""}>
           <NavBarAdmin />
@@ -104,48 +103,51 @@ export const ProductsTable = ({
               style={{ color: "white", fontSize: "20px" }}
             ></i>
           </button>
-          <button
-            className={"btn btn-primary w-10"}
-            onClick={handleSearchProduct}
-          >
-            Buscar
-          </button>
+
+          <ProductsSearchingBar
+            term={term}
+            setTerm={setTerm}
+            setModal={setModal}
+            setModalSearchProduct={setModalSearchProduct}
+          />
         </div>
       )}
       {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
-      {products.length ? (
-        <div className={"table-responsive"}>
-          <table className={"table table-light table-hover"}>
-            <thead>
-              <tr>
-                <th scope="col">Codigo</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Foto</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Accion</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product, index) => {
-                return (
-                  <ProductTableRow
-                    key={index}
-                    product={product}
-                    handleUpdate={handleUpdate}
-                    handleDelete={handleDelete}
-                    handleActivate={handleActivate}
-                  />
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <h2>No hay productos :(</h2>
-      )}
+      <div className={"d-flex justify-content-center"}>
+        {products.length ? (
+          <div className={"table-responsive border w-75"}>
+            <table className={"table table-sm table-light table-hover"}>
+              <thead>
+                <tr>
+                  <th scope="col">Codigo</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Foto</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Accion</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product, index) => {
+                  return (
+                    <ProductTableRow
+                      key={index}
+                      product={product}
+                      handleUpdate={handleUpdate}
+                      handleDelete={handleDelete}
+                      handleActivate={handleActivate}
+                    />
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <h2>No hay productos :(</h2>
+        )}
+      </div>
     </div>
   );
 };

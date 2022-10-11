@@ -48,15 +48,17 @@ const ShoppingCart = () => {
       />
       {console.log(userCode)}
       <h2>Mi carrito</h2>
-      {shoppingCart.products.length ? (
-        <ShoppingCartTable
-          shoppingCart={shoppingCart}
-          setShoppingCart={setShoppingCart}
-          userCode={userCode}
-        />
-      ) : (
-        <h3>Carrito Vacío :(</h3>
-      )}
+      <div className={"w-100 d-flex justify-content-center"}>
+        {shoppingCart.products.length ? (
+          <ShoppingCartTable
+            shoppingCart={shoppingCart}
+            setShoppingCart={setShoppingCart}
+            userCode={userCode}
+          />
+        ) : (
+          <h3>Carrito Vacío :(</h3>
+        )}
+      </div>
     </div>
   );
 };

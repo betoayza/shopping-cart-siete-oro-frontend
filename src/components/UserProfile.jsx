@@ -96,10 +96,6 @@ const UserProfile = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // const handleClean = () => {
-  //   setForm(initialForm);
-  // };
-
   const handleClose = () => {
     setModal(false);
     setError(false);
