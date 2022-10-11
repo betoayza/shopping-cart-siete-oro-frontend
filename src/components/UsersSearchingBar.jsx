@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import { UsersTable } from "./UsersTable";
 
 export const UsersSearchingBar = ({
+  term,
+  setTerm,
   users,
   setUsers,
   setModal,
   setModalSearchUsers,
 }) => {
-  const [term, setTerm] = useState("");
-
   useEffect(() => {
     const getUsers = async () => {
       const options = {
@@ -27,11 +27,21 @@ export const UsersSearchingBar = ({
         .get("/api/admin/users/search", options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) setUsers(res.data);        
+          if (res.data) {
+            setUsers(res.data);
+            setModal(true);
+            setModalSearchUsers(true);
+          }
         })
         .catch((error) => error);
     };
-    getUsers();
+    if (term !== "") {
+      getUsers();
+    } else {
+      setUsers(null);
+      setModal(false);
+      setModalSearchUsers(false);
+    }
   }, [term]);
 
   const handleChange = (e) => {
@@ -39,15 +49,9 @@ export const UsersSearchingBar = ({
     setTerm(e.target.value);
   };
 
-  const handleClose = () => {
-    setModal(false);
-    setModalSearchUsers(false);
-    setTerm(null);
-  };
-
   return (
-    <div className={"searching-bar"}>
-      <div>
+    <div className={"searching-bar border"}>
+      <div className={"w-50"}>
         <input
           type={"text"}
           placeholder={"Buscar..."}
@@ -57,31 +61,14 @@ export const UsersSearchingBar = ({
         />
       </div>
 
-      {!term && (
-        <button
-          type={"button"}
-          className={"btn btn-danger"}
-          onClick={handleClose}
-        >
-          Cerrar
-        </button>
-      )}
-
       {users && term !== "" && (
-        <>
+        <div>
           <UsersTable
             users={users}
             setUsers={setUsers}
             showSearchUserAndAdminNavBar={false}
           />
-          <button
-            type={"button"}
-            className={"btn btn-danger"}
-            onClick={handleClose}
-          >
-            Cerrar
-          </button>
-        </>
+        </div>
       )}
     </div>
   );

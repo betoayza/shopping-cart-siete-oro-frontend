@@ -32,8 +32,6 @@ export const ProductsSearchingBar = ({
             setProducts(res.data);
             setModal(true);
             setModalSearchProduct(true);
-          } else {
-            setProducts([]);
           }
         })
         .catch((error) => error);
@@ -52,32 +50,9 @@ export const ProductsSearchingBar = ({
     setTerm(e.target.value);
   };
 
-  return products && term !== "" ? (
-    <div
-      className={
-        "w-100 vh-100 border justify-content-center align-items-center "
-      }
-    >
-      <div className={"w-100 border d-flex justify-content-center"}>
-        <input
-          type="text"
-          value={term}
-          placeholder={"Buscar..."}
-          onChange={handleChange}
-          className={"form-control w-50"}
-        />
-      </div>
-      <div>
-        <ProductsTable
-          products={products}
-          setProducts={setProducts}
-          addAndSearch={false}
-        />
-      </div>
-    </div>
-  ) : (
-    <div id="searching-bar-product-div">
-      <div className={"w-50"}>
+  return (
+    <div className={"searching-bar border w-100"}>
+      <div className={"w-50 border"}>
         <input
           type="text"
           value={term}
@@ -86,6 +61,16 @@ export const ProductsSearchingBar = ({
           className={"form-control w-100"}
         />
       </div>
+
+      {products && term !== "" && (
+        <div className={"w-100"}>
+          <ProductsTable
+            products={products}
+            setProducts={setProducts}
+            addAndSearch={false}
+          />
+        </div>
+      )}
     </div>
   );
 };

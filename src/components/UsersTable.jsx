@@ -17,6 +17,7 @@ export const UsersTable = ({
   const [modalActivate, setModalActivate] = useState(false);
   const [modalSearchUsers, setModalSearchUsers] = useState(false);
   const [usersFound, setUsersFound] = useState(null);
+  const [term, setTerm] = useState("");
 
   if (!Array.isArray(users)) {
     users = [users];
@@ -57,6 +58,8 @@ export const UsersTable = ({
       )}
       {modalSearchUsers && (
         <UsersSearchingBar
+          term={term}
+          setTerm={setTerm}
           users={usersFound}
           setUsers={setUsersFound}
           setModal={setModal}
@@ -69,13 +72,14 @@ export const UsersTable = ({
       {showSearchUserAndAdminNavBar && (
         <div>
           <NavBarAdmin />
-          <button
-            type={"button"}
-            className={"btn btn-primary"}
-            onClick={handleSearchUsers}
-          >
-            Buscar
-          </button>
+          <UsersSearchingBar
+            term={term}
+            setTerm={setTerm}
+            users={usersFound}
+            setUsers={setUsersFound}
+            setModal={setModal}
+            setModalSearchUsers={setModalSearchUsers}
+          />
         </div>
       )}
       {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}

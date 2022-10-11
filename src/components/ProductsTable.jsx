@@ -8,7 +8,6 @@ import DeleteProduct from "./DeleteProduct";
 import { ProductsSearchingBar } from "./ProductsSearchingBar";
 import { NavBarAdmin } from "./NavBarAdmin";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { SearchingBarProductsAdmin } from "./SearchingBarProductsAdmin";
 
 export const ProductsTable = ({
   products,
@@ -93,7 +92,7 @@ export const ProductsTable = ({
       )}
     </Modal>
   ) : (
-    <div className={"w-100 vh-100"}>
+    <div className={"w-100"}>
       {showAddAndSearch && (
         <div className={""}>
           <NavBarAdmin />
@@ -107,6 +106,8 @@ export const ProductsTable = ({
           <ProductsSearchingBar
             term={term}
             setTerm={setTerm}
+            products={products}
+            setProducts={setProducts}
             setModal={setModal}
             setModalSearchProduct={setModalSearchProduct}
           />
@@ -115,8 +116,8 @@ export const ProductsTable = ({
       {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
       <div className={"d-flex justify-content-center"}>
         {products.length ? (
-          <div className={"table-responsive border w-75"}>
-            <table className={"table table-sm table-light table-hover"}>
+          <div className={"table-responsive border"}>
+            <table className={"table table-light table-hover"}>
               <thead>
                 <tr>
                   <th scope="col">Codigo</th>

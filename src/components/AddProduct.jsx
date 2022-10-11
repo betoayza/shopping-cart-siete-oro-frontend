@@ -104,21 +104,19 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
       </button>
     </div>
   ) : !added ? (
-    <div>
+    <div className={"border d-grid align-items-center"}>
       <h2>Agregar Producto:</h2>
 
-      <div className="form-group w-25">
-        <form>
-          <div className="row">
-            <input
-              type="hidden"
-              className="form-control"
-              name="code"
-              value={form.code}
-            />
-          </div>
+      <div className="form-group border w-100 d-flex justify-content-center">
+        <form className={"w-100 "}>
+          <input
+            type="hidden"
+            className="form-control"
+            name="code"
+            value={form.code}
+          />
 
-          <div className="row mb-3">
+          <div className={"mb-2"}>
             <input
               type="text"
               className="form-control"
@@ -130,7 +128,7 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
             />
           </div>
 
-          <div className="row mb-3">
+          <div className={"mb-2"}>
             <input
               type="text"
               className="form-control"
@@ -142,7 +140,7 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
             />
           </div>
 
-          <div className="row mb-3">
+          <div className={"mb-2"}>
             <input
               type="number"
               className="form-control"
@@ -155,7 +153,7 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
             />
           </div>
 
-          <div className="row mb-3">
+          <div className={"mb-2"}>
             <input
               type="number"
               className="form-control"
@@ -168,10 +166,10 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
             />
           </div>
 
-          <div className="row mb-3">
+          <div className={"mb-2"}>
             <input
               type="file"
-              className="form-control"
+              className={"form-control"}
               name="image"
               id="image"
               ref={fileRef}
@@ -179,6 +177,7 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
                 console.log(e.target.files[0]);
                 setForm({ ...form, image: e.target.files[0] });
               }}
+              style={{ width: "165px" }}
               required
             />
           </div>

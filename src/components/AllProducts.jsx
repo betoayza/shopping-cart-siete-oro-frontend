@@ -29,7 +29,7 @@ const AllProducts = () => {
         .catch((error) => error);
     };
     getAllProducts();
-  }, []);
+  }, [products]);
 
   return (
     <div className={"general-div w-100"}>      
