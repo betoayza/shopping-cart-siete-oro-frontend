@@ -87,24 +87,15 @@ const Login = () => {
         />
 
         <button type="submit" className="btn btn-primary">
-          <i
-            className="bi-box-arrow-in-right"
-            style={{ color: "white", fontSize: "20px" }}
-          ></i>
+          Entrar
         </button>
 
         <button type="reset" className="btn btn-danger" onClick={handleClean}>
-          <i
-            className="bi-x-circle-fill"
-            style={{ color: "white", fontSize: "20px" }}
-          ></i>
+          Limpiar
         </button>
 
         <button type="button" className="btn btn-dark" onClick={handleBack}>
-          <i
-            className="bi-arrow-left-square-fill"
-            style={{ color: "white", fontSize: "20px" }}
-          ></i>
+          Volver
         </button>
       </form>
     </div>

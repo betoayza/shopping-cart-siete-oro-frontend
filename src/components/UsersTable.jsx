@@ -35,11 +35,6 @@ export const UsersTable = ({
     setUserCode(userCode);
   };
 
-  const handleSearchUsers = () => {
-    setModal(true);
-    setModalSearchUsers(true);
-  };
-
   return modal ? (
     <Modal>
       {modalDelete && (
@@ -68,9 +63,9 @@ export const UsersTable = ({
       )}
     </Modal>
   ) : (
-    <div className={""}>
+    <div className={"w-100"}>
       {showSearchUserAndAdminNavBar && (
-        <div>
+        <div className={"w-100"}>
           <NavBarAdmin />
           <UsersSearchingBar
             term={term}
@@ -82,41 +77,46 @@ export const UsersTable = ({
           />
         </div>
       )}
-      {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}
-      <div className={"d-flex justify-content-center"}>
-        <div className={"table-responsive border w-75"}>
-          <table className="table table-hover table-light">
-            <thead>
-              <tr>
-                <th scope="col">Codigo</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Email</th>
-                <th scope="col">Usuario</th>
-                <th scope="col">Domicilio</th>
-                <th scope="col">Barrio</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">C.P.</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Accion</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users &&
-                users.map((user) => {
-                  return (
-                    <UserTableRow
-                      key={user._id}
-                      user={user}
-                      handleDelete={handleDelete}
-                      handleActivate={handleActivate}
-                    />
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
+        {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}
+      <div className={"border w-100 d-flex justify-content-center"}>
+        {users.length ? (
+          <div className={"border w-75"}>
+            <div className={"table-responsive"}>
+              <table className={"table table-hover table-light table-sm"}>
+                <thead>
+                  <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Domicilio</th>
+                    <th scope="col">Barrio</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">C.P.</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Accion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => {
+                    return (
+                      <UserTableRow
+                        key={user._id}
+                        user={user}
+                        handleDelete={handleDelete}
+                        handleActivate={handleActivate}
+                      />
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : (
+          <h2>Sin resultados :(</h2>
+        )}
       </div>
     </div>
   );

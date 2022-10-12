@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import { NavBarUser } from "./NavBarUser";
 
@@ -10,7 +10,6 @@ export const SuccessPayment = () => {
   const [products, setProducts] = useState(null);
   const [installments, setInstallments] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
-  let navigate = useNavigate(null);
   let location = useLocation();
   let { userCode } = useParams();
 
@@ -33,7 +32,7 @@ export const SuccessPayment = () => {
           Accept: "application/json",
           Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
         },
-        timeout: 5000,
+        timeout: 3000,
       };
 
       await axios
@@ -66,7 +65,7 @@ export const SuccessPayment = () => {
           Accept: "application/json",
         },
         params: { userCode },
-        timeout: 5000,
+        timeout: 3000,
       };
 
       await axios

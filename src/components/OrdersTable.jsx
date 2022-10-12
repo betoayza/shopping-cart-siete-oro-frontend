@@ -8,13 +8,13 @@ import { SearchingBarOrders } from "./SearchingBarOrders";
 import { SearchUser } from "./SearchUser";
 
 export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
-  const [orderCode, setOrderCode] = useState(null);
   const [modal, setModal] = useState(false);
   const [modalSearchOrder, setModalSearchOrder] = useState(false);
   const [modalSeeProducts, setModalSeeProducts] = useState(false);
   const [products, setProducts] = useState([]);
   const [modalSearchUser, setModalSearchUser] = useState(null);
   const [userCode, setUserCode] = useState(null);
+  const [term, setTerm] = useState("");
 
   if (!Array.isArray(orders)) {
     orders = [orders];
@@ -57,15 +57,10 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
       .catch((error) => error);
   };
 
-  const handleClose = () => {
+  const handleCloseProducts = () => {
     setModal(false);
     setModalSeeProducts(false);
     setProducts([]);
-  };
-
-  const handleSearchOrder = () => {
-    setModal(true);
-    setModalSearchOrder(true);
   };
 
   return modal ? (
@@ -77,7 +72,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
             setProducts={setProducts}
             addAndSearch={false}
           />
-          <button className={"btn btn-danger"} onClick={handleClose}>
+          <button className={"btn btn-danger"} onClick={handleCloseProducts}>
             Cerrar
           </button>
         </div>
@@ -91,6 +86,8 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
       )}
       {modalSearchOrder && (
         <SearchingBarOrders
+          term={term}
+          setTerm={setTerm}
           setModal={setModal}
           setModalSearchOrder={setModalSearchOrder}
         />
@@ -98,51 +95,51 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
     </Modal>
   ) : (
     <div className={"d-grid align-content-center w-100"}>
-      <NavBarAdmin />
-      <div className={"vh-100 w-100 border d-flex justify-content-center"}>
-        <div className={"border vh-100 w-75"}>
-          {showSearchingBar && (
-            <div>
-              <button
-                className={"btn btn-success w-10"}
-                onClick={handleSearchOrder}
-              >
-                Buscar
-              </button>
-            </div>
-          )}
-          {orders.length === 1 ? <h3>Pedido:</h3> : <h3>Pedidos:</h3>}
-
-          <div className={"d-flex justify-content-center"}>
-            <div className={"table-responsive"}>
-              <table className={"table table-light table-hover"}>
-                <thead>
-                  <tr>
-                    <th scope="col">Codigo</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Productos</th>
-                    <th scope="col">Monto</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Estado</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orders &&
-                    orders.map((order) => {
-                      return (
-                        <OrderTableRow
-                          key={order._id}
-                          order={order}
-                          handleSearchUser={handleSearchUser}
-                          handleSeeOrderProducts={handleSeeOrderProducts}
-                        />
-                      );
-                    })}
-                </tbody>
-              </table>
-            </div>
-          </div>
+      {showSearchingBar && (
+        <div>
+          <NavBarAdmin />
+          <SearchingBarOrders
+            term={term}
+            setTerm={setTerm}
+            setModal={setModal}
+            setModalSearchOrder={setModalSearchOrder}
+          />
         </div>
+      )}
+
+      <div className={"d-flex justify-content-center"}>
+        {orders.length ? (
+          <div className={""}>
+            {orders.length === 1 ? <h3>Pedido:</h3> : <h3>Pedidos:</h3>}
+            <table className={"table table-light table-hover table-responsive"}>
+              <thead>
+                <tr>
+                  <th scope="col">Codigo</th>
+                  <th scope="col">Usuario</th>
+                  <th scope="col">Productos</th>
+                  <th scope="col">Monto</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders &&
+                  orders.map((order) => {
+                    return (
+                      <OrderTableRow
+                        key={order._id}
+                        order={order}
+                        handleSearchUser={handleSearchUser}
+                        handleSeeOrderProducts={handleSeeOrderProducts}
+                      />
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <h2>Sin resultados :(</h2>
+        )}
       </div>
     </div>
   );

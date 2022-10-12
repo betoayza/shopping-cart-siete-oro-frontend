@@ -62,7 +62,7 @@ export const UsersSearchingBar = ({
       </div>
 
       {users && term !== "" && (
-        <div>
+        <div className={"w-100"}>
           <UsersTable
             users={users}
             setUsers={setUsers}

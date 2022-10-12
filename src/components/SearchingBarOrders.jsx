@@ -2,9 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { OrdersTable } from "./OrdersTable";
 
-
-export const SearchingBarOrders = ({ setModal, setModalSearchOrder }) => {
-  const [term, setTerm] = useState("");
+export const SearchingBarOrders = ({
+  term,
+  setTerm,  
+  setModal,
+  setModalSearchOrder,
+}) => {
   const [orders, setOrders] = useState(null);
 
   useEffect(() => {
@@ -24,44 +27,41 @@ export const SearchingBarOrders = ({ setModal, setModalSearchOrder }) => {
         .get("/api/admin/orders/search", options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) setOrders(res.data);
+          if (res.data) {
+            setOrders(res.data);
+            setModal(true);
+            setModalSearchOrder(true);
+          } else {
+            setOrders([]);
+          }
         })
         .catch((error) => error);
     };
-    getOrders();
-  }, [term, orders]);
+    if (term !== "") {
+      getOrders();
+    } else {
+      setModal(false);
+      setModalSearchOrder(false);
+      setOrders(null);
+    }
+  }, [term]);
 
   const handleChange = (e) => {
     console.log(e.target.value);
     setTerm(e.target.value);
   };
 
-  const handleClose = () => {
-    setModal(false);
-    setModalSearchOrder(false);
-    setOrders(null);
-    setTerm("");
-  };
-
   return (
-    <>
-      <input
-        type="text"
-        value={term}
-        onChange={handleChange}
-        className={"form-control w-25"}
-        placeholder={"Buscar..."}
-      />
-
-      {!term && (
-        <button
-          type={"button"}
-          className={"btn btn-danger"}
-          onClick={handleClose}
-        >
-          Close
-        </button>
-      )}
+    <div className={"searching-bar border"}>
+      <div className={"w-50"}>
+        <input
+          type="text"
+          value={term}
+          onChange={handleChange}
+          className={"form-control w-100"}
+          placeholder={"Buscar..."}
+        />
+      </div>
 
       {orders && term !== "" && (
         <OrdersTable
@@ -70,6 +70,6 @@ export const SearchingBarOrders = ({ setModal, setModalSearchOrder }) => {
           showSearchingBar={false}
         />
       )}
-    </>
+    </div>
   );
 };

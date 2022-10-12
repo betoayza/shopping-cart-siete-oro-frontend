@@ -113,37 +113,39 @@ export const ProductsTable = ({
           />
         </div>
       )}
-      {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
       <div className={"d-flex justify-content-center"}>
         {products.length ? (
-          <div className={"table-responsive border"}>
-            <table className={"table table-light table-hover"}>
-              <thead>
-                <tr>
-                  <th scope="col">Codigo</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Descripcion</th>
-                  <th scope="col">Precio</th>
-                  <th scope="col">Stock</th>
-                  <th scope="col">Foto</th>
-                  <th scope="col">Estado</th>
-                  <th scope="col">Accion</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((product, index) => {
-                  return (
-                    <ProductTableRow
-                      key={index}
-                      product={product}
-                      handleUpdate={handleUpdate}
-                      handleDelete={handleDelete}
-                      handleActivate={handleActivate}
-                    />
-                  );
-                })}
-              </tbody>
-            </table>
+          <div className={"border"}>
+            {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
+            <div className={"table-responsive"}>
+              <table className={"table table-light table-hover table-sm"}>
+                <thead>
+                  <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Accion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((product, index) => {
+                    return (
+                      <ProductTableRow
+                        key={index}
+                        product={product}
+                        handleUpdate={handleUpdate}
+                        handleDelete={handleDelete}
+                        handleActivate={handleActivate}
+                      />
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         ) : (
           <h2>No hay productos :(</h2>

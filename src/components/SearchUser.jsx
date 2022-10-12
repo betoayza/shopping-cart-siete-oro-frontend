@@ -36,7 +36,7 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
 
   return (
     user && (
-      <>
+      <div>
         <UsersTable
           users={user}
           setUsers={setUser}
@@ -45,7 +45,7 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
         <button className="btn btn-danger" onClick={handleClose}>
           Cerrar
         </button>
-      </>
+      </div>
     )
   );
 };
