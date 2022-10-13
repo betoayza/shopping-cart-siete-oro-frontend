@@ -70,7 +70,7 @@ form {
 
 .products-list {
   display: flex;
-  align-content: space-between;
+  justify-content: space-between;
   padding: 2rem;
 }
 

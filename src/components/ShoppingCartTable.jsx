@@ -88,10 +88,10 @@ export const ShoppingCartTable = ({
 
     if (
       items.filter((item) => {
-        return !item.toBuy || item.toBuy === "";
+        return item.toBuy > item.stock;
       }).length
     ) {
-      alert("Debe especificar cantidad!");
+      alert("Cantidad incorrecta :(");
     } else {
       const options = {
         url: "/api/payment",

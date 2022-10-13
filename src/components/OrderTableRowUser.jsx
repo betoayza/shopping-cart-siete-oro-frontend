@@ -32,7 +32,7 @@ export const OrderTableRowUser = ({
           >
             Cancelar
           </button>
-        ) : null}
+        ) : "-"}
       </td>
     </tr>
   );

@@ -11,9 +11,9 @@ export const ProductsTableUsers = ({
   }
 
   return (
-    <div className={"p-3"}>
+    <div className={" p-3"}>
       {products.length === 1 ? <h3>Producto:</h3> : <h3>Productos:</h3>}
-      <div className={"products-list border"}>
+      <div className={"products-list"}>
         {products &&
           products.map((product, index) => {
             return (

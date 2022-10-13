@@ -27,7 +27,7 @@ export const ShoppingCartTableRow = ({
             style={{ width: "100px" }}
             max={product.stock}
             min={1}
-            value={!toBuy ? "" : toBuy}
+            value={!toBuy ? 1 : toBuy}
             onChange={(e) => {
               setToBuy(parseInt(e.target.value));
             }}

@@ -97,7 +97,7 @@ export const ProductCard = ({ index, product, userCode }) => {
   };
 
   return (
-    <div className={"card p-2"} style={{ width: "200px", height: "auto" }}>
+    <div className={"card p-2 m-1"} style={{ width: "200px", height: "auto" }}>
       <div>
         <img
           src={"data:image/png;base64," + toBase64(product.image.data)}
