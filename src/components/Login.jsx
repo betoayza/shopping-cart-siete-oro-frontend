@@ -48,7 +48,7 @@ const Login = () => {
             navigate("/admin");
           }
         } else {
-          alert("Error: credenciales incorrectas! :(");
+          alert("Error: credenciales incorrectas o usuario banneado :(");
         }
       })
       .catch((error) => {
