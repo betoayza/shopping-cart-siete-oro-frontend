@@ -63,9 +63,9 @@ export const UsersTable = ({
       )}
     </Modal>
   ) : (
-    <div className={"w-100"}>
+    <div className={"vw-100 h-75"}>
       {showSearchUserAndAdminNavBar && (
-        <div className={"w-100"}>
+        <div className={"vw-100"}>
           <NavBarAdmin />
           <UsersSearchingBar
             term={term}
@@ -77,13 +77,13 @@ export const UsersTable = ({
           />
         </div>
       )}
-        {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}
-      <div className={"border w-100 d-flex justify-content-center"}>
+      {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}
+      <div className={"vw-100 border border-danger"}>
         {users.length ? (
-          <div className={"border w-75"}>
-            <div className={"table-responsive"}>
-              <table className={"table table-hover table-light table-sm"}>
-                <thead>
+          <div className={"d-flex justify-content-center h-100"}>
+            <div className={"table-responsive w-75 h-100 border border-success"}>
+              <table className={"table table-hover table-light table-sm h-100"}>
+                <thead className={"table-success"}>
                   <tr>
                     <th scope="col">Codigo</th>
                     <th scope="col">Nombre</th>

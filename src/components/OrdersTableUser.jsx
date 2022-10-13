@@ -137,12 +137,12 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
       )}
     </Modal>
   ) : (
-    <div>
+    <div className={"vh-100"}>
       <h2>Mis pedidos:</h2>
       <div className={"w-100 d-flex justify-content-center"}>
-        <div className={"border w-75"}>
-          <table className={"table table-light table-hover table-responsive"}>
-            <thead>
+        <div className={"w-75 table-responsive"}>
+          <table className={"table table-hover"}>
+            <thead className={"table-success"}>
               <tr>
                 <th scope="col">Codigo</th>
                 <th scope="col">Items</th>

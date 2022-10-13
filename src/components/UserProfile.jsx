@@ -100,11 +100,7 @@ const UserProfile = () => {
     setModal(false);
     setError(false);
     setUpdated(false);
-  };
-
-  const handleBack = () => {
-    navigate(`/user/${code}`);
-  };
+  }; 
 
   return error ? (
     <Modal>
@@ -227,17 +223,8 @@ const UserProfile = () => {
             />
 
             <button type="submit" className="btn btn-primary">
-              <i
-                className="bi-cloud-arrow-up-fill"
-                style={{ color: "white", fontSize: "20px" }}
-              ></i>
-            </button>
-            <button type="button" className="btn btn-dark" onClick={handleBack}>
-              <i
-                className="bi-arrow-left-square-fill"
-                style={{ color: "white", fontSize: "20px" }}
-              ></i>
-            </button>
+              Actualizar
+            </button>            
           </form>
           {/* </div> */}
         </div>

@@ -94,7 +94,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
       )}
     </Modal>
   ) : (
-    <div className={"d-grid align-content-center w-100"}>
+    <div className={"d-grid align-content-center vw-100"}>
       {showSearchingBar && (
         <div>
           <NavBarAdmin />
@@ -107,35 +107,41 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
         </div>
       )}
 
-      <div className={"d-flex justify-content-center"}>
+      <div className={"d-flex justify-content-center vw-100"}>
         {orders.length ? (
-          <div className={""}>
+          <div className={"w-100"}>
             {orders.length === 1 ? <h3>Pedido:</h3> : <h3>Pedidos:</h3>}
-            <table className={"table table-light table-hover table-responsive"}>
-              <thead>
-                <tr>
-                  <th scope="col">Codigo</th>
-                  <th scope="col">Usuario</th>
-                  <th scope="col">Productos</th>
-                  <th scope="col">Monto</th>
-                  <th scope="col">Fecha</th>
-                  <th scope="col">Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders &&
-                  orders.map((order) => {
-                    return (
-                      <OrderTableRow
-                        key={order._id}
-                        order={order}
-                        handleSearchUser={handleSearchUser}
-                        handleSeeOrderProducts={handleSeeOrderProducts}
-                      />
-                    );
-                  })}
-              </tbody>
-            </table>
+            <div className={"d-flex justify-content-center"}>
+              <div className={"table-responsive w-75"}>
+                <table
+                  className={"table table-hover table-light table-sm"}
+                >
+                  <thead className={"table-success"}>
+                    <tr>
+                      <th scope="col">Codigo</th>
+                      <th scope="col">Usuario</th>
+                      <th scope="col">Productos</th>
+                      <th scope="col">Monto</th>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders &&
+                      orders.map((order) => {
+                        return (
+                          <OrderTableRow
+                            key={order._id}
+                            order={order}
+                            handleSearchUser={handleSearchUser}
+                            handleSeeOrderProducts={handleSeeOrderProducts}
+                          />
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         ) : (
           <h2>Sin resultados :(</h2>

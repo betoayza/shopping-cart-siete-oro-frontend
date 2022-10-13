@@ -11,9 +11,9 @@
     background-image: var(--bs-gradient);
   } */
 
-h1 {
+/* h1 {
   color: purple;
-}
+} */
 
 td, th {
   vertical-align: middle;
@@ -39,7 +39,7 @@ form {
 
 /* ELEMENTS */
 #app-div {
-  min-height: 100vh;
+  /* min-height: 100vh; */  
   border: solid 3px;
   border-color: crimson;  
   text-align: center;
@@ -67,23 +67,6 @@ form {
   width: 100%;
 }
 
-.general-div {
-  display: grid;
-  place-items: center; 
-  border: solid 2px;
-  border-color: coral;
-  /* min-width: 100vh;
-  min-height: 100vh;   */
-}
-
-.nav-bar {
-  display: grid;
-  align-items: start;
-  width: 100%;
-  min-height: 100vh;
-  border: solid 3px;
-  border-color: blueviolet; 
-}
 
 .products-list {
   display: flex;

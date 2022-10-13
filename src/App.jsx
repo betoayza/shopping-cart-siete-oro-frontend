@@ -3,9 +3,9 @@ import * as Components from "./components/indexComponents";
 
 function App() {
   return (
-    <div id={"app-div"} className={"bg-body text-secondary container-fluid"}>
+    <div id={"app-div"} className={"bg-body text-secondary vw-100 vh-100"}>
       <BrowserRouter>
-        <div className={"general-div"}>
+        <div className={"vw-100 vh-100"}>
           <Routes>
             <Route exact path="/" element={<Components.Home />} />
 

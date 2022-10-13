@@ -51,8 +51,8 @@ export const ProductsSearchingBar = ({
   };
 
   return (
-    <div className={"searching-bar border w-100"}>
-      <div className={"w-50 border"}>
+    <div className={"searching-bar w-100"}>
+      <div className={"w-50"}>
         <input
           type="text"
           value={term}

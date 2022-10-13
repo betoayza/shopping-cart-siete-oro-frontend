@@ -52,7 +52,7 @@ export const SearchingBarOrders = ({
   };
 
   return (
-    <div className={"searching-bar border"}>
+    <div className={"searching-bar"}>
       <div className={"w-50"}>
         <input
           type="text"

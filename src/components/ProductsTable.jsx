@@ -92,7 +92,7 @@ export const ProductsTable = ({
       )}
     </Modal>
   ) : (
-    <div className={"w-100"}>
+    <div className={"vw-100"}>
       {showAddAndSearch && (
         <div className={""}>
           <NavBarAdmin />
@@ -113,13 +113,13 @@ export const ProductsTable = ({
           />
         </div>
       )}
-      <div className={"d-flex justify-content-center"}>
+      <div className={"vw-100"}>
+        {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
         {products.length ? (
-          <div className={"border"}>
-            {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
-            <div className={"table-responsive"}>
-              <table className={"table table-light table-hover table-sm"}>
-                <thead>
+          <div className={"w-100 d-flex justify-content-center"}>
+            <div className={"table-responsive w-75"}>
+              <table className={"table table-hover table-light table-sm"}>
+                <thead className={"table-success"}>
                   <tr>
                     <th scope="col">Codigo</th>
                     <th scope="col">Nombre</th>
