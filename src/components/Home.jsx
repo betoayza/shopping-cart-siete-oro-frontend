@@ -16,9 +16,9 @@ const Home = () => {
         </button>
       </div>
 
-      <div className={"d-grid align-items-center border vh-100"}>
-        <SearchingBarNotRegistered />
-        <div>
+      <div className={"d-grid align-items-stretch w-100 h-100 "}>
+        <div className={""}>
+          <SearchingBarNotRegistered />
           <h2>Bienvenido a nuestro carrito online!</h2>
           <p>El lugar donde encontrará los mejores panificados</p>
           <p>Utilice el buscador para encontrar sus productos</p>

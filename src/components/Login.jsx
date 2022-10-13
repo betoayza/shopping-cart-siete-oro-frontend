@@ -62,42 +62,50 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className={"w-100 vh-100 d-grid align-items-center"}>
+      <div>
+        <h2>Login</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="form-control"
-          name="data"
-          placeholder="Email o usuario..."
-          value={form.data}
-          onChange={handleChange}
-          required
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            className="form-control w-25"
+            name="data"
+            placeholder="Email o usuario..."
+            value={form.data}
+            onChange={handleChange}
+            required
+          />
 
-        <input
-          type="password"
-          className="form-control"
-          name="password"
-          placeholder="Password..."
-          value={form.password}
-          onChange={handleChange}
-          required
-        />
+          <input
+            type="password"
+            className="form-control w-25"
+            name="password"
+            placeholder="Password..."
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
 
-        <button type="submit" className="btn btn-primary">
-          Entrar
-        </button>
+          <div className={"d-flex"}>
+            <button type="submit" className="btn btn-primary">
+              Entrar
+            </button>
 
-        <button type="reset" className="btn btn-danger" onClick={handleClean}>
-          Limpiar
-        </button>
+            <button
+              type="reset"
+              className="btn btn-danger"
+              onClick={handleClean}
+            >
+              Limpiar
+            </button>
 
-        <button type="button" className="btn btn-dark" onClick={handleBack}>
-          Volver
-        </button>
-      </form>
+            <button type="button" className="btn btn-dark" onClick={handleBack}>
+              Volver
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
