@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { SearchingBarNotRegistered } from "./SearchingBarNotRegistered";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Home = () => {
       </div>
 
       <div className={"d-grid align-items-center border vh-100"}>
+        <SearchingBarNotRegistered />
         <div>
           <h2>Bienvenido a nuestro carrito online!</h2>
           <p>El lugar donde encontrará los mejores panificados</p>

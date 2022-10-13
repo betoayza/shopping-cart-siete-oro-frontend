@@ -2,10 +2,8 @@ import React from "react";
 import { ProductCard } from "./ProductCard";
 
 export const ProductsTableUsers = ({
-  products,
-  setProducts,
-  userCode,
-  showSearchingBar = true,
+  products,  
+  userCode  
 }) => {
   
   if (!Array.isArray(products)) {
