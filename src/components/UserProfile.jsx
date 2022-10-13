@@ -100,7 +100,7 @@ const UserProfile = () => {
     setModal(false);
     setError(false);
     setUpdated(false);
-  }; 
+  };
 
   return error ? (
     <Modal>
@@ -117,116 +117,120 @@ const UserProfile = () => {
       </button>
     </Modal>
   ) : (
-    <div className={"w-100"}>
-      {console.log(code)}
+    <div className={"vw-100 border"}>
+      {/* {console.log(code)} */}
       <NavBarUser code={code} />
-      <div className={"general-div w-100 vh-100"}>
-        <div className={"general-div vh-50"}>
+      <div
+        className={
+          "w-100 vh-100 border border-success d-flex justify-content-center"
+        }
+      >
+        <div className={"d-grid align-content-center"}>
           <h2>Mis datos:</h2>
-          {/* <div className={"form-group w-50"}> */}
-          <form onSubmit={handleSubmit}>
-            <input
-              type={"hidden"}
-              className={"form-control w-75"}
-              name={"code"}
-              value={code}
-            />
+          <div className={"form-group w-100"}>
+            <form onSubmit={handleSubmit}>
+              <input
+                type={"hidden"}
+                className={"form-control w-75"}
+                name={"code"}
+                value={code}
+              />
 
-            <input
-              type="text"
-              className="form-control"
-              name="name"
-              placeholder="Nombre..."
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
+              <input
+                type="text"
+                className="form-control"
+                name="name"
+                placeholder="Nombre..."
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
 
-            <input
-              type="text"
-              className="form-control"
-              name="lastName"
-              placeholder="Apellido..."
-              value={form.lastName}
-              onChange={handleChange}
-              required
-            />
+              <input
+                type="text"
+                className="form-control"
+                name="lastName"
+                placeholder="Apellido..."
+                value={form.lastName}
+                onChange={handleChange}
+                required
+              />
 
-            <input
-              type="email"
-              className="form-control"
-              name="email"
-              placeholder="Email..."
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
+              <input
+                type="email"
+                className="form-control"
+                name="email"
+                placeholder="Email..."
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
 
-            <input
-              type="text"
-              className="form-control"
-              name="username"
-              placeholder="Username..."
-              value={form.username}
-              onChange={handleChange}
-              required
-            />
+              <input
+                type="text"
+                className="form-control"
+                name="username"
+                placeholder="Username..."
+                value={form.username}
+                onChange={handleChange}
+                required
+              />
 
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
+              <input
+                type="password"
+                className="form-control"
+                name="password"
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
 
-            <input
-              type="text"
-              className="form-control"
-              name="address"
-              placeholder="Direccion..."
-              value={form.address}
-              onChange={handleChange}
-              required
-            />
+              <input
+                type="text"
+                className="form-control"
+                name="address"
+                placeholder="Direccion..."
+                value={form.address}
+                onChange={handleChange}
+                required
+              />
 
-            <input
-              type="text"
-              className="form-control"
-              name="neighborhood"
-              placeholder="Barrio..."
-              value={form.neighborhood}
-              onChange={handleChange}
-              required
-            />
+              <input
+                type="text"
+                className="form-control"
+                name="neighborhood"
+                placeholder="Barrio..."
+                value={form.neighborhood}
+                onChange={handleChange}
+                required
+              />
 
-            <input
-              type="phone"
-              className="form-control"
-              name="phone"
-              placeholder="Tel..."
-              value={form.phone}
-              onChange={handleChange}
-              required
-            />
+              <input
+                type="phone"
+                className="form-control"
+                name="phone"
+                placeholder="Tel..."
+                value={form.phone}
+                onChange={handleChange}
+                required
+              />
 
-            <input
-              type="text"
-              className="form-control"
-              name="zip"
-              placeholder="CP..."
-              value={form.zip}
-              onChange={handleChange}
-              required
-            />
+              <input
+                type="text"
+                className="form-control"
+                name="zip"
+                placeholder="CP..."
+                value={form.zip}
+                onChange={handleChange}
+                required
+              />
 
-            <button type="submit" className="btn btn-primary">
-              Actualizar
-            </button>            
-          </form>
-          {/* </div> */}
+              <button type="submit" className="btn btn-primary">
+                Actualizar
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
