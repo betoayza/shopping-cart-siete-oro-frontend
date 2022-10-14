@@ -38,7 +38,7 @@ const ShoppingCart = () => {
         });
     };
     getShoppingCart();
-  }, [shoppingCart]);
+  }, []);
 
   return (
     <div className={"nav-bar"}>

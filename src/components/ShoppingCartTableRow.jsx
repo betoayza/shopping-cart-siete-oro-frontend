@@ -12,7 +12,7 @@ export const ShoppingCartTableRow = ({
 
   useEffect(() => {
     updateToBuy(toBuy, index);
-  }, [toBuy]);  
+  }, [toBuy]);
 
   return (
     <tr>
@@ -26,8 +26,8 @@ export const ShoppingCartTableRow = ({
             className={"form-control"}
             style={{ width: "100px" }}
             max={product.stock}
-            min={1}
-            value={!toBuy ? 1 : toBuy}
+            min={"1"}
+            value={!toBuy ? "1" : toBuy}
             onChange={(e) => {
               setToBuy(parseInt(e.target.value));
             }}
