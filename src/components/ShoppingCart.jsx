@@ -3,11 +3,13 @@ import axios from "axios";
 import { ShoppingCartTable } from "./ShoppingCartTable";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
+import { Loader } from "./Loader";
 
 export const CodeContext = createContext(null);
 
 const ShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState({ products: [] });
+  const [loader, setLoader] = useState(true);
   const params = useParams();
   const { userCode } = params; //userCode = shoppingCart.code
 
@@ -30,8 +32,10 @@ const ShoppingCart = () => {
         .request(options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) setShoppingCart(res.data);
-          else setShoppingCart(null);
+          if (res.data) {
+            setShoppingCart(res.data);
+            setLoader(false);
+          } else setShoppingCart(null);
         })
         .catch((error) => {
           console.error(error);
@@ -40,7 +44,9 @@ const ShoppingCart = () => {
     getShoppingCart();
   }, [ShoppingCart]);
 
-  return (
+  return loader ? (
+    <Loader />
+  ) : (
     <div className={""}>
       <NavBarUser
         code={shoppingCart.code}

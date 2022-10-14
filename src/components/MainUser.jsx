@@ -65,7 +65,7 @@ const MainUser = () => {
       )}
     </Modal>
   ) : (
-    <div className={"nav-bar"}>
+    <div className={""}>
       <NavBarUser
         code={shoppingCart.code}
         cartCounter={shoppingCart.products.length}

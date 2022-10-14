@@ -7,7 +7,7 @@ import { AllOrders } from "./AllOrders";
 import ReceivedOrders from "./ReceivedOrders";
 import { OrderByCode } from "./OrderByCode";
 import UsersOrdersAdmin from "./UsersOrdersAdmin";
-import { UserOrdersUser } from "./UserOrdersUser";
+import { AllOrdersUser } from "./AllOrdersUser";
 import DeleteOrder from "./DeleteOrder";
 
 import AllProducts from "./AllProducts";
@@ -31,7 +31,6 @@ import { SuccessPayment } from "./SuccessPayment";
 import { PendingPayment } from "./PendingPayment";
 import { FailedPayment } from "./FailedPayment";
 
-
 export {
   SearchingBar,
   MainAdmin,
@@ -41,7 +40,7 @@ export {
   AllOrders,
   ReceivedOrders,
   OrderByCode,
-  UserOrdersUser,
+  AllOrdersUser,
   DeleteOrder,
   AllProducts,
   DeleteProduct,
@@ -58,5 +57,5 @@ export {
   UserProfile,
   FailedPayment,
   SuccessPayment,
-  PendingPayment
+  PendingPayment,
 };

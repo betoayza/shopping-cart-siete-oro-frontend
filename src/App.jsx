@@ -50,7 +50,7 @@ function App() {
             <Route
               exact
               path="/user/:code/orders"
-              element={<Components.UserOrdersUser />}
+              element={<Components.AllOrdersUser />}
             />
 
             {/* <Route

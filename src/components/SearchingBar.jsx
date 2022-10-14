@@ -34,11 +34,7 @@ const SearchingBar = ({
             setModalSearchProducts(true);
           } else {
             setProducts([]);
-          }
-          //else {
-          //   setModal(false);
-          //   setModalSearchProducts(false);
-          // }
+          }          
         })
         .catch((error) => error);
     };
