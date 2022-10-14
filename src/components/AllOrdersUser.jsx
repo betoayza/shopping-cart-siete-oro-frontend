@@ -5,11 +5,10 @@ import { useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
 import { Loader } from "./Loader";
 
-
 export const AllOrdersUser = () => {
   const [orders, setOrders] = useState(null);
   const [loader, setLoader] = useState(true);
-  
+
   const params = useParams();
   const { code } = params;
 
@@ -49,8 +48,12 @@ export const AllOrdersUser = () => {
       {console.log(code)}
       <NavBarUser code={code} />
       {orders ? (
-        <div>          
-          <OrdersTableUser orders={orders} setOrders={setOrders} userCode={code} />
+        <div>
+          <OrdersTableUser
+            orders={orders}
+            setOrders={setOrders}
+            userCode={code}
+          />
         </div>
       ) : (
         <h2>No hay pedidos :(</h2>

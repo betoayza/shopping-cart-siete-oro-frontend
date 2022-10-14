@@ -65,18 +65,17 @@ const MainUser = () => {
       )}
     </Modal>
   ) : (
-    <div className={""}>
-      <NavBarUser
-        code={shoppingCart.code}
-        cartCounter={shoppingCart.products.length}
-      />
-      <SearchingBar
-        term={term}
-        setTerm={setTerm}
-        setProducts={setProducts}
-        setModal={setModal}
-        setModalSearchProducts={setModalSearchProducts}
-      />
+    <div className={"h-100 border"}>
+      <NavBarUser code={shoppingCart.code} />
+      <div className={"h-75 d-grid align-content-center"}>
+        <SearchingBar
+          term={term}
+          setTerm={setTerm}
+          setProducts={setProducts}
+          setModal={setModal}
+          setModalSearchProducts={setModalSearchProducts}
+        />
+      </div>
     </div>
   );
 };

@@ -167,8 +167,8 @@ export const ShoppingCartTable = ({
 
   return shoppingCart.products.length ? (
     <div className={"w-75"}>
-      <div className={""}>
-        <table className={"table table-hover table-responsive"}>
+      <div className={"table-responsive"}>
+        <table className={"table table-hover table-sm"}>
           <thead className={"table-success"}>
             <tr>
               <th scope="col">Item</th>

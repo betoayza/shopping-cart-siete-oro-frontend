@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-export const ProductCard = ({ index, product, userCode }) => {
+export const ProductCard = ({
+  index,
+  product,
+  userCode,
+  showButton = true,
+}) => {
   const [isAdded, setIsAdded] = useState(false);
 
   //check if item is already added to cart
@@ -110,21 +115,23 @@ export const ProductCard = ({ index, product, userCode }) => {
         <span className="card-text align-middle">{product.description}</span>
         <h3>Stock: {product.stock}</h3>
         <h3>{product.price}</h3>
-        {isAdded ? (
-          <button className={"btn btn-danger"} onClick={removeFromCart}>
-            <i
-              className="bi-dash-lg"
-              style={{ color: "white", fontSize: "20px" }}
-            ></i>
-          </button>
-        ) : (
-          <button className={"btn btn-success"} onClick={addToCart}>
-            <i
-              className="bi-plus-lg"
-              style={{ color: "white", fontSize: "20px" }}
-            ></i>
-          </button>
-        )}
+        {showButton ? (
+          isAdded ? (
+            <button className={"btn btn-danger"} onClick={removeFromCart}>
+              <i
+                className="bi-dash-lg"
+                style={{ color: "white", fontSize: "20px" }}
+              ></i>
+            </button>
+          ) : (
+            <button className={"btn btn-success"} onClick={addToCart}>
+              <i
+                className="bi-plus-lg"
+                style={{ color: "white", fontSize: "20px" }}
+              ></i>
+            </button>
+          )
+        ) : null}
       </div>
     </div>
   );

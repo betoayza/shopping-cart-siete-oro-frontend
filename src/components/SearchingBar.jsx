@@ -8,7 +8,6 @@ const SearchingBar = ({
   setModal,
   setModalSearchProducts,
 }) => {
-  
   useEffect(() => {
     const getProducts = async () => {
       const options = {
@@ -34,7 +33,7 @@ const SearchingBar = ({
             setModalSearchProducts(true);
           } else {
             setProducts([]);
-          }          
+          }
         })
         .catch((error) => error);
     };
@@ -52,11 +51,12 @@ const SearchingBar = ({
   };
 
   return (
-    <div className={"text-center searching-bar-div"}>
+    <div className={"w-100 text-center searching-bar-div border"}>
       <h1>Panadería Siete de Oro</h1>
 
       <input
-        className={"form-control w-50"}
+        className={"form-control"}
+        style={{ width: "400px" }}
         value={term}
         placeholder={"¿Qué está buscando?..."}
         onChange={handleChange}

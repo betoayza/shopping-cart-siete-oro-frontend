@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Loader } from "./Loader";
 import { ProductCard } from "./ProductCard";
 
-export const ProductsTableUsers = ({ products, userCode }) => {
+export const ProductsTableUsers = ({
+  products,
+  userCode,
+  showButton = true,
+}) => {
   const [loader, setLoader] = useState(true);
 
   if (!Array.isArray(products)) {
@@ -26,6 +30,7 @@ export const ProductsTableUsers = ({ products, userCode }) => {
               index={index}
               product={product}
               userCode={userCode}
+              showButton={showButton}
             />
           );
         })}

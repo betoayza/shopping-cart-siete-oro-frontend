@@ -42,7 +42,7 @@ const ShoppingCart = () => {
         });
     };
     getShoppingCart();
-  }, [ShoppingCart]);
+  }, [shoppingCart]);
 
   return loader ? (
     <Loader />

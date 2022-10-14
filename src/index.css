@@ -60,9 +60,7 @@ form {
 
 .searching-bar-div {
   display: grid;
-  justify-items: center;
-  border: 2px solid;
-  border-color: rgb(189, 176, 172);
+  justify-items: center;  
   max-height: 80vh;
   width: 100%;
 }

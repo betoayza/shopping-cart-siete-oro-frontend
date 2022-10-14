@@ -1,10 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-
-
 import "bootstrap-icons/font/bootstrap-icons.css";
+import axios from "axios";
 
-export const NavBarUser = ({ code, cartCounter }) => {  
+export const NavBarUser = ({ code }) => {
+  const [counterCart, setCounterCart] = useState(0);
+
+  useEffect(() => {
+    const getShoppingCart = async () => {
+      let userCode = code;
+      const options = {
+        url: "/api/user/shopping-cart",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+        },
+        params: { userCode },
+        timeout: 3000,
+      };
+
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            setCounterCart(res.data.products.length);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    getShoppingCart();
+  }, [counterCart, code]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -55,13 +85,13 @@ export const NavBarUser = ({ code, cartCounter }) => {
               <NavLink to={`/user/shopping-cart/${code}`}>
                 {({ isActive }) => (
                   <a className={isActive ? "nav-link" : "nav-link"}>
-                    <span className="position-relative">                      
+                    <span className="position-relative">
                       <i
                         className="bi-cart-fill"
                         style={{ color: "white", fontSize: "20px" }}
                       ></i>
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {cartCounter}
+                        {counterCart}
                       </span>
                     </span>
                   </a>

@@ -41,8 +41,7 @@ export const ShoppingCartTableRow = ({
         <img
           src={"data:image/png;base64," + product.image}
           alt="Producto"
-          height={100}
-          width={150}
+          style={{ height: "100px", width: "150px" }}
         />
       </td>
       <td>

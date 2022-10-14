@@ -129,6 +129,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
             products={products}
             setProducts={setProducts}
             userCode={userCode}
+            showButton={false}
           />
           <button className="btn btn-danger" onClick={() => handleClose()}>
             Cerrar
