@@ -9,14 +9,14 @@ export const ShoppingCartTable = ({
   setShoppingCart,
   userCode,
 }) => {
-  const [toBuy, setToBuy] = useState(1);
+  const [toBuy, setToBuy] = useState(null);
   const [itemIndex, setItemIndex] = useState(null);
 
   let navigate = useNavigate();
 
   // update item quatitity brings back shopping cart updated
   useEffect(() => {
-    console.log("dsa: ", toBuy, itemIndex);
+    console.log("Quantity: ", toBuy, " | Index: ", itemIndex);
     const updateToBuy = async () => {
       const options = {
         url: "/api/user/shopping-cart/update/toBuy",
@@ -47,7 +47,7 @@ export const ShoppingCartTable = ({
                   Accept: "application/json",
                 },
                 params: { userCode },
-                timeout: 5000,
+                timeout: 3000,
               };
 
               await axios
@@ -73,7 +73,7 @@ export const ShoppingCartTable = ({
   }, [toBuy, itemIndex]);
 
   //SET NEW QUANTITY TO BUY
-  const updateToBuy = async (toBuy, itemIndex) => {
+  const updateToBuy = (toBuy, itemIndex) => {
     setToBuy(toBuy);
     setItemIndex(itemIndex);
   };

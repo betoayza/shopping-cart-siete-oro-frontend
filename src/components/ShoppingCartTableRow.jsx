@@ -26,10 +26,11 @@ export const ShoppingCartTableRow = ({
             className={"form-control"}
             style={{ width: "100px" }}
             max={product.stock}
-            min={"1"}
-            value={!toBuy ? "1" : toBuy}
+            min={1}
+            value={toBuy}
             onChange={(e) => {
-              setToBuy(parseInt(e.target.value));
+              if (e.target.value === "") setToBuy(1);
+              else setToBuy(parseInt(e.target.value));
             }}
             required
           />
