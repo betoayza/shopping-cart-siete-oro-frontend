@@ -42,12 +42,12 @@ const MainUser = () => {
         });
     };
     getShoppingCart();
-  }, []);
+  }, [shoppingCart]);
 
   return modal ? (
     <Modal>
       {modalSearchProducts && (
-        <div className={"searching-bar-div table-responsive"}>
+        <div className={"searching-bar-div"}>
           <SearchingBar
             term={term}
             setTerm={setTerm}
@@ -57,7 +57,6 @@ const MainUser = () => {
           />
           <ProductsTableUsers
             products={products}
-            setProducts={setProducts}
             userCode={code}
             showButton={true}
           />

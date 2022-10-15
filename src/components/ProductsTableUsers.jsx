@@ -3,8 +3,7 @@ import { Loader } from "./Loader";
 import { ProductCard } from "./ProductCard";
 
 export const ProductsTableUsers = ({
-  products,
-  setProducts,
+  products,  
   userCode,
   showButton = true,
 }) => {
@@ -16,14 +15,14 @@ export const ProductsTableUsers = ({
 
   useEffect(() => {
     if (products) setLoader(false);
-  }, [loader, products]); 
+  }, [loader, products]);
 
   return loader ? (
     <Loader />
   ) : products.length ? (
-    <div className={"vw-75 border border-success border-3 p-3"}>
+    <div className={"vw-75 p-3"}>
       {products.length === 1 ? <h3>Producto:</h3> : <h3>Productos:</h3>}
-      <div className={"products-list border"}>
+      <div className={"products-list"}>
         {products.map((product, index) => {
           return (
             <ProductCard

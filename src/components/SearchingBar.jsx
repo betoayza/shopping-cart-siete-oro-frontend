@@ -27,31 +27,29 @@ const SearchingBar = ({
         .request(options)
         .then((res) => {
           console.log(res.data);
-          if (res.data.length) {
+          if (res.data) {
             setProducts(res.data);
             setModal(true);
             setModalSearchProducts(true);
-          } else {
-            setProducts([]);
           }
         })
         .catch((error) => error);
     };
     if (term !== "") getProducts();
+    else {
+      setProducts(null);
+      setModal(false);
+      setModalSearchProducts(false);
+    }
   }, [term]);
 
   const handleChange = (e) => {
     console.log(e.target.value);
     setTerm(e.target.value);
-    if (e.target.value === "") {
-      setProducts(null);
-      setModal(false);
-      setModalSearchProducts(false);
-    }
   };
 
   return (
-    <div className={"w-100 text-center searching-bar-div border"}>
+    <div className={"w-100 text-center searching-bar-div"}>
       <h1>Panadería Siete de Oro</h1>
 
       <input
