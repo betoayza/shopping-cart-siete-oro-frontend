@@ -27,7 +27,7 @@ const SearchingBar = ({
         .request(options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) {
+          if (res.data.length) {
             setProducts(res.data);
             setModal(true);
             setModalSearchProducts(true);

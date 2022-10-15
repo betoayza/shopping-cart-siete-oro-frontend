@@ -41,7 +41,7 @@ export const ProductCard = ({
         });
     };
     isItemAdded();
-  }, [isAdded]);
+  }, []);
 
   const addToCart = async () => {
     let productCode = product.code;
@@ -65,6 +65,8 @@ export const ProductCard = ({
         if (res.data) {
           // alert("Agregado ;)");
           setIsAdded(true);
+        } else {
+          setIsAdded(false);
         }
       })
       .catch((error) => error);
@@ -90,7 +92,7 @@ export const ProductCard = ({
         if (res.data) {
           // alert("Quitado del carrito :(");
           setIsAdded(false);
-        }
+        } else setIsAdded(true);
       })
       .catch((error) => error);
   };
@@ -115,8 +117,8 @@ export const ProductCard = ({
         <span className="card-text align-middle">{product.description}</span>
         <h3>Stock: {product.stock}</h3>
         <h3>{product.price}</h3>
-        {showButton ? (
-          isAdded ? (
+        {showButton &&
+          (isAdded ? (
             <button className={"btn btn-danger"} onClick={removeFromCart}>
               <i
                 className="bi-dash-lg"
@@ -130,8 +132,7 @@ export const ProductCard = ({
                 style={{ color: "white", fontSize: "20px" }}
               ></i>
             </button>
-          )
-        ) : null}
+          ))}
       </div>
     </div>
   );

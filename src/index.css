@@ -31,12 +31,6 @@ form {
   place-items: center;
 }
 
-
-/* div {
-  border: solid 2px;  
-} */
-
-
 /* ELEMENTS */
 #app-div {
   /* min-height: 100vh; */  
@@ -47,8 +41,7 @@ form {
 
 #searching-bar-product-div {
   display: grid;
-  place-items: center;
-  border-color: aqua;
+  place-items: center;  
   max-height: 100vh;
 }
 

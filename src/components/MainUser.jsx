@@ -42,7 +42,7 @@ const MainUser = () => {
         });
     };
     getShoppingCart();
-  }, [shoppingCart]);
+  }, []);
 
   return modal ? (
     <Modal>
@@ -59,7 +59,7 @@ const MainUser = () => {
             products={products}
             setProducts={setProducts}
             userCode={code}
-            showSearchingBar={false}
+            showButton={true}
           />
         </div>
       )}

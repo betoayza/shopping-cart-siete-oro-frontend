@@ -7,8 +7,8 @@ export const NavBarUser = ({ code }) => {
   const [counterCart, setCounterCart] = useState(0);
 
   useEffect(() => {
+    let userCode = code;
     const getShoppingCart = async () => {
-      let userCode = code;
       const options = {
         url: "/api/user/shopping-cart",
         headers: {
@@ -34,7 +34,7 @@ export const NavBarUser = ({ code }) => {
         });
     };
     getShoppingCart();
-  }, [counterCart, code]);
+  }, [counterCart]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

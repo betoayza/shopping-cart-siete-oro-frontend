@@ -42,15 +42,14 @@ const ShoppingCart = () => {
         });
     };
     getShoppingCart();
-  }, [shoppingCart]);
+  }, []);
 
   return loader ? (
     <Loader />
   ) : (
     <div className={""}>
       <NavBarUser
-        code={shoppingCart.code}
-        cartCounter={shoppingCart.products.length}
+        code={shoppingCart.code}        
       />
       {console.log(userCode)}
       <div className={"vh-100"}>
