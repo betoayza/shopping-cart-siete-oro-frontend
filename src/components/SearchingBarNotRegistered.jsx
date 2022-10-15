@@ -52,13 +52,15 @@ export const SearchingBarNotRegistered = () => {
       />
       {products ? (
         <Modal>
-          <div className={""}>
-            <input
-              className={"form-control w-100"}
-              value={term}
-              placeholder={"¿Qué está buscando?..."}
-              onChange={handleChange}
-            />
+          <div className={"w-100"}>
+            <div className={"d-flex justify-content-center"}>
+              <input
+                className={"form-control w-50"}
+                value={term}
+                placeholder={"¿Qué está buscando?..."}
+                onChange={handleChange}
+              />
+            </div>
             {products.length ? (
               <ProductsTableNotUsers products={products} />
             ) : (

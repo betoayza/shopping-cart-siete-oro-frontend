@@ -102,9 +102,9 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
 
   return !updated ? (
     found ? (
-      <div className={"text-center border "}>
+      <div className={"text-center"}>
         <h1>Modifique Producto:</h1>
-        <div className={"border d-flex justify-content-center"}>
+        <div className={"d-flex justify-content-center"}>
           <div className="form-group w-75">
             <form onSubmit={handleUpdate}>
               <div className="input-group mb-3">

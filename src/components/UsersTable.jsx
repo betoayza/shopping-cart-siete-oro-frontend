@@ -78,10 +78,10 @@ export const UsersTable = ({
         </div>
       )}
       {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}
-      <div className={"vw-100 border border-danger"}>
+      <div className={"vw-100"}>
         {users.length ? (
           <div className={"d-flex justify-content-center h-100"}>
-            <div className={"table-responsive w-75 h-100 border border-success"}>
+            <div className={"table-responsive w-75 h-100"}>
               <table className={"table table-hover table-light table-sm h-100"}>
                 <thead className={"table-success"}>
                   <tr>

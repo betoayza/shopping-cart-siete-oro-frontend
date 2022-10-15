@@ -76,7 +76,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className={"border d-grid justify-content-center"}>
+    <div className={"d-grid justify-content-center"}>
       <h1>Regístrese</h1>
 
       <div className="form-group">

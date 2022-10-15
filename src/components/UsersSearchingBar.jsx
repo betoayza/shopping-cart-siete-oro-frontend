@@ -42,7 +42,7 @@ export const UsersSearchingBar = ({
       setModal(false);
       setModalSearchUsers(false);
     }
-  }, [term]);
+  }, [term, users]);
 
   const handleChange = (e) => {
     console.log(e.target.value);

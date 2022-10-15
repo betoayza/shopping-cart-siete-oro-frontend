@@ -104,10 +104,10 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
       </button>
     </div>
   ) : !added ? (
-    <div className={"border d-grid align-items-center"}>
+    <div className={"d-grid align-items-center"}>
       <h2>Agregar Producto:</h2>
 
-      <div className="form-group border w-100 d-flex justify-content-center">
+      <div className="form-group w-100 d-flex justify-content-center">
         <form className={"w-100 "}>
           <input
             type="hidden"
@@ -195,7 +195,7 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
             <div className="col-12">
               <button
                 type="submit"
-                className="btn btn-success"
+                className="btn btn-primary"
                 onClick={handleSubmit}
               >
                 Agregar
