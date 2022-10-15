@@ -33,7 +33,7 @@ export const SearchingBarNotRegistered = () => {
         .catch((error) => error);
     };
     if (term !== "") getProducts();
-    else setProducts([]);
+    else setProducts(null);
   }, [term]);
 
   const handleChange = (e) => {
@@ -50,15 +50,21 @@ export const SearchingBarNotRegistered = () => {
         placeholder={"¿Qué está buscando?..."}
         onChange={handleChange}
       />
-      {products.length ? (
+      {products ? (
         <Modal>
-          <input
-            className={"form-control w-50"}
-            value={term}
-            placeholder={"¿Qué está buscando?..."}
-            onChange={handleChange}
-          />
-          <ProductsTableNotUsers products={products} />
+          <div className={""}>
+            <input
+              className={"form-control w-100"}
+              value={term}
+              placeholder={"¿Qué está buscando?..."}
+              onChange={handleChange}
+            />
+            {products.length ? (
+              <ProductsTableNotUsers products={products} />
+            ) : (
+              <h2>Sin resultados :(</h2>
+            )}
+          </div>
         </Modal>
       ) : null}
     </div>

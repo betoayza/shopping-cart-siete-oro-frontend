@@ -3,7 +3,7 @@ import { Loader } from "./Loader";
 import { ProductCard } from "./ProductCard";
 
 export const ProductsTableUsers = ({
-  products,  
+  products,
   userCode,
   showButton = true,
 }) => {
