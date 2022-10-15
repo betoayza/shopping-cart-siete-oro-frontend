@@ -11,7 +11,7 @@ const MainUser = () => {
   const [modalSearchProducts, setModalSearchProducts] = useState(false);
   const [products, setProducts] = useState(null);
   const [term, setTerm] = useState("");
-  const [shoppingCart, setShoppingCart] = useState({ products: [] });
+  const [shoppingCart, setShoppingCart] = useState(null);
 
   const { code } = useParams();
 

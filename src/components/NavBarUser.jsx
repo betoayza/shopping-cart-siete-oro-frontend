@@ -9,7 +9,7 @@ export const NavBarUser = ({ code, shoppingCart = null }) => {
   // let counterCart = shoppingCart.products.length;
 
   useEffect(() => {
-    let userCode = Number(code);
+    let userCode = code;
     const getShoppingCart = async () => {
       const options = {
         url: "/api/user/shopping-cart",
@@ -36,7 +36,7 @@ export const NavBarUser = ({ code, shoppingCart = null }) => {
         });
     };
     getShoppingCart();
-  }, [shoppingCart, code]);
+  }, [shoppingCart]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -126,10 +126,7 @@ export const NavBarUser = ({ code, shoppingCart = null }) => {
             </li>
           </ul>
         </div>
-      </div>
-      {/* <Routes>
-        <Route exact path="/user/profile/:code" element={<UserProfile />} />
-      </Routes> */}
+      </div>      
     </nav>
   );
 };
