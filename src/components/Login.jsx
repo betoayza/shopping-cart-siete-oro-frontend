@@ -87,7 +87,7 @@ const Login = () => {
             required
           />
 
-          <div className={"d-flex"}>
+          <div className={"d-flex m-1"}>
             <button type="submit" className="btn btn-primary">
               Entrar
             </button>

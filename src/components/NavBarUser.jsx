@@ -3,11 +3,13 @@ import { NavLink } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import axios from "axios";
 
-export const NavBarUser = ({ code }) => {
+export const NavBarUser = ({ code, shoppingCart = null }) => {
   const [counterCart, setCounterCart] = useState(0);
+  // const code = shoppingCart.code;
+  // let counterCart = shoppingCart.products.length;
 
   useEffect(() => {
-    let userCode = code;
+    let userCode = Number(code);
     const getShoppingCart = async () => {
       const options = {
         url: "/api/user/shopping-cart",
@@ -34,7 +36,7 @@ export const NavBarUser = ({ code }) => {
         });
     };
     getShoppingCart();
-  }, [counterCart]);
+  }, [shoppingCart, code]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

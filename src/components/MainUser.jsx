@@ -42,7 +42,7 @@ const MainUser = () => {
         });
     };
     getShoppingCart();
-  }, [shoppingCart]);
+  }, [shoppingCart, code]);
 
   return modal ? (
     <Modal>
@@ -65,7 +65,7 @@ const MainUser = () => {
     </Modal>
   ) : (
     <div className={"h-100 border"}>
-      <NavBarUser code={shoppingCart.code} />
+      <NavBarUser code={code} shoppingCart={shoppingCart} />
       <div className={"h-75 d-grid align-content-center"}>
         <SearchingBar
           term={term}

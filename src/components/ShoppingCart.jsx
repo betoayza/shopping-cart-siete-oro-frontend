@@ -42,15 +42,13 @@ const ShoppingCart = () => {
         });
     };
     getShoppingCart();
-  }, []);
+  }, [shoppingCart]);
 
   return loader ? (
     <Loader />
   ) : (
     <div className={""}>
-      <NavBarUser
-        code={shoppingCart.code}        
-      />
+      <NavBarUser code={userCode} shoppingCart={shoppingCart} />
       {console.log(userCode)}
       <div className={"vh-100"}>
         <h2>Mi carrito</h2>
