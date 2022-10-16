@@ -13,22 +13,31 @@ function App() {
 
             <Route exact path="/signup" element={<Components.SignUp />} />
 
-            <Route exact path="/user/:code" element={<Components.MainUser />} />
+            <Route
+              exact
+              path="/user/:username/:code"
+              element={<Components.MainUser />}
+            />
 
             <Route exact path="/admin" element={<Components.MainAdmin />} />
 
             <Route
               exact
-              path="/user/profile/:code"
+              path="/user/:username/:code/profile"
               element={<Components.UserProfile />}
             />
 
             <Route
               exact
-              path="/user/shopping-cart/:userCode"
+              path="/user/:username/shopping-cart/:userCode"
               element={<Components.ShoppingCart />}
             />
 
+            <Route
+              exact
+              path="/user/:username/:code/orders"
+              element={<Components.AllOrdersUser />}
+            />
             <Route
               exact
               path="/admin/users/all"
@@ -45,12 +54,6 @@ function App() {
               exact
               path="/admin/users/delete"
               element={<Components.DeleteUser />}
-            />
-
-            <Route
-              exact
-              path="/user/:code/orders"
-              element={<Components.AllOrdersUser />}
             />
 
             {/* <Route

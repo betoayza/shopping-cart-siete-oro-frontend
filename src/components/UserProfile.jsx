@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Modal } from "./Modal";
 import { NavBarUser } from "./NavBarUser";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -19,15 +19,12 @@ const initialForm = {
 
 const UserProfile = () => {
   const [form, setForm] = useState(initialForm);
-  const [modal, setModal] = useState(false);
   const [error, setError] = useState(false);
   const [updated, setUpdated] = useState(false);
 
-  let navigate = useNavigate();
-
   const params = useParams();
   console.log(params);
-  const { code } = params;
+  const { code, username } = params;
   console.log(code);
 
   useEffect(() => {
@@ -119,7 +116,7 @@ const UserProfile = () => {
   ) : (
     <div className={"vw-100 border"}>
       {/* {console.log(code)} */}
-      <NavBarUser code={code} />
+      <NavBarUser code={code} username={username} />
       <div
         className={
           "w-100 vh-100 border border-success d-flex justify-content-center"

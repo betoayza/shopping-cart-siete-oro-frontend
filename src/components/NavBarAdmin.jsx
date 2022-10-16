@@ -1,12 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import logo from "../img/logo-siete-oro.png";
 
 export const NavBarAdmin = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          Menu
+          <img src={logo} style={{ width: 50, height: 50 }} alt="Logo" />
         </a>
         <button
           className="navbar-toggler"

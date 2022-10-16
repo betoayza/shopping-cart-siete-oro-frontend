@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import logo from "../img/logo-siete-oro.png";
 import axios from "axios";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
-export const NavBarUser = ({ code, shoppingCart = null }) => {
+export const NavBarUser = ({ code, shoppingCart = null, username }) => {
   const [counterCart, setCounterCart] = useState(0);
   // const code = shoppingCart.code;
   // let counterCart = shoppingCart.products.length;
@@ -42,7 +43,7 @@ export const NavBarUser = ({ code, shoppingCart = null }) => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          Menu
+          <img src={logo} style={{ width: 50, height: 50 }} alt="Logo" />
         </a>
         <button
           className="navbar-toggler"
@@ -58,7 +59,7 @@ export const NavBarUser = ({ code, shoppingCart = null }) => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink to={`/user/${code}`}>
+              <NavLink to={`/user/${username}/${code}`}>
                 {({ isActive }) => (
                   <a
                     className={isActive ? "nav-link active" : "nav-link active"}
@@ -72,7 +73,7 @@ export const NavBarUser = ({ code, shoppingCart = null }) => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to={`/user/profile/${code}`}>
+              <NavLink to={`/user/${username}/${code}/profile`}>
                 {({ isActive }) => (
                   <a className={isActive ? "nav-link" : "nav-link"}>
                     <i
@@ -84,7 +85,7 @@ export const NavBarUser = ({ code, shoppingCart = null }) => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to={`/user/shopping-cart/${code}`}>
+              <NavLink to={`/user/${username}/shopping-cart/${code}`}>
                 {({ isActive }) => (
                   <a className={isActive ? "nav-link" : "nav-link"}>
                     <span className="position-relative">
@@ -101,7 +102,7 @@ export const NavBarUser = ({ code, shoppingCart = null }) => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to={`/user/${code}/orders`}>
+              <NavLink to={`/user/${username}/${code}/orders`}>
                 {({ isActive }) => (
                   <a className={isActive ? "nav-link" : "nav-link"}>
                     <i
@@ -126,7 +127,7 @@ export const NavBarUser = ({ code, shoppingCart = null }) => {
             </li>
           </ul>
         </div>
-      </div>      
+      </div>
     </nav>
   );
 };

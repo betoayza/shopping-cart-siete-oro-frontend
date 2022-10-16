@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import SearchingBar from "./SearchingBar";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Modal } from "./Modal";
 import { ProductsTableUsers } from "./ProductsTableUsers";
 import { NavBarUser } from "./NavBarUser";
 import axios from "axios";
+import logo from "../img/logo-siete-oro.png";
 
 const MainUser = () => {
   const [modal, setModal] = useState(false);
@@ -13,7 +14,8 @@ const MainUser = () => {
   const [term, setTerm] = useState("");
   const [shoppingCart, setShoppingCart] = useState(null);
 
-  const { code } = useParams();
+  const { code, username } = useParams();
+  
 
   useEffect(() => {
     let userCode = code;
@@ -65,15 +67,19 @@ const MainUser = () => {
     </Modal>
   ) : (
     <div className={"h-100 border"}>
-      <NavBarUser code={code} shoppingCart={shoppingCart} />
+      <NavBarUser code={code} shoppingCart={shoppingCart} username={username} />
+      <h2>Bienvenido {username}!</h2>
       <div className={"h-75 d-grid align-content-center"}>
-        <SearchingBar
-          term={term}
-          setTerm={setTerm}
-          setProducts={setProducts}
-          setModal={setModal}
-          setModalSearchProducts={setModalSearchProducts}
-        />
+        <div>
+          <img src={logo} style={{ width: 200, height: 200 }} alt="Logo" />
+          <SearchingBar
+            term={term}
+            setTerm={setTerm}
+            setProducts={setProducts}
+            setModal={setModal}
+            setModalSearchProducts={setModalSearchProducts}
+          />
+        </div>
       </div>
     </div>
   );

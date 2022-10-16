@@ -11,7 +11,7 @@ export const AllOrdersUser = () => {
   // const [shoppingCart, setShoppingCart] = useState(null);
 
   const params = useParams();
-  const { code } = params;
+  const { code, username } = params;
 
   useEffect(() => {
     const getAllOrders = async () => {
@@ -77,7 +77,7 @@ export const AllOrdersUser = () => {
   ) : (
     <div className={"nav-bar"}>
       {console.log(code)}
-      <NavBarUser code={code} />
+      <NavBarUser code={code} username={username} />
       {orders ? (
         <div>
           <OrdersTableUser

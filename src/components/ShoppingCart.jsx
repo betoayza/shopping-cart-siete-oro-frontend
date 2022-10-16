@@ -11,7 +11,7 @@ const ShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState({ products: [] });
   const [loader, setLoader] = useState(true);
   const params = useParams();
-  const { userCode } = params; //userCode = shoppingCart.code
+  const { userCode, username } = params; //userCode = shoppingCart.code
 
   //Finds All Items
   useEffect(() => {
@@ -48,7 +48,11 @@ const ShoppingCart = () => {
     <Loader />
   ) : (
     <div className={""}>
-      <NavBarUser code={userCode} shoppingCart={shoppingCart} />
+      <NavBarUser
+        code={userCode}
+        shoppingCart={shoppingCart}
+        username={username}
+      />
       {console.log(userCode)}
       <div className={"vh-100"}>
         <h2>Mi carrito</h2>
