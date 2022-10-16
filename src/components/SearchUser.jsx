@@ -42,7 +42,7 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
           setUsers={setUser}
           showSearchUserAndAdminNavBar={false}
         />
-        <button className="btn btn-danger" onClick={handleClose}>
+        <button className={"btn btn-danger mt-2"} onClick={handleClose}>
           Cerrar
         </button>
       </div>

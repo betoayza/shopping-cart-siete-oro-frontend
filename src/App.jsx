@@ -56,12 +56,6 @@ function App() {
               element={<Components.DeleteUser />}
             />
 
-            {/* <Route
-              exact
-              path="/user/orders/delete/:userCode"
-              element={<Components.DeleteOrder />}
-            /> */}
-
             <Route
               exact
               path="/admin/orders/all"
@@ -72,13 +66,7 @@ function App() {
               exact
               path="/admin/orders/received"
               element={<Components.ReceivedOrders />}
-            />
-
-            <Route
-              exact
-              path="/admin/orders/code"
-              element={<Components.OrderByCode />}
-            />
+            />            
 
             <Route
               exact
@@ -96,13 +84,7 @@ function App() {
               exact
               path="/admin/products/modify"
               element={<Components.ModifyProduct />}
-            />
-
-            <Route
-              exact
-              path="/admin/products/search/code"
-              element={<Components.SearchProductByCode />}
-            />
+            />           
 
             <Route
               exact

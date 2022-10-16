@@ -56,7 +56,7 @@ export const ProductTableRow = ({
         )}
         {product.status === "Dado de baja" && (
           <button
-            className="btn btn-warning"
+            className="btn btn-success"
             onClick={() => handleActivate(product.code)}
           >
             <i

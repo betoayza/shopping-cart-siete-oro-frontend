@@ -96,21 +96,26 @@ export const ProductsTable = ({
       {showAddAndSearch && (
         <div className={""}>
           <NavBarAdmin />
-          <button className={"btn btn-success w-10"} onClick={handleAddProduct}>
-            <i
-              className="bi-plus-lg"
-              style={{ color: "white", fontSize: "20px" }}
-            ></i>
-          </button>
-
-          <ProductsSearchingBar
-            term={term}
-            setTerm={setTerm}
-            products={products}
-            setProducts={setProducts}
-            setModal={setModal}
-            setModalSearchProduct={setModalSearchProduct}
-          />
+          <div className={"d-flex justify-content-center w-100"}>
+            <div className={"d-grid align-items-center"}>
+              <button
+                className={"btn btn-primary w-10"}
+                onClick={handleAddProduct}
+              >
+                Alta
+              </button>
+            </div>
+            <div>
+              <ProductsSearchingBar
+                term={term}
+                setTerm={setTerm}
+                products={products}
+                setProducts={setProducts}
+                setModal={setModal}
+                setModalSearchProduct={setModalSearchProduct}
+              />
+            </div>
+          </div>
         </div>
       )}
       <div className={"vw-100"}>

@@ -39,7 +39,7 @@ export const ProductsSearchingBar = ({
 
     if (term !== "") getProduct();
     else {
-      setProducts([]);
+      setProducts(null);
       setModal(false);
       setModalSearchProduct(false);
     }
@@ -52,7 +52,7 @@ export const ProductsSearchingBar = ({
 
   return (
     <div className={"searching-bar w-100"}>
-      <div className={"w-50"}>
+      <div className={""} style={{ width: "400px" }}>
         <input
           type="text"
           value={term}
