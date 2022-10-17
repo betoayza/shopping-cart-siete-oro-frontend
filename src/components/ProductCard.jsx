@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { Modal } from "./Modal";
+import { ProductCommentStyle } from "./ProductCommentStyle";
 
 export const ProductCard = ({
   index,
@@ -9,6 +11,8 @@ export const ProductCard = ({
   showButton = true,
 }) => {
   const [isAdded, setIsAdded] = useState(false);
+  const [isCommentClicked, setIsCommentClicked] = useState(false);
+  const refComment = useRef("");
 
   //check if item is already added to cart
   useEffect(() => {
@@ -96,6 +100,7 @@ export const ProductCard = ({
       })
       .catch((error) => error);
   };
+
   const toBase64 = (arr) => {
     //arr = new Uint8Array(arr) if it's an ArrayBuffer
     return btoa(
@@ -103,7 +108,94 @@ export const ProductCard = ({
     );
   };
 
-  return (
+  const handleComments = () => {
+    setIsCommentClicked(true);
+  };
+
+  const handleClose = () => {
+    setIsCommentClicked(false);
+  };
+
+  const handlePostComment = async () => {
+    console.log(refComment.current.value);
+    let comment = refComment.current.value;
+    let productCode = product.code;
+    const options = {
+      url: "/api/user/comment/add",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+      },
+      data: { userCode, comment, productCode },
+      timeout: 3000,
+    };
+
+    await axios
+      .request(options)
+      .then((res) => {
+        console.log(res);
+        if (res.data) {
+          alert("Comentario subido ;)");
+        } else {
+          alert("Ocurrio un error :(");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  return isCommentClicked ? (
+    <Modal>
+      <div
+        className={
+          "form-control d-grid align-items-center border border-success border-5 h-100"
+        }
+        style={{ width: "500px", maxHeight: "80vh" }}
+      >
+        <textarea
+          rows={5}
+          cols={10}
+          maxLength={"500"}
+          placeholder={"Comentar..."}
+          style={{ borderRadius: "0.5rem" }}
+          ref={refComment}
+          required
+        />
+        <div className={"mb-3"}>
+          <button
+            type={"button"}
+            className={"btn btn-primary"}
+            onClick={handlePostComment}
+          >
+            Comentar
+          </button>
+        </div>
+
+        <div
+          className={"overflow-scroll"}
+          style={{ width: "100%", height: "150px" }}
+        >
+          {product.comments.length &&
+            product.comments.map((comment, index) => {
+              return <ProductCommentStyle key={index} comment={comment} />;
+            })}
+        </div>
+        <div>
+          <button
+            type={"button"}
+            className={"btn btn-danger w-20"}
+            onClick={handleClose}
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </Modal>
+  ) : (
     <div className={"card p-2 m-1"} style={{ width: "200px", height: "auto" }}>
       <div>
         <img
@@ -133,6 +225,12 @@ export const ProductCard = ({
               ></i>
             </button>
           ))}
+        <button className={"btn btn-secondary"} onClick={handleComments}>
+          <i
+            className="bi-chat-dots-fill"
+            style={{ color: "white", fontSize: "20px" }}
+          ></i>
+        </button>
       </div>
     </div>
   );

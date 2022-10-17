@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SearchingBar from "./SearchingBar";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Modal } from "./Modal";
 import { ProductsTableUsers } from "./ProductsTableUsers";
 import { NavBarUser } from "./NavBarUser";
