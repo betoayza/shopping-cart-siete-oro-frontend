@@ -21,7 +21,7 @@ export const OrderTableRowUser = ({
           ></i>
         </button>
       </td>
-      <td>{order.amount}</td>
+      <td>${order.amount}</td>
       <td>{order.date}</td>
       <td>{order.status}</td>
       <td>

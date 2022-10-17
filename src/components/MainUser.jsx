@@ -15,7 +15,6 @@ const MainUser = () => {
   const [shoppingCart, setShoppingCart] = useState(null);
 
   const { code, username } = useParams();
-  
 
   useEffect(() => {
     let userCode = code;
@@ -68,7 +67,9 @@ const MainUser = () => {
   ) : (
     <div className={"h-100 border"}>
       <NavBarUser code={code} shoppingCart={shoppingCart} username={username} />
-      <h2>Bienvenido {username}!</h2>
+      <h2 className={"fw-bold"} style={{ color: "purple" }}>
+        Bienvenido {username}!
+      </h2>
       <div className={"h-75 d-grid align-content-center"}>
         <div>
           <img src={logo} style={{ width: 200, height: 200 }} alt="Logo" />

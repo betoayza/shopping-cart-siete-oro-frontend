@@ -33,7 +33,7 @@ export const OrderTableRow = ({
           ></i>
         </button>
       </td>
-      <td>{order.amount}</td>
+      <td>${order.amount}</td>
       <td>{order.date}</td>
       <td>{order.status}</td>
     </tr>

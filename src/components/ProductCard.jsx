@@ -116,7 +116,7 @@ export const ProductCard = ({
       <div className={"card-body"}>
         <span className="card-text align-middle">{product.description}</span>
         <h3>Stock: {product.stock}</h3>
-        <h3>{product.price}</h3>
+        <h3>${product.price}</h3>
         {showButton &&
           (isAdded ? (
             <button className={"btn btn-danger"} onClick={removeFromCart}>

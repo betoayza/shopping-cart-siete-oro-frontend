@@ -173,7 +173,7 @@ export const ShoppingCartTable = ({
             <tr>
               <th scope="col">Item</th>
               <th scope="col">Descripcion</th>
-              <th scope="col">Precio</th>
+              <th scope="col">Precio /u</th>
               <th scope="col">A llevar</th>
               <th scope="col">Max</th>
               <th scope="col">Imagen</th>
