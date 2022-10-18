@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Loader } from "./Loader";
 import { ProductCard } from "./ProductCard";
@@ -7,7 +8,35 @@ export const ProductsTableUsers = ({
   userCode,
   showButton = true,
 }) => {
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(true);  
+
+  // useEffect(() => {    
+  //   const getShoppingCart = async () => {
+  //     const options = {
+  //       url: "/api/user/shopping-cart",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Access-Control-Allow-Origin": "*",
+  //         "Access-Control-Allow-Headers": "*",
+  //         Accept: "application/json",
+  //       },
+  //       params: { userCode },
+  //       timeout: 3000,
+  //     };
+
+  //     await axios
+  //       .request(options)
+  //       .then((res) => {
+  //         console.log(res.data);
+  //         if (res.data) setProducts(res.data.products);          
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   };
+  //   getShoppingCart();
+  // }, [products]);
+
 
   if (!Array.isArray(products)) {
     products = [products];
@@ -28,7 +57,7 @@ export const ProductsTableUsers = ({
             <ProductCard
               key={index}
               index={index}
-              product={product}
+              product={product}             
               userCode={userCode}
               showButton={showButton}
             />

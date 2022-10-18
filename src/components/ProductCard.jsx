@@ -12,6 +12,7 @@ export const ProductCard = ({
 }) => {
   const [isAdded, setIsAdded] = useState(false);
   const [isCommentClicked, setIsCommentClicked] = useState(false);
+  const [comments, setComments] = useState(product.comments);
   const refComment = useRef("");
 
   //check if item is already added to cart
@@ -139,6 +140,31 @@ export const ProductCard = ({
         console.log(res);
         if (res.data) {
           alert("Comentario subido ;)");
+
+          const getProductComments = async (productCode) => {
+            const options = {
+              url: "/api/product/code",
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*",
+                Accept: "application/json",
+              },
+              params: { productCode },
+              timeout: 3000,
+            };
+
+            await axios
+              .request(options)
+              .then((res) => {
+                console.log(res.data);
+                if (res.data) setComments(res.data.comments);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          };
+          getProductComments(productCode);
         } else {
           alert("Ocurrio un error :(");
         }
@@ -148,13 +174,13 @@ export const ProductCard = ({
       });
   };
 
-  return isCommentClicked ? (
+  return isCommentClicked && comments ? (
     <Modal>
       <div
         className={
-          "form-control d-grid align-items-center border border-success border-5 h-100"
+          "form-control d-grid align-items-center border border-success border-5 vh-100"
         }
-        style={{ width: "500px", maxHeight: "80vh" }}
+        style={{ width: "500px", maxHeight: "80vh", borderRadius: "1rem" }}
       >
         <textarea
           rows={5}
@@ -179,8 +205,8 @@ export const ProductCard = ({
           className={"overflow-scroll"}
           style={{ width: "100%", height: "150px" }}
         >
-          {product.comments.length &&
-            product.comments.map((comment, index) => {
+          {comments.length &&
+            comments.map((comment, index) => {
               return <ProductCommentStyle key={index} comment={comment} />;
             })}
         </div>

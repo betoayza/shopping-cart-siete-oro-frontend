@@ -10,7 +10,7 @@ import logo from "../img/logo-siete-oro.png";
 const MainUser = () => {
   const [modal, setModal] = useState(false);
   const [modalSearchProducts, setModalSearchProducts] = useState(false);
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
   const [term, setTerm] = useState("");
   const [shoppingCart, setShoppingCart] = useState(null);
 
@@ -43,7 +43,7 @@ const MainUser = () => {
         });
     };
     getShoppingCart();
-  }, [shoppingCart, code]);
+  }, [shoppingCart, code, products]);
 
   return modal ? (
     <Modal>
@@ -57,7 +57,8 @@ const MainUser = () => {
             setModalSearchProducts={setModalSearchProducts}
           />
           <ProductsTableUsers
-            products={products}
+            products={products}  
+            setProducts={setProducts}         
             userCode={code}
             showButton={true}
           />
