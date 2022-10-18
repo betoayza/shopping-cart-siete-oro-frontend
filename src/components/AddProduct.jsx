@@ -14,8 +14,7 @@ const initialForm = {
 
 export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
   const [form, setForm] = useState(initialForm);
-  const [added, setAdded] = useState(false);
-  const [error, setError] = useState(false);
+  const [added, setAdded] = useState(false);  
   const fileRef = useRef(null);
 
   const handleSubmit = async (e) => {
@@ -77,7 +76,7 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
               .catch((error) => error);
           };
           getAllProducts();
-        } else setError(true);
+        } 
       })
       .catch((error) => error);
     handleClean();
@@ -96,19 +95,12 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
     setModalAddProduct(false);
   };
 
-  return error ? (
-    <div>
-      <h3>Alta fallida :(</h3>
-      <button type="reset" className="btn btn-danger" onClick={handleClose}>
-        Cerrar
-      </button>
-    </div>
-  ) : !added ? (
+  return !added ? (
     <div className={"d-grid align-items-center"}>
       <h2>Agregar Producto:</h2>
 
       <div className="form-group w-100 d-flex justify-content-center">
-        <form className={"w-100 "}>
+        <form className={"w-100 "} onSubmit={handleSubmit}>
           <input
             type="hidden"
             className="form-control"
@@ -193,11 +185,7 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
 
           <div className="row">
             <div className="col-12">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                onClick={handleSubmit}
-              >
+              <button type="submit" className="btn btn-primary">
                 Agregar
               </button>
               <button

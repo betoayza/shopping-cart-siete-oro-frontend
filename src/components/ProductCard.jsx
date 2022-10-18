@@ -9,7 +9,7 @@ export const ProductCard = ({
   product,
   userCode,
   showButton = true,
-  username
+  username,
 }) => {
   const [isAdded, setIsAdded] = useState(false);
   const [isCommentClicked, setIsCommentClicked] = useState(false);
@@ -179,47 +179,53 @@ export const ProductCard = ({
     <Modal>
       <div
         className={
-          "form-control d-grid align-items-center border border-success border-5 vh-100"
+          "form-control d-grid align-items-center border border-success border-5"
         }
+        id={"comments-div"}
         style={{ width: "500px", maxHeight: "80vh", borderRadius: "1rem" }}
       >
-        <textarea
-          rows={5}
-          cols={10}
-          maxLength={500}
-          placeholder={"Comentar..."}
-          style={{ borderRadius: "0.5rem" }}
-          ref={refComment}
-          required
-        />
-        <div className={"mb-3"}>
-          <button
-            type={"button"}
-            className={"btn btn-primary"}
-            onClick={handlePostComment}
-          >
-            Comentar
-          </button>
+        <div className={""} style={{ width: "100%" }}>
+          <textarea
+            rows={5}
+            cols={10}
+            maxLength={500}
+            placeholder={"Comentar..."}
+            style={{ borderRadius: "0.5rem", width: "100%" }}
+            ref={refComment}
+            required
+          />
+
+          <div className={"mb-3"}>
+            <button
+              type={"button"}
+              className={"btn btn-primary"}
+              onClick={handlePostComment}
+            >
+              Comentar
+            </button>
+          </div>
         </div>
 
-        <div
-          className={"overflow-scroll"}
-          style={{ width: "100%", height: "150px" }}
-        >
-          {comments.length &&
-            comments.map((comment, index) => {
-              if (comment.status === "Active")
-                return (
-                  <ProductCommentStyle
-                    key={index}
-                    index={index}
-                    comment={comment}
-                    setComments={setComments}
-                    productCode={product.code}
-                    username={username}
-                  />
-                );
-            })}
+        <div className={""} style={{height: "150px"}}>
+          <div
+            className={"overflow-scroll border overflow-auto"}
+            style={{ width: "100%", height: "150px" }}
+          >
+            {comments.length &&
+              comments.map((comment, index) => {
+                if (comment.status === "Active")
+                  return (
+                    <ProductCommentStyle
+                      key={index}
+                      index={index}
+                      comment={comment}
+                      setComments={setComments}
+                      productCode={product.code}
+                      username={username}
+                    />
+                  );
+              })}
+          </div>
         </div>
         <div>
           <button
