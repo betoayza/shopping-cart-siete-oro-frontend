@@ -61,6 +61,7 @@ const MainUser = () => {
             setProducts={setProducts}         
             userCode={code}
             showButton={true}
+            username={username}
           />
         </div>
       )}

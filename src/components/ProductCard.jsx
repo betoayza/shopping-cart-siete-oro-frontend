@@ -9,6 +9,7 @@ export const ProductCard = ({
   product,
   userCode,
   showButton = true,
+  username
 }) => {
   const [isAdded, setIsAdded] = useState(false);
   const [isCommentClicked, setIsCommentClicked] = useState(false);
@@ -215,6 +216,7 @@ export const ProductCard = ({
                     comment={comment}
                     setComments={setComments}
                     productCode={product.code}
+                    username={username}
                   />
                 );
             })}

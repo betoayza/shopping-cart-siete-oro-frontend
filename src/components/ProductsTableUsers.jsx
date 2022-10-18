@@ -7,6 +7,7 @@ export const ProductsTableUsers = ({
   products,
   userCode,
   showButton = true,
+  username
 }) => {
   const [loader, setLoader] = useState(true);  
 
@@ -60,6 +61,7 @@ export const ProductsTableUsers = ({
               product={product}             
               userCode={userCode}
               showButton={showButton}
+              username={username}
             />
           );
         })}

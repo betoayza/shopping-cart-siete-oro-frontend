@@ -8,6 +8,7 @@ export const ProductCommentStyle = ({
   comment,
   setComments,
   productCode,
+  username,
 }) => {
   const handleDeleteComment = async () => {
     const options = {
@@ -61,16 +62,18 @@ export const ProductCommentStyle = ({
     <div className={"form-control mt-2"}>
       <p className={"fw-bold"}>{comment.username}</p>
       <p className={"fs-6 fw-lighter fst-italic"}>"{comment.comment}"</p>
-      <button
-        type="button"
-        className={"btn btn-danger"}
-        onClick={handleDeleteComment}
-      >
-        <i
-          className="bi-trash-fill"
-          style={{ color: "white", fontSize: "20px" }}
-        ></i>
-      </button>
+      {comment.username === username && (
+        <button
+          type="button"
+          className={"btn btn-danger"}
+          onClick={handleDeleteComment}
+        >
+          <i
+            className="bi-trash-fill"
+            style={{ color: "white", fontSize: "20px" }}
+          ></i>
+        </button>
+      )}
     </div>
   );
 };
