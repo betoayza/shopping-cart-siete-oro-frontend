@@ -185,7 +185,7 @@ export const ProductCard = ({
         <textarea
           rows={5}
           cols={10}
-          maxLength={"500"}
+          maxLength={500}
           placeholder={"Comentar..."}
           style={{ borderRadius: "0.5rem" }}
           ref={refComment}
@@ -207,7 +207,16 @@ export const ProductCard = ({
         >
           {comments.length &&
             comments.map((comment, index) => {
-              return <ProductCommentStyle key={index} comment={comment} />;
+              if (comment.status === "Active")
+                return (
+                  <ProductCommentStyle
+                    key={index}
+                    index={index}
+                    comment={comment}
+                    setComments={setComments}
+                    productCode={product.code}
+                  />
+                );
             })}
         </div>
         <div>
