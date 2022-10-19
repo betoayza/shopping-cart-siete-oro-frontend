@@ -118,9 +118,11 @@ export const ProductCard = ({
     setIsCommentClicked(false);
   };
 
-  const handlePostComment = async () => {
+  const handlePostComment = async (e) => {
+    e.preventDefault();
     console.log(refComment.current.value);
     let comment = refComment.current.value;
+    console.log(comment.length);
     let productCode = product.code;
     const options = {
       url: "/api/user/comment/add",
@@ -179,55 +181,54 @@ export const ProductCard = ({
     <Modal>
       <div
         className={
-          "form-control d-grid align-items-center border border-success border-5"
+          "form-control d-grid justify-items-center border border-success border-5"
         }
-        id={"comments-div"}
-        style={{ width: "500px", maxHeight: "80vh", borderRadius: "1rem" }}
+        style={{ width: "500px", maxHeight: "100vh", borderRadius: "1rem" }}
       >
-        <div className={""} style={{ width: "100%" }}>
-          <textarea
-            rows={5}
-            cols={10}
-            maxLength={500}
-            placeholder={"Comentar..."}
-            style={{ borderRadius: "0.5rem", width: "100%" }}
-            ref={refComment}
-            required
-          />
+        <div
+          className={"d-flex justify-items-center"}
+          style={{ width: "470px", maxHeight: "100vh", borderRadius: "1rem" }}
+        >
+          <form className={"w-100"} onSubmit={handlePostComment}>
+            <textarea
+              rows={5}
+              cols={10}
+              maxLength={500}
+              placeholder={"Comentar..."}
+              style={{ borderRadius: "0.5rem", width: "100%", color: "green" }}
+              ref={refComment}
+              required
+            />
 
-          <div className={"mb-3"}>
-            <button
-              type={"button"}
-              className={"btn btn-primary"}
-              onClick={handlePostComment}
-            >
-              Comentar
-            </button>
-          </div>
+            <div className={"mt-2"}>
+              <button type={"submit"} className={"btn btn-primary"}>
+                Comentar
+              </button>
+            </div>
+          </form>
         </div>
-
-        <div className={""} style={{height: "150px"}}>
-          <div
-            className={"overflow-scroll border overflow-auto"}
-            style={{ width: "100%", height: "150px" }}
-          >
-            {comments.length &&
-              comments.map((comment, index) => {
-                if (comment.status === "Active")
-                  return (
-                    <ProductCommentStyle
-                      key={index}
-                      index={index}
-                      comment={comment}
-                      setComments={setComments}
-                      productCode={product.code}
-                      username={username}
-                    />
+        {comments.length
+          ? comments.map((comment, index) => {
+              <div className={"mt-2"} style={{ maxHeight: "150px" }}>
+                <div
+                  className={"overflow-auto"}
+                  style={{ width: "470px", height: "150px" }}
+                >
+                  if (comment.status === "Active") return (
+                  <ProductCommentStyle
+                    key={index}
+                    index={index}
+                    comment={comment}
+                    setComments={setComments}
+                    productCode={product.code}
+                    username={username}
+                  />
                   );
-              })}
-          </div>
-        </div>
-        <div>
+                </div>
+              </div>;
+            })
+          : null}
+        <div className={"mt-2"}>
           <button
             type={"button"}
             className={"btn btn-danger w-20"}

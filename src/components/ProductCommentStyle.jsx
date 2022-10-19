@@ -60,8 +60,10 @@ export const ProductCommentStyle = ({
 
   return (
     <div className={"form-control mt-2"}>
-      <p className={"fw-bold"}>{comment.username}</p>
-      <p className={"fs-6 fw-lighter fst-italic"}>"{comment.comment}"</p>
+      <p className={"fw-bold"}>@{comment.username}</p>
+      <p className={"fs-6 fw-lighter fst-italic text-break"}>
+        "{comment.comment}"
+      </p>
       {comment.username === username && (
         <button
           type="button"
