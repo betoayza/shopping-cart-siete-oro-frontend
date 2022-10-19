@@ -8,7 +8,7 @@ export const ProductCommentStyle = ({
   comment,
   setComments,
   productCode,
-  username,
+  username = "",
 }) => {
   const handleDeleteComment = async () => {
     const options = {

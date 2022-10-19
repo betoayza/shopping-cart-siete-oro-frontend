@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import { Modal } from "./Modal";
 import { ProductCommentStyle } from "./ProductCommentStyle";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const ProductCard = ({
   index,
@@ -14,6 +14,7 @@ export const ProductCard = ({
   const [isAdded, setIsAdded] = useState(false);
   const [isCommentClicked, setIsCommentClicked] = useState(false);
   const [comments, setComments] = useState(product.comments);
+  // const [commentsCounter, setCommentsCounter] = useState(0);
   const refComment = useRef("");
 
   //check if item is already added to cart
@@ -207,7 +208,8 @@ export const ProductCard = ({
             </div>
           </form>
         </div>
-        {comments.length ? (
+        {comments.length &&
+        comments.filter((comment) => comment.status === "Active").length ? (
           <div className={"mt-2"} style={{ maxHeight: "150px" }}>
             <div
               className={"overflow-auto"}
