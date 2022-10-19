@@ -7,7 +7,7 @@ import { Loader } from "./Loader";
 
 export const AllOrdersUser = () => {
   const [orders, setOrders] = useState(null);
-  const [loader, setLoader] = useState(true); 
+  const [loader, setLoader] = useState(true);
 
   const params = useParams();
   const { code, username } = params;
@@ -39,15 +39,16 @@ export const AllOrdersUser = () => {
         .catch((error) => error);
     };
     getAllOrders();
-  }, [orders]);  
+  }, [orders]);
 
   return loader ? (
     <Loader />
   ) : (
-    <div className={"nav-bar"}>
+    <div className={"vh-100"}>
       {console.log(code)}
       <NavBarUser code={code} username={username} />
-      {orders ? (
+      <h1>Mis pedidos</h1>
+      {orders.length ? (
         <div>
           <OrdersTableUser
             orders={orders}
@@ -56,7 +57,9 @@ export const AllOrdersUser = () => {
           />
         </div>
       ) : (
-        <h2>No hay pedidos :(</h2>
+        <div className={"d-grid align-items-center"} style={{ height: "88%" }}>
+          <h3>No hay pedidos :(</h3>
+        </div>
       )}
     </div>
   );

@@ -207,27 +207,30 @@ export const ProductCard = ({
             </div>
           </form>
         </div>
-        {comments.length
-          ? comments.map((comment, index) => {
-              <div className={"mt-2"} style={{ maxHeight: "150px" }}>
-                <div
-                  className={"overflow-auto"}
-                  style={{ width: "470px", height: "150px" }}
-                >
-                  if (comment.status === "Active") return (
-                  <ProductCommentStyle
-                    key={index}
-                    index={index}
-                    comment={comment}
-                    setComments={setComments}
-                    productCode={product.code}
-                    username={username}
-                  />
-                  );
-                </div>
-              </div>;
-            })
-          : null}
+        {comments.length ? (
+          <div className={"mt-2"} style={{ maxHeight: "150px" }}>
+            <div
+              className={"overflow-auto"}
+              style={{ width: "470px", height: "150px" }}
+            >
+              {comments.map((comment, index) => {
+                console.log(comment);
+                return (
+                  comment.status === "Active" && (
+                    <ProductCommentStyle
+                      key={index}
+                      index={index}
+                      comment={comment}
+                      setComments={setComments}
+                      productCode={product.code}
+                      username={username}
+                    />
+                  )
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
         <div className={"mt-2"}>
           <button
             type={"button"}

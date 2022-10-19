@@ -1,11 +1,9 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ShoppingCartTable } from "./ShoppingCartTable";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
 import { Loader } from "./Loader";
-
-export const CodeContext = createContext(null);
 
 const ShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState({ products: [] });
@@ -47,27 +45,30 @@ const ShoppingCart = () => {
   return loader ? (
     <Loader />
   ) : (
-    <div className={""}>
+    <div className={"h-100"}>
       <NavBarUser
         code={userCode}
         shoppingCart={shoppingCart}
         username={username}
       />
       {console.log(userCode)}
-      <div className={"vh-100"}>
-        <h2>Mi carrito</h2>
-        <div className={"w-100 d-flex justify-content-center"}>
-          {shoppingCart.products.length ? (
-            <ShoppingCartTable
-              shoppingCart={shoppingCart}
-              setShoppingCart={setShoppingCart}
-              userCode={userCode}
-            />
-          ) : (
-            <h3>Carrito Vacío :(</h3>
-          )}
+
+      <h1>Mi carrito</h1>
+
+      {shoppingCart.products.length ? (
+        <ShoppingCartTable
+          shoppingCart={shoppingCart}
+          setShoppingCart={setShoppingCart}
+          userCode={userCode}
+        />
+      ) : (
+        <div
+          className={"d-grid align-items-center"}
+          style={{ height: "80%" }}
+        >
+          <h3>Carrito Vacío :(</h3>
         </div>
-      </div>
+      )}
     </div>
   );
 };

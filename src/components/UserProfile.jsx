@@ -114,15 +114,17 @@ const UserProfile = () => {
       </button>
     </Modal>
   ) : (
-    <div className={"vw-100 border"}>
+    <div className={"vw-100 vh-100"}>
       {/* {console.log(code)} */}
       <NavBarUser code={code} username={username} />
       <div
-        className={
-          "w-100 vh-100 border border-success d-flex justify-content-center"
-        }
+        className={"w-100 d-flex justify-content-center"}
+        style={{ height: "88%" }}
       >
-        <div className={"d-grid align-content-center"}>
+        <div
+          className={"d-grid align-content-center"}
+          style={{ minHeight: "100%" }}
+        >
           <h2>Mis datos:</h2>
           <div className={"form-group w-100"}>
             <form onSubmit={handleSubmit}>
@@ -223,7 +225,7 @@ const UserProfile = () => {
                 required
               />
 
-              <button type="submit" className="btn btn-primary">
+              <button type={"submit"} className={"btn btn-primary mt-2"}>
                 Actualizar
               </button>
             </form>
