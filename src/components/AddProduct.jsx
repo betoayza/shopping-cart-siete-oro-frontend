@@ -97,7 +97,7 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
 
   return !added ? (
     <div className={"d-grid align-items-center"}>
-      <h2>Agregar Producto:</h2>
+      <h2>Agregar producto:</h2>
 
       <div className="form-group w-100 d-flex justify-content-center">
         <form className={"w-100 "} onSubmit={handleSubmit}>

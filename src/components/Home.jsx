@@ -25,8 +25,8 @@ const Home = () => {
         <div className={"h-75"}>
           <img src={logo} style={{ width: 200, height: 200 }} alt="Logo" />
           <SearchingBarNotRegistered />
-          <br/>
-          <br/>
+          <br />
+          <br />
           <div className={"text-center"}>
             <h2>Bienvenido a nuestro carrito online!</h2>
             <p>El lugar donde encontrará los mejores panificados</p>
