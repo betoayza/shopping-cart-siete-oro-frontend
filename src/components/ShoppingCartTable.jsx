@@ -166,8 +166,8 @@ export const ShoppingCartTable = ({
   };
 
   return shoppingCart.products.length ? (
-    <div className={"w-75"}>
-      <div className={"table-responsive"}>
+    <div className={"w-100 d-flex justify-content-center"}>
+      <div className={"table-responsive w-75"}>
         <table className={"table table-hover table-sm"}>
           <thead className={"table-success"}>
             <tr>

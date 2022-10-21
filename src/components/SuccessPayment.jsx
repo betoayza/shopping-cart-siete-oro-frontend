@@ -7,7 +7,7 @@ export const SuccessPayment = () => {
   const [shoppingCart, setShoppingCart] = useState(null);
   const [orderAdded, setOrderAdded] = useState(false);
   const [itemsRemoved, setItemsRemoved] = useState(false);
-  const [products, setProducts] = useState(null);
+  const [user, setUser] = useState({});
   const [installments, setInstallments] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
   let location = useLocation();
@@ -82,10 +82,37 @@ export const SuccessPayment = () => {
         });
     };
     getShoppingCart();
-  }, []);
 
-  //unmount fase
-  //return () => {
+    //2) get username by code
+    const getUser = async () => {
+      const options = {
+        url: "/api/user/get",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+        },
+        params: { userCode },
+        timeout: 3000,
+      };
+
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data) {
+            setUser(res.data);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      getUser();
+    };
+  }, []);
+  
   useEffect(() => {
     //2) register order
     const addOrder = async () => {
@@ -153,11 +180,22 @@ export const SuccessPayment = () => {
   }, [shoppingCart, installments, totalAmount]);
 
   return orderAdded && itemsRemoved ? (
-    <div className={"nav-bar"}>
-      <NavBarUser code={userCode} />
+    <div className={""}>
+      <NavBarUser
+        code={userCode}
+        shoppingCart={shoppingCart}
+        username={user.username}
+      />
       <h2>Mi carrito</h2>
       <h3>Carrito vacío</h3>
-      <h2>Gracias por su compra ;)</h2>
+      <div className={"w-100 d-flex justify-content-center text-success"}>
+        <div
+          className={"d-grid align-items-center"}
+          style={{ width: "400px", height: "630px" }}
+        >
+          <h2>Gracias por su compra ;)</h2>
+        </div>
+      </div>
     </div>
   ) : (
     <div className={"nav-bar"}>

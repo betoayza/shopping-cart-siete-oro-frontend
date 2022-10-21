@@ -45,7 +45,7 @@ const ShoppingCart = () => {
   return loader ? (
     <Loader />
   ) : (
-    <div className={"h-100"}>
+    <div className={"h-100 w-100"}>
       <NavBarUser
         code={userCode}
         shoppingCart={shoppingCart}
