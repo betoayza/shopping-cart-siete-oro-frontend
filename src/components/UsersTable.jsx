@@ -81,7 +81,10 @@ export const UsersTable = ({
       <div className={"vw-100"}>
         {users.length ? (
           <div className={"d-flex justify-content-center h-100"}>
-            <div className={"table-responsive w-75 h-100"}>
+            <div
+              className={"table-responsive overflow-auto"}
+              style={{ width: "75%", maxHeight: "500px" }}
+            >
               <table className={"table table-hover table-light table-sm h-100"}>
                 <thead className={"table-success"}>
                   <tr>

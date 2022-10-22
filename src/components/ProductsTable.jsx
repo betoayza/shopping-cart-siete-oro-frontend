@@ -122,7 +122,10 @@ export const ProductsTable = ({
         {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
         {products.length ? (
           <div className={"w-100 d-flex justify-content-center"}>
-            <div className={"table-responsive w-75"}>
+            <div
+              className={"table-responsive overflow-auto"}
+              style={{ width: "75%", MaxHeight: "500px" }}
+            >
               <table className={"table table-hover table-light table-sm"}>
                 <thead className={"table-success"}>
                   <tr>

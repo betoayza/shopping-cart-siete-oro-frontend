@@ -7,37 +7,9 @@ export const ProductsTableUsers = ({
   products,
   userCode,
   showButton = true,
-  username
+  username,
 }) => {
-  const [loader, setLoader] = useState(true);  
-
-  // useEffect(() => {    
-  //   const getShoppingCart = async () => {
-  //     const options = {
-  //       url: "/api/user/shopping-cart",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Origin": "*",
-  //         "Access-Control-Allow-Headers": "*",
-  //         Accept: "application/json",
-  //       },
-  //       params: { userCode },
-  //       timeout: 3000,
-  //     };
-
-  //     await axios
-  //       .request(options)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         if (res.data) setProducts(res.data.products);          
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   };
-  //   getShoppingCart();
-  // }, [products]);
-
+  const [loader, setLoader] = useState(true);
 
   if (!Array.isArray(products)) {
     products = [products];
@@ -49,20 +21,25 @@ export const ProductsTableUsers = ({
 
   return loader ? (
     <Loader />
-  ) : products.length ? (
+  ) : products.length &&
+    products.filter((product) => {
+      return product.stock > 0;
+    }).length ? (
     <div className={"vw-75 p-3"}>
       {products.length === 1 ? <h3>Producto:</h3> : <h3>Productos:</h3>}
       <div className={"products-list"}>
         {products.map((product, index) => {
           return (
-            <ProductCard
-              key={index}
-              index={index}
-              product={product}             
-              userCode={userCode}
-              showButton={showButton}
-              username={username}
-            />
+            product.stock > 0 && (
+              <ProductCard
+                key={index}
+                index={index}
+                product={product}
+                userCode={userCode}
+                showButton={showButton}
+                username={username}
+              />
+            )
           );
         })}
       </div>

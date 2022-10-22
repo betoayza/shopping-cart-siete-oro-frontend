@@ -112,10 +112,11 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
           <div className={"w-100"}>
             {orders.length === 1 ? <h3>Pedido:</h3> : <h3>Pedidos:</h3>}
             <div className={"d-flex justify-content-center"}>
-              <div className={"table-responsive w-75"}>
-                <table
-                  className={"table table-hover table-light table-sm"}
-                >
+              <div
+                className={"table-responsive overflow-auto"}
+                style={{ width: "75%", maxHeight: "500px" }}
+              >
+                <table className={"table table-hover table-light table-sm"}>
                   <thead className={"table-success"}>
                     <tr>
                       <th scope="col">Codigo</th>

@@ -138,10 +138,12 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
       )}
     </Modal>
   ) : (
-    <div className={"vh-100"}>
-      <h2>Mis pedidos:</h2>
+    <div className={"vh-100"}>      
       <div className={"w-100 d-flex justify-content-center"}>
-        <div className={"w-75 table-responsive"}>
+        <div
+          className={"table-responsive overflow-auto"}
+          style={{ width: "75%", maxHeight: "500px" }}
+        >
           <table className={"table table-hover"}>
             <thead className={"table-success"}>
               <tr>

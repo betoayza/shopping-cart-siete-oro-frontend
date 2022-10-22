@@ -10,6 +10,7 @@ export const SuccessPayment = () => {
   const [user, setUser] = useState({});
   const [installments, setInstallments] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
+
   let location = useLocation();
   let { userCode } = useParams();
 
@@ -112,7 +113,7 @@ export const SuccessPayment = () => {
       getUser();
     };
   }, []);
-  
+
   useEffect(() => {
     //2) register order
     const addOrder = async () => {
@@ -186,8 +187,8 @@ export const SuccessPayment = () => {
         shoppingCart={shoppingCart}
         username={user.username}
       />
-      <h2>Mi carrito</h2>
-      <h3>Carrito vacío</h3>
+      <h1>Mi carrito</h1>
+
       <div className={"w-100 d-flex justify-content-center text-success"}>
         <div
           className={"d-grid align-items-center"}
@@ -198,8 +199,12 @@ export const SuccessPayment = () => {
       </div>
     </div>
   ) : (
-    <div className={"nav-bar"}>
-      <NavBarUser code={userCode} />
+    <div className={""}>
+      <NavBarUser
+        code={userCode}
+        shoppingCart={shoppingCart}
+        username={user.username}
+      />
       <h1>Un error ocurrió :(</h1>
     </div>
   );

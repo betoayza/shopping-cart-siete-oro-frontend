@@ -32,7 +32,7 @@ export const NavBarAdmin = () => {
             </li>
 
             <li className="nav-item">
-              <NavLink to="/products/all">
+              <NavLink to="/admin/products/all">
                 {({ isActive }) => (
                   <p
                     className={isActive ? "nav-link active" : "nav-link active"}

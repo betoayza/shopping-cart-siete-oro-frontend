@@ -55,7 +55,8 @@ export const SearchingBarNotRegistered = () => {
           <div className={"w-100"}>
             <div className={"d-flex justify-content-center"}>
               <input
-                className={"form-control w-50"}
+                className={"form-control"}
+                style={{ width: "100%" }}
                 value={term}
                 placeholder={"¿Qué está buscando?..."}
                 onChange={handleChange}
