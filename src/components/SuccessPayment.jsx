@@ -55,7 +55,7 @@ export const SuccessPayment = () => {
 
   useEffect(() => {
     //mount fase
-    //1) get all items from shopping cart
+    //1) get shopping cart
     const getShoppingCart = async () => {
       const options = {
         url: "/api/user/shopping-cart",
@@ -74,7 +74,6 @@ export const SuccessPayment = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            //alert("Carrito vacio obtenido");
             setShoppingCart(res.data);
           }
         })
@@ -85,7 +84,7 @@ export const SuccessPayment = () => {
     getShoppingCart();
 
     //2) get username by code
-    const getUser = async () => {
+    const getUserData = async () => {
       const options = {
         url: "/api/user/get",
         headers: {
@@ -101,7 +100,7 @@ export const SuccessPayment = () => {
       await axios
         .request(options)
         .then((res) => {
-          console.log(res.data);
+          console.log("Usuario: ", res.data);
           if (res.data) {
             setUser(res.data);
           }
@@ -109,9 +108,8 @@ export const SuccessPayment = () => {
         .catch((error) => {
           console.error(error);
         });
-
-      getUser();
     };
+    getUserData();
   }, []);
 
   useEffect(() => {
@@ -180,32 +178,22 @@ export const SuccessPayment = () => {
     // };
   }, [shoppingCart, installments, totalAmount]);
 
-  return orderAdded && itemsRemoved ? (
-    <div className={""}>
-      <NavBarUser
-        code={userCode}
-        shoppingCart={shoppingCart}
-        username={user.username}
-      />
-      <h1>Mi carrito</h1>
+  return (
+    orderAdded &&
+    itemsRemoved && (
+      <div className={""}>
+        <NavBarUser code={userCode} username={user.username} />
+        <h1>Mi carrito</h1>
 
-      <div className={"w-100 d-flex justify-content-center text-success"}>
-        <div
-          className={"d-grid align-items-center"}
-          style={{ width: "400px", height: "630px" }}
-        >
-          <h2>Gracias por su compra ;)</h2>
+        <div className={"w-100 d-flex justify-content-center text-success"}>
+          <div
+            className={"d-grid align-items-center"}
+            style={{ width: "400px", height: "630px" }}
+          >
+            <h2>Gracias por su compra ;)</h2>
+          </div>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className={""}>
-      <NavBarUser
-        code={userCode}
-        shoppingCart={shoppingCart}
-        username={user.username}
-      />
-      <h1>Un error ocurrió :(</h1>
-    </div>
+    )
   );
 };

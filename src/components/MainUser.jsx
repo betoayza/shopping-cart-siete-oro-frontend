@@ -12,7 +12,7 @@ const MainUser = () => {
   const [modalSearchProducts, setModalSearchProducts] = useState(false);
   const [products, setProducts] = useState([]);
   const [term, setTerm] = useState("");
-  const [shoppingCart, setShoppingCart] = useState(null);
+  const [shoppingCart, setShoppingCart] = useState({ products: [] });
 
   const { code, username } = useParams();
 
@@ -57,8 +57,8 @@ const MainUser = () => {
             setModalSearchProducts={setModalSearchProducts}
           />
           <ProductsTableUsers
-            products={products}  
-            setProducts={setProducts}         
+            products={products}
+            setProducts={setProducts}
             userCode={code}
             showButton={true}
             username={username}
@@ -68,7 +68,13 @@ const MainUser = () => {
     </Modal>
   ) : (
     <div className={"h-100 border"}>
-      <NavBarUser code={code} shoppingCart={shoppingCart} username={username} />
+      <NavBarUser
+        code={code}
+        cartCounter={
+          !shoppingCart.products.length ? 0 : shoppingCart.products.length
+        }
+        username={username}
+      />
       <h2 className={"fw-bold"} style={{ color: "purple" }}>
         Bienvenido {username}!
       </h2>

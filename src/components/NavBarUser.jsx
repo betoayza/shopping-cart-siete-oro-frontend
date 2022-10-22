@@ -4,10 +4,8 @@ import logo from "../img/logo-siete-oro.png";
 import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-export const NavBarUser = ({ code, shoppingCart = null, username }) => {
-  const [counterCart, setCounterCart] = useState(0);
-  // const code = shoppingCart.code;
-  // let counterCart = shoppingCart.products.length;
+export const NavBarUser = ({ code, cartCounter = 0, username }) => {
+  const [itemsCounter, setItemsCounter] = useState(cartCounter);
 
   useEffect(() => {
     let userCode = code;
@@ -29,7 +27,9 @@ export const NavBarUser = ({ code, shoppingCart = null, username }) => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setCounterCart(res.data.products.length);
+            res.data.products.length > 0
+              ? setItemsCounter(res.data.products.length)
+              : setItemsCounter(0);
           }
         })
         .catch((error) => {
@@ -37,7 +37,7 @@ export const NavBarUser = ({ code, shoppingCart = null, username }) => {
         });
     };
     getShoppingCart();
-  }, [shoppingCart]);
+  }, [itemsCounter]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -94,7 +94,7 @@ export const NavBarUser = ({ code, shoppingCart = null, username }) => {
                         style={{ color: "white", fontSize: "20px" }}
                       ></i>
                       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {counterCart}
+                        {itemsCounter}
                       </span>
                     </span>
                   </a>
