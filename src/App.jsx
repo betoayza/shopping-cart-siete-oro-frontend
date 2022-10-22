@@ -35,12 +35,6 @@ function App() {
 
             <Route
               exact
-              path="/user/shopping-cart/:userCode"
-              element={<Components.ShoppingCart />}
-            />
-
-            <Route
-              exact
               path="/user/:username/:code/orders"
               element={<Components.AllOrdersUser />}
             />
@@ -111,11 +105,11 @@ function App() {
               element={<Components.FailedPayment />}
             />
 
-            {/* <Route
+            <Route
               exact
-              path="/pending"
-              element={<Components.ShoppingCart />}
-            /> */}
+              path="/user/shopping-cart/:userCode/pending"
+              element={<Components.PendingPayment />}
+            />
 
             <Route exact path="*" element={<Components.Error404 />} />
           </Routes>
