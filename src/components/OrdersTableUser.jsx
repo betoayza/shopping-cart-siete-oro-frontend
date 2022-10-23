@@ -18,7 +18,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
   }
 
   useEffect(() => {
-    const getAllProducts = async () => {
+    const getListProductsByID = async () => {
       let ord = { ...orders };
       console.log(ord);
       let itemsIDs = ord[0].products;
@@ -46,7 +46,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
         })
         .catch((error) => error);
     };
-    if (isModalSeeItems) getAllProducts();
+    if (isModalSeeItems) getListProductsByID();
   }, [isModalSeeItems]);
 
   // useEffect(() => {
@@ -138,7 +138,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
       )}
     </Modal>
   ) : (
-    <div className={"vh-100"}>      
+    <div className={"vh-100"}>
       <div className={"w-100 d-flex justify-content-center"}>
         <div
           className={"table-responsive overflow-auto"}
@@ -169,7 +169,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
                   );
                 })
               ) : (
-                <h3>No hay pedidos aun :(</h3>
+                <h3>No hay pedidos aun</h3>
               )}
             </tbody>
           </table>

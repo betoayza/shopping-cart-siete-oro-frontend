@@ -58,7 +58,7 @@ export const AllOrdersUser = () => {
         </div>
       ) : (
         <div className={"d-grid align-items-center"} style={{ height: "88%" }}>
-          <h3>No hay pedidos :(</h3>
+          <h3 style={{color: 'red'}}>No hay pedidos</h3>
         </div>
       )}
     </div>

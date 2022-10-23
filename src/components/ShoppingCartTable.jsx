@@ -10,7 +10,7 @@ export const ShoppingCartTable = ({
   userCode,
 }) => {
   const [toBuy, setToBuy] = useState(null);
-  const [itemIndex, setItemIndex] = useState(null);
+  const [itemIndex, setItemIndex] = useState(null);  
 
   let navigate = useNavigate();
 

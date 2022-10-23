@@ -62,11 +62,8 @@ const ShoppingCart = () => {
           userCode={userCode}
         />
       ) : (
-        <div
-          className={"d-grid align-items-center"}
-          style={{ height: "80%" }}
-        >
-          <h3>Carrito Vacío :(</h3>
+        <div className={"d-grid align-items-center"} style={{ height: "80%" }}>
+          <h3 style={{ color: "red" }}>Carrito vacío</h3>
         </div>
       )}
     </div>
