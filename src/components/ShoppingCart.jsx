@@ -8,6 +8,8 @@ import { Loader } from "./Loader";
 const ShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState({ products: [] });
   const [loader, setLoader] = useState(true);
+  const [cartCounter, setCartCounter] = useState(shoppingCart.products.length);
+
   const params = useParams();
   const { userCode, username } = params; //userCode = shoppingCart.code
 
@@ -32,8 +34,9 @@ const ShoppingCart = () => {
           console.log(res.data);
           if (res.data) {
             setShoppingCart(res.data);
+            // setCartCounter(res.data.products.length);
             setLoader(false);
-          } else setShoppingCart(null);
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -48,10 +51,9 @@ const ShoppingCart = () => {
     <div className={"h-100 w-100"}>
       <NavBarUser
         code={userCode}
-        shoppingCart={shoppingCart}
+        cartCounter={shoppingCart.products.length}
         username={username}
       />
-      {console.log(userCode)}
 
       <h1>Mi carrito</h1>
 

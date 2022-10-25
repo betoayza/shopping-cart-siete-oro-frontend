@@ -9,13 +9,10 @@ export const ShoppingCartTable = ({
   setShoppingCart,
   userCode,
 }) => {
-  const [toBuy, setToBuy] = useState(null);
-  const [itemIndex, setItemIndex] = useState(null);  
-
   let navigate = useNavigate();
 
-  // update item quatitity brings back shopping cart updated
-  useEffect(() => {
+  //SET NEW QUANTITY TO BUY
+  const updateToBuy = (toBuy, itemIndex) => {
     console.log("Quantity: ", toBuy, " | Index: ", itemIndex);
     const updateToBuy = async () => {
       const options = {
@@ -55,6 +52,7 @@ export const ShoppingCartTable = ({
                 .then((res) => {
                   console.log(res);
                   if (res.data) {
+                    //alert("Cantidad actualizada!");
                     setShoppingCart(res.data);
                   }
                 })
@@ -70,12 +68,6 @@ export const ShoppingCartTable = ({
         });
     };
     updateToBuy();
-  }, [toBuy, itemIndex]);
-
-  //SET NEW QUANTITY TO BUY
-  const updateToBuy = (toBuy, itemIndex) => {
-    setToBuy(toBuy);
-    setItemIndex(itemIndex);
   };
 
   const handlePurchase = async () => {
@@ -136,7 +128,10 @@ export const ShoppingCartTable = ({
       .delete(`/api/user/shopping-cart/delete`, options)
       .then((res) => {
         console.log(res);
-        setShoppingCart(res.data);
+        if (res.data) {
+          // alert("Item borrado exitosamente");
+          setShoppingCart(res.data);
+        }
       })
       .catch((error) => error);
   };
@@ -157,6 +152,7 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res.data);
         if (res.data) {
+          // alert("Lista items borrados");
           setShoppingCart(res.data);
         } else {
           alert("Carrito inexistente :(");
@@ -165,7 +161,7 @@ export const ShoppingCartTable = ({
       .catch((error) => error);
   };
 
-  return shoppingCart.products.length ? (
+  return (
     <div className={"w-100 d-flex justify-content-center"}>
       <div
         className={"table-responsive overflow-auto"}
@@ -184,8 +180,7 @@ export const ShoppingCartTable = ({
             </tr>
           </thead>
           <tbody>
-            {shoppingCart.products.map((product, index) => {
-              console.log("Index: ", index);
+            {shoppingCart.products.length && shoppingCart.products.map((product, index) => {
               return (
                 <ShoppingCartTableRow
                   key={index}
@@ -214,8 +209,6 @@ export const ShoppingCartTable = ({
         </button>
       </div>
     </div>
-  ) : (
-    <h2>Carrito vacío</h2>
   );
   // );
 };

@@ -26,18 +26,14 @@ export const NavBarUser = ({ code, cartCounter = 0, username }) => {
         .request(options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) {
-            res.data.products.length > 0
-              ? setItemsCounter(res.data.products.length)
-              : setItemsCounter(0);
-          }
+          setItemsCounter(res.data.products.length);
         })
         .catch((error) => {
           console.error(error);
         });
     };
     getShoppingCart();
-  }, [itemsCounter]);
+  }); //always running
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

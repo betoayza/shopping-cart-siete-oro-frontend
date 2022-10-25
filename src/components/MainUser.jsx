@@ -36,7 +36,6 @@ const MainUser = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) setShoppingCart(res.data);
-          else setShoppingCart(null);
         })
         .catch((error) => {
           console.error(error);
@@ -70,9 +69,7 @@ const MainUser = () => {
     <div className={"h-100 border"}>
       <NavBarUser
         code={code}
-        cartCounter={
-          !shoppingCart.products.length ? 0 : shoppingCart.products.length
-        }
+        cartCounter={shoppingCart.products.length}
         username={username}
       />
       <h2 className={"fw-bold"} style={{ color: "purple" }}>

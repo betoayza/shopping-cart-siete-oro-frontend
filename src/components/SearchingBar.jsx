@@ -37,7 +37,7 @@ const SearchingBar = ({
     };
     if (term !== "") getProducts();
     else {
-      setProducts(null);
+      setProducts([]);
       setModal(false);
       setModalSearchProducts(false);
     }

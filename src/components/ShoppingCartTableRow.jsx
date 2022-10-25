@@ -14,14 +14,7 @@ export const ShoppingCartTableRow = ({
     updateToBuy(toBuy, index);
   }, [toBuy]);
 
-  console.log(product.image);
-
-  const toBase64 = (arr) => {
-    //arr = new Uint8Array(arr) if it's an ArrayBuffer
-    return btoa(
-      arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
-    );
-  };
+  //console.log(product.image);
 
   return (
     <tr>
@@ -48,7 +41,7 @@ export const ShoppingCartTableRow = ({
       <td>{product.stock}</td>
       <td>
         <img
-          src={"data:image/png;base64," + toBase64(product.image.data)}
+          src={"data:image/png;base64," + product.image}
           alt="Producto"
           style={{ height: "100px", width: "150px" }}
         />
@@ -56,7 +49,7 @@ export const ShoppingCartTableRow = ({
       <td>
         <button
           className={"btn btn-danger"}
-          onClick={() => removeItem(product.code, userCode, index)}
+          onClick={(e) => removeItem(product.code, userCode, index)}
         >
           <i
             className="bi-trash-fill"
