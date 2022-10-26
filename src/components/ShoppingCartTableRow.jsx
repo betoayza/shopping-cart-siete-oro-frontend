@@ -14,7 +14,13 @@ export const ShoppingCartTableRow = ({
     updateToBuy(toBuy, index);
   }, [toBuy]);
 
-  //console.log(product.image);
+  //console.log(product.image.data);
+  // const toBase64 = (arr) => {
+  //   //arr = new Uint8Array(arr) if it's an ArrayBuffer
+  //   return btoa(
+  //     arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
+  //   );
+  // };
 
   return (
     <tr>

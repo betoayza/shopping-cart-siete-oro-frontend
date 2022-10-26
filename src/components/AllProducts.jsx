@@ -38,8 +38,10 @@ const AllProducts = () => {
     <Loader />
   ) : (
     <div className={"vh-100 vw-100"}>
-      {products && (
+      {products ? (
         <ProductsTable products={products} setProducts={setProducts} />
+      ) : (
+        <h2>No hay productos</h2>
       )}
     </div>
   );

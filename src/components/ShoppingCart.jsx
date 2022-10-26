@@ -8,12 +8,10 @@ import { Loader } from "./Loader";
 const ShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState({ products: [] });
   const [loader, setLoader] = useState(true);
-  const [cartCounter, setCartCounter] = useState(shoppingCart.products.length);
-
   const params = useParams();
   const { userCode, username } = params; //userCode = shoppingCart.code
 
-  //Finds All Items
+  //Refresh shopping cart
   useEffect(() => {
     const getShoppingCart = async () => {
       const options = {
@@ -33,8 +31,7 @@ const ShoppingCart = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setShoppingCart(res.data);
-            // setCartCounter(res.data.products.length);
+            setShoppingCart(res.data);            
             setLoader(false);
           }
         })
