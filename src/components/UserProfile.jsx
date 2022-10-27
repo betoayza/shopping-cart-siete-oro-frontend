@@ -19,8 +19,8 @@ const initialForm = {
 
 const UserProfile = () => {
   const [form, setForm] = useState(initialForm);
-  const [error, setError] = useState(false);
   const [updated, setUpdated] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const params = useParams();
   console.log(params);
@@ -75,12 +75,11 @@ const UserProfile = () => {
       .request(options)
       .then((res) => {
         console.log(res.data);
+        setModal(true);
+
         if (res.data) {
-          setModal(true);
           setUpdated(true);
         } else {
-          setModal(true);
-          setError(true);
           setUpdated(false);
         }
       })
@@ -95,23 +94,17 @@ const UserProfile = () => {
 
   const handleClose = () => {
     setModal(false);
-    setError(false);
     setUpdated(false);
   };
 
-  return error ? (
+  return modal ? (
     <Modal>
-      <h3>Actualización fallida :(</h3>
-      <button className="btn btn-danger" onClick={handleClose}>
-        Cerrar
-      </button>
-    </Modal>
-  ) : updated ? (
-    <Modal>
-      <h3>Actualizado! ;)</h3>
-      <button className="btn btn-danger" onClick={handleClose}>
-        Cerrar
-      </button>
+      <div>
+        {updated ? <h3>Actualizado!</h3> : <h3>Ocurrio un error</h3>}
+        <button className="btn btn-danger" onClick={handleClose}>
+          Cerrar
+        </button>
+      </div>
     </Modal>
   ) : (
     <div className={"vw-100 vh-100"}>

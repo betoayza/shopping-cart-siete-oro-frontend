@@ -18,6 +18,7 @@ const MainUser = () => {
 
   useEffect(() => {
     let userCode = code;
+
     const getShoppingCart = async () => {
       const options = {
         url: "/api/user/shopping-cart",
@@ -28,7 +29,7 @@ const MainUser = () => {
           Accept: "application/json",
         },
         params: { userCode },
-        timeout: 3000,
+        timeout: 2999,
       };
 
       await axios
@@ -42,7 +43,7 @@ const MainUser = () => {
         });
     };
     getShoppingCart();
-  }, [shoppingCart, code, products]);
+  }, [shoppingCart]);
 
   return modal ? (
     <Modal>
@@ -68,8 +69,7 @@ const MainUser = () => {
   ) : (
     <div className={"h-100 border"}>
       <NavBarUser
-        code={code}
-        cartCounter={shoppingCart.products.length}
+        code={code}        
         username={username}
       />
       <h2 className={"fw-bold"} style={{ color: "purple" }}>

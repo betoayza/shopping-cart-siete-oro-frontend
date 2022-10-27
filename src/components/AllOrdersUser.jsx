@@ -6,7 +6,7 @@ import { NavBarUser } from "./NavBarUser";
 import { Loader } from "./Loader";
 
 export const AllOrdersUser = () => {
-  const [orders, setOrders] = useState(null);
+  const [orders, setOrders] = useState([]);
   const [loader, setLoader] = useState(true);
 
   const params = useParams();

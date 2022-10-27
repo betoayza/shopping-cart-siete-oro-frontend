@@ -24,9 +24,9 @@ export const ProductsTable = ({
   const [modalDeleteProduct, setModalDeleteProduct] = useState(false);
   const [term, setTerm] = useState("");
 
-  if (!Array.isArray(products)) {
-    products = [products];
-  }
+  // if (!Array.isArray(products)) {
+  //   products = [products];
+  // }
 
   const handleUpdate = (prodCode) => {
     setModal(true);
@@ -120,7 +120,7 @@ export const ProductsTable = ({
       )}
       <div className={"vw-100"}>
         {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
-        {products.length ? (
+        {products ? (
           <div className={"w-100 d-flex justify-content-center"}>
             <div
               className={"table-responsive overflow-auto"}

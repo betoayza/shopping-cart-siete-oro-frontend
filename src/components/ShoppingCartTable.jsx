@@ -11,65 +11,6 @@ export const ShoppingCartTable = ({
 }) => {
   let navigate = useNavigate();
 
-  //SET NEW QUANTITY TO BUY
-  const updateToBuy = (toBuy, itemIndex) => {
-    console.log("Quantity: ", toBuy, " | Index: ", itemIndex);
-    const updateToBuy = async () => {
-      const options = {
-        url: "/api/user/shopping-cart/update/toBuy",
-        method: "put",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-          timeout: 3000,
-        },
-        data: { userCode, toBuy, itemIndex },
-      };
-
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res);
-          if (res.data) {
-            //GET SHOPPING CART UPDATED
-            const getShoppingCart = async () => {
-              const options = {
-                url: "/api/user/shopping-cart",
-                headers: {
-                  "Content-Type": "application/json",
-                  "Access-Control-Allow-Origin": "*",
-                  "Access-Control-Allow-Headers": "*",
-                  Accept: "application/json",
-                },
-                params: { userCode },
-                timeout: 3000,
-              };
-
-              await axios
-                .request(options)
-                .then((res) => {
-                  console.log(res);
-                  if (res.data) {
-                    //alert("Cantidad actualizada!");
-                    setShoppingCart(res.data);
-                  }
-                })
-                .catch((error) => {
-                  console.error(error);
-                });
-            };
-            getShoppingCart();
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
-    updateToBuy();
-  };
-
   const handlePurchase = async () => {
     let items = await shoppingCart.products.map((product) => ({
       ...product,
@@ -129,8 +70,8 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res);
         if (res.data) {
-          // alert("Item borrado exitosamente");
-          setShoppingCart(res.data);
+          alert("Item borrado exitosamente");
+          //setShoppingCart(res.data);
         }
       })
       .catch((error) => error);
@@ -152,8 +93,8 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          // alert("Lista items borrados");
-          setShoppingCart(res.data);
+          //alert("Lista items borrados");
+          //setShoppingCart(res.data);
         } else {
           alert("Carrito inexistente :(");
         }
@@ -180,18 +121,18 @@ export const ShoppingCartTable = ({
             </tr>
           </thead>
           <tbody>
-            {shoppingCart.products.length && shoppingCart.products.map((product, index) => {
-              return (
-                <ShoppingCartTableRow
-                  key={index}
-                  product={product}
-                  userCode={userCode}
-                  removeItem={removeItem}
-                  updateToBuy={updateToBuy}
-                  index={index}
-                />
-              );
-            })}
+            {shoppingCart.products.length &&
+              shoppingCart.products.map((product, index) => {
+                return (
+                  <ShoppingCartTableRow
+                    key={index}
+                    product={product}
+                    userCode={userCode}
+                    removeItem={removeItem}                   
+                    index={index}
+                  />
+                );
+              })}
           </tbody>
         </table>
 

@@ -4,11 +4,12 @@ import logo from "../img/logo-siete-oro.png";
 import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-export const NavBarUser = ({ code, cartCounter = 0, username }) => {
-  const [itemsCounter, setItemsCounter] = useState(cartCounter);
+export const NavBarUser = ({ code, username }) => {
+  const [itemsCounter, setItemsCounter] = useState(0);
 
   useEffect(() => {
     let userCode = code;
+
     const getShoppingCart = async () => {
       const options = {
         url: "/api/user/shopping-cart",
@@ -26,14 +27,14 @@ export const NavBarUser = ({ code, cartCounter = 0, username }) => {
         .request(options)
         .then((res) => {
           console.log(res.data);
-          setItemsCounter(res.data.products.length);
+          if (res.data) setItemsCounter(res.data.products.length);
         })
         .catch((error) => {
           console.error(error);
         });
     };
     getShoppingCart();
-  }); //always running
+  }, [itemsCounter]); //always running
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

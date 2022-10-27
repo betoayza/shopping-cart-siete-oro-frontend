@@ -11,7 +11,6 @@ const ShoppingCart = () => {
   const params = useParams();
   const { userCode, username } = params; //userCode = shoppingCart.code
 
-  //Refresh shopping cart
   useEffect(() => {
     const getShoppingCart = async () => {
       const options = {
@@ -31,7 +30,7 @@ const ShoppingCart = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            setShoppingCart(res.data);            
+            setShoppingCart(res.data);
             setLoader(false);
           }
         })
@@ -40,17 +39,48 @@ const ShoppingCart = () => {
         });
     };
     getShoppingCart();
-  }, [shoppingCart]);
+
+    //refresh shopping cart
+    // const getRefreshedItems = async () => {
+    //   //Items IDs
+    //   let itemsIDs = shoppingCart.products.map((product) => {
+    //     return Number(product.code);
+    //   });
+
+    //   const options = {
+    //     url: "/api/products/get/list",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Access-Control-Allow-Headers": "*",
+    //       Accept: "application/json",
+    //     },
+    //     params: { itemsIDs },
+    //     timeout: 3000,
+    //   };
+
+    //   await axios
+    //     .request(options)
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       if (res.data) {
+    //         //refresh shopping cart
+    //         setShoppingCart({ ...shoppingCart, ["products"]: res.data });
+    //         setLoader(false);
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // };
+    // getRefreshedItems();
+  });
 
   return loader ? (
     <Loader />
   ) : (
     <div className={"h-100 w-100"}>
-      <NavBarUser
-        code={userCode}
-        cartCounter={shoppingCart.products.length}
-        username={username}
-      />
+      <NavBarUser code={userCode} username={username} />
 
       <h1>Mi carrito</h1>
 

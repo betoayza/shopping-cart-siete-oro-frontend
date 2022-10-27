@@ -34,11 +34,11 @@ export const NavBarAdmin = () => {
             <li className="nav-item">
               <NavLink to="/admin/products/all">
                 {({ isActive }) => (
-                  <p
+                  <a
                     className={isActive ? "nav-link active" : "nav-link active"}
                   >
                     Productos
-                  </p>
+                  </a>
                 )}
               </NavLink>
             </li>
@@ -46,11 +46,11 @@ export const NavBarAdmin = () => {
             <li className="nav-item">
               <NavLink to="/admin/users/all">
                 {({ isActive }) => (
-                  <p
+                  <a
                     className={isActive ? "nav-link active" : "nav-link active"}
                   >
                     Usuarios
-                  </p>
+                  </a>
                 )}
               </NavLink>
             </li>
@@ -58,11 +58,11 @@ export const NavBarAdmin = () => {
             <li className="nav-item">
               <NavLink to="/admin/orders/all">
                 {({ isActive }) => (
-                  <p
+                  <a
                     className={isActive ? "nav-link active" : "nav-link active"}
                   >
                     Pedidos
-                  </p>
+                  </a>
                 )}
               </NavLink>
             </li>
