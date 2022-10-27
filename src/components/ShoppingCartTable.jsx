@@ -70,8 +70,7 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res);
         if (res.data) {
-          alert("Item borrado exitosamente");
-          //setShoppingCart(res.data);
+          alert("Item borrado exitosamente");          
         }
       })
       .catch((error) => error);
@@ -93,8 +92,7 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          //alert("Lista items borrados");
-          //setShoppingCart(res.data);
+          alert("Lista items borrados");        
         } else {
           alert("Carrito inexistente :(");
         }
@@ -121,8 +119,7 @@ export const ShoppingCartTable = ({
             </tr>
           </thead>
           <tbody>
-            {shoppingCart.products.length &&
-              shoppingCart.products.map((product, index) => {
+            {shoppingCart.products.map((product, index) => {
                 return (
                   <ShoppingCartTableRow
                     key={index}

@@ -22,7 +22,7 @@ const ShoppingCart = () => {
           Accept: "application/json",
         },
         params: { userCode },
-        timeout: 3000,
+        timeout: 3002,
       };
 
       await axios
@@ -32,6 +32,9 @@ const ShoppingCart = () => {
           if (res.data) {
             setShoppingCart(res.data);
             setLoader(false);
+          } else {
+            setShoppingCart({ products: [] });
+            setLoader(true);
           }
         })
         .catch((error) => {
@@ -74,13 +77,17 @@ const ShoppingCart = () => {
     //     });
     // };
     // getRefreshedItems();
-  });
+  }, [shoppingCart]);
 
   return loader ? (
     <Loader />
   ) : (
     <div className={"h-100 w-100"}>
-      <NavBarUser code={userCode} username={username} />
+      <NavBarUser
+        code={userCode}
+        counterCart={shoppingCart.products.length}
+        username={username}
+      />
 
       <h1>Mi carrito</h1>
 

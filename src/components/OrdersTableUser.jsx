@@ -9,7 +9,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
   const [isModalSeeItems, setIsModalSeeItems] = useState(false);
   const [modal, setModal] = useState(false);
   const [products, setProducts] = useState(null);
-  const [isOrderCanceled, setIsOrderCanceled] = useState(false);
+
   const [orderCode, setOrderCode] = useState(null);
   const [isOrderReActivated, setIsOrderReActivated] = useState(false);
 
@@ -17,75 +17,48 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
     orders = [orders];
   }
 
-  useEffect(() => {
-    const getListProductsByID = async () => {
-      let ord = { ...orders };
-      console.log(ord);
-      let itemsIDs = ord[0].products;
-      console.log(itemsIDs);
+  const handleGetItemsList = async (items) => {
+    let itemsIDs = items.map((item) => {
+      return item.code;
+    });
 
-      const options = {
-        url: "/api/products/get/list",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        params: { itemsIDs },
-        timeout: 3000,
-      };
-
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setProducts(res.data);
-          }
-        })
-        .catch((error) => error);
+    const options = {
+      url: "/api/products/get/list",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+      },
+      params: { itemsIDs },
+      timeout: 3000,
     };
-    if (isModalSeeItems) getListProductsByID();
-  }, [isModalSeeItems]);
 
-  // useEffect(() => {
-  //   const cancelOrder = async () => {
-  //     let code = orderCode;
-  //     console.log(userCode, "|", code);
-  //     const options = {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Origin": "*",
-  //         "Access-Control-Allow-Headers": "*",
-  //         Accept: "application/json",
-  //         timeout: 3000,
-  //       },
-  //       data: { code, userCode },
-  //     };
+    await axios
+      .request(options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setModal(true);
+          setIsModalSeeItems(true);
+          setProducts(res.data);
+        }
+      })
+      .catch((error) => error);
+  };
 
-  //     await axios
-  //       .delete("/api/user/orders/delete", options)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         if (res.data) {
-  //           setOrders(res.data);
-  //         }
-  //       })
-  //       .catch((error) => error);
-  //   };
-  //   if (isOrderCanceled && orderCode) cancelOrder();
-  // }, [isOrderCanceled, userCode]);
+  const handleActivateOrder = (orderCode) => {
+    setIsOrderReActivated(true);
+    setOrderCode(orderCode);
+  };
 
-  const handleSeeItems = (orderProducts) => {
-    setModal(true);
-    setIsModalSeeItems(true);
+  const handleClose = () => {
+    setModal(false);
+    setIsModalSeeItems(false);
+    setProducts(null);
   };
 
   const handleCancelOrder = async (orderCode) => {
-    // setIsOrderCanceled(true);
-    // setOrderCode(orderCode);
-
     let code = orderCode;
     console.log(userCode, "|", code);
     const options = {
@@ -103,22 +76,8 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
       .delete("/api/user/orders/delete", options)
       .then((res) => {
         console.log(res.data);
-        if (res.data) {
-          setOrders(res.data);
-        }
       })
       .catch((error) => error);
-  };
-
-  const handleActivateOrder = (orderCode) => {
-    setIsOrderReActivated(true);
-    setOrderCode(orderCode);
-  };
-
-  const handleClose = () => {
-    setModal(false);
-    setIsModalSeeItems(false);
-    setProducts(null);
   };
 
   return modal ? (
@@ -162,9 +121,9 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
                     <OrderTableRowUser
                       key={index}
                       order={order}
-                      handleSeeItems={handleSeeItems}
                       handleCancelOrder={handleCancelOrder}
                       handleActivateOrder={handleActivateOrder}
+                      handleGetItemsList={handleGetItemsList}
                     />
                   );
                 })

@@ -24,7 +24,7 @@ export const AllOrdersUser = () => {
           Accept: "application/json",
         },
         params: { userCode },
-        timeout: 3000,
+        timeout: 3001,
       };
 
       await axios
@@ -34,6 +34,9 @@ export const AllOrdersUser = () => {
           if (res.data) {
             setOrders(res.data);
             setLoader(false);
+          } else {
+            setOrders([]);
+            setLoader(true);
           }
         })
         .catch((error) => error);
@@ -46,7 +49,7 @@ export const AllOrdersUser = () => {
   ) : (
     <div className={"vh-100"}>
       {console.log(code)}
-      <NavBarUser code={code} username={username} />
+      <NavBarUser code={code} counterCart={0} username={username} />
       <h1>Mis pedidos</h1>
       {orders.length ? (
         <div>
@@ -58,7 +61,7 @@ export const AllOrdersUser = () => {
         </div>
       ) : (
         <div className={"d-grid align-items-center"} style={{ height: "88%" }}>
-          <h3 style={{color: 'red'}}>No hay pedidos</h3>
+          <h3 style={{ color: "red" }}>No hay pedidos</h3>
         </div>
       )}
     </div>

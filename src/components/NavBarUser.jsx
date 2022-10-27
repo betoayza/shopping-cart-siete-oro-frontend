@@ -4,8 +4,8 @@ import logo from "../img/logo-siete-oro.png";
 import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-export const NavBarUser = ({ code, username }) => {
-  const [itemsCounter, setItemsCounter] = useState(0);
+export const NavBarUser = ({ code, counterCart = 0, username }) => {
+  const [itemsCounter, setItemsCounter] = useState(counterCart);
 
   useEffect(() => {
     let userCode = code;
@@ -28,6 +28,7 @@ export const NavBarUser = ({ code, username }) => {
         .then((res) => {
           console.log(res.data);
           if (res.data) setItemsCounter(res.data.products.length);
+          else setItemsCounter(0);
         })
         .catch((error) => {
           console.error(error);

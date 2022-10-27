@@ -2,18 +2,19 @@ import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const OrderTableRowUser = ({
-  order,
-  handleSeeItems,
-  handleCancelOrder,
+  order,   
+  handleCancelOrder,  
   handleActivateOrder,
-}) => {
+  handleGetItemsList
+}) => {  
+
   return (
     <tr>
       <td>{order.code}</td>
       <td>
         <button
           className="btn btn-dark"
-          onClick={() => handleSeeItems(order.products)}
+          onClick={() => handleGetItemsList(order.products)}
         >
           <i
             className="bi-eye-fill"
