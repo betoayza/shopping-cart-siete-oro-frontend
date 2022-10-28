@@ -47,66 +47,25 @@ export const ShoppingCartTable = ({
 
     updateToBuy();
   }, [toBuy, itemIndex]);
- 
+
   const handleUpdateToBuy = (quantity, index) => {
     setToBuy(quantity);
     setItemIndex(index);
-  }
+  };
 
   const handlePurchase = async () => {
     //get shopping cart refreshed
-    // const getShoppingCart = async () => {
-    //   const options = {
-    //     url: "/api/user/shopping-cart",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "Access-Control-Allow-Origin": "*",
-    //       "Access-Control-Allow-Headers": "*",
-    //       Accept: "application/json",
-    //     },
-    //     params: { userCode },
-    //     timeout: 3002,
-    //   };
-
-    //   await axios
-    //     .request(options)
-    //     .then((res) => {
-    //       console.log(res.data);
-    //       if (res.data) {
-    //         setShoppingCart(res.data);           
-    //       } 
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    // };
-    // getShoppingCart();
-
-    let items = shoppingCart.products.map((product) => ({
-      ...product,
-      ["image"]: "",
-    }));
-
-    alert(JSON.stringify({items}));
-
-    if (
-      items.filter((item) => {
-        return item.toBuy > item.stock;
-      }).length
-    ) {
-      alert("Cantidad incorrecta :(");
-    } else {
+    const getShoppingCart = async () => {
       const options = {
-        url: "/api/payment",
-        method: "post",
+        url: "/api/user/shopping-cart",
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "*",
           Accept: "application/json",
-          timeout: 3000,
         },
-        data: { items, userCode },
+        params: { userCode },
+        timeout: 3002,
       };
 
       await axios
@@ -114,13 +73,57 @@ export const ShoppingCartTable = ({
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            window.location.href = res.data.init_point;
-          } else {
-            navigate(res.data.back_urls.failure);
+            const cart = res.data.products;
+
+            let items = cart.map((product) => ({
+              ...product,
+              ["image"]: "",
+            }));
+
+            alert(JSON.stringify(items));
+
+            if (
+              items.filter((item) => {
+                return item.toBuy > item.stock;
+              }).length
+            ) {
+              alert("Cantidad incorrecta :(");
+            } else {
+              const doPayment = async () => {
+                const options = {
+                  url: "/api/payment",
+                  method: "post",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*",
+                    Accept: "application/json",
+                    timeout: 3000,
+                  },
+                  data: { items, userCode },
+                };
+
+                await axios
+                  .request(options)
+                  .then((res) => {
+                    console.log(res.data);
+                    if (res.data) {
+                      window.location.href = res.data.init_point;
+                    } else {
+                      navigate(res.data.back_urls.failure);
+                    }
+                  })
+                  .catch((error) => error);
+              };
+              doPayment();
+            }
           }
         })
-        .catch((error) => error);
-    }
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    getShoppingCart();
   };
 
   const removeItem = async (prodCode, userCode, index) => {

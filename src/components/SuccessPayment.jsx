@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { NavBarUser } from "./NavBarUser";
 
@@ -14,6 +14,8 @@ export const SuccessPayment = () => {
 
   let location = useLocation();
   let { userCode } = useParams();
+
+  let navigate = useNavigate();
 
   console.log(location, " | ", userCode);
 
@@ -177,20 +179,22 @@ export const SuccessPayment = () => {
 
   return (
     orderAdded &&
-    itemsRemoved && (
-      <div className={""}>
-        <NavBarUser code={userCode} username={user.username} />
-        <h1>Mi carrito</h1>
+    itemsRemoved &&
+    navigate(`/user/${user}/shopping-cart/${userCode}`)
+    // (
+    //   <div className={""}>
+    //     <NavBarUser code={userCode} username={user.username} />
+    //     <h1>Mi carrito</h1>
 
-        <div className={"w-100 d-flex justify-content-center text-success"}>
-          <div
-            className={"d-grid align-items-center"}
-            style={{ width: "400px", height: "630px" }}
-          >
-            <h2>Gracias por su compra ;)</h2>
-          </div>
-        </div>
-      </div>
-    )
+    //     <div className={"w-100 d-flex justify-content-center text-success"}>
+    //       <div
+    //         className={"d-grid align-items-center"}
+    //         style={{ width: "400px", height: "630px" }}
+    //       >
+    //         <h2>Gracias por su compra ;)</h2>
+    //       </div>
+    //     </div>
+    //   </div>
+    // )
   );
 };
