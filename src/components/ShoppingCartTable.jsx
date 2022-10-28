@@ -54,12 +54,40 @@ export const ShoppingCartTable = ({
   }
 
   const handlePurchase = async () => {
+    //get shopping cart refreshed
+    // const getShoppingCart = async () => {
+    //   const options = {
+    //     url: "/api/user/shopping-cart",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Access-Control-Allow-Headers": "*",
+    //       Accept: "application/json",
+    //     },
+    //     params: { userCode },
+    //     timeout: 3002,
+    //   };
+
+    //   await axios
+    //     .request(options)
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       if (res.data) {
+    //         setShoppingCart(res.data);           
+    //       } 
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // };
+    // getShoppingCart();
+
     let items = shoppingCart.products.map((product) => ({
       ...product,
       ["image"]: "",
     }));
 
-    alert(items);
+    alert(JSON.stringify({items}));
 
     if (
       items.filter((item) => {

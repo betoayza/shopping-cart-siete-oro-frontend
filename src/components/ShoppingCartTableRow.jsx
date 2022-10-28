@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import axios from "axios";
+// import axios from "axios";
 
 export const ShoppingCartTableRow = ({
   product,
@@ -9,6 +9,7 @@ export const ShoppingCartTableRow = ({
   index,
   handleUpdateToBuy,
 }) => {
+  
   const [toBuy, setToBuy] = useState(product.toBuy);
 
   useEffect(() => {
