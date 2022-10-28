@@ -9,15 +9,57 @@ export const ShoppingCartTable = ({
   setShoppingCart,
   userCode,
 }) => {
+  const [toBuy, setToBuy] = useState(1);
+  const [itemIndex, setItemIndex] = useState(null);
+
   let navigate = useNavigate();
 
+  useEffect(() => {
+    const updateToBuy = async () => {
+      console.log("Quantity: ", toBuy, " | Index: ", itemIndex);
+
+      const options = {
+        url: "/api/user/shopping-cart/update/toBuy",
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          Accept: "application/json",
+          timeout: 3000,
+        },
+        data: { userCode, toBuy, itemIndex },
+      };
+
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res);
+          if (res.data) {
+            //alert("ToBuy actualizado");
+            setShoppingCart(res.data);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    updateToBuy();
+  }, [toBuy, itemIndex]);
+ 
+  const handleUpdateToBuy = (quantity, index) => {
+    setToBuy(quantity);
+    setItemIndex(index);
+  }
+
   const handlePurchase = async () => {
-    let items = await shoppingCart.products.map((product) => ({
+    let items = shoppingCart.products.map((product) => ({
       ...product,
-      image: "",
+      ["image"]: "",
     }));
 
-    console.log(items);
+    alert(items);
 
     if (
       items.filter((item) => {
@@ -70,7 +112,7 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res);
         if (res.data) {
-          alert("Item borrado exitosamente");          
+          alert("Item borrado exitosamente");
         }
       })
       .catch((error) => error);
@@ -92,7 +134,7 @@ export const ShoppingCartTable = ({
       .then((res) => {
         console.log(res.data);
         if (res.data) {
-          alert("Lista items borrados");        
+          alert("Lista items borrados");
         } else {
           alert("Carrito inexistente :(");
         }
@@ -101,52 +143,55 @@ export const ShoppingCartTable = ({
   };
 
   return (
-    <div className={"w-100 d-flex justify-content-center"}>
-      <div
-        className={"table-responsive overflow-auto"}
-        style={{ width: "75%", maxHeight: "500px" }}
-      >
-        <table className={"table table-hover table-sm"}>
-          <thead className={"table-success"}>
-            <tr>
-              <th scope="col">Item</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Precio /u</th>
-              <th scope="col">A llevar</th>
-              <th scope="col">Max</th>
-              <th scope="col">Imagen</th>
-              <th scope="col">Accion</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shoppingCart.products.map((product, index) => {
+    shoppingCart && (
+      <div className={"w-100 d-flex justify-content-center"}>
+        <div
+          className={"table-responsive overflow-auto"}
+          style={{ width: "75%", maxHeight: "500px" }}
+        >
+          <table className={"table table-hover table-sm"}>
+            <thead className={"table-success"}>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio /u</th>
+                <th scope="col">A llevar</th>
+                <th scope="col">Max</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Accion</th>
+              </tr>
+            </thead>
+            <tbody>
+              {shoppingCart.products.map((product, index) => {
                 return (
                   <ShoppingCartTableRow
                     key={index}
                     product={product}
                     userCode={userCode}
-                    removeItem={removeItem}                   
+                    removeItem={removeItem}
                     index={index}
+                    handleUpdateToBuy={handleUpdateToBuy}
                   />
                 );
               })}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
 
-        <button className="btn btn-dark" onClick={removeAllItems}>
-          <i
-            className="bi-cart-x-fill"
-            style={{ color: "white", fontSize: "20px" }}
-          ></i>
-        </button>
-        <button className="btn btn-success" onClick={handlePurchase}>
-          <i
-            className="bi-credit-card"
-            style={{ color: "white", fontSize: "20px" }}
-          ></i>
-        </button>
+          <button className="btn btn-dark" onClick={removeAllItems}>
+            <i
+              className="bi-cart-x-fill"
+              style={{ color: "white", fontSize: "20px" }}
+            ></i>
+          </button>
+          <button className="btn btn-success" onClick={handlePurchase}>
+            <i
+              className="bi-credit-card"
+              style={{ color: "white", fontSize: "20px" }}
+            ></i>
+          </button>
+        </div>
       </div>
-    </div>
+    )
   );
   // );
 };

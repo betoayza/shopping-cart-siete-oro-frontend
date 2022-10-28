@@ -7,47 +7,13 @@ export const ShoppingCartTableRow = ({
   userCode,
   removeItem,
   index,
+  handleUpdateToBuy,
 }) => {
   const [toBuy, setToBuy] = useState(product.toBuy);
 
   useEffect(() => {
-    const updateToBuy = async () => {
-      const itemIndex = index;
-      console.log("Quantity: ", toBuy, " | Index: ", itemIndex);
-
-      const options = {
-        url: "/api/user/shopping-cart/update/toBuy",
-        method: "put",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-          timeout: 3000,
-        },
-        data: { userCode, toBuy, itemIndex },
-      };
-
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res);
-          if (res.data) {
-            //alert("ToBuy actualizado");
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
-
-    updateToBuy();
+    handleUpdateToBuy(toBuy, index);
   }, [toBuy]);
-
-  const handleChangeToBuy = (e) => {
-    if (e.target.value === "") setToBuy(1);
-    else setToBuy(parseInt(e.target.value));
-  };
 
   //console.log(product.image.data);
 
@@ -57,6 +23,12 @@ export const ShoppingCartTableRow = ({
   //     arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
   //   );
   // };
+
+  const handleChangeToBuy = (e) => {
+    if (e.target.value === "") setToBuy(1);
+    else setToBuy(parseInt(e.target.value));
+    handleUpdateToBuy(toBuy, index);
+  };
 
   return (
     <tr>

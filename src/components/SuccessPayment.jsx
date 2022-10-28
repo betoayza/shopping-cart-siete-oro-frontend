@@ -10,6 +10,7 @@ export const SuccessPayment = () => {
   const [user, setUser] = useState({});
   const [installments, setInstallments] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
+  const [items, setItems] = useState(null);
 
   let location = useLocation();
   let { userCode } = useParams();
@@ -44,6 +45,7 @@ export const SuccessPayment = () => {
             console.log("El pago es: ", res.data);
             setInstallments(res.data.installments);
             setTotalAmount(res.data.transaction_details.total_paid_amount);
+            setItems(res.data.additional_info.items);
           }
         })
         .catch((error) => {
@@ -115,11 +117,6 @@ export const SuccessPayment = () => {
   useEffect(() => {
     //2) register order
     const addOrder = async () => {
-      const items = shoppingCart.products.map((product) => ({
-        ...product,
-        image: "",
-      }));
-
       const options = {
         url: "/api/user/orders/add",
         method: "post",

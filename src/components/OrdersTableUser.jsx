@@ -9,18 +9,12 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
   const [isModalSeeItems, setIsModalSeeItems] = useState(false);
   const [modal, setModal] = useState(false);
   const [products, setProducts] = useState(null);
-
-  const [orderCode, setOrderCode] = useState(null);
-  const [isOrderReActivated, setIsOrderReActivated] = useState(false);
-
+  
   if (!Array.isArray(orders)) {
     orders = [orders];
   }
 
-  const handleGetItemsList = async (items) => {
-    let itemsIDs = items.map((item) => {
-      return item.code;
-    });
+  const handleGetItemsList = async (itemsIDs) => {    
 
     const options = {
       url: "/api/products/get/list",
@@ -47,10 +41,10 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
       .catch((error) => error);
   };
 
-  const handleActivateOrder = (orderCode) => {
-    setIsOrderReActivated(true);
-    setOrderCode(orderCode);
-  };
+  // const handleActivateOrder = (orderCode) => {
+  //   setIsOrderReActivated(true);
+  //   setOrderCode(orderCode);
+  // };
 
   const handleClose = () => {
     setModal(false);
@@ -76,6 +70,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
       .delete("/api/user/orders/delete", options)
       .then((res) => {
         console.log(res.data);
+        alert("Orden cancelada");
       })
       .catch((error) => error);
   };
@@ -115,21 +110,16 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
               </tr>
             </thead>
             <tbody>
-              {orders ? (
-                orders.map((order, index) => {
-                  return (
-                    <OrderTableRowUser
-                      key={index}
-                      order={order}
-                      handleCancelOrder={handleCancelOrder}
-                      handleActivateOrder={handleActivateOrder}
-                      handleGetItemsList={handleGetItemsList}
-                    />
-                  );
-                })
-              ) : (
-                <h3>No hay pedidos aun</h3>
-              )}
+              {orders.map((order, index) => {
+                return (
+                  <OrderTableRowUser
+                    key={index}
+                    order={order}
+                    handleCancelOrder={handleCancelOrder}                    
+                    handleGetItemsList={handleGetItemsList}
+                  />
+                );
+              })}
             </tbody>
           </table>
         </div>

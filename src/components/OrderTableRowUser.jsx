@@ -3,10 +3,11 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const OrderTableRowUser = ({
   order,   
-  handleCancelOrder,  
-  handleActivateOrder,
+  handleCancelOrder,    
   handleGetItemsList
 }) => {  
+
+  {console.log(order.products)}
 
   return (
     <tr>
@@ -14,7 +15,7 @@ export const OrderTableRowUser = ({
       <td>
         <button
           className="btn btn-dark"
-          onClick={() => handleGetItemsList(order.products)}
+          onClick={(e) => handleGetItemsList(order.products)}
         >
           <i
             className="bi-eye-fill"
