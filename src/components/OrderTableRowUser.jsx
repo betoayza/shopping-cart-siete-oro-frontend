@@ -2,12 +2,13 @@ import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 export const OrderTableRowUser = ({
-  order,   
-  handleCancelOrder,    
-  handleGetItemsList
-}) => {  
-
-  {console.log(order.products)}
+  order,
+  handleCancelOrder,
+  handleGetItemsList,
+}) => {
+  {
+    console.log(order.products);
+  }
 
   return (
     <tr>
@@ -30,11 +31,13 @@ export const OrderTableRowUser = ({
         {order.status === "En curso" ? (
           <button
             className="btn btn-danger"
-            onClick={() => handleCancelOrder(order.code)}
+            onClick={() => handleCancelOrder(order.code, order.products)}
           >
             Cancelar
           </button>
-        ) : "-"}
+        ) : (
+          "-"
+        )}
       </td>
     </tr>
   );

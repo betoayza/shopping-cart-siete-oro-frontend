@@ -52,9 +52,10 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
     setProducts(null);
   };
 
-  const handleCancelOrder = async (orderCode) => {
+  const handleCancelOrder = async (orderCode, orderItemsData) => {
     let code = orderCode;
-    console.log(userCode, "|", code);
+    console.log(userCode, "|", code);    
+
     const options = {
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +64,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
         Accept: "application/json",
         timeout: 3000,
       },
-      data: { code, userCode },
+      data: { code, userCode, orderItemsData },
     };
 
     await axios
