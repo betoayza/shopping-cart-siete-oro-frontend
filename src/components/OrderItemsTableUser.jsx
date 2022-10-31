@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Loader } from "./Loader";
-import { ProductCard } from "./ProductCard";
+import { ProductCardOrderItem } from "./ProductCardOrderItem";
 
-export const ProductsTableUsers = ({
+export const OrderItemsTableUser = ({
   products,
   userCode,
   showButton = true,
@@ -31,7 +31,7 @@ export const ProductsTableUsers = ({
         {products.map((product, index) => {
           return (
             product.stock > 0 && (
-              <ProductCard
+              <ProductCardOrderItem
                 key={index}
                 index={index}
                 product={product}

@@ -20,9 +20,9 @@ input {
 }
 
 /* ELEMENTS */
-#app-div { 
-  border: solid 3px;
-  border-color: crimson;
+#app-div {
+  /* border: solid 3px;
+  border-color: crimson; */
   text-align: center;
 }
 
@@ -50,5 +50,3 @@ input {
   justify-content: space-between;
   padding: 2rem;
 }
-
-

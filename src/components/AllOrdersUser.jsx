@@ -42,7 +42,7 @@ export const AllOrdersUser = () => {
         .catch((error) => error);
     };
     getAllOrders();
-  }, [orders]);
+  }, []);
 
   return loader ? (
     <Loader />
@@ -57,6 +57,7 @@ export const AllOrdersUser = () => {
             orders={orders}
             setOrders={setOrders}
             userCode={code}
+            username={username}
           />
         </div>
       ) : (

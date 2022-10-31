@@ -2,29 +2,30 @@ import React, { useState, useEffect } from "react";
 import { OrderTableRowUser } from "./OrderTableRowUser";
 import { useParams } from "react-router-dom";
 import { Modal } from "./Modal";
-import { ProductsTableUsers } from "./ProductsTableUsers";
+import { OrderItemsTableUser } from "./OrderItemsTableUser";
 import axios from "axios";
 
-export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
+export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
   const [isModalSeeItems, setIsModalSeeItems] = useState(false);
   const [modal, setModal] = useState(false);
-  const [products, setProducts] = useState(null);
-  
+  const [items, setItems] = useState(null);
+
   if (!Array.isArray(orders)) {
     orders = [orders];
   }
 
-  const handleGetItemsList = async (itemsIDs) => {    
+  const handleGetItemsList = async (orderItems) => {
+    // console.log(orderItems);
 
     const options = {
-      url: "/api/products/get/list",
+      url: "/api/user/orders/items/list",
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
       },
-      params: { itemsIDs },
+      params: { orderItems },
       timeout: 3000,
     };
 
@@ -35,7 +36,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
         if (res.data) {
           setModal(true);
           setIsModalSeeItems(true);
-          setProducts(res.data);
+          setItems(res.data);
         }
       })
       .catch((error) => error);
@@ -49,12 +50,12 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
   const handleClose = () => {
     setModal(false);
     setIsModalSeeItems(false);
-    setProducts(null);
+    setItems(null);
   };
 
   const handleCancelOrder = async (orderCode, orderItemsData) => {
     let code = orderCode;
-    console.log(userCode, "|", code);    
+    console.log(userCode, "|", code);
 
     const options = {
       headers: {
@@ -78,13 +79,13 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
 
   return modal ? (
     <Modal>
-      {isModalSeeItems && products && (
+      {isModalSeeItems && items && (
         <div>
-          <ProductsTableUsers
-            products={products}
-            setProducts={setProducts}
+          <OrderItemsTableUser
+            products={items}
             userCode={userCode}
-            showButton={false}
+            showButton={false}            
+            username={username}
           />
           <button className="btn btn-danger" onClick={() => handleClose()}>
             Cerrar
@@ -116,7 +117,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode }) => {
                   <OrderTableRowUser
                     key={index}
                     order={order}
-                    handleCancelOrder={handleCancelOrder}                    
+                    handleCancelOrder={handleCancelOrder}
                     handleGetItemsList={handleGetItemsList}
                   />
                 );

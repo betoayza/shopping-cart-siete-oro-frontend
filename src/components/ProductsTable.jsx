@@ -120,7 +120,7 @@ export const ProductsTable = ({
       )}
       <div className={"vw-100"}>
         {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
-        {products ? (
+        {products.length ? (
           <div className={"w-100 d-flex justify-content-center"}>
             <div
               className={"table-responsive overflow-auto"}
