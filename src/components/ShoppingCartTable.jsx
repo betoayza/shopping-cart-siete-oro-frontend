@@ -108,7 +108,7 @@ export const ShoppingCartTable = ({
                   .then((res) => {
                     console.log(res.data);
                     if (res.data) {
-                      window.location.href = res.data.init_point;
+                      // window.location.href = res.data.init_point;
                     } else {
                       navigate(res.data.back_urls.failure);
                     }

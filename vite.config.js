@@ -10,6 +10,6 @@ export default defineConfig({
     proxy: {
       "/api": "http://localhost:4000",
     },
-    base: "/shopping-cart-siete-oro-frontend/",
   },
+  base: "/shopping-cart-siete-oro-frontend/",
 });
