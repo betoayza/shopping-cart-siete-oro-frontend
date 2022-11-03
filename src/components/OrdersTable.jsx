@@ -7,6 +7,7 @@ import { ProductsTable } from "./ProductsTable";
 import { SearchingBarOrders } from "./SearchingBarOrders";
 import { SearchUser } from "./SearchUser";
 
+
 export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
   const [modal, setModal] = useState(false);
   const [modalSearchOrder, setModalSearchOrder] = useState(false);
@@ -31,7 +32,9 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
     setModalSeeProducts(true);
     console.log(orderProducts);
 
-    let itemsIDs = orderProducts;
+    let itemsIDs = orderProducts.map((product) => {
+      return product.id;
+    });
     console.log(itemsIDs); //works
 
     const options = {

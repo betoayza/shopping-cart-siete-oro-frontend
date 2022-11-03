@@ -8,8 +8,8 @@ export default defineConfig({
     host: "127.0.0.1",
     port: 12345,
     proxy: {
-      "/api": "http://localhost:4000",     
-      },      
-    },    
+      "/api": "http://localhost:4000",
+    },
+    base: "/shopping-cart-siete-oro-frontend/",
   },
-);
+});

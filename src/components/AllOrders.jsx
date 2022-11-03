@@ -31,7 +31,7 @@ export const AllOrders = () => {
         .catch((error) => error);
     };
     getAllOrders();
-  }, [orders]);
+  }, []);
 
   return loader ? (
     <Loader />
