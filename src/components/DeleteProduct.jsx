@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API } from '../api/api';
 
 const DeleteProduct = ({ code, setModal, setModalDeleteProduct, setProducts }) => {
   const [deleted, setDeleted] = useState(false);
@@ -18,7 +19,7 @@ const DeleteProduct = ({ code, setModal, setModalDeleteProduct, setProducts }) =
       };
 
       await axios
-        .delete("/api/admin/products/delete", options)
+        .delete(`${API}/admin/products/delete`, options)
         .then((res) => {
           console.log(res.data);
           if (res.data) setDeleted(true);
@@ -30,7 +31,7 @@ const DeleteProduct = ({ code, setModal, setModalDeleteProduct, setProducts }) =
     if (deleted) {
       const getAllProducts = async () => {
         const options = {
-          url: "/api/products/all",
+          url: `${API}/products/all`,
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",

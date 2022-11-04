@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { API } from '../api/api';
 
 const initialForm = {
   data: "",
@@ -23,7 +24,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const options = {
-      url: "/api/login",
+      url: `${API}/login`,
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",

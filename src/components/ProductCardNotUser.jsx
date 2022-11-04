@@ -3,6 +3,7 @@ import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Modal } from "./Modal";
 import { ProductCommentStyle } from "./ProductCommentStyle";
+import { API } from '../api/api';
 
 export const ProductCardNotUser = ({ product }) => {
   const [isCommentsClicked, setIsCommentsClicked] = useState(false);
@@ -12,7 +13,7 @@ export const ProductCardNotUser = ({ product }) => {
     const getProductComments = async () => {
       let productCode = product.code;
       const options = {
-        url: "/api/product/code",
+        url: `${API}/product/code`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

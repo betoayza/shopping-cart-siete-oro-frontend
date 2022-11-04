@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { OrdersTable } from "./OrdersTable";
+import { API } from "../api/api";
 
 export const OrderByCode = () => {
   const [order, setOrder] = useState(null);
@@ -10,7 +11,7 @@ export const OrderByCode = () => {
     e.preventDefault();
 
     const options = {
-      url: "/api/admin/orders/code",
+      url: `${API}/admin/orders/code`,
 
       headers: {
         "Content-Type": "application/json",
@@ -88,5 +89,3 @@ export const OrderByCode = () => {
     </>
   );
 };
-
-

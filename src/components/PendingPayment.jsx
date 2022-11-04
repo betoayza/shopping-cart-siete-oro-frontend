@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import { NavBarUser } from "./NavBarUser";
+import { API } from "../api/api";
 
 export const PendingPayment = () => {
   const [user, setUser] = useState({});
@@ -52,7 +53,7 @@ export const PendingPayment = () => {
     //get user data
     const getUserData = async () => {
       const options = {
-        url: "/api/user/get",
+        url: `${API}/user/get`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

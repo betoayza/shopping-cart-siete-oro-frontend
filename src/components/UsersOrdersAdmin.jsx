@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { OrdersTable } from "./OrdersTable";
 import { useParams } from "react-router-dom";
+import { API } from "../api/api";
 
 const UsersOrdersAdmin = () => {
   const [orders, setOrders] = useState(null);
@@ -11,7 +12,7 @@ const UsersOrdersAdmin = () => {
   useEffect(() => {
     const getUserOrders = async () => {
       const options = {
-        url: "/api/user/orders/all",
+        url: `${API}/user/orders/all`,
 
         headers: {
           "Content-Type": "application/json",

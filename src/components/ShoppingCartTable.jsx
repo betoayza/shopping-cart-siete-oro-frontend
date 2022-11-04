@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { ShoppingCartTableRow } from "./ShoppingCartTableRow";
 import { useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { API } from "../api/api";
 
 export const ShoppingCartTable = ({
   shoppingCart,
@@ -19,7 +20,7 @@ export const ShoppingCartTable = ({
       console.log("Quantity: ", toBuy, " | Index: ", itemIndex);
 
       const options = {
-        url: "/api/user/shopping-cart/update/toBuy",
+        url: `${API}/user/shopping-cart/update/toBuy`,
         method: "put",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +58,7 @@ export const ShoppingCartTable = ({
     //get shopping cart refreshed
     const getShoppingCart = async () => {
       const options = {
-        url: "/api/user/shopping-cart",
+        url: `${API}/user/shopping-cart`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -91,7 +92,7 @@ export const ShoppingCartTable = ({
             } else {
               const doPayment = async () => {
                 const options = {
-                  url: "/api/payment",
+                  url: `${API}/payment`,
                   method: "post",
                   headers: {
                     "Content-Type": "application/json",
@@ -139,7 +140,7 @@ export const ShoppingCartTable = ({
     };
 
     await axios
-      .delete(`/api/user/shopping-cart/delete`, options)
+      .delete(`${API}/user/shopping-cart/delete`, options)
       .then((res) => {
         console.log(res);
         if (res.data) {
@@ -161,7 +162,7 @@ export const ShoppingCartTable = ({
       data: { userCode },
     };
     await axios
-      .delete("/api/user/shopping-cart/delete/all", options)
+      .delete(`${API}/user/shopping-cart/delete/all`, options)
       .then((res) => {
         console.log(res.data);
         if (res.data) {

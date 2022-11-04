@@ -3,6 +3,7 @@ import axios from "axios";
 import { Modal } from "./Modal";
 import { ProductCommentStyle } from "./ProductCommentStyle";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { API } from "../api/api";
 
 export const ProductCard = ({
   index,
@@ -22,7 +23,7 @@ export const ProductCard = ({
     const isItemAdded = async () => {
       let prodCode = product.code;
       const options = {
-        url: "/api/user/shopping-cart/check-item-added",
+        url: `${API}/user/shopping-cart/check-item-added`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -53,7 +54,7 @@ export const ProductCard = ({
   const addToCart = async () => {
     let productCode = product.code;
     const options = {
-      url: "/api/user/shopping-cart/add",
+      url: `${API}/user/shopping-cart/add`,
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +94,7 @@ export const ProductCard = ({
     };
 
     await axios
-      .delete(`/api/user/shopping-cart/delete`, options)
+      .delete(`${API}/user/shopping-cart/delete`, options)
       .then((res) => {
         console.log(res.data);
         if (res.data) {
@@ -126,7 +127,7 @@ export const ProductCard = ({
     console.log(comment.length);
     let productCode = product.code;
     const options = {
-      url: "/api/user/comment/add",
+      url: `${API}/user/comment/add`,
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -147,7 +148,7 @@ export const ProductCard = ({
 
           const getProductComments = async (productCode) => {
             const options = {
-              url: "/api/product/code",
+              url: `${API}/product/code`,
               headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",

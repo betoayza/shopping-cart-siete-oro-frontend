@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { UsersTable } from "./UsersTable";
+import { API } from '../api/api';
 
 export const UsersSearchingBar = ({
   term,
@@ -24,7 +25,7 @@ export const UsersSearchingBar = ({
       };
 
       await axios
-        .get("/api/admin/users/search", options)
+        .get(`${API}/admin/users/search`, options)
         .then((res) => {
           console.log(res.data);
           if (res.data) {

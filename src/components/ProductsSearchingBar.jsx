@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ProductsTable } from "./ProductsTable";
+import { API } from "../api/api";
 
 export const ProductsSearchingBar = ({
   term,
@@ -13,7 +14,7 @@ export const ProductsSearchingBar = ({
   useEffect(() => {
     const getProduct = async () => {
       const options = {
-        url: "/api/admin/products/search",
+        url: `${API}/admin/products/search`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

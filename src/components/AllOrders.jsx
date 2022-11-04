@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { OrdersTable } from "./OrdersTable";
 import { Loader } from "./Loader";
+import { API } from '../api/api';
 
 export const AllOrders = () => {
   const [orders, setOrders] = useState(null);
@@ -20,7 +21,7 @@ export const AllOrders = () => {
       };
 
       await axios
-        .get("/api/admin/orders/all", options)
+        .get(`${API}/admin/orders/all`, options)
         .then((res) => {
           console.log(res.data);
           if (res.data) {
@@ -39,5 +40,5 @@ export const AllOrders = () => {
     <div className={"vw-100 vh-100 border border-success"}>
       {orders && <OrdersTable orders={orders} setOrders={setOrders} />}
     </div>
-  );
+  )
 };

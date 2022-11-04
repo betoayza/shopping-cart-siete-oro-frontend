@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { API } from '../api/api';
 
 const initialForm = {
   code: Date.now(),
@@ -34,7 +35,7 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
     console.log(data);
 
     const options = {
-      url: "/api/admin/product/add",
+      url: `${API}/admin/product/add`,
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +56,7 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
 
           const getAllProducts = async () => {
             const options = {
-              url: "/api/products/all",
+              url: `${API}/products/all`,
               headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",

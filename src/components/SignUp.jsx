@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { API } from "../api/api";
 
 const initialForm = {
   code: Date.now(),
@@ -27,7 +28,7 @@ const SignUp = () => {
     e.preventDefault();
 
     const options = {
-      url: "/api/signup",
+      url: `${API}/signup`,
       method: "post",
       headers: {
         "Content-Type": "application/json",

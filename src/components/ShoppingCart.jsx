@@ -4,6 +4,7 @@ import { ShoppingCartTable } from "./ShoppingCartTable";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
 import { Loader } from "./Loader";
+import { API } from "../api/api";
 
 const ShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState({ products: [] });
@@ -14,7 +15,7 @@ const ShoppingCart = () => {
   useEffect(() => {
     const getShoppingCart = async () => {
       const options = {
-        url: "/api/user/shopping-cart",
+        url: `${API}/user/shopping-cart`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

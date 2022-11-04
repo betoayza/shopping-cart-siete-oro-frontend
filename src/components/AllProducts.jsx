@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ProductsTable } from "./ProductsTable";
 import { Loader } from "./Loader";
+import { API } from '../api/api';
 
 const AllProducts = () => {
   const [products, setProducts] = useState(null);
@@ -10,7 +11,7 @@ const AllProducts = () => {
   useEffect(() => {
     const getAllProducts = async () => {
       const options = {
-        url: "/api/products/all",
+        url: `${API}/products/all`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

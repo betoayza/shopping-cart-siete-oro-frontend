@@ -6,7 +6,7 @@ import { OrderTableRow } from "./OrderTableRow";
 import { ProductsTable } from "./ProductsTable";
 import { SearchingBarOrders } from "./SearchingBarOrders";
 import { SearchUser } from "./SearchUser";
-
+import { API } from "../api/api";
 
 export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
   const [modal, setModal] = useState(false);
@@ -38,7 +38,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
     console.log(itemsIDs); //works
 
     const options = {
-      url: "/api/products/get/list",
+      url: `${API}/products/get/list`,
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",

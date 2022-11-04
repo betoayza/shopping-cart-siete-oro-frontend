@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API } from '../api/api';
 
 const DeleteUser = ({ code, setModal, setModalDelete }) => {
   const [deleted, setDeleted] = useState(false);
@@ -18,7 +19,7 @@ const DeleteUser = ({ code, setModal, setModalDelete }) => {
       };
 
       await axios
-        .delete("/api/admin/users/delete", options)
+        .delete(`${API}/admin/users/delete`, options)
         .then((res) => {
           console.log(res.data);
           if (res.data) setDeleted(true);

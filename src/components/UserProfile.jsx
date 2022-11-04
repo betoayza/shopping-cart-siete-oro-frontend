@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Modal } from "./Modal";
 import { NavBarUser } from "./NavBarUser";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { API } from '../api/api';
 
 const initialForm = {
   name: "",
@@ -30,7 +31,7 @@ const UserProfile = () => {
   useEffect(() => {
     const getUser = async () => {
       const options = {
-        url: "/api/admin/users/search/one",
+        url: `${API}/admin/users/search/one`,
 
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +60,7 @@ const UserProfile = () => {
     e.preventDefault();
 
     const options = {
-      url: "/api/user/profile/modify",
+      url: `${API}/user/profile/modify`,
       method: "put",
       headers: {
         "Content-Type": "application/json",

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { NavBarUser } from "./NavBarUser";
+import { API } from "../api/api";
 
 export const SuccessPayment = () => {
   const [shoppingCart, setShoppingCart] = useState(null);
@@ -62,7 +62,7 @@ export const SuccessPayment = () => {
     //1) get shopping cart
     const getShoppingCart = async () => {
       const options = {
-        url: "/api/user/shopping-cart",
+        url: `${API}/user/shopping-cart`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -90,7 +90,7 @@ export const SuccessPayment = () => {
     //2) get username by code
     const getUserData = async () => {
       const options = {
-        url: "/api/user/get",
+        url: `${API}/user/get`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -120,7 +120,7 @@ export const SuccessPayment = () => {
     //2) register order
     const addOrder = async () => {
       const options = {
-        url: "/api/user/orders/add",
+        url: `${API}/user/orders/add`,
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -177,24 +177,7 @@ export const SuccessPayment = () => {
     // };
   }, [shoppingCart, installments, totalAmount]);
 
-  return (
-    orderAdded &&
+  orderAdded &&
     itemsRemoved &&
-    navigate(`/user/${user}/shopping-cart/${userCode}`)
-    // (
-    //   <div className={""}>
-    //     <NavBarUser code={userCode} username={user.username} />
-    //     <h1>Mi carrito</h1>
-
-    //     <div className={"w-100 d-flex justify-content-center text-success"}>
-    //       <div
-    //         className={"d-grid align-items-center"}
-    //         style={{ width: "400px", height: "630px" }}
-    //       >
-    //         <h2>Gracias por su compra ;)</h2>
-    //       </div>
-    //     </div>
-    //   </div>
-    // )
-  );
+    navigate(`/user/${user}/shopping-cart/${userCode}`);
 };

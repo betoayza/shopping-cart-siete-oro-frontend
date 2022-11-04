@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { API } from '../api/api';
 
 const DeleteOrder = () => {
   const [code, setCode] = useState("");
@@ -22,7 +23,7 @@ const DeleteOrder = () => {
     };
 
     await axios
-      .delete("/api/user/orders/delete", options)
+      .delete(`${API}/user/orders/delete`, options)
       .then((res) => {
         console.log(res.data);
         if (res.data) {

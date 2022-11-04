@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { UsersTable } from "./UsersTable";
+import { API } from "../api/api";
 
 export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
   const [user, setUser] = useState(null);
@@ -19,7 +20,7 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
       };
 
       await axios
-        .get("/api/admin/users/search/one", options)
+        .get(`${API}/admin/users/search/one`, options)
         .then((res) => {
           console.log(res.data);
           if (res.data) setUser(res.data);

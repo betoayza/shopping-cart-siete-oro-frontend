@@ -6,6 +6,7 @@ import { ProductsTableUsers } from "./ProductsTableUsers";
 import { NavBarUser } from "./NavBarUser";
 import axios from "axios";
 import logo from "../img/logo-siete-oro.png";
+import { API } from "../api/api";
 
 const MainUser = () => {
   const [modal, setModal] = useState(false);
@@ -21,7 +22,7 @@ const MainUser = () => {
 
     const getShoppingCart = async () => {
       const options = {
-        url: "/api/user/shopping-cart",
+        url: `${API}/user/shopping-cart`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

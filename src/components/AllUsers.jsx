@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { UsersTable } from "./UsersTable";
 import { Loader } from "./Loader";
+import { API } from '../api/api';
 
 export const AllUsers = () => {
   const [users, setUsers] = useState(null);
@@ -20,7 +21,7 @@ export const AllUsers = () => {
       };
 
       await axios
-        .get("/api/admin/users/all", options)
+        .get(`${API}/admin/users/all`, options)
         .then((res) => {
           console.log(res.data);
           if (res.data) {

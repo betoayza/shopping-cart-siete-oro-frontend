@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { API } from '../api/api';
 
 export const ActivateProduct = ({
   code,
@@ -16,7 +17,7 @@ export const ActivateProduct = ({
   useEffect(() => {
     const activateProduct = async () => {
       const options = {
-        url: "/api/admin/products/activate",
+        url: `${API}/admin/products/activate`,
         method: "put",
         headers: {
           "Content-Type": "application/json",

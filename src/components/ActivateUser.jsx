@@ -1,11 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { API } from "../api/api";
 
-export const ActivateUser = ({
-  code,
-  setModal,
-  setModalActivate
-}) => {
+export const ActivateUser = ({ code, setModal, setModalActivate }) => {
   const [activated, setActivated] = useState(false);
 
   const handleClose = () => {
@@ -16,7 +13,7 @@ export const ActivateUser = ({
   useEffect(() => {
     const activateProduct = async () => {
       const options = {
-        url: "/api/admin/users/activate",
+        url: `${API}/admin/users/activate`,
         method: "put",
         headers: {
           "Content-Type": "application/json",

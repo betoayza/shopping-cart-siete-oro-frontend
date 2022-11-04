@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../img/logo-siete-oro.png";
 import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { API } from '../api/api';
 
 export const NavBarUser = ({ code, counterCart = 0, username }) => {
   const [itemsCounter, setItemsCounter] = useState(counterCart);
@@ -12,7 +13,7 @@ export const NavBarUser = ({ code, counterCart = 0, username }) => {
 
     const getShoppingCart = async () => {
       const options = {
-        url: "/api/user/shopping-cart",
+        url: `${API}/user/shopping-cart`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

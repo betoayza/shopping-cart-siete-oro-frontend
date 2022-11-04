@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import { API } from "../api/api";
 
 const SearchingBar = ({
   term = "",
@@ -11,7 +12,7 @@ const SearchingBar = ({
   useEffect(() => {
     const getProducts = async () => {
       const options = {
-        url: "/api/products/get",
+        url: `${API}/products/get`,
 
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ProductsTable } from "./ProductsTable";
+import { API } from "../api/api";
 
 export const SearchProductByCode = ({
   code,
@@ -24,7 +25,7 @@ export const SearchProductByCode = ({
       };
 
       await axios
-        .get("/api/admin/products/search/code", options)
+        .get(`${API}/admin/products/search/code`, options)
         .then((res) => {
           console.log(res.data);
           if (res.data) {

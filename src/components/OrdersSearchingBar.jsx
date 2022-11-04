@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { OrdersTable } from "./OrdersTable";
+import { API } from "../api/api";
 
 export const OrdersSearchingBar = ({
   orders,
@@ -24,10 +25,10 @@ export const OrdersSearchingBar = ({
       };
 
       await axios
-        .get("/api/admin/orders/search", options)
+        .get(`${API}/admin/orders/search`, options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) setOrders(res.data);        
+          if (res.data) setOrders(res.data);
         })
         .catch((error) => error);
     };

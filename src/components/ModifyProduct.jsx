@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useRef, useEffect } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { API } from '../api/api';
 
 const initialForm = {
   code: "",
@@ -21,7 +22,7 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
   useEffect(() => {
     const getProduct = async () => {
       const options = {
-        url: "/api/admin/products/search/code",
+        url: `${API}/admin/products/search/code`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -64,7 +65,7 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
     console.log(data);
 
     const options = {
-      url: "/api/admin/product/modify", //Add url works for modify too
+      url: `${API}/admin/product/modify`, 
       method: "put",
       headers: {
         "Content-Type": "application/json",

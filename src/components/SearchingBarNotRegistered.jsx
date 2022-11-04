@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Modal } from "./Modal";
 import { ProductsTableNotUsers } from "./ProductsTableNotUsers";
+import { API } from "../api/api";
 
 export const SearchingBarNotRegistered = () => {
   const [term, setTerm] = useState("");
@@ -10,7 +11,7 @@ export const SearchingBarNotRegistered = () => {
   useEffect(() => {
     const getProducts = async () => {
       const options = {
-        url: "/api/products/get",
+        url: `${API}/products/get`,
 
         headers: {
           "Content-Type": "application/json",

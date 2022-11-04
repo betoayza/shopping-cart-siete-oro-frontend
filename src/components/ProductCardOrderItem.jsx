@@ -3,6 +3,7 @@ import axios from "axios";
 import { Modal } from "./Modal";
 import { ProductCommentStyle } from "./ProductCommentStyle";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { API } from "../api/api";
 
 export const ProductCardOrderItem = ({
   index,
@@ -22,7 +23,7 @@ export const ProductCardOrderItem = ({
     const isItemAdded = async () => {
       let prodCode = product.code;
       const options = {
-        url: "/api/user/shopping-cart/check-item-added",
+        url: `${API}/user/shopping-cart/check-item-added`,
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -72,7 +73,7 @@ export const ProductCardOrderItem = ({
     console.log(comment.length);
     let productCode = product.code;
     const options = {
-      url: "/api/user/comment/add",
+      url: `${API}/user/comment/add`,
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +94,7 @@ export const ProductCardOrderItem = ({
 
           const getProductComments = async (productCode) => {
             const options = {
-              url: "/api/product/code",
+              url: `${API}/product/code`,
               headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",

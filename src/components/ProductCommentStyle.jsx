@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import axios from "axios";
+import { API } from "../api/api";
 
 //comment prop is {username: 'comment'}
 export const ProductCommentStyle = ({
@@ -23,7 +24,7 @@ export const ProductCommentStyle = ({
     };
 
     await axios
-      .delete(`/api/user/comment/delete`, options)
+      .delete(`${API}/user/comment/delete`, options)
       .then((res) => {
         console.log(res);
         if (res.data) {
@@ -31,7 +32,7 @@ export const ProductCommentStyle = ({
 
           const getProductComments = async () => {
             const options = {
-              url: "/api/product/code",
+              url: `${API}/product/code`,
               headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",

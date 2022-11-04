@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { OrderTableRowUser } from "./OrderTableRowUser";
-import { useParams } from "react-router-dom";
 import { Modal } from "./Modal";
 import { OrderItemsTableUser } from "./OrderItemsTableUser";
 import axios from "axios";
+import { API } from "../api/api";
 
 export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
   const [isModalSeeItems, setIsModalSeeItems] = useState(false);
@@ -18,7 +18,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
     // console.log(orderItems);
 
     const options = {
-      url: "/api/user/orders/items/list",
+      url: `${API}/user/orders/items/list`,
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -69,7 +69,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
     };
 
     await axios
-      .delete("/api/user/orders/delete", options)
+      .delete(`${API}/user/orders/delete`, options)
       .then((res) => {
         console.log(res.data);
         alert("Orden cancelada");
@@ -84,7 +84,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
           <OrderItemsTableUser
             products={items}
             userCode={userCode}
-            showButton={false}            
+            showButton={false}
             username={username}
           />
           <button className="btn btn-danger" onClick={() => handleClose()}>

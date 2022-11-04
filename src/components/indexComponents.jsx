@@ -4,7 +4,6 @@ import Home from "./Home";
 import ShoppingCart from "./ShoppingCart";
 
 import { AllOrders } from "./AllOrders";
-import ReceivedOrders from "./ReceivedOrders";
 import { OrderByCode } from "./OrderByCode";
 import UsersOrdersAdmin from "./UsersOrdersAdmin";
 import { AllOrdersUser } from "./AllOrdersUser";
@@ -37,8 +36,7 @@ export {
   MainUser,
   Home,
   ShoppingCart,
-  AllOrders,
-  ReceivedOrders,
+  AllOrders,  
   OrderByCode,
   AllOrdersUser,
   DeleteOrder,
