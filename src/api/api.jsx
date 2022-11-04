@@ -1,1 +1,1 @@
-export const API='https://shopping-cart-siete-oro-backend-production.up.railway.app/';
+export const API='https://shopping-cart-siete-oro-backend-production.up.railway.app';
