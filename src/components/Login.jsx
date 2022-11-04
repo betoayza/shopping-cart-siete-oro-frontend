@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { API } from '../api/api';
+import { API } from "../api/api";
 
 const initialForm = {
   data: "",
@@ -28,6 +28,7 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
       },
