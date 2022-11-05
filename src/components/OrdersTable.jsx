@@ -74,6 +74,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
             products={products}
             setProducts={setProducts}
             addAndSearch={false}
+            seeActions={false}
           />
           <button className={"btn btn-danger"} onClick={handleCloseProducts}>
             Cerrar

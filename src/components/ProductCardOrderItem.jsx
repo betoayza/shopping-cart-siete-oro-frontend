@@ -202,8 +202,8 @@ export const ProductCardOrderItem = ({
       <div className={"card-body"}>
         <span className="card-text align-middle">{product.description}</span>
         <h3>
-          ${product.price}{" "}
-          <span style={{ color: "#bc2d56" }}>x {product.quantity}</span>
+          <span style={{ color: "green" }}>${product.price}</span>
+          <span style={{ color: "#bc2d56" }}> x {product.quantity}</span>
         </h3>
         {showButton &&
           (isAdded ? (

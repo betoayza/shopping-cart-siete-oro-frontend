@@ -81,7 +81,7 @@ export const ShoppingCartTable = ({
               ["image"]: "",
             }));
 
-            alert(JSON.stringify(items));
+            //alert(JSON.stringify(items));
 
             if (
               items.filter((item) => {
@@ -109,7 +109,7 @@ export const ShoppingCartTable = ({
                   .then((res) => {
                     console.log(res.data);
                     if (res.data) {
-                      // window.location.href = res.data.init_point;
+                      window.location.href = res.data.init_point;
                     } else {
                       navigate(res.data.back_urls.failure);
                     }

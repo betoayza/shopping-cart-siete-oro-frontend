@@ -251,12 +251,16 @@ export const ProductCard = ({
           className="card-img-top"
           alt="Imagen"
         />
-        <h5 className="card-title">{product.name}</h5>
+        <h5 className="card-title">
+          <span style={{ fontWeight: "bold" }}>{product.name}</span>
+        </h5>
       </div>
       <div className={"card-body"}>
         <span className="card-text align-middle">{product.description}</span>
-        <h3>Stock: {product.stock}</h3>
-        <h3>${product.price}</h3>
+        <h5>
+          Quedan: <span style={{ color: "orange" }}>{product.stock}</span>
+        </h5>
+        <h3 style={{ color: "green" }}>${product.price}</h3>
         {showButton &&
           (isAdded ? (
             <button className={"btn btn-danger"} onClick={removeFromCart}>

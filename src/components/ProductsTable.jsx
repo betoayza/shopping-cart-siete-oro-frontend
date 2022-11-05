@@ -13,6 +13,7 @@ export const ProductsTable = ({
   products,
   setProducts,
   addAndSearch = true,
+  seeActions = true,
 }) => {
   const [modal, setModal] = useState(false);
   const [productCode, setProductCode] = useState(null);
@@ -136,7 +137,7 @@ export const ProductsTable = ({
                     <th scope="col">Stock</th>
                     <th scope="col">Foto</th>
                     <th scope="col">Estado</th>
-                    <th scope="col">Accion</th>
+                    {seeActions && <th scope="col">Accion</th>}
                   </tr>
                 </thead>
                 <tbody>
@@ -148,6 +149,7 @@ export const ProductsTable = ({
                         handleUpdate={handleUpdate}
                         handleDelete={handleDelete}
                         handleActivate={handleActivate}
+                        seeActions={seeActions}
                       />
                     );
                   })}

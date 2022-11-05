@@ -163,7 +163,7 @@ export const SuccessPayment = () => {
         data: { userCode },
       };
       await axios
-        .delete("/api/user/shopping-cart/delete/all", options)
+        .delete(`${API}/user/shopping-cart/delete/all`, options)
         .then((res) => {
           console.log(res.data);
           if (res.data) {

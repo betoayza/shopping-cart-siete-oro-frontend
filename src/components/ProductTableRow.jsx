@@ -6,6 +6,7 @@ export const ProductTableRow = ({
   handleUpdate,
   handleDelete,
   handleActivate,
+  seeActions,
 }) => {
   //console.log(product.image, typeof product.image);
   console.log(product);
@@ -33,39 +34,41 @@ export const ProductTableRow = ({
         />
       </td>
       <td>{product.status}</td>
-      <td>
-        <button
-          className="btn btn-primary"
-          onClick={() => handleUpdate(product.code)}
-        >
-          <i
-            className="bi-pen-fill"
-            style={{ color: "white", fontSize: "20px" }}
-          ></i>
-        </button>
-        {product.status === "Activo" && (
+      {seeActions && (
+        <td>
           <button
-            className="btn btn-danger"
-            onClick={() => handleDelete(product.code)}
+            className="btn btn-primary"
+            onClick={() => handleUpdate(product.code)}
           >
             <i
-              className="bi-trash-fill"
+              className="bi-pen-fill"
               style={{ color: "white", fontSize: "20px" }}
             ></i>
           </button>
-        )}
-        {product.status === "Dado de baja" && (
-          <button
-            className="btn btn-success"
-            onClick={() => handleActivate(product.code)}
-          >
-            <i
-              className="bi-plus-lg"
-              style={{ color: "white", fontSize: "20px" }}
-            ></i>
-          </button>
-        )}
-      </td>
+          {product.status === "Activo" && (
+            <button
+              className="btn btn-danger"
+              onClick={() => handleDelete(product.code)}
+            >
+              <i
+                className="bi-trash-fill"
+                style={{ color: "white", fontSize: "20px" }}
+              ></i>
+            </button>
+          )}
+          {product.status === "Dado de baja" && (
+            <button
+              className="btn btn-success"
+              onClick={() => handleActivate(product.code)}
+            >
+              <i
+                className="bi-plus-lg"
+                style={{ color: "white", fontSize: "20px" }}
+              ></i>
+            </button>
+          )}
+        </td>
+      )}
     </tr>
   );
 };
