@@ -143,9 +143,9 @@ export const ShoppingCartTable = ({
       .delete(`${API}/user/shopping-cart/delete`, options)
       .then((res) => {
         console.log(res);
-        if (res.data) {
-          alert("Item borrado exitosamente");
-        }
+        if (!res.data) {
+          alert("Hubo un error");
+        } 
       })
       .catch((error) => error);
   };
@@ -165,11 +165,9 @@ export const ShoppingCartTable = ({
       .delete(`${API}/user/shopping-cart/delete/all`, options)
       .then((res) => {
         console.log(res.data);
-        if (res.data) {
-          alert("Lista items borrados");
-        } else {
-          alert("Carrito inexistente :(");
-        }
+        if (!res.data) {
+          alert("Hubo un error");
+        } 
       })
       .catch((error) => error);
   };
