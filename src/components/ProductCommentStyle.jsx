@@ -28,8 +28,6 @@ export const ProductCommentStyle = ({
       .then((res) => {
         console.log(res);
         if (res.data) {
-          alert("Comentario borrado ;)");
-
           const getProductComments = async () => {
             const options = {
               url: `${API}/product/code`,

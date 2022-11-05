@@ -90,8 +90,6 @@ export const ProductCardOrderItem = ({
       .then((res) => {
         console.log(res);
         if (res.data) {
-          alert("Comentario subido ;)");
-
           const getProductComments = async (productCode) => {
             const options = {
               url: `${API}/product/code`,
