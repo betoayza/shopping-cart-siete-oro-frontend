@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../img/logo-siete-oro.png";
 import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { API } from '../api/api';
+import { API } from "../api/api";
 
 export const NavBarUser = ({ code, counterCart = 0, username }) => {
   const [itemsCounter, setItemsCounter] = useState(counterCart);
@@ -36,7 +36,7 @@ export const NavBarUser = ({ code, counterCart = 0, username }) => {
         });
     };
     getShoppingCart();
-  }, [itemsCounter]); //always running
+  }, [counterCart]); //always running
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
