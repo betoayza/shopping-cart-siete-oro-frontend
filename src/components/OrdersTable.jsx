@@ -7,6 +7,7 @@ import { ProductsTable } from "./ProductsTable";
 import { SearchingBarOrders } from "./SearchingBarOrders";
 import { SearchUser } from "./SearchUser";
 import { API } from "../api/api";
+import { Loader } from "./Loader";
 
 export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
   const [modal, setModal] = useState(false);
@@ -16,6 +17,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
   const [modalSearchUser, setModalSearchUser] = useState(null);
   const [userCode, setUserCode] = useState(null);
   const [term, setTerm] = useState("");
+  const [loader, setLoader] = useState(true);
 
   if (!Array.isArray(orders)) {
     orders = [orders];
@@ -55,6 +57,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
         console.log(res.data);
         if (res.data) {
           setProducts(res.data);
+          setLoader(false);
         }
       })
       .catch((error) => error);
@@ -68,19 +71,22 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
 
   return modal ? (
     <Modal>
-      {modalSeeProducts && (
-        <div className={""}>
-          <ProductsTable
-            products={products}
-            setProducts={setProducts}
-            addAndSearch={false}
-            seeActions={false}
-          />
-          <button className={"btn btn-danger"} onClick={handleCloseProducts}>
-            Cerrar
-          </button>
-        </div>
-      )}
+      {modalSeeProducts &&
+        (loader ? (
+          <Loader />
+        ) : (
+          <div className={""}>
+            <ProductsTable
+              products={products}
+              setProducts={setProducts}
+              addAndSearch={false}
+              seeActions={false}
+            />
+            <button className={"btn btn-danger"} onClick={handleCloseProducts}>
+              Cerrar
+            </button>
+          </div>
+        ))}
       {modalSearchUser && (
         <SearchUser
           code={userCode}

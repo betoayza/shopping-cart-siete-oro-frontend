@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useState, useRef, useEffect } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { API } from '../api/api';
+import { API } from "../api/api";
+import { Loader } from "./Loader";
 
 const initialForm = {
   code: "",
@@ -17,6 +18,7 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
   const [form, setForm] = useState(initialForm);
   const [found, setFound] = useState(false);
   const [updated, setUpdated] = useState(false);
+  const [loader, setLoader] = useState(true);
   const fileRef = useRef(null);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
           if (res.data) {
             setForm(res.data);
             setFound(true);
+            setLoader(false);
           } else return;
         })
         .catch((error) => error);
@@ -65,7 +68,7 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
     console.log(data);
 
     const options = {
-      url: `${API}/admin/product/modify`, 
+      url: `${API}/admin/product/modify`,
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -102,7 +105,7 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
   };
 
   return !updated ? (
-    found ? (
+    !loader && found ? (
       <div className={"text-center"}>
         <h1>Actualizar producto:</h1>
         <div className={"d-flex justify-content-center"}>
@@ -182,7 +185,7 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
                 Actualizar
               </button>
               <button
-                className="btn btn-danger"
+                className="btn btn-danger mt-1"
                 type="reset"
                 onClick={handleClose}
               >
@@ -193,12 +196,7 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
         </div>
       </div>
     ) : (
-      <div>
-        <h3>No existe :(</h3>
-        <button className="btn btn-danger" type="reset" onClick={handleClose}>
-          Cerrar
-        </button>
-      </div>
+      <Loader />
     )
   ) : (
     <div>

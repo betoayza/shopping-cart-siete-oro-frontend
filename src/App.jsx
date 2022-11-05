@@ -60,7 +60,7 @@ function App() {
             exact
             path="/admin/orders/all"
             element={<Components.AllOrders />}
-          />          
+          />
 
           <Route
             exact

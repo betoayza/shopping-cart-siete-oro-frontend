@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { UsersTable } from "./UsersTable";
 import { API } from "../api/api";
+import { Loader } from "./Loader";
 
 export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
   const [user, setUser] = useState(null);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
@@ -23,7 +25,10 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
         .get(`${API}/admin/users/search/one`, options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) setUser(res.data);
+          if (res.data) {
+            setUser(res.data);
+            setLoader(false);
+          }
         })
         .catch((error) => error);
     };
@@ -35,18 +40,18 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
     setModalSearchUser(false);
   };
 
-  return (
-    user && (
-      <div>
-        <UsersTable
-          users={user}
-          setUsers={setUser}
-          showSearchUserAndAdminNavBar={false}
-        />
-        <button className={"btn btn-danger mt-2"} onClick={handleClose}>
-          Cerrar
-        </button>
-      </div>
-    )
+  return !loader && user ? (
+    <div>
+      <UsersTable
+        users={user}
+        setUsers={setUser}
+        showSearchUserAndAdminNavBar={false}
+      />
+      <button className={"btn btn-danger mt-2"} onClick={handleClose}>
+        Cerrar
+      </button>
+    </div>
+  ) : (
+    <Loader />
   );
 };

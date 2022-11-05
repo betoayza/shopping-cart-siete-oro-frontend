@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { API } from '../api/api';
+import { API } from "../api/api";
+import { Loader } from "./Loader";
 
 export const ActivateProduct = ({
   code,
@@ -8,6 +9,7 @@ export const ActivateProduct = ({
   setModalActivateProduct,
 }) => {
   const [activated, setActivated] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   const handleClose = () => {
     setModal(false);
@@ -33,7 +35,10 @@ export const ActivateProduct = ({
         .request(options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) setActivated(true);
+          if (res.data) {
+            setActivated(true);
+            setLoader(false);
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -42,7 +47,9 @@ export const ActivateProduct = ({
     activateProduct();
   }, []);
 
-  return activated ? (
+  return loader ? (
+    <Loader />
+  ) : activated ? (
     <>
       <h3>Activado :)</h3>
       <button className={"btn btn-danger"} onClick={handleClose}>

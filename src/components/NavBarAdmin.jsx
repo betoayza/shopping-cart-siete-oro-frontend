@@ -23,12 +23,18 @@ export const NavBarAdmin = () => {
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/admin">
-                <i
-                  className="bi-house-door-fill"
-                  style={{ color: "white", fontSize: "20px" }}
-                ></i>
-              </a>
+              <NavLink to={"/admin"}>
+                {({ isActive }) => (
+                  <a
+                    className={isActive ? "nav-link active" : "nav-link active"}
+                  >
+                    <i
+                      className="bi-house-door-fill"
+                      style={{ color: "white", fontSize: "20px" }}
+                    ></i>
+                  </a>
+                )}
+              </NavLink>
             </li>
 
             <li className="nav-item">

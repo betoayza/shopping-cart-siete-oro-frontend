@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { API } from '../api/api';
+import { API } from "../api/api";
+import { Loader } from "./Loader";
 
-const DeleteProduct = ({ code, setModal, setModalDeleteProduct, setProducts }) => {
+const DeleteProduct = ({
+  code,
+  setModal,
+  setModalDeleteProduct,
+  setProducts,
+}) => {
   const [deleted, setDeleted] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     const deleteProduct = async () => {
@@ -22,7 +29,10 @@ const DeleteProduct = ({ code, setModal, setModalDeleteProduct, setProducts }) =
         .delete(`${API}/admin/products/delete`, options)
         .then((res) => {
           console.log(res.data);
-          if (res.data) setDeleted(true);
+          if (res.data) {
+            setDeleted(true);
+            setLoader(false);
+          }
         })
         .catch((error) => error);
     };
@@ -58,7 +68,9 @@ const DeleteProduct = ({ code, setModal, setModalDeleteProduct, setProducts }) =
     setModalDeleteProduct(false);
   };
 
-  return deleted ? (
+  return loader ? (
+    <Loader />
+  ) : deleted ? (
     <>
       <h3>Baja exitosa ;)</h3>
       <button className="btn btn-danger" type="button" onClick={handleClose}>
