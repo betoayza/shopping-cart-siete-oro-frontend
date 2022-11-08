@@ -28,9 +28,15 @@ const Home = () => {
           <br />
           <br />
           <div className={"text-center"}>
-            <h2>Bienvenido a nuestro carrito online!</h2>
-            <p>El lugar donde encontrará los mejores panificados</p>
-            <p>Utilice el buscador para encontrar sus productos</p>
+            <h2 style={{ color: "green" }}>
+              Bienvenido a nuestro carrito online!
+            </h2>
+            <p style={{ color: "brown" }}>
+              El lugar donde encontrará los mejores panificados
+            </p>
+            <p style={{ color: "brown" }}>
+              Utilice el buscador para encontrar sus productos
+            </p>
           </div>
         </div>
       </div>

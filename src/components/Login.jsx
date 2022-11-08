@@ -64,49 +64,59 @@ const Login = () => {
   };
 
   return (
-    <div className={"w-100 vh-100 d-grid align-items-center"}>
-      <div>
+    <div className={"vw-75 vh-100 d-grid align-items-center"}>
+      <div
+        className={
+          "w-50 d-grid justify-content-center text-center container"
+        }
+      >
         <h2>Login</h2>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            className="form-control w-25"
-            name="data"
-            placeholder="Email o usuario..."
-            value={form.data}
-            onChange={handleChange}
-            required
-          />
+        <div className={"w-100 justify-content-md-center"}>
+          <form onSubmit={handleSubmit} className={"container"}>
+            <input
+              type="text"
+              className="form-control w-100"
+              name="data"
+              placeholder="Email o usuario..."
+              value={form.data}
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="password"
-            className="form-control w-25"
-            name="password"
-            placeholder="Password..."
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
+            <input
+              type="password"
+              className="form-control w-100"
+              name="password"
+              placeholder="Password..."
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
 
-          <div className={"d-flex m-1"}>
-            <button type="submit" className="btn btn-primary">
-              Entrar
-            </button>
+            <div className={"d-flex m-1"}>
+              <button type="submit" className="btn btn-primary">
+                Entrar
+              </button>
 
-            <button
-              type="reset"
-              className="btn btn-danger"
-              onClick={handleClean}
-            >
-              Limpiar
-            </button>
+              <button
+                type="reset"
+                className="btn btn-danger"
+                onClick={handleClean}
+              >
+                Limpiar
+              </button>
 
-            <button type="button" className="btn btn-dark" onClick={handleBack}>
-              Volver
-            </button>
-          </div>
-        </form>
+              <button
+                type="button"
+                className="btn btn-dark"
+                onClick={handleBack}
+              >
+                Volver
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

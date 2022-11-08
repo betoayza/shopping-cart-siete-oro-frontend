@@ -50,12 +50,12 @@ const SearchingBar = ({
   };
 
   return (
-    <div className={"w-100 text-center searching-bar-div"}>
+    <div className={"vw-100 text-center searching-bar-div col-md-auto"}>
       <h1>Panadería Siete de Oro</h1>
 
       <input
         className={"form-control"}
-        style={{ width: "400px" }}
+        style={{ width: "50%" }}
         value={term}
         placeholder={"¿Qué está buscando?..."}
         onChange={handleChange}

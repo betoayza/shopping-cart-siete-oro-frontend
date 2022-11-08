@@ -7,7 +7,7 @@ export const ProductsTableUsers = ({
   products,
   userCode,
   showButton = true,
-  username, 
+  username,
 }) => {
   const [loader, setLoader] = useState(true);
 
@@ -25,20 +25,26 @@ export const ProductsTableUsers = ({
     products.filter((product) => {
       return product.stock > 0;
     }).length ? (
-    <div className={"vw-75 p-3"}>
+    <div className={"col w-100"}>
       {products.length === 1 ? <h3>Producto:</h3> : <h3>Productos:</h3>}
-      <div className={"products-list"}>
+      <div
+        className={
+          "vw-100 row row-cols-auto container d-flex justify-content-center"
+        }
+      >
         {products.map((product, index) => {
           return (
             product.stock > 0 && (
-              <ProductCard
-                key={index}
-                index={index}
-                product={product}
-                userCode={userCode}
-                showButton={showButton}
-                username={username}                
-              />
+              <div className={"row"}>
+                <ProductCard
+                  key={index}
+                  index={index}
+                  product={product}
+                  userCode={userCode}
+                  showButton={showButton}
+                  username={username}
+                />
+              </div>
             )
           );
         })}

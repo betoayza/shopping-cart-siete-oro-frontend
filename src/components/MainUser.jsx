@@ -50,37 +50,47 @@ const MainUser = () => {
   return modal ? (
     <Modal>
       {modalSearchProducts && (
-        <div className={"searching-bar-div"}>
-          <SearchingBar
-            term={term}
-            setTerm={setTerm}
-            setProducts={setProducts}
-            setModal={setModal}
-            setModalSearchProducts={setModalSearchProducts}
-          />
-          <ProductsTableUsers
-            products={products}
-            setProducts={setProducts}
-            userCode={code}
-            showButton={true}
-            username={username}
-          />
+        <div className={"vh-100 searching-bar-div col"}>
+          <div className={"row"}>
+            <SearchingBar
+              term={term}
+              setTerm={setTerm}
+              setProducts={setProducts}
+              setModal={setModal}
+              setModalSearchProducts={setModalSearchProducts}
+            />
+          </div>
+          <div className={"row"}>
+            <ProductsTableUsers
+              products={products}
+              setProducts={setProducts}
+              userCode={code}
+              showButton={true}
+              username={username}
+            />
+          </div>
         </div>
       )}
     </Modal>
   ) : (
-    <div className={"h-100 border"}>
-      <NavBarUser
-        code={code}
-        counterCart={shoppingCart.products.length}
-        username={username}
-      />
-      <h2 className={"fw-bold"} style={{ color: "purple" }}>
-        Bienvenido {username}!
-      </h2>
-      <div className={"h-75 d-grid align-content-center"}>
-        <div>
-          <img src={logo} style={{ width: 200, height: 200 }} alt="Logo" />
+    <div className={"vh-100 vw-100 border"}>
+      <div className={"col"}>
+        <NavBarUser
+          code={code}
+          counterCart={shoppingCart.products.length}
+          username={username}
+        />
+        <h2 className={"fw-bold"} style={{ color: "purple" }}>
+          Bienvenido {username}!
+        </h2>
+        <div className={"h-75 vw-100 d-grid justify-items-center"}>
+          <div>
+            <img
+              src={logo}
+              style={{ width: "200px", height: "200px" }}
+              alt="Logo"
+            />
+          </div>
           <SearchingBar
             term={term}
             setTerm={setTerm}

@@ -53,8 +53,8 @@ export const SearchingBarNotRegistered = () => {
       />
       {products ? (
         <Modal>
-          <div className={"w-100"}>
-            <div className={"d-flex justify-content-center"}>
+          <div className={"col container vh-100"}>
+            <div className={"w-100 d-flex flex-wrap justify-content-center"}>
               <input
                 className={"form-control"}
                 style={{ width: "50%" }}
@@ -63,11 +63,13 @@ export const SearchingBarNotRegistered = () => {
                 onChange={handleChange}
               />
             </div>
-            {products.length ? (
-              <ProductsTableNotUsers products={products} />
-            ) : (
-              <h2>Sin resultados :(</h2>
-            )}
+            <div className={"row"}>
+              {products.length ? (
+                <ProductsTableNotUsers products={products} />
+              ) : (
+                <h2>Sin resultados :(</h2>
+              )}
+            </div>
           </div>
         </Modal>
       ) : null}

@@ -37,7 +37,7 @@ export const AllOrders = () => {
   return loader ? (
     <Loader />
   ) : (
-    <div className={"vw-100 vh-100 border border-success"}>
+    <div className={"vw-100 vh-100"}>
       {orders && <OrdersTable orders={orders} setOrders={setOrders} />}
     </div>
   )
