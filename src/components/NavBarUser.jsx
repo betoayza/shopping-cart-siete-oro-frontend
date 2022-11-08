@@ -113,6 +113,18 @@ export const NavBarUser = ({ code, counterCart = 0, username }) => {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink to={`/contact/${username}/${code}`}>
+                {({ isActive }) => (
+                  <a className={isActive ? "nav-link" : "nav-link"}>
+                    <i
+                      className="bi-telephone-forward-fill"
+                      style={{ color: "white", fontSize: "20px" }}
+                    ></i>
+                  </a>
+                )}
+              </NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink to={`/`}>
                 {({ isActive }) => (
                   <a className={isActive ? "nav-link" : "nav-link"}>

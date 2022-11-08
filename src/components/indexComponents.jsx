@@ -25,6 +25,8 @@ import UserProfile from "./UserProfile";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
+import { Contact } from "./Contact";
+
 import Error404 from "./Error404";
 import { SuccessPayment } from "./SuccessPayment";
 import { PendingPayment } from "./PendingPayment";
@@ -36,7 +38,7 @@ export {
   MainUser,
   Home,
   ShoppingCart,
-  AllOrders,  
+  AllOrders,
   OrderByCode,
   AllOrdersUser,
   DeleteOrder,
@@ -56,4 +58,5 @@ export {
   FailedPayment,
   SuccessPayment,
   PendingPayment,
+  Contact,
 };

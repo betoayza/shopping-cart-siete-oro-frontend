@@ -9,6 +9,16 @@ const Home = () => {
   return (
     <div className={"vh-100 w-100"}>
       <div className={"d-flex justify-content-end"}>
+        <button
+          className="btn btn-dark"
+          onClick={() => navigate(`/contact/${0}/${0}`)}
+        >
+          <i
+            className="bi-telephone-forward-fill"
+            style={{ color: "white", fontSize: "20px" }}
+          ></i>
+        </button>
+
         <button className="btn btn-dark" onClick={() => navigate("/login")}>
           Login
         </button>

@@ -27,15 +27,11 @@ export const OrderItemsTableUser = ({
     }).length ? (
     <div className={"col w-100"}>
       {products.length === 1 ? <h3>Producto:</h3> : <h3>Productos:</h3>}
-      <div
-        className={
-          "vw-100 row row-cols-auto container d-flex justify-content-center"
-        }
-      >
+      <div className={"w-100 row row-cols-auto container mx-auto"}>
         {products.map((product, index) => {
           return (
             product.stock > 0 && (
-              <div className={"row"}>
+              <div className={"col col-md-auto"}>
                 <ProductCardOrderItem
                   key={index}
                   index={index}

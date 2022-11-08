@@ -5,6 +5,11 @@ body {
   background-size: cover;
 }
 
+h1,
+h2 {
+  color: #6610f2;
+}
+
 td,
 th {
   vertical-align: middle;

@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
 import { Loader } from "./Loader";
-import { API } from '../api/api';
+import { API } from "../api/api";
 
 export const AllOrdersUser = () => {
   const [orders, setOrders] = useState([]);

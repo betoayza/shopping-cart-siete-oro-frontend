@@ -100,6 +100,12 @@ function App() {
             element={<Components.PendingPayment />}
           />
 
+          <Route
+            exact
+            path="/contact/:username/:code"
+            element={<Components.Contact />}
+          />
+
           <Route exact path="*" element={<Components.Error404 />} />
         </Routes>
       </div>

@@ -7,6 +7,7 @@ import { NavBarUser } from "./NavBarUser";
 import axios from "axios";
 import logo from "../img/logo-siete-oro.png";
 import { API } from "../api/api";
+import AllProductsUser from "./AllProductsUser";
 
 const MainUser = () => {
   const [modal, setModal] = useState(false);
@@ -80,7 +81,7 @@ const MainUser = () => {
           counterCart={shoppingCart.products.length}
           username={username}
         />
-        <h2 className={"fw-bold"} style={{ color: "purple" }}>
+        <h2 className={"fw-bold"} style={{ color: "#6610f2" }}>
           Bienvenido {username}!
         </h2>
         <div className={"h-75 vw-100 d-grid justify-items-center"}>
@@ -100,6 +101,9 @@ const MainUser = () => {
           />
         </div>
       </div>
+      <br />
+      <br />
+      <AllProductsUser code={code} username={username} />
     </div>
   );
 };

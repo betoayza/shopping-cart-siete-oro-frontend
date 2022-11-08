@@ -51,7 +51,7 @@ const SearchingBar = ({
 
   return (
     <div className={"vw-100 text-center searching-bar-div col-md-auto"}>
-      <h1>Panadería Siete de Oro</h1>
+      <h1 style={{ color: "#6610f2" }}>Panadería Siete de Oro</h1>
 
       <input
         className={"form-control"}
