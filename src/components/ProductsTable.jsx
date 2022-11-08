@@ -95,10 +95,16 @@ export const ProductsTable = ({
   ) : (
     <div className={"vw-100"}>
       {showAddAndSearch && (
-        <div className={""}>
+        <div className={"w-100"}>
           <NavBarAdmin />
-          <div className={"d-flex justify-content-center w-100"}>
-            <div className={"d-grid align-items-center"}>
+          <div
+            className={"w-100 border"}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <div className={""}>
               <button
                 className={"btn btn-primary w-10"}
                 onClick={handleAddProduct}
@@ -106,7 +112,8 @@ export const ProductsTable = ({
                 Alta
               </button>
             </div>
-            <div>
+
+            <div className={""} style={{ maxWidth: "100%" }}>
               <ProductsSearchingBar
                 term={term}
                 setTerm={setTerm}

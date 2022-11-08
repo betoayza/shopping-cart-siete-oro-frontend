@@ -96,6 +96,7 @@ const SignUp = () => {
             placeholder="Nombre..."
             value={form.name}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -105,6 +106,7 @@ const SignUp = () => {
             placeholder="Apellido..."
             value={form.lastName}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -114,6 +116,7 @@ const SignUp = () => {
             placeholder="Email..."
             value={form.email}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -123,6 +126,7 @@ const SignUp = () => {
             placeholder="Nombre usuario..."
             value={form.username}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -132,6 +136,7 @@ const SignUp = () => {
             placeholder="Password"
             value={form.password}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -141,6 +146,7 @@ const SignUp = () => {
             placeholder="Direccion..."
             value={form.address}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -150,6 +156,7 @@ const SignUp = () => {
             placeholder="Barrio..."
             value={form.neighborhood}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -159,6 +166,7 @@ const SignUp = () => {
             placeholder="Tel..."
             value={form.phone}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -168,6 +176,7 @@ const SignUp = () => {
             placeholder="CP..."
             value={form.zip}
             onChange={handleChange}
+            required
           />
 
           <input

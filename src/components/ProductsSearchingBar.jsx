@@ -52,19 +52,19 @@ export const ProductsSearchingBar = ({
   };
 
   return (
-    <div className={"searching-bar w-100"}>
-      <div className={""} style={{ width: "400px" }}>
+    <div className={"searching-bar"}>
+      <div className={"row row-cols-1"} style={{ width: "50%" }}>
         <input
           type="text"
           value={term}
           placeholder={"Buscar..."}
           onChange={handleChange}
-          className={"form-control w-100"}
+          className={"form-control col col-md-auto"}
         />
       </div>
 
       {products && term !== "" && (
-        <div className={"w-100"}>
+        <div className={"vw-100 col col-md-auto"}>
           <ProductsTable
             products={products}
             setProducts={setProducts}
