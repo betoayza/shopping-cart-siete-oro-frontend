@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Modal } from "./Modal";
 import { NavBarUser } from "./NavBarUser";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { API } from '../api/api';
+import { API } from "../api/api";
 
 const initialForm = {
   name: "",
@@ -115,10 +115,7 @@ const UserProfile = () => {
         className={"w-100 d-flex justify-content-center"}
         style={{ height: "88%" }}
       >
-        <div
-          className={"d-grid align-content-center"}
-          style={{ minHeight: "100%" }}
-        >
+        <div className={""} style={{ display: "grid", placeItems: "center" }}>
           <h2>Mis datos:</h2>
           <div className={"form-group w-100"}>
             <form onSubmit={handleSubmit}>
