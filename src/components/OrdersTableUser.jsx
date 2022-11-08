@@ -80,7 +80,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
   return modal ? (
     <Modal>
       {isModalSeeItems && items && (
-        <div>
+        <div className={"vh-100 vw-100"}>
           <OrderItemsTableUser
             products={items}
             userCode={userCode}
