@@ -9,6 +9,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
   const [isModalSeeItems, setIsModalSeeItems] = useState(false);
   const [modal, setModal] = useState(false);
   const [items, setItems] = useState(null);
+  const [isOrderCanceled, setIsOrderCanceled] = useState(false);
 
   if (!Array.isArray(orders)) {
     orders = [orders];
@@ -51,6 +52,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
     setModal(false);
     setIsModalSeeItems(false);
     setItems(null);
+    setIsOrderCanceled(false);
   };
 
   const handleCancelOrder = async (orderCode, orderItemsData) => {
@@ -72,7 +74,10 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
       .delete(`${API}/user/orders/delete`, options)
       .then((res) => {
         console.log(res.data);
-        alert("Orden cancelada");
+        if (res.data) {
+          setModal(true);
+          setIsOrderCanceled(true);
+        }
       })
       .catch((error) => error);
   };
@@ -80,16 +85,32 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
   return modal ? (
     <Modal>
       {isModalSeeItems && items && (
-        <div className={"vh-100 vw-100"}>
-          <OrderItemsTableUser
-            products={items}
-            userCode={userCode}
-            showButton={false}
-            username={username}
-          />
-          <button className="btn btn-danger" onClick={() => handleClose()}>
-            Cerrar
-          </button>
+        <div
+          className={"vh-100 vw-100"}
+          style={{ display: "grid", placeItems: "center" }}
+        >
+          <div className={""}>
+            <OrderItemsTableUser
+              products={items}
+              userCode={userCode}
+              showButton={false}
+              username={username}
+            />
+
+            <button className="btn btn-danger" onClick={() => handleClose()}>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+      {isOrderCanceled && (
+        <div className={"vh-100 vw-100 d-grid align-content-center"}>
+          <div className={"text-center"}>
+            <h2>Orden cancelada ;)</h2>
+            <button className="btn btn-danger" onClick={() => handleClose()}>
+              Cerrar
+            </button>
+          </div>
         </div>
       )}
     </Modal>
