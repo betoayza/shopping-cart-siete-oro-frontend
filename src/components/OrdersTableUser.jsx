@@ -97,9 +97,11 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
               username={username}
             />
 
-            <button className="btn btn-danger" onClick={() => handleClose()}>
-              Cerrar
-            </button>
+            <div className="mt-2">
+              <button className="btn btn-danger" onClick={() => handleClose()}>
+                Cerrar
+              </button>
+            </div>
           </div>
         </div>
       )}
