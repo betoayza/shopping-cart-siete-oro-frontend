@@ -33,7 +33,10 @@ const Home = () => {
           "d-grid justify-content-center align-content-space-around w-100 h-100"
         }
       >
-        <div className={"h-75"}>
+        <div
+          className={"h-75"}
+          style={{ display: "grid", placeItems: "center" }}
+        >
           <img
             src={logo}
             // style={{ width: 200, height: 200 }}
@@ -54,6 +57,7 @@ const Home = () => {
               Utilice el buscador para encontrar sus productos
             </p>
           </div>
+
           <SliderProductCards />
         </div>
       </div>

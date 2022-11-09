@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { ProductCardNotUser } from "./ProductCardNotUser";
 import { API } from "../api/api";
 
-
 export const SliderProductCards = () => {
   const [products, setProducts] = useState([]);
 
@@ -31,7 +30,7 @@ export const SliderProductCards = () => {
         })
         .catch((error) => error);
     };
-    getProducts();
+    !products.length && getProducts();
   }, []);
 
   return (
@@ -40,27 +39,14 @@ export const SliderProductCards = () => {
       class="carousel slide"
       data-bs-ride="carousel"
     >
-      <div class="carousel-inner">
-        {products.length &&
-          products.map((product) => {
-            return (
-              <div class="carousel-item active">
-                <ProductCardNotUser product={product} />
-              </div>
-            );
-          })}
-
-        {/* <div class="carousel-item active">
-          <img src="..." class="d-block w-100" alt="..." />
-        </div>
-
-        <div class="carousel-item">
-          <img src="..." class="d-block w-100" alt="..." />
-        </div>
-
-        <div class="carousel-item">
-          <img src="..." class="d-block w-100" alt="..." />
-        </div> */}
+      <div class="carousel-inner w-auto">
+        {products.length && products.map((product) => {
+          return (
+            <div class={"carousel-item active"}>
+              <ProductCardNotUser product={product} />
+            </div>
+          );
+        })}
       </div>
 
       <button
