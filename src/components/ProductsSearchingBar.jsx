@@ -8,6 +8,7 @@ export const ProductsSearchingBar = ({
   setTerm,
   setModal,
   setModalSearchProduct,
+  isModalStyle = false,
 }) => {
   const [products, setProducts] = useState(null);
 
@@ -69,6 +70,7 @@ export const ProductsSearchingBar = ({
             products={products}
             setProducts={setProducts}
             addAndSearch={false}
+            isModalStyle={isModalStyle}
           />
         </div>
       )}

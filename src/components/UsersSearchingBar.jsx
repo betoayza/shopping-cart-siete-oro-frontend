@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { UsersTable } from "./UsersTable";
-import { API } from '../api/api';
+import { API } from "../api/api";
 
 export const UsersSearchingBar = ({
   term,
@@ -10,6 +10,7 @@ export const UsersSearchingBar = ({
   setUsers,
   setModal,
   setModalSearchUsers,
+  isModalStyle = false,
 }) => {
   useEffect(() => {
     const getUsers = async () => {
@@ -68,6 +69,7 @@ export const UsersSearchingBar = ({
             users={users}
             setUsers={setUsers}
             showSearchUserAndAdminNavBar={false}
+            isModalStyle={isModalStyle}
           />
         </div>
       )}

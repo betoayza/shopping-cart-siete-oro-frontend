@@ -68,6 +68,7 @@ export const ProductsTable = ({
           setTerm={setTerm}
           setModal={setModal}
           setModalSearchProduct={setModalSearchProduct}
+          isModalStyle={true}
         />
       )}
       {modalAddProduct && (

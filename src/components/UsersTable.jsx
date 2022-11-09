@@ -60,6 +60,7 @@ export const UsersTable = ({
           setUsers={setUsersFound}
           setModal={setModal}
           setModalSearchUsers={setModalSearchUsers}
+          isModalStyle={true}
         />
       )}
     </Modal>

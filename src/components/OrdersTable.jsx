@@ -9,7 +9,12 @@ import { SearchUser } from "./SearchUser";
 import { API } from "../api/api";
 import { Loader } from "./Loader";
 
-export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
+export const OrdersTable = ({
+  orders,
+  setOrders,
+  showSearchingBar = true,
+  isModalStyle = false,
+}) => {
   const [modal, setModal] = useState(false);
   const [modalSearchOrder, setModalSearchOrder] = useState(false);
   const [modalSeeProducts, setModalSeeProducts] = useState(false);
@@ -114,7 +119,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
             term={term}
             setTerm={setTerm}
             setModal={setModal}
-            setModalSearchOrder={setModalSearchOrder}
+            setModalSearchOrder={setModalSearchOrder}            
           />
         </div>
       )}
@@ -128,7 +133,10 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
                 className={"table-responsive overflow-auto"}
                 style={{ width: "75%", maxHeight: "500px" }}
               >
-                <table className={"table table-hover table-sm"}>
+                <table
+                  className={"table table-hover table-sm"}
+                  style={isModalStyle ? { color: "#20c997" } : null}
+                >
                   <thead className={"table-success"}>
                     <tr>
                       <th scope="col">Codigo</th>

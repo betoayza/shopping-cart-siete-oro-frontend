@@ -7,7 +7,7 @@ export const SearchingBarOrders = ({
   term,
   setTerm,
   setModal,
-  setModalSearchOrder,
+  setModalSearchOrder  
 }) => {
   const [orders, setOrders] = useState(null);
 
@@ -69,6 +69,7 @@ export const SearchingBarOrders = ({
           orders={orders}
           setOrders={setOrders}
           showSearchingBar={false}
+          isModalStyle={true}
         />
       )}
     </div>
