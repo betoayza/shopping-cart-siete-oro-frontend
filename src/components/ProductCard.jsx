@@ -183,11 +183,10 @@ export const ProductCard = ({
         className={
           "vw-100 h-auto form-control container mx-auto border border-success border-5 overflow-auto"
         }
-        // style={{ width: "500px", maxHeight: "100vh", borderRadius: "1rem" }}
+        style={{ borderRadius: "1rem" }}
       >
         <div
-          className={"row row-cols-auto"}
-          // style={{ width: "470px", maxHeight: "100vh", borderRadius: "1rem" }}
+          className={"row row-cols-auto"}          
         >
           <div className={"col col-md-auto mx-auto w-100"}>
             <form className={"w-100"} onSubmit={handlePostComment}>
@@ -224,8 +223,7 @@ export const ProductCard = ({
         comments.filter((comment) => comment.status === "Active").length ? (
           <div className={"mt-2"} style={{ maxHeight: "150px" }}>
             <div
-              className={"overflow-auto w-100"}
-              // style={{ width: "470px", height: "150px" }}
+              className={"overflow-auto w-100"}            
               style={{ width: "100%", height: "200px" }}
             >
               {comments.map((comment, index) => {

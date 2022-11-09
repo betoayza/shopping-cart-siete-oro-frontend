@@ -56,9 +56,9 @@ export const ProductCardNotUser = ({ product }) => {
     <Modal>
       <div
         className={
-          "form-control d-grid justify-items-center border border-success border-5"
+          "vw-100 h-auto form-control container mx-auto border border-success border-5 overflow-auto"
         }
-        style={{ width: "500px", maxHeight: "100vh", borderRadius: "1rem" }}
+        style={{ borderRadius: "1rem" }}
       >
         {comments.length &&
         comments.filter((comment) => comment.status === "Active").length ? (
