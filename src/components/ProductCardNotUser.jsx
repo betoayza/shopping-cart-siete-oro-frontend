@@ -56,16 +56,17 @@ export const ProductCardNotUser = ({ product }) => {
     <Modal>
       <div
         className={
-          "vw-100 h-auto form-control container mx-auto border border-success border-5 overflow-auto"
+          // "form-control d-grid justify-items-center border border-success border-5 vw-100 vh-75 mx-auto overflow-auto"
+          "vw-100 form-control container mx-auto border border-success border-5 overflow-auto"
         }
-        style={{ borderRadius: "1rem" }}
+        style={{ borderRadius: "1rem", maxHeight: "400px" }}
       >
         {comments.length &&
         comments.filter((comment) => comment.status === "Active").length ? (
           <div className={"mt-2"} style={{ maxHeight: "150px" }}>
             <div
-              className={"overflow-auto"}
-              style={{ width: "470px", height: "150px" }}
+              className={"overflow-auto w-100"}
+              style={{ width: "100%", height: "200px" }}
             >
               <h3>Comentarios:</h3>
               {comments.map((comment, index) => {
@@ -83,19 +84,30 @@ export const ProductCardNotUser = ({ product }) => {
                 );
               })}
             </div>
+            <div className={"mt-2"}>
+              <button
+                type={"button"}
+                className={"btn btn-danger w-20"}
+                onClick={handleClose}
+              >
+                Cerrar
+              </button>
+            </div>
           </div>
         ) : (
-          <h3>No hay comentarios</h3>
+          <div>
+            <h3>No hay comentarios</h3>
+            <div className={"mt-2"}>
+              <button
+                type={"button"}
+                className={"btn btn-danger w-20"}
+                onClick={handleClose}
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
         )}
-        <div className={"mt-2"}>
-          <button
-            type={"button"}
-            className={"btn btn-danger w-20"}
-            onClick={handleClose}
-          >
-            Cerrar
-          </button>
-        </div>
       </div>
     </Modal>
   ) : (
