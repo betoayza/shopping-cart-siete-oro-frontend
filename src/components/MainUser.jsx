@@ -74,7 +74,7 @@ const MainUser = () => {
       )}
     </Modal>
   ) : (
-    <div className={"vh-100 vw-100 border"}>
+    <div className={"vh-100 vw-100"}>
       <div className={"col"}>
         <NavBarUser
           code={code}

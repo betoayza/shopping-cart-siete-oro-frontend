@@ -98,7 +98,7 @@ export const ProductsTable = ({
         <div className={"w-100"}>
           <NavBarAdmin />
           <div
-            className={"w-100 border"}
+            className={"w-100"}
             style={{
               display: "flex",
               justifyContent: "center",
