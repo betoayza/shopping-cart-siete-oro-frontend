@@ -19,9 +19,9 @@ const SearchingBar = ({
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "*",
           Accept: "application/json",
-          timeout: 3000,
         },
         params: { term },
+        timeout: 3000,
       };
 
       await axios

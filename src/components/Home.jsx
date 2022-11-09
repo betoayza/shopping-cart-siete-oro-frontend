@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchingBarNotRegistered } from "./SearchingBarNotRegistered";
 import logo from "../img/logo-siete-oro.png";
+import { SliderProductCards } from "./SliderProductCards";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ const Home = () => {
               Utilice el buscador para encontrar sus productos
             </p>
           </div>
+          <SliderProductCards />
         </div>
       </div>
     </div>
