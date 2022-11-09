@@ -49,7 +49,7 @@ export const Contact = () => {
       </button>
     </Modal>
   ) : (
-    <div>
+    <div className={"vh-100"}>
       {username !== "0" && code !== "0" && (
         <NavBarUser code={code} username={username} />
       )}
@@ -96,6 +96,9 @@ export const Contact = () => {
           placeholder="Mensaje..."
           value={form.message}
           onChange={handleChange}
+          rows={5}
+          cols={10}
+          maxLength={500}
           required
         />
 

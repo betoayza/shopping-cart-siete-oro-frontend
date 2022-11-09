@@ -1,10 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Footer } from "./components/Footer";
 import * as Components from "./components/indexComponents";
 
 function App() {
   return (
-    <div id={"app-div"} className={"bg-body text-secondary vw-100 vh-100"}>
-      <div className={"vw-100 vh-100"}>
+    <div
+      id={"app-div"}
+      className={"bg-body text-secondary vw-100 h-100"}
+      // style={{ display: "grid", alignContent: "space-between", minHeight: "100vh" }}
+    >
+      <div className={"vw-100 h-100"}>
         <Routes>
           <Route exact path="/" element={<Components.Home />} />
 
@@ -108,6 +113,9 @@ function App() {
 
           <Route exact path="*" element={<Components.Error404 />} />
         </Routes>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
   );

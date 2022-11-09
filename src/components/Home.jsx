@@ -7,7 +7,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className={"vh-100 w-100"}>
+    <div className={"h-100 w-100"}>
       <div className={"d-flex justify-content-end"}>
         <button
           className="btn btn-dark"
@@ -29,11 +29,16 @@ const Home = () => {
 
       <div
         className={
-          "d-grid justify-content-center align-content-space-around w-100 vh-100"
+          "d-grid justify-content-center align-content-space-around w-100 h-100"
         }
       >
         <div className={"h-75"}>
-          <img src={logo} style={{ width: 200, height: 200 }} alt="Logo" />
+          <img
+            src={logo}
+            // style={{ width: 200, height: 200 }}
+            className={"img-fluid"}
+            alt="Logo"
+          />
           <SearchingBarNotRegistered />
           <br />
           <br />

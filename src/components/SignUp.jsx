@@ -77,10 +77,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className={"d-grid justify-content-center"}>
-      <h1>Regístrese</h1>
-
+    <div className={"h-100"}>
       <div className="form-group">
+        <h1>Regístrese</h1>
         <form onSubmit={handleSubmit}>
           <input
             type="hidden"
