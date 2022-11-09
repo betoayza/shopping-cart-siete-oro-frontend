@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
+import { Modal } from "./Modal";
 
 const initialForm = {
   name: "",
@@ -12,6 +13,8 @@ const initialForm = {
 
 export const Contact = () => {
   const [form, setForm] = useState(initialForm);
+  const [isSended, setIsSended] = useState(false);
+
   let navigate = useNavigate();
   const { username, code } = useParams();
   console.log(username, code);
@@ -24,22 +27,38 @@ export const Contact = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    alert("Mensaje enviado!");
-    handleClean();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSended(true);
   };
 
   const handleBack = () => {
     navigate("/");
   };
 
-  return (
+  const handleClose = () => {
+    setIsSended(false);
+    handleClean();
+  };
+
+  return isSended ? (
+    <Modal>
+      <h2>Mensaje enviado ;)</h2>
+      <button type="button" className="btn btn-danger" onClick={handleClose}>
+        Cerrar
+      </button>
+    </Modal>
+  ) : (
     <div>
       {username !== "0" && code !== "0" && (
         <NavBarUser code={code} username={username} />
       )}
       <h2>Contacto:</h2>
-      <form onSubmit={handleSubmit} className={"container"}>
+      <form
+        onSubmit={handleSubmit}
+        className={"container"}
+        style={{ fontFamily: "cursive" }}
+      >
         <input
           type="text"
           className="form-control w-100"
@@ -61,7 +80,7 @@ export const Contact = () => {
         />
 
         <input
-          type="text"
+          type="email"
           className="form-control w-100"
           name="mail"
           placeholder="Email..."
