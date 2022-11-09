@@ -116,8 +116,8 @@ const UserProfile = () => {
         style={{ height: "88%" }}
       >
         <div className={""} style={{ display: "grid", placeItems: "center" }}>
-          <h2>Mis datos:</h2>
           <div className={"form-group w-100"}>
+            <h2>Mis datos:</h2>
             <form onSubmit={handleSubmit}>
               <input
                 type={"hidden"}

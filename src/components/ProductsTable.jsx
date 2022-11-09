@@ -14,6 +14,7 @@ export const ProductsTable = ({
   setProducts,
   addAndSearch = true,
   seeActions = true,
+  isModalStyle = false,
 }) => {
   const [modal, setModal] = useState(false);
   const [productCode, setProductCode] = useState(null);
@@ -134,7 +135,10 @@ export const ProductsTable = ({
               className={"table-responsive overflow-auto"}
               style={{ width: "75%", MaxHeight: "500px" }}
             >
-              <table className={"table table-hover table-light table-sm"}>
+              <table
+                className={"table table-hover table-sm"}
+                style={isModalStyle ? { color: "#20c997" } : null}
+              >
                 <thead className={"table-success"}>
                   <tr>
                     <th scope="col">Codigo</th>

@@ -106,10 +106,13 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
 
   return !updated ? (
     !loader && found ? (
-      <div className={"text-center"}>
-        <h1>Actualizar producto:</h1>
+      <div
+        className={"text-center vh-100"}
+        style={{ display: "grid", placeItems: "center" }}
+      >
         <div className={"d-flex justify-content-center"}>
           <div className="form-group w-75">
+            <h1>Actualizar producto:</h1>
             <form onSubmit={handleUpdate}>
               <div className="input-group mb-3">
                 {/* code isnt updatable */}

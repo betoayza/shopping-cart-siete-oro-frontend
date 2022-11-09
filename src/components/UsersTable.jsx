@@ -10,6 +10,7 @@ export const UsersTable = ({
   users,
   setUsers,
   showSearchUserAndAdminNavBar = true,
+  isModalStyle = false,
 }) => {
   const [userCode, setUserCode] = useState(null);
   const [modal, setModal] = useState(false);
@@ -85,7 +86,10 @@ export const UsersTable = ({
               className={"table-responsive overflow-auto"}
               style={{ width: "75%", maxHeight: "500px" }}
             >
-              <table className={"table table-hover table-light table-sm h-100"}>
+              <table
+                className={"table table-hover table-sm h-100"}
+                style={isModalStyle ? { color: "#20c997" } : null}
+              >
                 <thead className={"table-success"}>
                   <tr>
                     <th scope="col">Codigo</th>

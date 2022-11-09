@@ -75,12 +75,13 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
         (loader ? (
           <Loader />
         ) : (
-          <div className={""}>
+          <div className={""} style={{ color: "green" }}>
             <ProductsTable
               products={products}
               setProducts={setProducts}
               addAndSearch={false}
               seeActions={false}
+              isModalStyle={true}
             />
             <button className={"btn btn-danger"} onClick={handleCloseProducts}>
               Cerrar
@@ -92,6 +93,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
           code={userCode}
           setModal={setModal}
           setModalSearchUser={setModalSearchUser}
+          isModalStyle={true}
         />
       )}
       {modalSearchOrder && (
@@ -126,7 +128,7 @@ export const OrdersTable = ({ orders, setOrders, showSearchingBar = true }) => {
                 className={"table-responsive overflow-auto"}
                 style={{ width: "75%", maxHeight: "500px" }}
               >
-                <table className={"table table-hover table-light table-sm"}>
+                <table className={"table table-hover table-sm"}>
                   <thead className={"table-success"}>
                     <tr>
                       <th scope="col">Codigo</th>

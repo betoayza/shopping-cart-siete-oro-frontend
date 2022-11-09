@@ -4,7 +4,12 @@ import { UsersTable } from "./UsersTable";
 import { API } from "../api/api";
 import { Loader } from "./Loader";
 
-export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
+export const SearchUser = ({
+  code,
+  setModal,
+  setModalSearchUser,
+  isModalStyle = false,
+}) => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
 
@@ -46,6 +51,7 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
         users={user}
         setUsers={setUser}
         showSearchUserAndAdminNavBar={false}
+        isModalStyle={true}
       />
       <button className={"btn btn-danger mt-2"} onClick={handleClose}>
         Cerrar
