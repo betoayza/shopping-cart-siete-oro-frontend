@@ -51,8 +51,8 @@ const MainUser = () => {
   return modal ? (
     <Modal>
       {modalSearchProducts && (
-        <div className={"vh-100 searching-bar-div col"}>
-          <div className={"row"}>
+        <div className={"vh-100 searching-bar-div"}>
+          <div className={""}>
             <SearchingBar
               term={term}
               setTerm={setTerm}
@@ -61,7 +61,7 @@ const MainUser = () => {
               setModalSearchProducts={setModalSearchProducts}
             />
           </div>
-          <div className={"row"}>
+          <div className={""}>
             <ProductsTableUsers
               products={products}
               setProducts={setProducts}
@@ -84,7 +84,8 @@ const MainUser = () => {
         <h2 className={"fw-bold"} style={{ color: "#6610f2" }}>
           Bienvenido {username}!
         </h2>
-        <div className={"h-75 vw-100 d-grid justify-items-center"}>
+        <div className={"h-75 vw-100 mx-auto"}>
+        {/* d-grid justify-items-center */}
           <div>
             <img
               src={logo}
