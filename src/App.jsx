@@ -6,8 +6,8 @@ function App() {
   return (
     <div
       id={"app-div"}
-      className={"bg-body text-secondary vw-100 h-100"}
-      // style={{ display: "grid", alignContent: "space-between", minHeight: "100vh" }}
+      className={"bg-body text-secondary vw-100"}
+      style={{ display: "grid", alignContent: "space-between", minHeight: "100vh" }}
     >
       <div className={"vw-100 h-100"}>
         <Routes>

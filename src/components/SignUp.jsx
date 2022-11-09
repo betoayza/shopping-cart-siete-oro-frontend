@@ -77,20 +77,20 @@ const SignUp = () => {
   };
 
   return (
-    <div className={"h-100"}>
+    <div className={"h-100 w-100"}>
       <div className="form-group">
         <h1>Regístrese</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={"container"}>
           <input
             type="hidden"
-            className="form-control"
+            className="form-control w-100"
             name="code"
             value={form.code}
           />
 
           <input
             type="text"
-            className="form-control"
+            className="form-control w-100"
             name="name"
             placeholder="Nombre..."
             value={form.name}
@@ -100,7 +100,7 @@ const SignUp = () => {
 
           <input
             type="text"
-            className="form-control"
+            className="form-control w-100"
             name="lastName"
             placeholder="Apellido..."
             value={form.lastName}
@@ -110,7 +110,7 @@ const SignUp = () => {
 
           <input
             type="email"
-            className="form-control"
+            className="form-control w-100"
             name="email"
             placeholder="Email..."
             value={form.email}
@@ -120,7 +120,7 @@ const SignUp = () => {
 
           <input
             type="text"
-            className="form-control"
+            className="form-control w-100"
             name="username"
             placeholder="Nombre usuario..."
             value={form.username}
@@ -130,7 +130,7 @@ const SignUp = () => {
 
           <input
             type="password"
-            className="form-control"
+            className="form-control w-100"
             name="password"
             placeholder="Password"
             value={form.password}
@@ -140,7 +140,7 @@ const SignUp = () => {
 
           <input
             type="text"
-            className="form-control"
+            className="form-control w-100"
             name="address"
             placeholder="Direccion..."
             value={form.address}
@@ -150,7 +150,7 @@ const SignUp = () => {
 
           <input
             type="text"
-            className="form-control"
+            className="form-control w-100"
             name="neighborhood"
             placeholder="Barrio..."
             value={form.neighborhood}
@@ -160,7 +160,7 @@ const SignUp = () => {
 
           <input
             type="phone"
-            className="form-control"
+            className="form-control w-100"
             name="phone"
             placeholder="Tel..."
             value={form.phone}
@@ -170,7 +170,7 @@ const SignUp = () => {
 
           <input
             type="text"
-            className="form-control"
+            className="form-control w-100"
             name="zip"
             placeholder="CP..."
             value={form.zip}
