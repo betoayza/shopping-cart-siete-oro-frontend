@@ -49,7 +49,7 @@ export const Contact = () => {
       </button>
     </Modal>
   ) : (
-    <div className={"vh-100"}>
+    <div className={"h-auto"}>
       {username !== "0" && code !== "0" && (
         <NavBarUser code={code} username={username} />
       )}

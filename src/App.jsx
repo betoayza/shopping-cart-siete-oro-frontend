@@ -9,7 +9,7 @@ function App() {
       className={"bg-body text-secondary vw-100"}
       style={{ display: "grid", alignContent: "space-between", minHeight: "100vh" }}
     >
-      <div className={"vw-100 h-100"}>
+      <div className={"vw-100 h-auto"}>
         <Routes>
           <Route exact path="/" element={<Components.Home />} />
 

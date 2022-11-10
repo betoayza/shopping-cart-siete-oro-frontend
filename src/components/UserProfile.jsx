@@ -108,7 +108,7 @@ const UserProfile = () => {
       </div>
     </Modal>
   ) : (
-    <div className={"vw-100 vh-100"}>
+    <div className={"vw-100 h-100"}>
       {/* {console.log(code)} */}
       <NavBarUser code={code} username={username} />
       <div

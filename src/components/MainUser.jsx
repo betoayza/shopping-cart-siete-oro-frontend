@@ -74,7 +74,9 @@ const MainUser = () => {
       )}
     </Modal>
   ) : (
-    <div className={"vh-100 vw-100"}>
+    <div className={"vw-100 h-100"} 
+    // style={{ minHeight: "100vh" }}
+    >
       <div className={"col"}>
         <NavBarUser
           code={code}
@@ -85,11 +87,11 @@ const MainUser = () => {
           Bienvenido {username}!
         </h2>
         <div className={"h-75 vw-100 mx-auto"}>
-        {/* d-grid justify-items-center */}
+          {/* d-grid justify-items-center */}
           <div>
             <img
               src={logo}
-              style={{ width: "200px", height: "200px" }}
+              className={"img-fluid"}
               alt="Logo"
             />
           </div>

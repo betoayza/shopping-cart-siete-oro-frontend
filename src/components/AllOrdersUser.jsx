@@ -48,7 +48,10 @@ export const AllOrdersUser = () => {
   return loader ? (
     <Loader />
   ) : (
-    <div className={"vh-100"}>
+    <div
+      className={"h-auto"}
+      // style={{minHeight: "100vh"}}
+    >
       {console.log(code)}
       <NavBarUser code={code} counterCart={0} username={username} />
       <h1>Mis pedidos</h1>

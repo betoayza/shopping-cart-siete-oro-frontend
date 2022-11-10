@@ -38,8 +38,7 @@ const Home = () => {
           style={{ display: "grid", placeItems: "center" }}
         >
           <img
-            src={logo}
-            // style={{ width: 200, height: 200 }}
+            src={logo}           
             className={"img-fluid"}
             alt="Logo"
           />
