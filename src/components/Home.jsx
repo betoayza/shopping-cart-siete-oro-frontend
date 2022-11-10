@@ -57,8 +57,12 @@ const Home = () => {
               Utilice el buscador para encontrar sus productos
             </p>
           </div>
-
-          <SliderProductCards />
+          <div
+            className={""}
+            style={{ display: "grid", placeItems: "center", width: "200px" }}
+          >
+            <SliderProductCards />
+          </div>
         </div>
       </div>
     </div>

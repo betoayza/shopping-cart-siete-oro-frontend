@@ -55,8 +55,7 @@ export const ProductCardNotUser = ({ product }) => {
   return isCommentsClicked && comments ? (
     <Modal>
       <div
-        className={
-          // "form-control d-grid justify-items-center border border-success border-5 vw-100 vh-75 mx-auto overflow-auto"
+        className={         
           "vw-100 form-control container mx-auto border border-success border-5 overflow-auto"
         }
         style={{ borderRadius: "1rem", maxHeight: "400px" }}
