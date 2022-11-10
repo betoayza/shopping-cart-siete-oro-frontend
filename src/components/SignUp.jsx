@@ -77,7 +77,10 @@ const SignUp = () => {
   };
 
   return (
-    <div className={"h-100 w-100"}>
+    <div
+      className={"h-100 w-100"}
+      style={{ display: "grid", placeItems: "center" }}
+    >
       <div className="form-group">
         <h1>Regístrese</h1>
         <form onSubmit={handleSubmit} className={"container"}>
