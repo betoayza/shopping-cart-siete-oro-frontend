@@ -108,12 +108,10 @@ const UserProfile = () => {
       </div>
     </Modal>
   ) : (
-    <div className={"vw-100 h-100"}>
-      {/* {console.log(code)} */}
+    <div className={"vw-100 h-auto"}>     
       <NavBarUser code={code} username={username} />
       <div
-        className={"w-100 d-flex justify-content-center"}
-        style={{ height: "88%" }}
+        className={"w-100 h-auto"}       
       >
         <div className={""} style={{ display: "grid", placeItems: "center" }}>
           <div className={"form-group w-100"}>
