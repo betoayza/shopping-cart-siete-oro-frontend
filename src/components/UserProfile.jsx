@@ -108,12 +108,13 @@ const UserProfile = () => {
       </div>
     </Modal>
   ) : (
-    <div className={"vw-100 h-auto"}>     
+    <div className={"w-100 h-auto"}>
       <NavBarUser code={code} username={username} />
       <div
-        className={"w-100 h-auto"}       
+        className={"w-100 h-auto"}
+        style={{ display: "grid", placeItems: "center" }}
       >
-        <div className={""} style={{ display: "grid", placeItems: "center" }}>
+        <div className={""}>
           <div className={"form-group w-100"}>
             <h2>Mis datos:</h2>
             <form onSubmit={handleSubmit}>
