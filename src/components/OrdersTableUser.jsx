@@ -124,9 +124,9 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
           // style={{ width: "75%", maxHeight: "500px" }}
         >
           <table className={"table table-hover"}>
-            <thead className={"table-success"}>
+            <thead>
               <tr>
-                <th scope="col">Codigo</th>
+                <th scope="col">Código</th>
                 <th scope="col">Items</th>
                 <th scope="col">Monto</th>
                 <th scope="col">Fecha</th>

@@ -180,7 +180,7 @@ export const ShoppingCartTable = ({
           style={{ width: "75%", maxHeight: "500px" }}
         >
           <table className={"table table-hover table-sm"}>
-            <thead className={"table-success"}>
+            <thead>
               <tr>
                 <th scope="col">Item</th>
                 <th scope="col">Descripcion</th>

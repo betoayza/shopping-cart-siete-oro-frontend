@@ -115,7 +115,7 @@ export const ProductsTable = ({
               </button>
             </div>
 
-            <div className={""} style={{ maxWidth: "100%" }}>
+            <div className={""}>
               <ProductsSearchingBar
                 term={term}
                 setTerm={setTerm}
@@ -140,9 +140,9 @@ export const ProductsTable = ({
                 className={"table table-hover table-sm"}
                 style={isModalStyle ? { color: "#20c997" } : null}
               >
-                <thead className={"table-success"}>
+                <thead>
                   <tr>
-                    <th scope="col">Codigo</th>
+                    <th scope="col">Código</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Descripcion</th>
                     <th scope="col">Precio</th>

@@ -137,9 +137,9 @@ export const OrdersTable = ({
                   className={"table table-hover table-sm"}
                   style={isModalStyle ? { color: "#20c997" } : null}
                 >
-                  <thead className={"table-success"}>
+                  <thead>
                     <tr>
-                      <th scope="col">Codigo</th>
+                      <th scope="col">Código</th>
                       <th scope="col">Usuario</th>
                       <th scope="col">Productos</th>
                       <th scope="col">Monto</th>
