@@ -94,12 +94,16 @@ export const OrdersTable = ({
           </div>
         ))}
       {modalSearchUser && (
-        <SearchUser
-          code={userCode}
-          setModal={setModal}
-          setModalSearchUser={setModalSearchUser}
-          isModalStyle={true}
-        />
+        <div
+          className={"h-auto w-100 border"}
+          style={{ display: "grid", placeItems: "center" }}
+        >
+          <SearchUser
+            code={userCode}
+            setModal={setModal}
+            setModalSearchUser={setModalSearchUser}
+          />
+        </div>
       )}
       {modalSearchOrder && (
         <SearchingBarOrders
@@ -119,7 +123,7 @@ export const OrdersTable = ({
             term={term}
             setTerm={setTerm}
             setModal={setModal}
-            setModalSearchOrder={setModalSearchOrder}            
+            setModalSearchOrder={setModalSearchOrder}
           />
         </div>
       )}

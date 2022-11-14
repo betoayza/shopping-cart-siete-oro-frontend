@@ -3,13 +3,9 @@ import axios from "axios";
 import { UsersTable } from "./UsersTable";
 import { API } from "../api/api";
 import { Loader } from "./Loader";
+import { UserCard } from "./UserCard";
 
-export const SearchUser = ({
-  code,
-  setModal,
-  setModalSearchUser,
-  isModalStyle = false,
-}) => {
+export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
 
@@ -46,13 +42,15 @@ export const SearchUser = ({
   };
 
   return !loader && user ? (
-    <div>
-      <UsersTable
-        users={user}
-        setUsers={setUser}
-        showSearchUserAndAdminNavBar={false}
-        isModalStyle={true}
-      />
+    <div
+      className={"border"}
+      style={{
+        width: "100%",
+        height: "auto",
+      }}
+    >
+      <UserCard user={user} />
+
       <button className={"btn btn-danger mt-2"} onClick={handleClose}>
         Cerrar
       </button>

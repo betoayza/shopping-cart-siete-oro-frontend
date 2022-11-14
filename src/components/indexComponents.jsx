@@ -17,6 +17,7 @@ import { AddProduct } from "./AddProduct";
 
 import { AllUsers } from "./AllUsers";
 import { SearchUser } from "./SearchUser";
+import { UserCard } from "./UserCard";
 import DeleteUser from "./DeleteUser";
 
 import SearchingBar from "./SearchingBar";
@@ -59,4 +60,5 @@ export {
   SuccessPayment,
   PendingPayment,
   Contact,
+  UserCard,
 };

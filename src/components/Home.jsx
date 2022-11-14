@@ -37,11 +37,7 @@ const Home = () => {
           className={"h-75"}
           style={{ display: "grid", placeItems: "center" }}
         >
-          <img
-            src={logo}           
-            className={"img-fluid"}
-            alt="Logo"
-          />
+          <img src={logo} className={"img-fluid"} alt="Logo" />
           <SearchingBarNotRegistered />
           <br />
           <br />
