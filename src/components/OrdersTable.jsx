@@ -135,7 +135,7 @@ export const OrdersTable = ({
             <div className={"w-100 d-flex justify-content-center"}>
               <div
                 className={"table-responsive overflow-auto"}
-                // style={{ width: "75%", maxHeight: "500px" }}
+                style={{ width: "75%", maxHeight: "500px" }}
               >
                 <table
                   className={"table table-hover table-sm"}
