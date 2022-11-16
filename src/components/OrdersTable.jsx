@@ -131,7 +131,7 @@ export const OrdersTable = ({
       <div className={"d-flex justify-content-center vw-100 h-100"}>
         {orders.length ? (
           <div className={"w-100 h-auto"}>
-            {orders.length === 1 ? <h3>Pedido:</h3> : <h3>Pedidos:</h3>}
+            {orders.length === 1 ? <h2>Pedido:</h2> : <h2>Pedidos:</h2>}
             <div className={"w-100 d-flex justify-content-center"}>
               <div
                 className={"table-responsive overflow-auto"}
