@@ -80,7 +80,7 @@ export const OrdersTable = ({
         (loader ? (
           <Loader />
         ) : (
-          <div className={""} style={{ color: "green" }}>
+          <div className={""} style={{ color: "green", maxHeight: "100vh" }}>
             <ProductsTable
               products={products}
               setProducts={setProducts}

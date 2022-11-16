@@ -95,7 +95,7 @@ export const ProductsTable = ({
       )}
     </Modal>
   ) : (
-    <div className={"vw-100"}>
+    <div className={"vw-100 h-auto"}>
       {showAddAndSearch && (
         <div className={"w-100"}>
           <NavBarAdmin />
