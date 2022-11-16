@@ -95,8 +95,8 @@ export const OrdersTable = ({
         ))}
       {modalSearchUser && (
         <div
-          className={"h-auto w-100 border"}
-          style={{ display: "grid", placeItems: "center" }}
+          className={"w-100"}
+          style={{ display: "grid", placeItems: "center", maxHeight: "100vh" }}
         >
           <SearchUser
             code={userCode}

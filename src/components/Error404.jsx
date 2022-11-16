@@ -1,11 +1,15 @@
-import React from 'react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Error404 = () => {
-    return(
-        <>
-            <h1>Error 404: resource not founded</h1>
-        </>
-    );
+export const Error404 = () => {
+  let navigate = useNavigate();
+
+  return (
+    <>
+      <h1>Error 404: resource not founded</h1>
+      <button className={"btn btn-dark"} onClick={() => navigate(-1)}>
+        Volver
+      </button>
+    </>
+  );
 };
-
-export default Error404;

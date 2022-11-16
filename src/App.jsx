@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Footer } from "./components/Footer";
 import * as Components from "./components/indexComponents";
 
@@ -7,7 +7,11 @@ function App() {
     <div
       id={"app-div"}
       className={"bg-body text-secondary vw-100"}
-      style={{ display: "grid", alignContent: "space-between", minHeight: "100vh" }}
+      style={{
+        display: "grid",
+        alignContent: "space-between",
+        minHeight: "100vh",
+      }}
     >
       <div className={"vw-100 h-auto"}>
         <Routes>

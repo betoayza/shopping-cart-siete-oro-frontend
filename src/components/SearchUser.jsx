@@ -43,7 +43,7 @@ export const SearchUser = ({ code, setModal, setModalSearchUser }) => {
 
   return !loader && user ? (
     <div
-      className={"border"}
+      className={""}
       style={{
         width: "100%",
         height: "auto",

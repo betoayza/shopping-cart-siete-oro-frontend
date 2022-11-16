@@ -37,7 +37,7 @@ export const SliderProductCards = () => {
     <div
       id="carouselExampleControls"
       className="carousel slide"
-      data-bs-ride="carousel"
+      data-bs-ride="carousel"     
     >
       <div className="carousel-inner">
         {products.map((product, index) => {

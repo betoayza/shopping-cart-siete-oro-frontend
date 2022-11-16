@@ -28,7 +28,7 @@ import SignUp from "./SignUp";
 
 import { Contact } from "./Contact";
 
-import Error404 from "./Error404";
+import { Error404 } from "./Error404";
 import { SuccessPayment } from "./SuccessPayment";
 import { PendingPayment } from "./PendingPayment";
 import { FailedPayment } from "./FailedPayment";
