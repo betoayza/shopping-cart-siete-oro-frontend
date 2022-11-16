@@ -115,7 +115,7 @@ export const OrdersTable = ({
       )}
     </Modal>
   ) : (
-    <div className={"d-grid align-content-center vw-100"}>
+    <div className={"d-grid align-content-center vw-100 h-auto"}>
       {showSearchingBar && (
         <div>
           <NavBarAdmin />
@@ -128,14 +128,14 @@ export const OrdersTable = ({
         </div>
       )}
 
-      <div className={"d-flex justify-content-center vw-100"}>
+      <div className={"d-flex justify-content-center vw-100 h-100"}>
         {orders.length ? (
-          <div className={"w-100"}>
+          <div className={"w-100 h-auto"}>
             {orders.length === 1 ? <h3>Pedido:</h3> : <h3>Pedidos:</h3>}
-            <div className={"d-flex justify-content-center"}>
+            <div className={"w-100 d-flex justify-content-center"}>
               <div
                 className={"table-responsive overflow-auto"}
-                style={{ width: "75%", maxHeight: "500px" }}
+                // style={{ width: "75%", maxHeight: "500px" }}
               >
                 <table
                   className={"table table-hover table-sm"}

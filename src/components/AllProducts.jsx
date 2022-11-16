@@ -38,7 +38,7 @@ const AllProducts = () => {
   return loader ? (
     <Loader />
   ) : (
-    <div className={"vh-100 vw-100"}>
+    <div className={"h-auto vw-100"}>
       {products ? (
         <ProductsTable products={products} setProducts={setProducts} />
       ) : (

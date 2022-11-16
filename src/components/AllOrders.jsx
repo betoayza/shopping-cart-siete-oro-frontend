@@ -32,12 +32,12 @@ export const AllOrders = () => {
         .catch((error) => error);
     };
     getAllOrders();
-  }, []);
+  }, [orders]);
 
   return loader ? (
     <Loader />
   ) : (
-    <div className={"vw-100 vh-100"}>
+    <div className={"vw-100 h-auto"}>
       {orders && <OrdersTable orders={orders} setOrders={setOrders} />}
     </div>
   )

@@ -37,7 +37,7 @@ export const AllUsers = () => {
   return loader ? (
     <Loader />
   ) : (
-    <div className={"vh-100 vw-100"}>
+    <div className={"h-auto vw-100"}>
       {users && <UsersTable users={users} setUsers={setUsers} />}
     </div>
   );
