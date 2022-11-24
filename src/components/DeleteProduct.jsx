@@ -74,14 +74,14 @@ const DeleteProduct = ({
     <>
       <h3>Baja exitosa ;)</h3>
       <button className="btn btn-danger" type="button" onClick={handleClose}>
-        Close
+        Cerrar
       </button>
     </>
   ) : (
     <>
       <h3>Ya estaba dado de baja</h3>
       <button className="btn btn-danger" type="button" onClick={handleClose}>
-        Close
+        Cerrar
       </button>
     </>
   );

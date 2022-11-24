@@ -23,6 +23,7 @@ export const OrdersTable = ({
   const [userCode, setUserCode] = useState(null);
   const [term, setTerm] = useState("");
   const [loader, setLoader] = useState(true);
+  const [modalCancelOrder, setModalCancelOrder] = useState(false);
 
   if (!Array.isArray(orders)) {
     orders = [orders];
@@ -74,6 +75,36 @@ export const OrdersTable = ({
     setProducts([]);
   };
 
+  const handleClose = () => {
+    setModal(false);
+    setModalCancelOrder(false);
+  };
+
+  const handleCancelOrder = async (orderCode) => {
+    const code = orderCode;
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        Accept: "application/json",
+      },
+      timeout: 3000,
+      data: { code },
+    };
+
+    await axios
+      .delete(`${API}/admin/orders/delete`, options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setModal(true);
+          setModalCancelOrder(true);
+        }
+      })
+      .catch((error) => error);
+  };
+
   return modal ? (
     <Modal>
       {modalSeeProducts &&
@@ -112,6 +143,21 @@ export const OrdersTable = ({
           setModal={setModal}
           setModalSearchOrder={setModalSearchOrder}
         />
+      )}
+      {modalCancelOrder && (
+        <div
+          className={"w-100 text-center"}
+          style={{ display: "grid", placeItems: "center", maxHeight: "100vh" }}
+        >
+          <h3>Orden cancelada ;)</h3>
+          <button
+            className="btn btn-danger"
+            type="button"
+            onClick={handleClose}
+          >
+            Cerrar
+          </button>
+        </div>
       )}
     </Modal>
   ) : (
@@ -160,6 +206,7 @@ export const OrdersTable = ({
                             order={order}
                             handleSearchUser={handleSearchUser}
                             handleSeeOrderProducts={handleSeeOrderProducts}
+                            handleCancelOrder={handleCancelOrder}
                           />
                         );
                       })}

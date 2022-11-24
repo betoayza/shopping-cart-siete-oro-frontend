@@ -5,6 +5,7 @@ export const OrderTableRow = ({
   order,
   handleSearchUser,
   handleSeeOrderProducts,
+  handleCancelOrder,
 }) => {
   return (
     <tr>
@@ -35,7 +36,29 @@ export const OrderTableRow = ({
       </td>
       <td>${order.amount}</td>
       <td>{order.date}</td>
-      <td>{order.status}</td>
+      <td>
+        {order.status === "En curso" ? (
+          // <button
+          //   className={"btn btn-danger"}
+          //   onClick={() => handleCancelOrder(order.code)}
+          // >
+          //   Cancelar
+          // </button>
+
+          <select
+            className="form-select"
+            aria-label="Default select example"
+            onChange={(e) =>
+              e.target.value === "2" && handleCancelOrder(order.code)
+            }
+          >
+            <option value="1">En curso</option>
+            <option value="2">Cancelar</option>
+          </select>
+        ) : (
+          order.status
+        )}
+      </td>
     </tr>
   );
 };

@@ -223,7 +223,7 @@ export const ProductCard = ({
         comments.filter((comment) => comment.status === "Active").length ? (
           <div className={"mt-2"} style={{ maxHeight: "150px" }}>
             <div
-              className={"overflow-auto w-100"}            
+              className={"overflow-auto"}            
               style={{ width: "100%", height: "200px" }}
             >
               {comments.map((comment, index) => {

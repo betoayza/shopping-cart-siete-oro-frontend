@@ -42,8 +42,8 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
-        timeout: 3000,
       },
+      timeout: 3000,
       data: data,
     };
 
