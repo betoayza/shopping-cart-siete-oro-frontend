@@ -30,8 +30,7 @@ export const Contact = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSended(true);
+    e.preventDefault();   
 
     const options = {
       url: "https://formsubmit.co/ajax/203cf7fc5cf3429a39018970bed76969",
