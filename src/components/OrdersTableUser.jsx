@@ -108,7 +108,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
       {isOrderCanceled && (
         <div className={"vh-100 vw-100 d-grid align-content-center"}>
           <div className={"text-center"}>
-            <h2>Orden cancelada ;)</h2>
+            <h3>Orden cancelada ;)</h3>
             <button className="btn btn-danger" onClick={() => handleClose()}>
               Cerrar
             </button>
