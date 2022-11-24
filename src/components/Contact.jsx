@@ -3,6 +3,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { NavBarUser } from "./NavBarUser";
 import { Modal } from "./Modal";
+import axios from "axios";
 
 const initialForm = {
   name: "",
@@ -14,6 +15,7 @@ const initialForm = {
 export const Contact = () => {
   const [form, setForm] = useState(initialForm);
   const [isSended, setIsSended] = useState(false);
+  const [modal, setModal] = useState(false);
 
   let navigate = useNavigate();
   const { username, code } = useParams();
@@ -27,9 +29,31 @@ export const Contact = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSended(true);
+
+    const options = {
+      url: "https://formsubmit.co/ajax/203cf7fc5cf3429a39018970bed76969",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      timeout: 3000,
+      data: form,
+    };
+
+    await axios
+      .request(options)
+      .then((res) => {
+        console.log(res);
+        setModal(true);
+        if (res.data) {
+          setIsSended(true);
+        }
+      })
+      .catch((error) => error);
   };
 
   const handleBack = () => {
@@ -37,16 +61,38 @@ export const Contact = () => {
   };
 
   const handleClose = () => {
+    setModal(false);
     setIsSended(false);
-    handleClean();
   };
 
   return isSended ? (
     <Modal>
-      <h2>Mensaje enviado ;)</h2>
-      <button type="button" className="btn btn-danger" onClick={handleClose}>
-        Cerrar
-      </button>
+      {isSended ? (
+        <div>
+          <h3>Mensaje enviado ;)</h3>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={handleClose}
+          >
+            Cerrar
+          </button>
+        </div>
+      ) : (
+        <div
+          className={"text-center"}
+          style={{ display: "grid", placeItems: "center" }}
+        >
+          <h3>Hubo un error :(</h3>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={handleClose}
+          >
+            Cerrar
+          </button>
+        </div>
+      )}
     </Modal>
   ) : (
     <div className={"h-auto"}>
@@ -66,6 +112,7 @@ export const Contact = () => {
           placeholder="Nombre..."
           value={form.name}
           onChange={handleChange}
+          style={{ color: "#6610f2", fontStyle: "italic" }}
           required
         />
 
@@ -76,6 +123,7 @@ export const Contact = () => {
           placeholder="Apellido..."
           value={form.lastName}
           onChange={handleChange}
+          style={{ color: "#6610f2", fontStyle: "italic" }}
           required
         />
 
@@ -86,6 +134,7 @@ export const Contact = () => {
           placeholder="Email..."
           value={form.mail}
           onChange={handleChange}
+          style={{ color: "#6610f2", fontStyle: "italic" }}
           required
         />
 
@@ -99,6 +148,7 @@ export const Contact = () => {
           rows={5}
           cols={10}
           maxLength={500}
+          style={{ color: "#6610f2", fontStyle: "italic" }}
           required
         />
 
