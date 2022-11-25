@@ -5,7 +5,7 @@ export const OrderTableRow = ({
   order,
   handleSearchUser,
   handleSeeOrderProducts,
-  handleCancelOrder,
+  handleChangeStateOrder,
 }) => {
   return (
     <tr>
@@ -46,14 +46,16 @@ export const OrderTableRow = ({
           // </button>
 
           <select
-            className="form-select"
+            className="form-select w-auto dark"
             aria-label="Default select example"
-            onChange={(e) =>
-              e.target.value === "2" && handleCancelOrder(order.code)
-            }
+            onChange={(e) => {
+              order.status === "En curso" &&
+                handleChangeStateOrder(order.code, e.target.value);
+            }}
           >
-            <option value="1">En curso</option>
-            <option value="2">Cancelar</option>
+            <option value="En curso">En curso</option>
+            <option value="Cancelado">Cancelado</option>
+            <option value="Entregado">Entregado</option>
           </select>
         ) : (
           order.status
