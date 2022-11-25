@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API } from "../api/api";
+import { Loader } from "./Loader";
 
 export const SuccessPayment = () => {
   const [shoppingCart, setShoppingCart] = useState(null);
   const [orderAdded, setOrderAdded] = useState(false);
   const [itemsRemoved, setItemsRemoved] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [installments, setInstallments] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
   const [items, setItems] = useState(null);
+  const [notificationForm, setNotificationForm] = useState(null);
 
   let location = useLocation();
   let { userCode } = useParams();
@@ -22,7 +24,7 @@ export const SuccessPayment = () => {
   const search = useLocation().search;
   const payment_id = new URLSearchParams(search).get("payment_id");
 
-  console.log(payment_id);
+  console.log("ID de pago: ", payment_id);
 
   useEffect(() => {
     const getPayment = async () => {
@@ -55,11 +57,7 @@ export const SuccessPayment = () => {
         });
     };
     getPayment();
-  }, []);
 
-  useEffect(() => {
-    //mount fase
-    //1) get shopping cart
     const getShoppingCart = async () => {
       const options = {
         url: `${API}/user/shopping-cart`,
@@ -70,7 +68,7 @@ export const SuccessPayment = () => {
           Accept: "application/json",
         },
         params: { userCode },
-        timeout: 3000,
+        timeout: 5000,
       };
 
       await axios
@@ -86,8 +84,10 @@ export const SuccessPayment = () => {
         });
     };
     getShoppingCart();
+  }, []);
 
-    //2) get username by code
+  useEffect(() => {
+    //--------------------
     const getUserData = async () => {
       const options = {
         url: `${API}/user/get`,
@@ -107,17 +107,20 @@ export const SuccessPayment = () => {
           console.log("Usuario: ", res.data);
           if (res.data) {
             setUser(res.data);
+            setNotificationForm({
+              usuario: `${res.data.username}`,
+              mensaje:
+                "Ha hecho una compra a través de Siete de Oro: E-commerce",
+            });
           }
         })
         .catch((error) => {
           console.error(error);
         });
     };
-    getUserData();
-  }, []);
+    if (shoppingCart && installments && totalAmount) getUserData();
 
-  useEffect(() => {
-    //2) register order
+    //---------------------------
     const addOrder = async () => {
       const options = {
         url: `${API}/user/orders/add`,
@@ -127,8 +130,8 @@ export const SuccessPayment = () => {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "*",
           Accept: "application/json",
-          timeout: 3000,
         },
+        timeout: 3000,
         data: { userCode, items, installments, totalAmount },
       };
 
@@ -137,7 +140,6 @@ export const SuccessPayment = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data) {
-            //alert("Orden agregada ;)");
             setOrderAdded(true);
           } else {
             alert("No se pudo registrar el pedido :(");
@@ -145,21 +147,18 @@ export const SuccessPayment = () => {
         })
         .catch((error) => error);
     };
-    //if (shoppingCart.products.length > 0)
     if (shoppingCart && installments && totalAmount) addOrder();
 
-    //3) clean shopping cart
+    //------------------------
     const removeAllItems = async () => {
-      //working
-      // working
       const options = {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Headers": "*",
           Accept: "application/json",
-          timeout: 3000,
         },
+        timeout: 3000,
         data: { userCode },
       };
       await axios
@@ -172,12 +171,38 @@ export const SuccessPayment = () => {
         })
         .catch((error) => error);
     };
-    //if (shoppingCart.products.length > 0)
     if (shoppingCart && installments && totalAmount) removeAllItems();
-    // };
   }, [shoppingCart, installments, totalAmount]);
 
-  orderAdded &&
-    itemsRemoved &&
-    navigate(`/user/${user}/shopping-cart/${userCode}`);
+  useEffect(() => {
+    //Send purchase notification to Admin
+    const sendNotificationToAdmin = async () => {
+      console.log("El formulario es: ", notificationForm);
+      const options = {
+        url: "https://formsubmit.co/ajax/203cf7fc5cf3429a39018970bed76969",
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        timeout: 3000,
+        data: notificationForm,
+      };
+
+      await axios
+        .request(options)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => error);
+    };
+
+    notificationForm && sendNotificationToAdmin();
+  }, [notificationForm]);
+
+  shoppingCart && orderAdded && user && itemsRemoved && notificationForm ? (
+    navigate(`/user/${user.username}/shopping-cart/${userCode}`)
+  ) : (
+    <Loader />
+  );
 };
