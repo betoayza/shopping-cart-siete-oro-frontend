@@ -61,8 +61,8 @@ export const ProductCard = ({
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
-        timeout: 3000,
       },
+      timeout: 3000,
       data: { productCode, userCode },
     };
 
@@ -88,8 +88,8 @@ export const ProductCard = ({
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
-        timeout: 3000,
       },
+      timeout: 3000,
       data: { prodCode, userCode, index },
     };
 
@@ -135,8 +135,8 @@ export const ProductCard = ({
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
       },
-      data: { userCode, comment, productCode },
       timeout: 3000,
+      data: { userCode, comment, productCode },
     };
 
     await axios
@@ -153,8 +153,8 @@ export const ProductCard = ({
                 "Access-Control-Allow-Headers": "*",
                 Accept: "application/json",
               },
-              params: { productCode },
               timeout: 3000,
+              params: { productCode },
             };
 
             await axios
@@ -255,6 +255,7 @@ export const ProductCard = ({
           src={"data:image/png;base64," + toBase64(product.image.data)}
           className="card-img-top"
           alt="Imagen"
+          style={{ maxHeight: "200px" }}
         />
         <h5 className="card-title">
           <span style={{ fontWeight: "bold" }}>{product.name}</span>

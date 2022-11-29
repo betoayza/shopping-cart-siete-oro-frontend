@@ -133,6 +133,7 @@ export const ProductCardOrderItem = ({
       >
         <div className={"row row-cols-auto"}>
           <div className={"col col-md-auto mx-auto w-100"}>
+            <h2>Comentarios</h2>
             <form className={"w-100"} onSubmit={handlePostComment}>
               <textarea
                 rows={5}
@@ -199,6 +200,7 @@ export const ProductCardOrderItem = ({
           src={"data:image/png;base64," + product.image}
           className="card-img-top"
           alt="Imagen"
+          style={{ maxHeight: "200px" }}
         />
         <h5 className="card-title">{product.name}</h5>
       </div>

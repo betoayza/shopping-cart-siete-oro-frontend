@@ -1,8 +1,9 @@
+import { API } from "../api/api";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { API } from "../api/api";
+import { Modal } from "./Modal";
 
 const initialForm = {
   code: Date.now(),
@@ -21,6 +22,9 @@ const initialForm = {
 
 const SignUp = () => {
   const [form, setForm] = useState(initialForm);
+  const [modal, setModal] = useState(false);
+  const [isSuccessful, setIsSuccessful] = useState(false);
+  const [newUser, setNewUser] = useState(null);
 
   let navigate = useNavigate();
 
@@ -44,16 +48,16 @@ const SignUp = () => {
     await axios
       .request(options)
       .then((res) => {
-        console.log(res);
-        if (!res.data) {
-          alert("Ya hay un usuario registrado con este mail o usuario :(");
-        } else {
-          if (res.data.type === "Admin") {
-            alert("Administrador creado!");
+        console.log(res.data);
+        setModal(true);
+        if (res.data) {
+          if (res.data && res.data.type === "Admin") {
+            setNewUser("Admin");
+            setIsSuccessful(true);
           } else {
-            if (res.data.type === "Estandar") {
-              alert("Usuario registrado!");
-              console.log("Los datos son: ", res.data);
+            if (res.data && res.data.type === "Estandar") {
+              setNewUser(res.data.username);
+              setIsSuccessful(true);
             }
           }
         }
@@ -76,7 +80,33 @@ const SignUp = () => {
     navigate("/");
   };
 
-  return (
+  const handleClose = () => {
+    setModal(false);
+    setIsSuccessful(false);
+  };
+
+  return modal ? (
+    <Modal>
+      {isSuccessful ? (
+        <div>
+          <h2>
+            Registro exitoso! Bienvenido/a{" "}
+            <span style={{ color: "#39ff14" }}>@{newUser}</span> ;)
+          </h2>
+          <button className={"btn btn-danger"} onClick={handleClose}>
+            Cerrar
+          </button>
+        </div>
+      ) : (
+        <div>
+          <h2>Error: nombre de usuario y/o email ya registrado :(</h2>
+          <button className={"btn btn-danger"} onClick={handleClose}>
+            Cerrar
+          </button>
+        </div>
+      )}
+    </Modal>
+  ) : (
     <div
       className={"h-100 w-100"}
       style={{ display: "grid", placeItems: "center" }}

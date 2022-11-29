@@ -116,6 +116,7 @@ export const ProductCardNotUser = ({ product }) => {
           src={"data:image/png;base64," + toBase64(product.image.data)}
           className="card-img-top"
           alt="Imagen"
+          style={{ maxHeight: "200px" }}
         />
         <h5 className="card-title">
           <span style={{ fontWeight: "bold" }}>{product.name}</span>

@@ -53,6 +53,7 @@ export const Contact = () => {
         }
       })
       .catch((error) => error);
+      handleClean();
   };
 
   const handleBack = () => {

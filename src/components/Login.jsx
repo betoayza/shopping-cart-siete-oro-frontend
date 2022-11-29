@@ -1,8 +1,9 @@
+import { API } from "../api/api";
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { API } from "../api/api";
+import { Modal } from "./Modal";
 
 const initialForm = {
   data: "",
@@ -11,6 +12,9 @@ const initialForm = {
 
 const Login = () => {
   const [form, setForm] = useState(initialForm);
+  const [modal, setModal] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -50,7 +54,7 @@ const Login = () => {
             navigate("/admin");
           }
         } else {
-          alert("Error: credenciales incorrectas o usuario banneado :(");
+          setIsError(true);
         }
       })
       .catch((error) => {
@@ -63,12 +67,23 @@ const Login = () => {
     navigate("/");
   };
 
-  return (
+  const handleClose = () => {
+    setIsError(false);
+  };
+
+  return isError ? (
+    <Modal>
+      <div>
+        <h2>Error: credenciales incorrectas o usuario banneado :(</h2>
+        <button className={"btn btn-danger"} onClick={handleClose}>
+          Cerrar
+        </button>
+      </div>
+    </Modal>
+  ) : (
     <div className={"vw-75 vh-100 d-grid align-items-center"}>
       <div
-        className={
-          "w-50 d-grid justify-content-center text-center container"
-        }
+        className={"w-50 d-grid justify-content-center text-center container"}
       >
         <h2>Login</h2>
 
@@ -123,3 +138,4 @@ const Login = () => {
 };
 
 export default Login;
+
