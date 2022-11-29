@@ -63,11 +63,11 @@ export const ProductCardNotUser = ({ product }) => {
         {comments.length &&
         comments.filter((comment) => comment.status === "Active").length ? (
           <div className={"mt-2"} style={{ maxHeight: "150px" }}>
+            <h3>Comentarios</h3>
             <div
               className={"overflow-auto w-100"}
               style={{ width: "100%", height: "200px" }}
-            >
-              <h3>Comentarios:</h3>
+            >              
               {comments.map((comment, index) => {
                 console.log(comment);
                 return (

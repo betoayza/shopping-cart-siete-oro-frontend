@@ -131,9 +131,9 @@ export const ProductCardOrderItem = ({
         }
         style={{ borderRadius: "1rem" }}
       >
+        <h3>Comentarios</h3>
         <div className={"row row-cols-auto"}>
-          <div className={"col col-md-auto mx-auto w-100"}>
-            <h2>Comentarios</h2>
+          <div className={"col col-md-auto mx-auto w-100"}>            
             <form className={"w-100"} onSubmit={handlePostComment}>
               <textarea
                 rows={5}
@@ -166,7 +166,7 @@ export const ProductCardOrderItem = ({
         </div>
         {comments.length &&
         comments.filter((comment) => comment.status === "Active").length ? (
-          <div className={"mt-2"} style={{ maxHeight: "150px" }}>
+          <div className={"mt-2"} style={{ maxHeight: "150px" }}>           
             <div
               className={"overflow-auto w-100"}
               style={{ width: "100%", height: "200px" }}

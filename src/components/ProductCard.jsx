@@ -185,9 +185,8 @@ export const ProductCard = ({
         }
         style={{ borderRadius: "1rem" }}
       >
-        <div
-          className={"row row-cols-auto"}          
-        >
+        <h3>Comentarios</h3>
+        <div className={"row row-cols-auto"}>
           <div className={"col col-md-auto mx-auto w-100"}>
             <form className={"w-100"} onSubmit={handlePostComment}>
               <textarea
@@ -223,7 +222,7 @@ export const ProductCard = ({
         comments.filter((comment) => comment.status === "Active").length ? (
           <div className={"mt-2"} style={{ maxHeight: "150px" }}>
             <div
-              className={"overflow-auto"}            
+              className={"overflow-auto"}
               style={{ width: "100%", height: "200px" }}
             >
               {comments.map((comment, index) => {
