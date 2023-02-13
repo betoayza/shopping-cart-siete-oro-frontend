@@ -55,7 +55,7 @@ export const ProductCardNotUser = ({ product }) => {
   return isCommentsClicked && comments ? (
     <Modal>
       <div
-        className={         
+        className={
           "vw-100 form-control container mx-auto border border-success border-5 overflow-auto"
         }
         style={{ borderRadius: "1rem", maxHeight: "400px" }}
@@ -67,7 +67,7 @@ export const ProductCardNotUser = ({ product }) => {
             <div
               className={"overflow-auto w-100"}
               style={{ width: "100%", height: "200px" }}
-            >              
+            >
               {comments.map((comment, index) => {
                 console.log(comment);
                 return (
