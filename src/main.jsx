@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
-import { HashRouter } from "react-router-dom";
+import "../src/styles/index.css";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/router";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <HashRouter basename="/">
-    <App />
-  </HashRouter>
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );
