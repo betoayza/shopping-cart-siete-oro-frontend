@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchingBarNotRegistered } from "../../components/container/SearchingBarNotRegistered";
-import logo from "../img/logo-siete-oro.png";
+import logo from "../../img/logo-siete-oro.png";
 import { SliderProductCards } from "../../components/container/SliderProductCards";
 
 const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className={"h-100 w-100"}>
+    <div className={"vh-100 w-100 border"}>
       <div className={"d-flex justify-content-end"}>
         <button
           className="btn btn-dark"
@@ -30,18 +30,19 @@ const Home = () => {
 
       <div
         className={
-          "d-grid justify-content-center align-content-space-around w-100 h-100"
+          "border border-success mt-5 d-grid justify-content-center align-content-space-around"
         }
+        style={{ display: "grid", placeItems: "center" }}
       >
         <div
-          className={"h-75"}
+          className={"container border"}
           style={{ display: "grid", placeItems: "center" }}
         >
           <img src={logo} className={"img-fluid"} alt="Logo" />
           <SearchingBarNotRegistered />
           <br />
           <br />
-          <div className={"text-center"}>
+          <div className={"text-center mt-5"}>
             <h2 style={{ color: "green" }}>
               Bienvenido a nuestro carrito online!
             </h2>
@@ -52,8 +53,7 @@ const Home = () => {
               Utilice el buscador para encontrar sus productos
             </p>
           </div>
-          <div
-            className={""}
+          <div           
             style={{ display: "grid", placeItems: "center", width: "200px" }}
           >
             <SliderProductCards />

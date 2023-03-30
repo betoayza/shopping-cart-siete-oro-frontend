@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { helpFetchs } from "../../helpers/helpFetchs";
 import { Loader } from "../pure/Loader";
 
 export const ActivateUser = ({ code, setModal, setModalActivate }) => {
@@ -12,34 +12,12 @@ export const ActivateUser = ({ code, setModal, setModalActivate }) => {
   };
 
   useEffect(() => {
-    const activateProduct = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/admin/users/activate`,
-        method: "put",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        data: { code },
-      };
+    const result = helpFetchs().activateUser(code);
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setActivated(true);
-            setLoader(false);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
-    activateProduct();
+    if (result) {
+      setActivated(true);
+      setLoader(false);
+    }
   }, []);
 
   return loader ? (

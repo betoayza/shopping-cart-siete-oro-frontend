@@ -72,11 +72,7 @@ const SignUp = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleBack = () => {
-    navigate("/");
-  };
+  };  
 
   const handleClose = () => {
     setModal(false);
@@ -106,7 +102,7 @@ const SignUp = () => {
     </Modal>
   ) : (
     <div
-      className={"h-100 w-100"}
+      className={"h-100 w-100 text-center border"}
       style={{ display: "grid", placeItems: "center" }}
     >
       <div className="form-group">
@@ -226,19 +222,7 @@ const SignUp = () => {
           <div className="m-1">
             <button type="submit" className="btn btn-primary">
               Registrar
-            </button>
-
-            <button
-              type="reset"
-              className="btn btn-danger"
-              onClick={handleClean}
-            >
-              Limpiar
-            </button>
-
-            <button type="button" className="btn btn-dark" onClick={handleBack}>
-              Volver
-            </button>
+            </button>           
           </div>
         </form>
       </div>

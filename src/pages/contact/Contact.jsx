@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { NavBarUser } from "./NavBarUser";
-import { Modal } from "../pure/Modal";
+import { NavBarUser } from "../../components/container/NavBarUser";
+import { Modal } from "../../components/pure/Modal";
 import axios from "axios";
 
 const initialForm = {
@@ -53,10 +53,6 @@ export const Contact = () => {
       })
       .catch((error) => error);
     handleClean();
-  };
-
-  const handleBack = () => {
-    navigate("/");
   };
 
   const handleClose = () => {
@@ -154,17 +150,7 @@ export const Contact = () => {
         <div className={"d-flex m-1"}>
           <button type="submit" className="btn btn-primary">
             Enviar
-          </button>
-
-          <button type="reset" className="btn btn-danger" onClick={handleClean}>
-            Limpiar
-          </button>
-
-          {username === "0" && code === "0" && (
-            <button type="button" className="btn btn-dark" onClick={handleBack}>
-              Volver
-            </button>
-          )}
+          </button>         
         </div>
       </form>
     </div>

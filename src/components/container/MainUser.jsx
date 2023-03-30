@@ -5,7 +5,7 @@ import { Modal } from "../pure/Modal";
 import { ProductsTableUsers } from "./ProductsTableUsers";
 import { NavBarUser } from "./NavBarUser";
 import axios from "axios";
-import logo from "../img/logo-siete-oro.png";
+import logo from "../../img/logo-siete-oro.png";
 import AllProductsUser from "../../pages/products/AllProductsUser";
 
 const MainUser = () => {
@@ -29,8 +29,8 @@ const MainUser = () => {
           "Access-Control-Allow-Headers": "*",
           Accept: "application/json",
         },
-        params: { userCode },
         timeout: 2999,
+        params: { userCode },
       };
 
       await axios

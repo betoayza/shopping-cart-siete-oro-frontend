@@ -1,7 +1,5 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { API } from '../api/api';
 
 const initialForm = {
   code: Date.now(),

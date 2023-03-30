@@ -1,7 +1,6 @@
 import React from "react";
-import { Modal } from "../../../../netflix-clone/src/components/pure/Modal";
-
-import "./Loader.css";
+import { Modal } from "../../components/pure/Modal";
+import "../../styles/loader.css";
 
 export const Loader = () => {
   return (

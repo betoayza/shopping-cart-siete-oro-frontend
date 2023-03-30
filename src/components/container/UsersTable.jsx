@@ -43,6 +43,7 @@ export const UsersTable = ({
           code={userCode}
           setModal={setModal}
           setModalDelete={setModalDelete}
+          setUsers={setUsers}
         />
       )}
       {modalActivate && (
@@ -50,6 +51,7 @@ export const UsersTable = ({
           code={userCode}
           setModal={setModal}
           setModalActivate={setModalActivate}
+          setUsers={setUsers}
         />
       )}
       {modalSearchUsers && (
@@ -65,9 +67,9 @@ export const UsersTable = ({
       )}
     </Modal>
   ) : (
-    <div className={"vw-100 h-75"}>
+    <div>
       {showSearchUserAndAdminNavBar && (
-        <div className={"vw-100"}>
+        <div>
           <NavBarAdmin />
           <UsersSearchingBar
             term={term}
@@ -80,9 +82,9 @@ export const UsersTable = ({
         </div>
       )}
       {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}
-      <div className={"vw-100"}>
+      <div className={"mt-2"}>
         {users.length ? (
-          <div className={"d-flex justify-content-center h-100"}>
+          <div className={"d-flex justify-content-center"}>
             <div
               className={"table-responsive overflow-auto"}
               style={{ width: "75%", maxHeight: "500px" }}
@@ -111,7 +113,7 @@ export const UsersTable = ({
                   {users.map((user) => {
                     return (
                       <UserTableRow
-                        key={user._id}
+                        key={user.code}
                         user={user}
                         handleDelete={handleDelete}
                         handleActivate={handleActivate}

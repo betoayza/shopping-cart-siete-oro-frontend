@@ -26,14 +26,16 @@ import UserProfile from "../components/container/UserProfile";
 import Login from "../components/pure/Login";
 import SignUp from "../components/pure/SignUp";
 
-import { Contact } from "../components/container/Contact";
+import { Contact } from "../pages/contact/Contact";
 
 import { Error404 } from "../pages/404/Error404";
 import { SuccessPayment } from "../components/container/SuccessPayment";
 import { PendingPayment } from "../components/container/PendingPayment";
 import { FailedPayment } from "../components/pure/FailedPayment";
+import { BaseLayout } from "../base/BaseLayout";
 
 export {
+  BaseLayout,
   SearchingBar,
   MainAdmin,
   MainUser,

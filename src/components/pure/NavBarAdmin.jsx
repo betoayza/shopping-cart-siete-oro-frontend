@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import logo from "../img/logo-siete-oro.png";
+import logo from "../../img/logo-siete-oro.png";
 
 export const NavBarAdmin = () => {
   return (

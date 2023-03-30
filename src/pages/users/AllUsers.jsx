@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { UsersTable } from "../../components/container/UsersTable";
 import { Loader } from "../../components/pure/Loader";
+import { helpFetchs } from "../../helpers/helpFetchs";
 
 export const AllUsers = () => {
   const [users, setUsers] = useState(null);
@@ -9,35 +9,25 @@ export const AllUsers = () => {
 
   useEffect(() => {
     const getAllUsers = async () => {
-      const options = {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-          timeout: 3000,
-        },
-      };
+      const result = await helpFetchs().getAllUsers();
+      console.log(result);
 
-      await axios
-        .get(`${import.meta.env.VITE_API}/admin/users/all`, options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setUsers(res.data);
-            setLoader(false);
-          }
-        })
-        .catch((error) => error);
+      if (result) {
+        setUsers(result);
+        setLoader(false);
+      }
     };
-    getAllUsers();
-  }, [users]);
+
+    getAllUsers()
+  }, []);
 
   return loader ? (
     <Loader />
   ) : (
-    <div className={"h-auto vw-100"}>
-      {users && <UsersTable users={users} setUsers={setUsers} />}
-    </div>
+    users && (
+      <div className={"h-auto vw-100"}>
+        {users && <UsersTable users={users} />}
+      </div>
+    )
   );
 };

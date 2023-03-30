@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import logo from "../img/logo-siete-oro.png";
+import logo from "../../img/logo-siete-oro.png";
 import axios from "axios";
 
 export const NavBarUser = ({ code, counterCart = 0, username }) => {
@@ -18,8 +18,8 @@ export const NavBarUser = ({ code, counterCart = 0, username }) => {
           "Access-Control-Allow-Headers": "*",
           Accept: "application/json",
         },
-        params: { userCode },
         timeout: 3000,
+        params: { userCode },
       };
 
       await axios

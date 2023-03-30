@@ -3,16 +3,16 @@ import { Outlet } from "react-router-dom";
 
 export const BaseLayout = () => {
   return (
-    <div>
-        <header>
-            {/* Barra de navegación principal (ni usuario ni admin)*/}
-        </header>
-      <main className="container">
+    <div className={"text-center"}>
+      {/* <header> */}
+      {/* Barra de navegación principal (ni usuario ni admin)*/}
+      {/* </header> */}
+      <main style={{ marginBottom: "60px" }}>
         <Outlet />
       </main>
-      <footer className="text-center fixed-bottom">        
-          © 2022 Copyright: Siete de Oro S.R.L. Av. 9 de Julio 431, CP 1262,
-          Microcentro, CABA        
+      <footer className="text-center fixed-bottom">
+        © 2022 Copyright: Siete de Oro S.R.L. Av. 9 de Julio 431, CP 1262,
+        Microcentro, CABA
       </footer>
     </div>
   );

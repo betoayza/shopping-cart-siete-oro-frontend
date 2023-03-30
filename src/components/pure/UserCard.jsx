@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import userImage from "../img/user-svg-model.jpeg";
+import userImage from "../../img/user-svg-model.jpeg";
 
 export const UserCard = ({ user }) => {
   return (

@@ -1,49 +1,33 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { ProductsTable } from "../../components/container/ProductsTable";
 import { Loader } from "../../components/pure/Loader";
+import { helpFetchs } from "../../helpers/helpFetchs";
 
 const AllProducts = () => {
   const [products, setProducts] = useState(null);
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    const getAllProducts = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/products/all`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-      };
+    const result = helpFetchs().getAllProducts();
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setProducts(res.data);
-            setLoader(false);
-          }
-        })
-        .catch((error) => error);
-    };
-    getAllProducts();
-  }, [products]);
+    if (result) {
+      setProducts(result);
+      setLoader(false);
+    }
+  }, []);
 
   return loader ? (
     <Loader />
   ) : (
-    <div className={"h-auto vw-100"}>
-      {products ? (
-        <ProductsTable products={products} setProducts={setProducts} />
-      ) : (
-        <h2>No hay productos</h2>
-      )}
-    </div>
+    products && (
+      <div className={"h-auto vw-100 text-center"}>
+        {products ? (
+          <ProductsTable products={products} setProducts={setProducts} />
+        ) : (
+          <h2>No hay productos</h2>
+        )}
+      </div>
+    )
   );
 };
 

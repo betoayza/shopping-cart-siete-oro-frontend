@@ -32,8 +32,8 @@ const Login = () => {
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
       },
-      params: form,
       timeout: 3000,
+      params: form,
     };
     console.log(form);
     await axios
@@ -58,10 +58,6 @@ const Login = () => {
         console.error(error);
       });
     handleClean();
-  };
-
-  const handleBack = () => {
-    navigate("/");
   };
 
   const handleClose = () => {
@@ -109,23 +105,7 @@ const Login = () => {
             <div className={"d-flex m-1"}>
               <button type="submit" className="btn btn-primary">
                 Entrar
-              </button>
-
-              <button
-                type="reset"
-                className="btn btn-danger"
-                onClick={handleClean}
-              >
-                Limpiar
-              </button>
-
-              <button
-                type="button"
-                className="btn btn-dark"
-                onClick={handleBack}
-              >
-                Volver
-              </button>
+              </button>             
             </div>
           </form>
         </div>

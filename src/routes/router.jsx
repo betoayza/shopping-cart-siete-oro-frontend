@@ -1,10 +1,9 @@
-import React from "react";
 import { createHashRouter } from "react-router-dom";
 import * as Components from "../index/indexComponents";
 
-export const router = createHashRouter({
+export const router = createHashRouter([{
   path: "/",
-  element: <BaseLayout />,
+  element: <Components.BaseLayout />,
   errorElement: <Components.Error404 />,
   children: [
     {
@@ -45,15 +44,15 @@ export const router = createHashRouter({
     },
     {
       path: "failure",
-      element: <Components.FailedPayment />
+      element: <Components.FailedPayment />,
     },
     {
-      path: "user/shopping-cart/:userCode/pending", 
-      element: <Components.PendingPayment />
+      path: "user/shopping-cart/:userCode/pending",
+      element: <Components.PendingPayment />,
     },
     {
       path: "contact/:username/:code",
-      element: <Components.Contact />
+      element: <Components.Contact />,
     },
     {
       path: "admin",
@@ -65,15 +64,15 @@ export const router = createHashRouter({
     },
     {
       path: "admin/products/add",
-      element: <Components.AddProduct />
+      element: <Components.AddProduct />,
     },
     {
       path: "admin/products/modify",
-      element: <Components.ModifyProduct />
+      element: <Components.ModifyProduct />,
     },
     {
       path: "admin/products/delete",
-      element: <Components.DeleteProduct />
+      element: <Components.DeleteProduct />,
     },
     {
       path: "admin/users/all",
@@ -81,15 +80,15 @@ export const router = createHashRouter({
     },
     {
       path: "admin/users/delete",
-      element:  <Components.DeleteUser />
+      element: <Components.DeleteUser />,
     },
     {
       path: "admin/users/code",
-      element: <Components.SearchUser />
+      element: <Components.SearchUser />,
     },
     {
       path: "admin/orders/all",
       element: <Components.AllOrders />,
     },
   ],
-});
+}]);
