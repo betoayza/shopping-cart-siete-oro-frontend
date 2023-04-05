@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useState, useRef, useEffect } from "react";
+import { helpAxios } from "../../helpers/helpAxios";
 import { Loader } from "../pure/Loader";
 
 const initialForm = {
@@ -21,30 +21,15 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
 
   useEffect(() => {
     const getProduct = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/admin/products/search/code`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        params: { code },
-      };
+      const result = helpAxios().getProduct(code);
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setForm(res.data);
-            setFound(true);
-            setLoader(false);
-          } else return;
-        })
-        .catch((error) => error);
+      if (result) {
+        setForm(result);
+        setFound(true);
+        setLoader(false);
+      }
     };
+
     getProduct();
   }, []);
 
@@ -65,29 +50,10 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
     data.append("image", form.image);
     console.log(data);
 
-    const options = {
-      url: `${import.meta.env.VITE_API}/admin/product/modify`,
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      data: data,
-    };
+    const result = helpFetchs().modifyProduct(data);
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) setUpdated(true);
-        else return;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (result) setUpdated(result);
+
     handleClean2();
   };
 

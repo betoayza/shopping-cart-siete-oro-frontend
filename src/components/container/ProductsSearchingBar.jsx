@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { helpAxios } from "../../helpers/helpAxios";
 import { ProductsTable } from "./ProductsTable";
 
 export const ProductsSearchingBar = ({
@@ -13,29 +13,14 @@ export const ProductsSearchingBar = ({
 
   useEffect(() => {
     const getProduct = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/admin/products/search`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        params: { term },
-      };
+      const result = await helpAxios().getProductsAdmin(term);
+      console.log("ASDASDASD", result);
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setProducts(res.data);
-            setModal(true);
-            setModalSearchProduct(true);
-          }
-        })
-        .catch((error) => error);
+      if (result) {
+        setProducts(result);
+        setModal(true);
+        setModalSearchProduct(true);
+      }
     };
 
     if (term !== "") getProduct();
@@ -44,7 +29,7 @@ export const ProductsSearchingBar = ({
       setModal(false);
       setModalSearchProduct(false);
     }
-  }, [term]);
+  }, []);
 
   const handleChange = (e) => {
     console.log(e.target.value);

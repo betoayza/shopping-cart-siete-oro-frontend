@@ -81,52 +81,51 @@ export const UsersTable = ({
           />
         </div>
       )}
+
       {users.length === 1 ? <h2>Usuario:</h2> : <h2>Usuarios:</h2>}
+
       <div className={"mt-2"}>
-        {users.length ? (
-          <div className={"d-flex justify-content-center"}>
-            <div
-              className={"table-responsive overflow-auto"}
-              style={{ width: "75%", maxHeight: "500px" }}
+        <div className={"d-flex justify-content-center"}>
+          <div
+            className={"table-responsive overflow-auto"}
+            style={{ width: "75%", maxHeight: "500px" }}
+          >
+            <table
+              className={"table table-hover table-sm h-100"}
+              style={isModalStyle ? { color: "#20c997" } : null}
             >
-              <table
-                className={"table table-hover table-sm h-100"}
-                style={isModalStyle ? { color: "#20c997" } : null}
-              >
-                <thead>
-                  <tr>
-                    <th scope="col">Código</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Domicilio</th>
-                    <th scope="col">Barrio</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">C.P.</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Accion</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user) => {
-                    return (
-                      <UserTableRow
-                        key={user.code}
-                        user={user}
-                        handleDelete={handleDelete}
-                        handleActivate={handleActivate}
-                      />
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+              <thead>
+                <tr>
+                  <th scope="col">Código</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Usuario</th>
+                  <th scope="col">Domicilio</th>
+                  <th scope="col">Barrio</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">C.P.</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Accion</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user) => {
+                  return (
+                    <UserTableRow
+                      key={user._id}
+                      user={user}
+                      handleDelete={handleDelete}
+                      handleActivate={handleActivate}
+                    />
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
-        ) : (
-          <h2>Sin resultados :(</h2>
-        )}
+        </div>
+        )
       </div>
     </div>
   );

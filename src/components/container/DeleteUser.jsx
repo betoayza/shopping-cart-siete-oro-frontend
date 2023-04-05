@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { helpFetchs } from "../../helpers/helpFetchs";
+import { helpAxios } from "../../helpers/helpAxios";
 import { Loader } from "../pure/Loader";
 
 const DeleteUser = ({ code, setModal, setModalDelete }) => {
@@ -7,7 +7,8 @@ const DeleteUser = ({ code, setModal, setModalDelete }) => {
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    const result = helpFetchs().deleteUser(code);
+    const result = helpAxios().deleteUser(code);
+    
     if(result){
       setIsDeleted(result);
       setLoader(false)

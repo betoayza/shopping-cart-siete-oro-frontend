@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { helpFetchs } from "../../helpers/helpFetchs";
+import { helpAxios } from "../../helpers/helpAxios";
 import { Loader } from "../pure/Loader";
 
 export const ActivateUser = ({ code, setModal, setModalActivate }) => {
@@ -12,7 +12,7 @@ export const ActivateUser = ({ code, setModal, setModalActivate }) => {
   };
 
   useEffect(() => {
-    const result = helpFetchs().activateUser(code);
+    const result = helpAxios().activateUser(code);
 
     if (result) {
       setActivated(true);

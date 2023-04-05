@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { helpAxios } from "../../helpers/helpAxios";
 import { Modal } from "./Modal";
 
 const initialForm = {
@@ -24,39 +24,20 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const options = {
-      url: `${import.meta.env.VITE_API}/login`,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      params: form,
-    };
     console.log(form);
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          //case generic user
-          if (res.data.type === "Estandar") {
-            const code = res.data.code;
-            const username = res.data.username;
-            navigate(`/user/${username}/${code}`);
-            //case admin
-          } else {
-            navigate("/admin");
-          }
-        } else {
-          setIsError(true);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const userType = helpAxios().login(form);
+
+    if (userType instanceof Error) setIsError(true);
+    else {
+      //case generic user
+      if (userType === "Estandar") {
+        const code = res.data.code;
+        const username = res.data.username;
+        navigate(`/user/${username}/${code}`);
+        //case admin
+      } else navigate("/admin");
+    }
+
     handleClean();
   };
 
@@ -105,7 +86,7 @@ const Login = () => {
             <div className={"d-flex m-1"}>
               <button type="submit" className="btn btn-primary">
                 Entrar
-              </button>             
+              </button>
             </div>
           </form>
         </div>

@@ -23,68 +23,32 @@ export const NavBarAdmin = () => {
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink to={"/admin"}>
-                {({ isActive }) => (
-                  <a
-                    className={isActive ? "nav-link active" : "nav-link active"}
-                  >
-                    <i
-                      className="bi-house-door-fill"
-                      style={{ color: "white", fontSize: "20px" }}
-                    ></i>
-                  </a>
-                )}
+              <NavLink to="/admin">
+                <i
+                  className="bi-house-door-fill"
+                  style={{ color: "white", fontSize: "20px" }}
+                ></i>
               </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/admin/products/all">
-                {({ isActive }) => (
-                  <a
-                    className={isActive ? "nav-link active" : "nav-link active"}
-                  >
-                    Productos
-                  </a>
-                )}
-              </NavLink>
+              <NavLink to="/admin/products/all">Productos</NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/admin/users/all">
-                {({ isActive }) => (
-                  <a
-                    className={isActive ? "nav-link active" : "nav-link active"}
-                  >
-                    Usuarios
-                  </a>
-                )}
-              </NavLink>
+              <NavLink to="/admin/users/all">Usuarios</NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/admin/orders/all">
-                {({ isActive }) => (
-                  <a
-                    className={isActive ? "nav-link active" : "nav-link active"}
-                  >
-                    Pedidos
-                  </a>
-                )}
-              </NavLink>
+              <NavLink to="/admin/orders/all">Pedidos</NavLink>
             </li>
 
             <li className="nav-item">
               <NavLink to="/">
-                {({ isActive }) => (
-                  <a
-                    className={isActive ? "nav-link active" : "nav-link active"}
-                  >
-                    <i
-                      className="bi-box-arrow-right"
-                      style={{ color: "white", fontSize: "20px" }}
-                    ></i>
-                  </a>
-                )}
+                <i
+                  className="bi-box-arrow-right"
+                  style={{ color: "white", fontSize: "20px" }}
+                ></i>
               </NavLink>
             </li>
           </ul>
