@@ -33,7 +33,7 @@ const AllProducts = () => {
       ) : products.length ? (
         <ProductsTable products={products} setProducts={setProducts} />
       ) : (
-        <h2>No hay usuarios :(</h2>
+        <h2>No hay productos :(</h2>
       )}
     </div>
   );

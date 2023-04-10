@@ -1,6 +1,7 @@
 import axios from "axios";
+
 export const helpAxios = () => {
-  // USERS
+  // ************ADMIN************
   const getAllUsers = async () => {
     const url = `${import.meta.env.VITE_API}/admin/users/all`;
     const options = {
@@ -16,7 +17,7 @@ export const helpAxios = () => {
     return await axios(url, options)
       .then((res) => {
         console.log(res);
-        if (res.status == 200) return res.data;
+        if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
       .catch((error) => error);
@@ -75,20 +76,20 @@ export const helpAxios = () => {
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
       },
-      timeout: 3000,
+      timeout: 5000,
     };
 
     return await axios
       .request(url, options)
       .then((res) => {
         console.log(res);
-        if (res.status == 200) return res.data;
+        if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
       .catch((error) => error);
   };
 
-  // search (admin) PENDIENTE...
+  // Search
   const getProductsAdmin = async (term) => {
     const url = `${import.meta.env.VITE_API}/admin/products/search`;
     const options = {
@@ -105,13 +106,8 @@ export const helpAxios = () => {
     return await axios(url, options)
       .then((res) => {
         console.log(res);
-        if (!res.ok) throw new Error(res.statusText);
-
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        return data;
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
       })
       .catch((error) => error);
   };
@@ -168,16 +164,38 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
-  // LOGIN & SIGNUP
-  const login = async (form) => {
-    const url = `${import.meta.env.VITE_API}/login`;
+  const addProduct = async (data) => {
+    const url = `${import.meta.env.VITE_API}/admin/product/add`;
     const options = {
+      method: "post",
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
         Accept: "application/json",
       },
+      timeout: 3000,
+      data: data,
+    };
+
+    return await axios(url, options)
+      .then((res) => {
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
+  // LOGIN & SIGNUP
+  const login = async (form) => {
+    const url = `${import.meta.env.VITE_API}/login`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 3000,
       params: form,
     };
@@ -192,6 +210,29 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
+  //NON USER
+  const getActiveProducts = async () => {
+    const url = `${import.meta.env.VITE_API}/products/active/all`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
   // RETURN ALL FUNCTIONS
   return {
     getAllUsers,
@@ -200,7 +241,9 @@ export const helpAxios = () => {
     getAllProducts,
     getProductsAdmin,
     modifyProduct,
+    addProduct,
     getProduct,
+    getActiveProducts,
     login,
   };
 };

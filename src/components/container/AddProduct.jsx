@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useRef, useState } from "react";
+import { helpAxios } from "../../helpers/helpAxios";
 
 const initialForm = {
   code: Date.now(),
@@ -13,8 +13,9 @@ const initialForm = {
 
 export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
   const [form, setForm] = useState(initialForm);
-  const [added, setAdded] = useState(false);  
+  const [isAdded, setIsAdded] = useState(false);
   const fileRef = useRef(null);
+  const [isError, setIsError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,52 +33,18 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
     data.append("image", form.image);
     console.log(data);
 
-    const options = {
-      url: `${import.meta.env.VITE_API}/admin/product/add`,
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      data: data,
-    };
+    const result = await helpAxios().addProduct(data);
+    if (result instanceof Error) setIsError(true);
+    else {
+      const allProducts = await helpAxios().getAllProducts();
+      if (allProducts instanceof Error) setIsError(true);
+      else {
+        console.log(allProducts);
+        setIsAdded(true);
+        setProducts(allProducts);
+      }
+    }
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          setAdded(true);
-
-          const getAllProducts = async () => {
-            const options = {
-              url: `${import.meta.env.VITE_API}/products/all`,
-              headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "*",
-                Accept: "application/json",
-              },
-              timeout: 3000,
-            };
-
-            await axios
-              .request(options)
-              .then((res) => {
-                console.log(res.data);
-                if (res.data) {
-                  setProducts(res.data);
-                } else return;
-              })
-              .catch((error) => error);
-          };
-          getAllProducts();
-        } 
-      })
-      .catch((error) => error);
     handleClean();
   };
 
@@ -94,7 +61,11 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
     setModalAddProduct(false);
   };
 
-  return !added ? (
+  return isError ? (
+    <h2 className="text-center">
+      <span style={{ color: "maroon" }}>Error en la conexión:(</span>
+    </h2>
+  ) : !isAdded ? (
     <div className={"d-grid align-items-center"}>
       <h2>Agregar producto:</h2>
 
@@ -186,13 +157,6 @@ export const AddProduct = ({ setModal, setModalAddProduct, setProducts }) => {
             <div className="col-12">
               <button type="submit" className="btn btn-primary">
                 Agregar
-              </button>
-              <button
-                type="reset"
-                className="btn btn-warning"
-                onClick={handleClean}
-              >
-                Limpiar
               </button>
               <button
                 type="reset"

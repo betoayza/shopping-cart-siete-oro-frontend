@@ -1,38 +1,27 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ProductCardNotUser } from "./ProductCardNotUser";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const SliderProductCards = () => {
   const [products, setProducts] = useState([]);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/products/active/all`,
+      const result = await helpAxios().getActiveProducts();
 
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-      };
-
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setProducts(res.data);
-          }
-        })
-        .catch((error) => error);
+      if (result instanceof Error) setIsError(true);
+      else setProducts(result);
     };
     getProducts();
-  }, [products]);
+  }, []);
 
-  return products.length ? (
+  return isError ? (
+    <h2 className="text-center">
+      <span style={{ color: "maroon" }}>Error en la conexión :(</span>
+    </h2>
+  ) : products.length ? (
     <div
       id="carouselExampleControls"
       className="carousel slide"
@@ -45,7 +34,7 @@ export const SliderProductCards = () => {
               className={`carousel-item ${index === 0 && "active"}`}
               data-bs-interval="3000"
             >
-              <ProductCardNotUser product={product} />
+              <ProductCardNotUser key={product.code} product={product} />
             </div>
           );
         })}
@@ -70,5 +59,7 @@ export const SliderProductCards = () => {
         <span className="visually-hidden">Next</span>
       </button>
     </div>
-  ) : null;
+  ) : (
+    <h5 className="text-center">No hay productos disponibles aún :(</h5>
+  );
 };
