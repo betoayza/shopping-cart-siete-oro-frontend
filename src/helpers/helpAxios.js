@@ -1,16 +1,17 @@
 import axios from "axios";
 
 export const helpAxios = () => {
-  // ************ADMIN************
+  // ***********************ADMIN****************************
+  // USERS MANAGEMENT
   const getAllUsers = async () => {
     const url = `${import.meta.env.VITE_API}/admin/users/all`;
     const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 3000,
     };
 
@@ -26,21 +27,21 @@ export const helpAxios = () => {
   const deleteUser = async (code) => {
     const url = `${import.meta.env.VITE_API}/admin/users/delete`;
     const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 3000,
       data: { code },
     };
 
-    return await axios(url, options)
+    return await axios.delete(url, options)
       .then((res) => {
-        if (!res.ok) throw new Error(res.statusText);
-
-        return true;
+        console.log(res)
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
       })
       .catch((error) => error);
   };
@@ -49,20 +50,19 @@ export const helpAxios = () => {
     const url = `${import.meta.env.VITE_API}/admin/users/activate`;
     const options = {
       method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 3000,
       data: { code },
     };
 
     return await axios(url, options).then((res) => {
-      if (!res.ok) throw new Error(res.statusText);
-
-      return true.catch((error) => error);
+      if (res.status === 200) return true;
+      else throw new Error(res.statusText);
     });
   };
 
@@ -115,12 +115,12 @@ export const helpAxios = () => {
   const getProduct = async (code) => {
     const url = `${import.meta.env.VITE_API}/admin/products/search/code`;
     const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 3000,
       params: { code },
     };
@@ -145,12 +145,12 @@ export const helpAxios = () => {
 
     const options = {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 3000,
       data: data,
     };
@@ -168,12 +168,12 @@ export const helpAxios = () => {
     const url = `${import.meta.env.VITE_API}/admin/product/add`;
     const options = {
       method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 3000,
       data: data,
     };
@@ -184,6 +184,54 @@ export const helpAxios = () => {
         else throw new Error(res.statusText);
       })
       .catch((error) => error);
+  };
+
+  const deleteProduct = async (code) => {
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { code },
+    };
+
+    return await axios
+      .delete(`${import.meta.env.VITE_API}/admin/products/delete`, options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
+  const activateProduct = async (code) => {
+    const url = `${import.meta.env.VITE_API}/admin/products/activate`;
+    const options = {
+      method: "put",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { code },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   // LOGIN & SIGNUP
@@ -242,6 +290,8 @@ export const helpAxios = () => {
     getProductsAdmin,
     modifyProduct,
     addProduct,
+    deleteProduct,
+    activateProduct,
     getProduct,
     getActiveProducts,
     login,

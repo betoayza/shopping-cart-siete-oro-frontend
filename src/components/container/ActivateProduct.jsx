@@ -1,14 +1,15 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Loader } from "../pure/Loader";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const ActivateProduct = ({
   code,
   setModal,
   setModalActivateProduct,
 }) => {
-  const [activated, setActivated] = useState(false);
+  const [isActivated, setIsActivated] = useState(false);
   const [loader, setLoader] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const handleClose = () => {
     setModal(false);
@@ -17,50 +18,34 @@ export const ActivateProduct = ({
 
   useEffect(() => {
     const activateProduct = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/admin/products/activate`,
-        method: "put",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        data: { code },
-      };
+      const result = await helpAxios().activateProduct(code);
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setActivated(true);
-            setLoader(false);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      if (result instanceof Error) setIsError(true);
+      else {
+        setIsActivated(true);
+        setLoader(false);
+      }
     };
     activateProduct();
   }, []);
 
   return loader ? (
     <Loader />
-  ) : activated ? (
-    <>
+  ) : isError ? (
+    <h2>Error en la conexión :(</h2>
+  ) : isActivated ? (
+    <div>
       <h3>Activado :)</h3>
       <button className={"btn btn-danger"} onClick={handleClose}>
         Cerrar
       </button>
-    </>
+    </div>
   ) : (
-    <>
+    <div>
       <h3>No hace falta activar</h3>
       <button className={"btn btn-danger"} onClick={handleClose}>
         Cerrar
       </button>
-    </>
+    </div>
   );
 };

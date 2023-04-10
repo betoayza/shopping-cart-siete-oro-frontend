@@ -18,9 +18,7 @@ export const SliderProductCards = () => {
   }, []);
 
   return isError ? (
-    <h2 className="text-center">
-      <span style={{ color: "maroon" }}>Error en la conexión :(</span>
-    </h2>
+    <h2 className="text-center">Error en la conexión :(</h2>
   ) : products.length ? (
     <div
       id="carouselExampleControls"

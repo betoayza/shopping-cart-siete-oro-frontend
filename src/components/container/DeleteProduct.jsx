@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Loader } from "../pure/Loader";
+import { helpAxios } from "../../helpers/helpAxios";
 
 const DeleteProduct = ({
   code,
@@ -8,58 +8,23 @@ const DeleteProduct = ({
   setModalDeleteProduct,
   setProducts,
 }) => {
-  const [deleted, setDeleted] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
   const [loader, setLoader] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const deleteProduct = async () => {
-      const options = {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        data: { code },
-      };
+      const result = await helpAxios().deleteProduct(code);
 
-      await axios
-        .delete(`${import.meta.env.VITE_API}/admin/products/delete`, options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setDeleted(true);
-            setLoader(false);
-          }
-        })
-        .catch((error) => error);
+      if (result instanceof Error) setIsError(true);
+      else {
+        setIsDeleted(true);
+        setLoader(false);
+        const allProducts = await helpAxios().getAllProducts();
+        setProducts(allProducts);
+      }
     };
     deleteProduct();
-
-    if (deleted) {
-      const getAllProducts = async () => {
-        const options = {
-          url: `${import.meta.env.VITE_API}/products/all`,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "*",
-            Accept: "application/json",
-          },
-          timeout: 3000,
-        };
-
-        await axios
-          .request(options)
-          .then((res) => {
-            console.log(res.data);
-            if (res.data) setProducts(res.data);
-          })
-          .catch((error) => error);
-      };
-      getAllProducts();
-    }
   }, []);
 
   const handleClose = () => {
@@ -69,20 +34,22 @@ const DeleteProduct = ({
 
   return loader ? (
     <Loader />
-  ) : deleted ? (
-    <>
+  ) : isError ? (
+    <h2>Error de conexión :(</h2>
+  ) : isDeleted ? (
+    <div>
       <h3>Baja exitosa ;)</h3>
       <button className="btn btn-danger" type="button" onClick={handleClose}>
         Cerrar
       </button>
-    </>
+    </div>
   ) : (
-    <>
+    <div>
       <h3>Ya estaba dado de baja</h3>
       <button className="btn btn-danger" type="button" onClick={handleClose}>
         Cerrar
       </button>
-    </>
+    </div>
   );
 };
 

@@ -5,9 +5,16 @@ body {
   background-size: cover;
 }
 
-h1,
-h2 {
+h1 {
   color: #6610f2;
+}
+
+h2 {
+  color: maroon;
+}
+
+h3 {
+  color: white;
 }
 
 td,
@@ -32,7 +39,7 @@ footer {
 }
 
 input {
-  font-style: italic; 
+  font-style: italic;
   margin: 1px;
   color: green;
 }

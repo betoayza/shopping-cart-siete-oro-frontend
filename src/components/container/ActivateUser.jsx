@@ -3,8 +3,9 @@ import { helpAxios } from "../../helpers/helpAxios";
 import { Loader } from "../pure/Loader";
 
 export const ActivateUser = ({ code, setModal, setModalActivate }) => {
-  const [activated, setActivated] = useState(false);
-  const [loader, setLoader] = useState(true);
+  const [isActivated, setIsActivated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const handleClose = () => {
     setModal(false);
@@ -12,29 +13,29 @@ export const ActivateUser = ({ code, setModal, setModalActivate }) => {
   };
 
   useEffect(() => {
-    const result = helpAxios().activateUser(code);
+    const activateUser = async () => {
+      const result = await helpAxios().activateUser(code);
 
-    if (result) {
-      setActivated(true);
-      setLoader(false);
-    }
+      if (result instanceof Error) setIsError(true);
+      else setIsActivated(true);
+
+      setIsLoading(false);
+    };
+    activateUser();
   }, []);
 
-  return loader ? (
+  return isLoading ? (
     <Loader />
-  ) : activated ? (
-    <>
-      <h3>Activado :)</h3>
-      <button className={"btn btn-danger"} onClick={handleClose}>
-        Cerrar
-      </button>
-    </>
+  ) : isError ? (
+    <h2 className="text-center">Error en la conexión :(</h2>
   ) : (
-    <>
-      <h3>No hace falta activar</h3>
-      <button className={"btn btn-danger"} onClick={handleClose}>
-        Cerrar
-      </button>
-    </>
+    isActivated && (
+      <div>
+        <h3 className="text-center">Activado :)</h3>
+        <button className={"btn btn-danger"} onClick={handleClose}>
+          Cerrar
+        </button>
+      </div>
+    )
   );
 };

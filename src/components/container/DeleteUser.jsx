@@ -4,15 +4,19 @@ import { Loader } from "../pure/Loader";
 
 const DeleteUser = ({ code, setModal, setModalDelete }) => {
   const [isDeleted, setIsDeleted] = useState(false);
-  const [loader, setLoader] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const result = helpAxios().deleteUser(code);
-    
-    if(result){
-      setIsDeleted(result);
-      setLoader(false)
-    }
+    const deleteUser = async () => {
+      const result = await helpAxios().deleteUser(code);
+
+      if (result instanceof Error) setIsError(true);
+      else setIsDeleted(result);
+
+      setIsLoading(false);
+    };
+    deleteUser();
   }, []);
 
   const handleClose = () => {
@@ -20,22 +24,19 @@ const DeleteUser = ({ code, setModal, setModalDelete }) => {
     setModalDelete(false);
   };
 
-  return loader ? (
+  return isLoading ? (
     <Loader />
-  ) : isDeleted ? (
-    <>
-      <h3>Baja exitosa ;)</h3>
-      <button className="btn btn-danger" type="button" onClick={handleClose}>
-        Close
-      </button>
-    </>
+  ) : isError ? (
+    <h2 className="text-center">Error en la conexión :(</h2>
   ) : (
-    <>
-      <h3>Ya estaba dado de baja</h3>
-      <button className="btn btn-danger" type="button" onClick={handleClose}>
-        Close
-      </button>
-    </>
+    isDeleted && (
+      <div>
+        <h3 className="text-center">Baja exitosa ;)</h3>
+        <button className="btn btn-danger" type="button" onClick={handleClose}>
+          Close
+        </button>
+      </div>
+    )
   );
 };
 

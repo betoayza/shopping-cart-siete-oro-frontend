@@ -124,8 +124,7 @@ export const UsersTable = ({
               </tbody>
             </table>
           </div>
-        </div>
-        )
+        </div>        
       </div>
     </div>
   );
