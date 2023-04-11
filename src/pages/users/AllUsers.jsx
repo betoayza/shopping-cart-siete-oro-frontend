@@ -5,24 +5,23 @@ import { helpAxios } from "../../helpers/helpAxios";
 
 export const AllUsers = () => {
   const [users, setUsers] = useState([]);
-  const [loader, setLoader] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getAllUsers = async () => {
-      const result = await helpAxios().getAllUsers();
-      console.log(result);
+      const allUsers = await helpAxios().getAllUsers();
 
-      if (result instanceof Error) setIsError(true);
-      else setUsers(result);
+      if (allUsers instanceof Error) setIsError(true);
+      else setUsers(allUsers);
 
-      setLoader(false);
+      setIsLoading(false);
     };
 
     getAllUsers();
   }, []);
 
-  return loader ? (
+  return isLoading ? (
     <Loader />
   ) : (
     <div className={"h-auto vw-100"}>

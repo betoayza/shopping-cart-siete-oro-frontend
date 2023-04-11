@@ -1,43 +1,35 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { OrdersTable } from "../../components/container/OrdersTable";
 import { Loader } from "../../components/pure/Loader";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const AllOrders = () => {
-  const [orders, setOrders] = useState(null);
-  const [loader, setLoader] = useState(true);
+  const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getAllOrders = async () => {
-      const options = {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-      };
+      const allOrders = await helpAxios().getAllOrders();
 
-      await axios
-        .get(`${import.meta.env.VITE_API}/admin/orders/all`, options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setOrders(res.data);
-            setLoader(false);
-          }
-        })
-        .catch((error) => error);
+      if (allOrders instanceof Error) setIsError(true);
+      else setOrders(allOrders);
+
+      setIsLoading(false);
     };
-    getAllOrders();
-  }, [orders]);
 
-  return loader ? (
+    getAllOrders();
+  }, []);
+
+  return isLoading ? (
     <Loader />
-  ) : (
+  ) : isError ? (
+    <h2>Error en la conexión :(</h2>
+  ) : orders.length ? (
     <div className={"vw-100 h-auto"}>
       {orders && <OrdersTable orders={orders} setOrders={setOrders} />}
     </div>
+  ) : (
+    <h2>No hay órdenes aún :(</h2>
   );
 };

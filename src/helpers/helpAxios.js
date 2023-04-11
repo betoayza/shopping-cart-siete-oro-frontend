@@ -37,9 +37,10 @@ export const helpAxios = () => {
       data: { code },
     };
 
-    return await axios.delete(url, options)
+    return await axios
+      .delete(url, options)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         if (res.status === 200) return true;
         else throw new Error(res.statusText);
       })
@@ -70,12 +71,12 @@ export const helpAxios = () => {
   const getAllProducts = async () => {
     const url = `${import.meta.env.VITE_API}/products/all`;
     const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 5000,
     };
 
@@ -93,12 +94,12 @@ export const helpAxios = () => {
   const getProductsAdmin = async (term) => {
     const url = `${import.meta.env.VITE_API}/admin/products/search`;
     const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 3000,
       params: { term },
     };
@@ -142,7 +143,6 @@ export const helpAxios = () => {
 
   const modifyProduct = async (data) => {
     const url = `${import.meta.env.VITE_API}/admin/product/modify`;
-
     const options = {
       method: "PUT",
       // headers: {
@@ -234,6 +234,29 @@ export const helpAxios = () => {
       });
   };
 
+  // ORDERS MANAGEMENT
+  const getAllOrders = async () => {
+    const url = `${import.meta.env.VITE_API}/admin/orders/all`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res.data);
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
   // LOGIN & SIGNUP
   const login = async (form) => {
     const url = `${import.meta.env.VITE_API}/login`;
@@ -292,6 +315,7 @@ export const helpAxios = () => {
     addProduct,
     deleteProduct,
     activateProduct,
+    getAllOrders,
     getProduct,
     getActiveProducts,
     login,

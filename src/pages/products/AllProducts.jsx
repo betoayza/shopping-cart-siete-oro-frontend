@@ -5,24 +5,23 @@ import { helpAxios } from "../../helpers/helpAxios";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
-  const [loader, setLoader] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getAllProducts = async () => {
-      const result = await helpAxios().getAllProducts();
-      console.log(result);
+      const allProducts = await helpAxios().getAllProducts();      
 
-      if (result instanceof Error) setIsError(true);
-      else setProducts(result);
+      if (allProducts instanceof Error) setIsError(true);
+      else setProducts(allProducts);
 
-      setLoader(false);
+      setIsLoading(false);
     };
 
     getAllProducts();
   }, []);
 
-  return loader ? (
+  return isLoading ? (
     <Loader />
   ) : (
     <div className={"h-auto vw-100 text-center"}>
