@@ -7,6 +7,8 @@ import { ProductsTable } from "./ProductsTable";
 import { SearchingBarOrders } from "./SearchingBarOrders";
 import { SearchUser } from "./SearchUser";
 import { Loader } from "../pure/Loader";
+import { helpAxios } from "../../helpers/helpAxios";
+const [isError, setIsError] = useState(false)
 
 export const OrdersTable = ({
   orders,
@@ -22,7 +24,6 @@ export const OrdersTable = ({
   const [userCode, setUserCode] = useState(null);
   const [term, setTerm] = useState("");
   const [loader, setLoader] = useState(true);
-  const [modalChangeOrderState, setChangeOrderState] = useState(false);
 
   if (!Array.isArray(orders)) {
     orders = [orders];
@@ -75,28 +76,12 @@ export const OrdersTable = ({
   };
 
   const handleChangeStateOrder = async (orderCode, newState) => {
-    console.log(orderCode, newState);
     const code = orderCode;
+    const result = await helpAxios().changeOrderState(code, newState);
 
-    const options = {
-      method: "put",
-      url: `${import.meta.env.VITE_API}/admin/orders/change-state`,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      data: { code, newState },
-    };
-
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => error);
+    if(result instanceof Error) setIsError(true)
+    else {}    
+   
   };
 
   return modal ? (
@@ -153,8 +138,7 @@ export const OrdersTable = ({
         </div>
       )}
 
-      <div className={"d-flex justify-content-center vw-100 h-100"}>
-        {orders.length ? (
+      <div className={"d-flex justify-content-center vw-100 h-100"}>       
           <div className={"w-100 h-auto"}>
             {orders.length === 1 ? <h2>Pedido:</h2> : <h2>Pedidos:</h2>}
             <div className={"w-100 d-flex justify-content-center"}>
@@ -177,8 +161,7 @@ export const OrdersTable = ({
                     </tr>
                   </thead>
                   <tbody>
-                    {orders &&
-                      orders.map((order) => {
+                    {orders.map((order) => {
                         return (
                           <OrderTableRow
                             key={order._id}
@@ -193,10 +176,7 @@ export const OrdersTable = ({
                 </table>
               </div>
             </div>
-          </div>
-        ) : (
-          <h2>Sin resultados :(</h2>
-        )}
+          </div>       
       </div>
     </div>
   );

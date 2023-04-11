@@ -257,6 +257,30 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
+  const changeOrderState = async (code, newState) => {
+    const url = `${import.meta.env.VITE_API}/admin/orders/change-state`;
+    const options = {
+      method: "PUT",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { code, newState },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+        // if (res.status === 200) return res.data;
+        // else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
   // LOGIN & SIGNUP
   const login = async (form) => {
     const url = `${import.meta.env.VITE_API}/login`;
@@ -316,6 +340,7 @@ export const helpAxios = () => {
     deleteProduct,
     activateProduct,
     getAllOrders,
+    changeOrderState,
     getProduct,
     getActiveProducts,
     login,
