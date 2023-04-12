@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Modal } from "../pure/Modal";
 import { NavBarAdmin } from "../pure/NavBarAdmin";
@@ -15,7 +14,7 @@ export const OrdersTable = ({
   showSearchingBar = true,
   isModalStyle = false,
 }) => {
-  const [products, setProducts] = useState([]);
+  const [orderProducts, setOrderProducts] = useState([]);
   const [term, setTerm] = useState("");
   const [modal, setModal] = useState(false);
   const [modalSearchOrder, setModalSearchOrder] = useState(false);
@@ -36,44 +35,28 @@ export const OrdersTable = ({
     setUserCode(userCode);
   };
 
-  const handleSeeOrderProducts = async (orderProducts) => {
+  const handleSeeOrderProducts = async (products) => {
     setModal(true);
-    setModalSeeProducts(true);
-    console.log(orderProducts);
 
-    let itemsIDs = orderProducts.map((product) => {
+    let itemsIDs = products.map((product) => {
       return product.id;
     });
-    console.log(itemsIDs); //works
+    console.log(itemsIDs);
 
-    const url = `${import.meta.env.VITE_API}/products/get/list`;
-    const options = {
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   "Access-Control-Allow-Origin": "*",
-      //   "Access-Control-Allow-Headers": "*",
-      //   Accept: "application/json",
-      // },
-      timeout: 3000,
-      params: { itemsIDs },
-    };
+    const result = await helpAxios().getOrderProducts(itemsIDs);
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          setProducts(res.data);
-          setIsLoading(false);
-        }
-      })
-      .catch((error) => error);
+    if (result instanceof Error) setIsError(true);
+    else {
+      setOrderProducts(result);
+      setModalSeeProducts(true);
+    }
+    setIsLoading(false);
   };
 
   const handleCloseProducts = () => {
     setModal(false);
     setModalSeeProducts(false);
-    setProducts([]);
+    setOrderProducts([]);
   };
 
   const handleCloseChangeState = () => {
@@ -94,49 +77,69 @@ export const OrdersTable = ({
 
   return modal ? (
     <Modal>
-      {modalSeeProducts &&
-        (isLoading ? (
-          <Loader />
-        ) : (
-          <div className={""} style={{ color: "green", maxHeight: "100vh" }}>
-            <ProductsTable
-              products={products}
-              setProducts={setProducts}
-              addAndSearch={false}
-              seeActions={false}
-              isModalStyle={true}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div>
+          {modalSeeProducts && (
+            <div
+              className={"text-center"}
+              style={{ color: "green", maxHeight: "100vh" }}
+            >
+              {isError ? (
+                <h3>Error en la conexión :(</h3>
+              ) : (
+                <ProductsTable
+                  products={orderProducts}
+                  setProducts={setOrderProducts}
+                  addAndSearch={false}
+                  seeActions={false}
+                  isModalStyle={true}
+                />
+              )}
+              <button
+                className={"btn btn-danger"}
+                onClick={handleCloseProducts}
+              >
+                Cerrar
+              </button>
+            </div>
+          )}
+          {modalSearchUser && (
+            <div
+              className={"w-100"}
+              style={{
+                display: "grid",
+                placeItems: "center",
+                maxHeight: "100vh",
+              }}
+            >
+              <SearchUser
+                code={userCode}
+                setModal={setModal}
+                setModalSearchUser={setModalSearchUser}
+              />
+            </div>
+          )}
+          {modalSearchOrder && (
+            <SearchingBarOrders
+              term={term}
+              setTerm={setTerm}
+              setModal={setModal}
+              setModalSearchOrder={setModalSearchOrder}
             />
-            <button className={"btn btn-danger"} onClick={handleCloseProducts}>
-              Cerrar
-            </button>
-          </div>
-        ))}
-      {modalSearchUser && (
-        <div
-          className={"w-100"}
-          style={{ display: "grid", placeItems: "center", maxHeight: "100vh" }}
-        >
-          <SearchUser
-            code={userCode}
-            setModal={setModal}
-            setModalSearchUser={setModalSearchUser}
-          />
-        </div>
-      )}
-      {modalSearchOrder && (
-        <SearchingBarOrders
-          term={term}
-          setTerm={setTerm}
-          setModal={setModal}
-          setModalSearchOrder={setModalSearchOrder}
-        />
-      )}
-      {modalIsStateChanged && (
-        <div className="text-center">
-          <h3>Estado cambiado ;)</h3>
-          <button className={"btn btn-danger"} onClick={handleCloseChangeState}>
-            Cerrar
-          </button>
+          )}
+          {modalIsStateChanged && (
+            <div className="text-center">
+              <h3>Estado cambiado ;)</h3>
+              <button
+                className={"btn btn-danger"}
+                onClick={handleCloseChangeState}
+              >
+                Cerrar
+              </button>
+            </div>
+          )}
         </div>
       )}
     </Modal>

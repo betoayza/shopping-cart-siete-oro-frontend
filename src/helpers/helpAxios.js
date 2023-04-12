@@ -275,13 +275,35 @@ export const helpAxios = () => {
       .request(url, options)
       .then((res) => {
         console.log(res);
-        // if (res.status === 200) return res.data;
-        // else throw new Error(res.statusText);
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
       })
       .catch((error) => error);
   };
 
-  // LOGIN & SIGNUP
+  const getOrderProducts = async (itemsIDs) => {
+    const url = `${import.meta.env.VITE_API}/products/get/list`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      params: { itemsIDs },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) return res.data;
+        else throw new error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+  //**************LOGIN & SIGNUP********
   const login = async (form) => {
     const url = `${import.meta.env.VITE_API}/login`;
     const options = {
@@ -305,7 +327,7 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
-  //NON USER
+  //*******************NON USER*******
   const getActiveProducts = async () => {
     const url = `${import.meta.env.VITE_API}/products/active/all`;
     const options = {
@@ -341,6 +363,7 @@ export const helpAxios = () => {
     activateProduct,
     getAllOrders,
     changeOrderState,
+    getOrderProducts,
     getProduct,
     getActiveProducts,
     login,

@@ -130,48 +130,44 @@ export const ProductsTable = ({
       <div className={"vw-100"}>
         {products.length === 1 ? <h2>Producto:</h2> : <h2>Productos:</h2>}
 
-        {products.length ? (
-          <div className={"w-100 d-flex justify-content-center"}>
-            <div
-              className={"table-responsive overflow-auto"}
-              style={{ width: "75%", MaxHeight: "500px" }}
+        <div className={"w-100 d-flex justify-content-center"}>
+          <div
+            className={"table-responsive overflow-auto"}
+            style={{ width: "75%", MaxHeight: "500px" }}
+          >
+            <table
+              className={"table table-hover table-sm"}
+              style={isModalStyle ? { color: "#20c997" } : null}
             >
-              <table
-                className={"table table-hover table-sm"}
-                style={isModalStyle ? { color: "#20c997" } : null}
-              >
-                <thead>
-                  <tr>
-                    <th scope="col">Código</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Stock</th>
-                    <th scope="col">Foto</th>
-                    <th scope="col">Estado</th>
-                    {seeActions && <th scope="col">Accion</th>}
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.map((product, index) => {
-                    return (
-                      <ProductTableRow
-                        key={index}
-                        product={product}
-                        handleUpdate={handleUpdate}
-                        handleDelete={handleDelete}
-                        handleActivate={handleActivate}
-                        seeActions={seeActions}
-                      />
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+              <thead>
+                <tr>
+                  <th scope="col">Código</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Foto</th>
+                  <th scope="col">Estado</th>
+                  {seeActions && <th scope="col">Accion</th>}
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product, index) => {
+                  return (
+                    <ProductTableRow
+                      key={index}
+                      product={product}
+                      handleUpdate={handleUpdate}
+                      handleDelete={handleDelete}
+                      handleActivate={handleActivate}
+                      seeActions={seeActions}
+                    />
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
-        ) : (
-          <h2>No hay productos :(</h2>
-        )}
+        </div>
       </div>
     </div>
   );
