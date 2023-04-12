@@ -15,7 +15,8 @@ export const helpAxios = () => {
       timeout: 3000,
     };
 
-    return await axios(url, options)
+    return await axios
+      .request(url, options)
       .then((res) => {
         console.log(res);
         if (res.status === 200) return res.data;
@@ -61,10 +62,35 @@ export const helpAxios = () => {
       data: { code },
     };
 
-    return await axios(url, options).then((res) => {
-      if (res.status === 200) return true;
-      else throw new Error(res.statusText);
-    });
+    return await axios(url, options)
+      .then((res) => {
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
+  const getUser = async (code) => {
+    const url = `${import.meta.env.VITE_API}/admin/users/search/one`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      params: { code },
+    };
+
+    return await axios
+      .get(url, options)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
   };
 
   // PRODUCTS
@@ -126,7 +152,8 @@ export const helpAxios = () => {
       params: { code },
     };
 
-    return await axios(url, options)
+    return await axios
+      .request(url, options)
       .then((res) => {
         console.log(res);
         if (!res.ok) throw new Error(res.statusText);
@@ -355,6 +382,7 @@ export const helpAxios = () => {
     getAllUsers,
     deleteUser,
     activateUser,
+    getUser,
     getAllProducts,
     getProductsAdmin,
     modifyProduct,
