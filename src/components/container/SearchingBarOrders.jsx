@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { OrdersTable } from "./OrdersTable";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const SearchingBarOrders = ({
   term,
@@ -8,41 +8,26 @@ export const SearchingBarOrders = ({
   setModal,
   setModalSearchOrder,
 }) => {
-  const [orders, setOrders] = useState(null);
+  const [orders, setOrders] = useState([]);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getOrders = async () => {
-      const options = {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        params: { term },
-      };
+      const result = await helpAxios().getOrders(term);
 
-      await axios
-        .get(`${import.meta.env.VITE_API}/admin/orders/search`, options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setOrders(res.data);
-            setModal(true);
-            setModalSearchOrder(true);
-          } else {
-            setOrders([]);
-          }
-        })
-        .catch((error) => error);
+      if (result instanceof Error) setIsError(true);
+      else {
+        setOrders(result);
+        setModal(true);
+        setModalSearchOrder(true);
+      }
     };
-    if (term !== "") {
-      getOrders();
-    } else {
+
+    if (term !== "") getOrders();
+    else {
       setModal(false);
       setModalSearchOrder(false);
-      setOrders(null);
+      setOrders([]);
     }
   }, [term]);
 
@@ -51,7 +36,9 @@ export const SearchingBarOrders = ({
     setTerm(e.target.value);
   };
 
-  return (
+  return isError ? (
+    <h3 className="text-center">Error en la conexión :(</h3>
+  ) : (
     <div className={"searching-bar"}>
       <div className={"w-50"}>
         <input
@@ -63,14 +50,16 @@ export const SearchingBarOrders = ({
         />
       </div>
 
-      {orders && term !== "" && (
-        <OrdersTable
-          orders={orders}
-          setOrders={setOrders}
-          showSearchingBar={false}
-          isModalStyle={true}
-        />
-      )}
+      {orders.length
+        ? term !== "" && (
+            <OrdersTable
+              orders={orders}
+              setOrders={setOrders}
+              showSearchingBar={false}
+              isModalStyle={true}
+            />
+          )
+        : null}
     </div>
   );
 };
