@@ -27,7 +27,13 @@ export const AllOrders = () => {
     <h2>Error en la conexión :(</h2>
   ) : orders.length ? (
     <div className={"vw-100 h-auto"}>
-      {orders && <OrdersTable orders={orders} setOrders={setOrders} />}
+      {orders && (
+        <OrdersTable
+          orders={orders}
+          setOrders={setOrders}
+          isLoadingActivated={false}
+        />
+      )}
     </div>
   ) : (
     <h2>No hay órdenes aún :(</h2>

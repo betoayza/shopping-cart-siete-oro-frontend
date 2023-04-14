@@ -17,6 +17,7 @@ export const SearchingBarOrders = ({
 
       if (result instanceof Error) setIsError(true);
       else {
+        console.log(result);
         setOrders(result);
         setModal(true);
         setModalSearchOrder(true);
@@ -36,6 +37,13 @@ export const SearchingBarOrders = ({
     setTerm(e.target.value);
   };
 
+  const handleClose = () => {
+    setModal(false);
+    setModalSearchOrder(false);
+    setOrders([]);
+    setTerm("");
+  };
+
   return isError ? (
     <h3 className="text-center">Error en la conexión :(</h3>
   ) : (
@@ -52,12 +60,18 @@ export const SearchingBarOrders = ({
 
       {orders.length
         ? term !== "" && (
-            <OrdersTable
-              orders={orders}
-              setOrders={setOrders}
-              showSearchingBar={false}
-              isModalStyle={true}
-            />
+            <div className="text-center">
+              <OrdersTable
+                orders={orders}
+                setOrders={setOrders}
+                showSearchingBar={false}
+                isModalStyle={true}
+                isLoadingActivated={false}
+              />
+              <button className={"btn btn-danger w-10"} onClick={handleClose}>
+                Cerrar
+              </button>
+            </div>
           )
         : null}
     </div>

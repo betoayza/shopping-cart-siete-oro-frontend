@@ -13,6 +13,7 @@ export const OrdersTable = ({
   setOrders,
   showSearchingBar = true,
   isModalStyle = false,
+  isLoadingActivated = true,
 }) => {
   const [orderProducts, setOrderProducts] = useState([]);
   const [term, setTerm] = useState("");
@@ -22,7 +23,7 @@ export const OrdersTable = ({
   const [modalSearchUser, setModalSearchUser] = useState(false);
   const [modalIsStateChanged, setModalIsStateChanged] = useState(false);
   const [userCode, setUserCode] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(isLoadingActivated);
   const [isError, setIsError] = useState(false);
 
   if (!Array.isArray(orders)) {
@@ -143,6 +144,8 @@ export const OrdersTable = ({
         </div>
       )}
     </Modal>
+  ) : isLoading ? (
+    <Loader />
   ) : (
     <div className={"d-grid align-content-center vw-100 h-auto"}>
       {showSearchingBar && (
