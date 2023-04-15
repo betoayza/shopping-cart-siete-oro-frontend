@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Loader } from "../pure/Loader";
+import React from "react";
 import { ProductCard } from "./ProductCard";
 
 export const ProductsTableUsers = ({
@@ -8,20 +7,8 @@ export const ProductsTableUsers = ({
   showButton = true,
   username,
 }) => {
-  const [loader, setLoader] = useState(true);
 
-  if (!Array.isArray(products)) {
-    products = [products];
-  }
-
-  useEffect(() => {
-    if (products) setLoader(false);
-  }, [loader, products]);
-
-  return loader ? (
-    <Loader />
-  ) : products.length &&
-    products.filter((product) => {
+  return products.filter((product) => {
       return product.stock > 0;
     }).length ? (
     <div className={"col w-100"}>
@@ -32,7 +19,7 @@ export const ProductsTableUsers = ({
             product.stock > 0 && (
               <div className={"col col-md-auto"}>
                 <ProductCard
-                  key={index}
+                  key={product.code}
                   index={index}
                   product={product}
                   userCode={userCode}
@@ -45,7 +32,5 @@ export const ProductsTableUsers = ({
         })}
       </div>
     </div>
-  ) : (
-    <h2>Sin resultados :(</h2>
-  );
+  ) : null;
 };

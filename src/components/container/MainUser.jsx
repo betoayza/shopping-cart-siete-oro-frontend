@@ -4,9 +4,10 @@ import { useParams } from "react-router-dom";
 import { Modal } from "../pure/Modal";
 import { ProductsTableUsers } from "./ProductsTableUsers";
 import { NavBarUser } from "./NavBarUser";
-import axios from "axios";
 import logo from "../../img/logo-siete-oro.png";
 import AllProductsUser from "../../pages/products/AllProductsUser";
+import { helpAxios } from "../../helpers/helpAxios";
+import { Loader } from "../pure/Loader";
 
 const MainUser = () => {
   const [modal, setModal] = useState(false);
@@ -14,40 +15,30 @@ const MainUser = () => {
   const [products, setProducts] = useState([]);
   const [term, setTerm] = useState("");
   const [shoppingCart, setShoppingCart] = useState({ products: [] });
-
+  const [isLoading, setIsLoading] = useState(true);
   const { code, username } = useParams();
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    let userCode = code;
+    const userCode = code;
 
     const getShoppingCart = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/user/shopping-cart`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 2999,
-        params: { userCode },
-      };
+      const userShoppingCart = await helpAxios().getShoppingCart(userCode);
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) setShoppingCart(res.data);
-          else setShoppingCart({ products: [] });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      if (userShoppingCart instanceof Error) setIsError(true);
+      else setShoppingCart(userShoppingCart);
+
+      setIsLoading(false);
     };
-    getShoppingCart();
-  }, [shoppingCart]);
 
-  return modal ? (
+    getShoppingCart();
+  }, []);
+
+  return isLoading ? (
+    <Loader />
+  ) : isError ? (
+    <h3>Error en la conexión :(</h3>
+  ) : modal ? (
     <Modal>
       {modalSearchProducts && (
         <div className={"vh-100 searching-bar-div"}>
@@ -80,7 +71,7 @@ const MainUser = () => {
       <div className={"col"}>
         <NavBarUser
           code={code}
-          counterCart={shoppingCart.products.length}
+          counterCart={shoppingCart.products?.length}
           username={username}
         />
         <h2 className={"fw-bold"} style={{ color: "#6610f2" }}>

@@ -1,44 +1,33 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { ProductsTableUsers } from "../../components/container/ProductsTableUsers";
 import { Loader } from "../../components/pure/Loader";
+import { helpAxios } from "../../helpers/helpAxios";
 
 const AllProductsUser = ({ code, username }) => {
-  const [products, setProducts] = useState(null);
-  const [loader, setLoader] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getAllProducts = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/products/all`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-      };
+      const allProducts = await helpAxios().getAllProducts();
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setProducts(res.data);
-            setLoader(false);
-          }
-        })
-        .catch((error) => error);
+      if (allProducts instanceof Error) setIsError(true);
+      else setProducts(allProducts);
+
+      setIsLoading(false);
     };
-    getAllProducts();
-  }, [products]);
 
-  return loader ? (
+    getAllProducts();
+  }, []);
+
+  return isLoading ? (
     <Loader />
+  ) : isError ? (
+    <h3 className="text-center">Error en la conexión :(</h3>
   ) : (
-    <div className={"h-auto vw-100"}>
-      {products ? (
+    <div className={"h-auto vw-100 text-center"}>
+      {products.length ? (
         <ProductsTableUsers
           products={products}
           setProducts={setProducts}
@@ -47,7 +36,7 @@ const AllProductsUser = ({ code, username }) => {
           username={username}
         />
       ) : (
-        <h2>No hay productos</h2>
+        <h2>No hay productos :(</h2>
       )}
     </div>
   );

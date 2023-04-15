@@ -25,17 +25,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(form);
-    const userType = helpAxios().login(form);
+    const user = await helpAxios().login(form);
 
-    if (userType instanceof Error) setIsError(true);
+    console.log(user);
+    if (user instanceof Error) setIsError(true);
     else {
       //case generic user
-      if (userType === "Estandar") {
-        const code = res.data.code;
-        const username = res.data.username;
-        navigate(`/user/${username}/${code}`);
-        //case admin
-      } else navigate("/admin");
+      if (user.type === "Estandar")
+        navigate(`/user/${user.username}/${user.code}`);
+      //case admin
+      else navigate("/admin");
     }
 
     handleClean();

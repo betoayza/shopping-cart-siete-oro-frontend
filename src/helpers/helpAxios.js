@@ -93,8 +93,9 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
-  // PRODUCTS
+  // PRODUCTS MANAGEMENT
   const getAllProducts = async () => {
+    // TO USERS TOO
     const url = `${import.meta.env.VITE_API}/products/all`;
     const options = {
       // headers: {
@@ -103,7 +104,7 @@ export const helpAxios = () => {
       //   "Access-Control-Allow-Headers": "*",
       //   Accept: "application/json",
       // },
-      timeout: 5000,
+      timeout: 3000,
     };
 
     return await axios
@@ -351,7 +352,7 @@ export const helpAxios = () => {
         else throw new Error(res.statusText);
       })
       .catch((error) => error);
-  };  
+  };
 
   //**************LOGIN & SIGNUP********
   const login = async (form) => {
@@ -370,9 +371,8 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        if (!res.ok) throw new Error(res.statusText);
-
-        return res.data.json();
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
       })
       .catch((error) => error);
   };
@@ -388,6 +388,30 @@ export const helpAxios = () => {
       //   Accept: "application/json",
       // },
       timeout: 3000,
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
+  // **************USERS*************
+  const getShoppingCart = async (userCode) => {
+    const url = `${import.meta.env.VITE_API}/user/shopping-cart`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      params: { userCode },
     };
 
     return await axios
@@ -418,6 +442,7 @@ export const helpAxios = () => {
     getOrders,
     getProduct,
     getActiveProducts,
+    getShoppingCart,
     login,
   };
 };
