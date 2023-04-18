@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SearchingBar from "../pure/SearchingBar";
+import SearchingBar from "./SearchingBar";
 import { useParams } from "react-router-dom";
 import { Modal } from "../pure/Modal";
 import { ProductsTableUsers } from "./ProductsTableUsers";
@@ -41,7 +41,7 @@ const MainUser = () => {
   ) : modal ? (
     <Modal>
       {modalSearchProducts && (
-        <div className={"vh-100 searching-bar-div"}>
+        <div className={"vh-100 searching-bar-div text-center"}>
           <div className={""}>
             <SearchingBar
               term={term}
@@ -51,15 +51,19 @@ const MainUser = () => {
               setModalSearchProducts={setModalSearchProducts}
             />
           </div>
-          <div className={""}>
-            <ProductsTableUsers
-              products={products}
-              setProducts={setProducts}
-              userCode={code}
-              showButton={true}
-              username={username}
-            />
-          </div>
+          {products.length ? (
+            <div className={""}>
+              <ProductsTableUsers
+                products={products}
+                setProducts={setProducts}
+                userCode={code}
+                showButton={true}
+                username={username}
+              />
+            </div>
+          ) : (
+            <h3>No hay productos :(</h3>
+          )}
         </div>
       )}
     </Modal>

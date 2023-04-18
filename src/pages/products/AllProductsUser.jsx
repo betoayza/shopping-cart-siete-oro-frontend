@@ -11,6 +11,7 @@ const AllProductsUser = ({ code, username }) => {
   useEffect(() => {
     const getAllProducts = async () => {
       const allProducts = await helpAxios().getAllProducts();
+      console.log(allProducts)
 
       if (allProducts instanceof Error) setIsError(true);
       else setProducts(allProducts);

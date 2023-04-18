@@ -20,7 +20,7 @@ import { SearchUser } from "../components/container/SearchUser";
 import { UserCard } from "../components/pure/UserCard";
 import DeleteUser from "../components/container/DeleteUser";
 
-import SearchingBar from "../components/pure/SearchingBar";
+import SearchingBar from "../components/container/SearchingBar";
 
 import UserProfile from "../components/container/UserProfile";
 import Login from "../components/pure/Login";

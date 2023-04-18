@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Modal } from "../pure/Modal";
 import { NavBarUser } from "./NavBarUser";
+import { helpAxios } from "../../helpers/helpAxios";
 
 const initialForm = {
   name: "",
@@ -18,73 +18,34 @@ const initialForm = {
 
 const UserProfile = () => {
   const [form, setForm] = useState(initialForm);
-  const [updated, setUpdated] = useState(false);
   const [modal, setModal] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const params = useParams();
-  console.log(params);
+  // console.log(params);
   const { code, username } = params;
-  console.log(code);
+  // console.log(code);
 
   useEffect(() => {
-    const getUser = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/admin/users/search/one`,
+    const getUserProfile = async () => {
+      const userProfile = await helpAxios().getUserProfile(code);
+      console.log(userProfile);
 
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        params: { code },
-      };
-
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setForm(res.data);
-          }
-        })
-        .catch((error) => error);
+      if (userProfile instanceof Error) setIsError(true);
+      else setForm(userProfile);
     };
-    getUser();
-  }, [updated]);
+
+    getUserProfile();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const options = {
-      url: `${import.meta.env.VITE_API}/user/profile/modify`,
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      data: form,
-    };
+    const isOk = await helpAxios().modifyProfile(form);
+    console.log(isOk);
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        setModal(true);
-
-        if (res.data) {
-          setUpdated(true);
-        } else {
-          setUpdated(false);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (isOk instanceof Error) setIsError(true);
+    setModal(true);
   };
 
   const handleChange = (e) => {
@@ -93,13 +54,13 @@ const UserProfile = () => {
 
   const handleClose = () => {
     setModal(false);
-    setUpdated(false);
+    setIsError(false);
   };
 
   return modal ? (
     <Modal>
       <div>
-        {updated ? <h3>Actualizado!</h3> : <h3>Ocurrio un error</h3>}
+        {isError ? <h3>Error de conexión :(</h3> : <h3>Actualizado!</h3>}
         <button className="btn btn-danger" onClick={handleClose}>
           Cerrar
         </button>

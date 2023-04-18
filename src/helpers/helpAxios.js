@@ -424,6 +424,77 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
+  const getProductsUser = async (term) => {
+    const url = `${import.meta.env.VITE_API}/products/get`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      params: { term },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
+  const getUserProfile = async (code) => {
+    const url = `${import.meta.env.VITE_API}/admin/users/search/one`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      params: { code },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
+  const modifyProfile = async (form) => {
+    const url = `${import.meta.env.VITE_API}/user/profile/modify`;
+    const options = {
+      method: "PUT",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: form,
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
   // RETURN ALL FUNCTIONS
   return {
     getAllUsers,
@@ -443,6 +514,9 @@ export const helpAxios = () => {
     getProduct,
     getActiveProducts,
     getShoppingCart,
+    getProductsUser,
+    getUserProfile,
+    modifyProfile,
     login,
   };
 };
