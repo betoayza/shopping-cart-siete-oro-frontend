@@ -1,7 +1,7 @@
 import MainAdmin from "../components/pure/MainAdmin";
 import MainUser from "../components/container/MainUser";
 import Home from "../pages/home/Home";
-import ShoppingCart from "../components/container/ShoppingCart";
+import ShoppingCart from "../../src/pages/users/ShoppingCart";
 
 import { AllOrders } from "../pages/orders/AllOrders";
 import { OrderByCode } from "../components/container/OrderByCode";

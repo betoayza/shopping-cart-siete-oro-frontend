@@ -156,14 +156,8 @@ export const helpAxios = () => {
       .request(url, options)
       .then((res) => {
         console.log(res);
-        if (!res.ok) throw new Error(res.statusText);
-
-        console.log(res.json());
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        // return data
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
       })
       .catch((error) => error);
   };
@@ -494,6 +488,8 @@ export const helpAxios = () => {
       })
       .catch((error) => error);
   };
+
+  
 
   // RETURN ALL FUNCTIONS
   return {

@@ -42,7 +42,6 @@ const UserProfile = () => {
     e.preventDefault();
 
     const isOk = await helpAxios().modifyProfile(form);
-    console.log(isOk);
 
     if (isOk instanceof Error) setIsError(true);
     setModal(true);
