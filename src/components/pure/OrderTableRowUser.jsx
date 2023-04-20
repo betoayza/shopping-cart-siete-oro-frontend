@@ -3,11 +3,8 @@ import React from "react";
 export const OrderTableRowUser = ({
   order,
   handleCancelOrder,
-  handleGetItemsList,
-}) => {
-  {
-    console.log(order.products);
-  }
+  handleGetOrderItems,
+}) => {  
 
   return (
     <tr>
@@ -15,7 +12,7 @@ export const OrderTableRowUser = ({
       <td>
         <button
           className="btn btn-dark"
-          onClick={(e) => handleGetItemsList(order.products)}
+          onClick={(e) => handleGetOrderItems(order.products)}
         >
           <i
             className="bi-eye-fill"

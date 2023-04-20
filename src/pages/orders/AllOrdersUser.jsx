@@ -1,57 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { OrdersTableUser } from "../../components/container/OrdersTableUser";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "../../components/container/NavBarUser";
 import { Loader } from "../../components/pure/Loader";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const AllOrdersUser = () => {
   const [orders, setOrders] = useState([]);
-  const [loader, setLoader] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const params = useParams();
   const { code, username } = params;
 
   useEffect(() => {
-    const getAllOrders = async () => {
-      const userCode = code;
-      const options = {
-        url: `${import.meta.env.VITE_API}/user/orders/all`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        params: { userCode },
-        timeout: 3001,
-      };
+    const getAllUserOrders = async () => {
+      const allOrders = await helpAxios().getAllUserOrders(code);
+      console.log(allOrders);
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setOrders(res.data);
-            setLoader(false);
-          } else {
-            setOrders([]);
-            setLoader(true);
-          }
-        })
-        .catch((error) => error);
+      if (allOrders instanceof Error) setIsError(true);
+      else {
+        setOrders(allOrders);
+        setIsLoading(false);
+      }
+      setIsLoading(false);
     };
-    getAllOrders();
-  }, [orders]);
 
-  return loader ? (
+    getAllUserOrders();
+  }, []);
+
+  return isLoading ? (
     <Loader />
+  ) : isError ? (
+    <h2>Error en la conexión :(</h2>
   ) : (
-    <div
-      className={"h-auto"}
-      // style={{minHeight: "100vh"}}
-    >
-      {console.log(code)}
+    <div className="">
       <NavBarUser code={code} counterCart={0} username={username} />
       <h1>Mis pedidos</h1>
       {orders.length ? (
@@ -65,7 +48,7 @@ export const AllOrdersUser = () => {
         </div>
       ) : (
         <div className={"d-grid align-items-center"} style={{ height: "88%" }}>
-          <h3 style={{ color: "red" }}>No hay pedidos</h3>
+          <h3 style={{ color: "maroon" }}>No hay pedidos</h3>
         </div>
       )}
     </div>

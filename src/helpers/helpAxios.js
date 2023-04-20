@@ -489,7 +489,51 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
-  
+  const getAllUserOrders = async (userCode) => {
+    const url = `${import.meta.env.VITE_API}/user/orders/all`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      params: { userCode },
+      timeout: 3001,
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
+  const getOrderItems = async (orderItems) => {
+    const url = `${import.meta.env.VITE_API}/user/orders/items/list`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      params: { orderItems },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
 
   // RETURN ALL FUNCTIONS
   return {
@@ -510,6 +554,8 @@ export const helpAxios = () => {
     getProduct,
     getActiveProducts,
     getShoppingCart,
+    getAllUserOrders,
+    getOrderItems,
     getProductsUser,
     getUserProfile,
     modifyProfile,
