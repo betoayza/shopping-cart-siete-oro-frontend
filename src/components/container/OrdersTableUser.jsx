@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { OrderTableRowUser } from "../pure/OrderTableRowUser";
 import { Modal } from "../pure/Modal";
 import { OrderItemsTableUser } from "./OrderItemsTableUser";
-import axios from "axios";
 import { helpAxios } from "../../helpers/helpAxios";
 
 export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
@@ -47,30 +46,20 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
   };
 
   const handleCancelOrder = async (orderCode, orderItemsData) => {
-    let code = orderCode;
-    console.log(userCode, "|", code);
+    
+    const result = await helpAxios().cancelOrder(
+      orderCode,
+      userCode,
+      orderItemsData
+    );
 
-    const options = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Access-Control-Allow-Origin": "*",
-      //     "Access-Control-Allow-Headers": "*",
-      //     Accept: "application/json",
-      //   },
-      timeout: 3000,
-      data: { code, userCode, orderItemsData },
-    };
+    if (result instanceof Error) setIsError(true);
+    else {
+      setModal(true);
+      setIsOrderCanceled(true);
+    }
 
-    await axios
-      .delete(`${import.meta.env.VITE_API}/user/orders/delete`, options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          setModal(true);
-          setIsOrderCanceled(true);
-        }
-      })
-      .catch((error) => error);
+    setIsLoading(false);
   };
 
   return modal ? (
@@ -80,21 +69,36 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
       ) : isError ? (
         <h2>Error en la conexión :(</h2>
       ) : (
-        isModalSeeItems &&
-        items && (
-          <div
-            className={"vh-100 vw-100"}
-            style={{ display: "grid", placeItems: "center" }}
-          >
-            <div className={""}>
-              <OrderItemsTableUser
-                products={items}
-                userCode={userCode}
-                showButton={false}
-                username={username}
-              />
+        <div>
+          {isModalSeeItems && items && (
+            <div
+              className={"vh-100 vw-100"}
+              style={{ display: "grid", placeItems: "center" }}
+            >
+              <div className={""}>
+                <OrderItemsTableUser
+                  products={items}
+                  userCode={userCode}
+                  showButton={false}
+                  username={username}
+                />
 
-              <div className="mt-2">
+                <div className="mt-2">
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleClose()}
+                  >
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {isOrderCanceled && (
+            <div className={"vh-100 vw-100 d-grid align-content-center"}>
+              <div className={"text-center"}>
+                <h3>Orden cancelada ;)</h3>
                 <button
                   className="btn btn-danger"
                   onClick={() => handleClose()}
@@ -103,17 +107,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
                 </button>
               </div>
             </div>
-          </div>
-        )
-      )}
-      {isOrderCanceled && (
-        <div className={"vh-100 vw-100 d-grid align-content-center"}>
-          <div className={"text-center"}>
-            <h3>Orden cancelada ;)</h3>
-            <button className="btn btn-danger" onClick={() => handleClose()}>
-              Cerrar
-            </button>
-          </div>
+          )}
         </div>
       )}
     </Modal>

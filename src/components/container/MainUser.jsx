@@ -62,7 +62,7 @@ const MainUser = () => {
               />
             </div>
           ) : (
-            <h3>No hay productos :(</h3>
+            <h2>No hay productos :(</h2>
           )}
         </div>
       )}

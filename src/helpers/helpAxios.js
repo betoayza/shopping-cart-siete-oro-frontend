@@ -535,6 +535,30 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
+  const cancelOrder = async (code, userCode, orderItemsData) => {
+    const url = `${import.meta.env.VITE_API}/user/orders/delete`;
+    const options = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Access-Control-Allow-Origin": "*",
+      //     "Access-Control-Allow-Headers": "*",
+      //     Accept: "application/json",
+      //   },
+      timeout: 3000,
+      data: { code, userCode, orderItemsData },
+    };
+
+    return await axios
+      .delete(url, options)
+      .then((res) => {
+        console.log(res);
+
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
   // RETURN ALL FUNCTIONS
   return {
     getAllUsers,
@@ -556,6 +580,7 @@ export const helpAxios = () => {
     getShoppingCart,
     getAllUserOrders,
     getOrderItems,
+    cancelOrder,
     getProductsUser,
     getUserProfile,
     modifyProfile,
