@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { NavBarUser } from "../../components/container/NavBarUser";
 import { Modal } from "../../components/pure/Modal";
 import { helpAxios } from "../../helpers/helpAxios";
@@ -17,8 +16,6 @@ export const Contact = () => {
   const [modal, setModal] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
-  let navigate = useNavigate();
   const { username, code } = useParams();
 
   const handleClean = () => {
