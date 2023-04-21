@@ -559,6 +559,30 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
+  const contactSupport = async () => {
+
+    const url = `https://formsubmit.co/ajax/${import.meta.env.VITE_EMAIL_CODE}`;
+    const options = {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      timeout: 3000,
+      data: form,
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+        
+        if(res.status === 200) return true
+        else throw new Error(res.statusText)
+      })
+      .catch((error) => error);
+  }
+
   // RETURN ALL FUNCTIONS
   return {
     getAllUsers,
@@ -584,6 +608,7 @@ export const helpAxios = () => {
     getProductsUser,
     getUserProfile,
     modifyProfile,
+    contactSupport,
     login,
   };
 };

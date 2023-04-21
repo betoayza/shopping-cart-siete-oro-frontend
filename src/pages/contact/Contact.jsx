@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { NavBarUser } from "../../components/container/NavBarUser";
 import { Modal } from "../../components/pure/Modal";
-import axios from "axios";
+import { helpAxios } from "../../helpers/helpAxios";
+import { Loader } from "../../components/pure/Loader";
 
 const initialForm = {
   name: "",
@@ -13,12 +14,12 @@ const initialForm = {
 
 export const Contact = () => {
   const [form, setForm] = useState(initialForm);
-  const [isSended, setIsSended] = useState(false);
   const [modal, setModal] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   let navigate = useNavigate();
   const { username, code } = useParams();
-  console.log(username, code);
 
   const handleClean = () => {
     setForm(initialForm);
@@ -31,27 +32,12 @@ export const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const options = {
-      url: `https://formsubmit.co/ajax/${import.meta.env.VITE_EMAIL_CODE}`,
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      data: form,
-    };
+    const result = await helpAxios().contactSupport();
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res);
-        setModal(true);
-        if (res.data) {
-          setIsSended(true);
-        }
-      })
-      .catch((error) => error);
+    if (result instanceof Error) setIsError(true);
+    else setModal(true);
+
+    setIsLoading(false);
     handleClean();
   };
 
@@ -60,25 +46,15 @@ export const Contact = () => {
     setIsSended(false);
   };
 
-  return isSended ? (
+  return modal ? (
     <Modal>
-      {isSended ? (
+      {isLoading ? (
+        <Loader />
+      ) : isError ? (
+        <h2>Error en la conexión :(</h2>
+      ) : (
         <div>
           <h3>Mensaje enviado ;)</h3>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={handleClose}
-          >
-            Cerrar
-          </button>
-        </div>
-      ) : (
-        <div
-          className={"text-center"}
-          style={{ display: "grid", placeItems: "center" }}
-        >
-          <h3>Hubo un error :(</h3>
           <button
             type="button"
             className="btn btn-danger"
@@ -150,7 +126,7 @@ export const Contact = () => {
         <div className={"d-flex m-1"}>
           <button type="submit" className="btn btn-primary">
             Enviar
-          </button>         
+          </button>
         </div>
       </form>
     </div>

@@ -12,10 +12,6 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  if (!Array.isArray(orders)) {
-    orders = [orders];
-  }
-
   const handleGetOrderItems = (orderItems) => {
     const getOrderItems = async () => {
       const itemsList = await helpAxios().getOrderItems(orderItems);
@@ -31,12 +27,7 @@ export const OrdersTableUser = ({ orders, setOrders, userCode, username }) => {
     };
 
     getOrderItems();
-  };
-
-  // const handleActivateOrder = (orderCode) => {
-  //   setIsOrderReActivated(true);
-  //   setOrderCode(orderCode);
-  // };
+  };  
 
   const handleClose = () => {
     setModal(false);
