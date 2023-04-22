@@ -13,7 +13,7 @@ const ShoppingCart = () => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const getShoppingCart = async () => {
+    const getShoppingCart = async (userCode) => {
       const userShoppingCart = await helpAxios().getShoppingCart(userCode);
       console.log(userShoppingCart);
 
@@ -23,8 +23,8 @@ const ShoppingCart = () => {
       setIsLoading(false);
     };
 
-    getShoppingCart();
-  }, []);
+    getShoppingCart(userCode);
+  }, [userCode]);
 
   return isLoading ? (
     <Loader />

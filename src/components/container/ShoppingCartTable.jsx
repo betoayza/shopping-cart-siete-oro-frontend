@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ShoppingCartTableRow } from "./ShoppingCartTableRow";
 import { useNavigate } from "react-router-dom";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const ShoppingCartTable = ({
   shoppingCart,
@@ -10,41 +11,23 @@ export const ShoppingCartTable = ({
 }) => {
   const [toBuy, setToBuy] = useState(1);
   const [itemIndex, setItemIndex] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   let navigate = useNavigate();
 
   useEffect(() => {
-    const updateToBuy = async () => {
-      console.log("Quantity: ", toBuy, " | Index: ", itemIndex);
+    const updateItemToBuyCounter = async (toBuy, itemIndex) => {
+      const shoppingCartUpdated = await helpAxios().changeItemToBuyCounter(
+        userCode,
+        toBuy,
+        itemIndex
+      );
 
-      const options = {
-        url: `${import.meta.env.VITE_API}/user/shopping-cart/update/toBuy`,
-        method: "put",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        data: { userCode, toBuy, itemIndex },
-      };
-
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res);
-          if (res.data) {
-            //alert("ToBuy actualizado");
-            setShoppingCart(res.data);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      if (shoppingCartUpdated instanceof Error) setIsError(true);
+      else setShoppingCart(shoppingCartUpdated);
     };
 
-    updateToBuy();
+    updateItemToBuyCounter(toBuy, itemIndex);
   }, [toBuy, itemIndex]);
 
   const handleUpdateToBuy = (quantity, index) => {
@@ -57,13 +40,13 @@ export const ShoppingCartTable = ({
     const getShoppingCart = async () => {
       const options = {
         url: `${import.meta.env.VITE_API}/user/shopping-cart`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3002,
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   "Access-Control-Allow-Origin": "*",
+        //   "Access-Control-Allow-Headers": "*",
+        //   Accept: "application/json",
+        // },
+        timeout: 3000,
         params: { userCode },
       };
 
@@ -91,13 +74,13 @@ export const ShoppingCartTable = ({
               const doPayment = async () => {
                 const options = {
                   url: `${import.meta.env.VITE_API}/payment`,
-                  method: "post",
-                  headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Headers": "*",
-                    Accept: "application/json",
-                  },
+                  method: "POST",
+                  // headers: {
+                  //   "Content-Type": "application/json",
+                  //   "Access-Control-Allow-Origin": "*",
+                  //   "Access-Control-Allow-Headers": "*",
+                  //   Accept: "application/json",
+                  // },
                   timeout: 3000,
                   data: { items, userCode },
                 };
@@ -122,6 +105,7 @@ export const ShoppingCartTable = ({
           console.error(error);
         });
     };
+
     getShoppingCart();
   };
 
@@ -173,7 +157,9 @@ export const ShoppingCartTable = ({
       .catch((error) => error);
   };
 
-  return (
+  return isError ? (
+    <h2>Error en la conexión :(</h2>
+  ) : (
     shoppingCart && (
       <div className={"w-100 d-flex justify-content-center"}>
         <div
@@ -223,6 +209,5 @@ export const ShoppingCartTable = ({
         </div>
       </div>
     )
-  );
-  // );
+  ); 
 };

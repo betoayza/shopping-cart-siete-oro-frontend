@@ -560,7 +560,6 @@ export const helpAxios = () => {
   };
 
   const contactSupport = async () => {
-
     const url = `https://formsubmit.co/ajax/${import.meta.env.VITE_EMAIL_CODE}`;
     const options = {
       method: "post",
@@ -576,12 +575,39 @@ export const helpAxios = () => {
       .request(url, options)
       .then((res) => {
         console.log(res);
-        
-        if(res.status === 200) return true
-        else throw new Error(res.statusText)
+
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
       })
       .catch((error) => error);
-  }
+  };
+
+  const changeItemToBuyCounter = async (userCode, toBuy, itemIndex) => {
+    console.log("Quantity: ", toBuy, " | Index: ", itemIndex);
+
+    const url = `${import.meta.env.VITE_API}/user/shopping-cart/update/toBuy`;
+    const options = {
+      method: "PUT",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { userCode, toBuy, itemIndex },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
 
   // RETURN ALL FUNCTIONS
   return {
@@ -609,6 +635,7 @@ export const helpAxios = () => {
     getUserProfile,
     modifyProfile,
     contactSupport,
+    changeItemToBuyCounter,
     login,
   };
 };
