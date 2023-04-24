@@ -3,6 +3,8 @@ import { NavBarUser } from "../../components/container/NavBarUser";
 import { Modal } from "../../components/pure/Modal";
 import { helpAxios } from "../../helpers/helpAxios";
 import { Loader } from "../../components/pure/Loader";
+import { useParams } from "react-router-dom";
+
 
 const initialForm = {
   name: "",
@@ -29,7 +31,7 @@ export const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const result = await helpAxios().contactSupport();
+    const result = await helpAxios().contactSupport(form);
 
     if (result instanceof Error) setIsError(true);
     else setModal(true);
@@ -40,7 +42,6 @@ export const Contact = () => {
 
   const handleClose = () => {
     setModal(false);
-    setIsSended(false);
   };
 
   return modal ? (

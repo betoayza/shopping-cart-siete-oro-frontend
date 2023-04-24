@@ -559,7 +559,7 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
-  const contactSupport = async () => {
+  const contactSupport = async (form) => {
     const url = `https://formsubmit.co/ajax/${import.meta.env.VITE_EMAIL_CODE}`;
     const options = {
       method: "post",
