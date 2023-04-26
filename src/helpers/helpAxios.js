@@ -582,6 +582,7 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
+  // Pendiente
   const changeItemToBuyCounter = async (userCode, toBuy, itemIndex) => {
     console.log("Quantity: ", toBuy, " | Index: ", itemIndex);
 
@@ -608,6 +609,56 @@ export const helpAxios = () => {
       })
       .catch((error) => error);
   };
+
+  const cleanShoppingCart = async (userCode) => {
+    const url = `${import.meta.env.VITE_API}/user/shopping-cart/delete/all`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { userCode },
+    };
+
+    return await axios
+      .delete(
+        url,
+        options
+      )
+      .then((res) => {
+        console.log(res);
+        if(res.status === 200) return res.data;
+        else throw new Error(res.statusText)
+      })
+      .catch((error) => error);
+  }
+
+  const removeItem = async (prodCode, userCode, index) => {
+    const url = `${import.meta.env.VITE_API}/user/shopping-cart/delete`
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { prodCode, userCode, index },
+    };
+
+    return await axios
+      .delete(url, options)
+      .then((res) => {
+        console.log(res);
+
+        if(res.status === 200) return res.data
+        else throw new Error(res.statusText)
+      })
+      .catch((error) => error);
+  }
 
   // RETURN ALL FUNCTIONS
   return {
@@ -636,6 +687,8 @@ export const helpAxios = () => {
     modifyProfile,
     contactSupport,
     changeItemToBuyCounter,
+    cleanShoppingCart,
+    removeItem,
     login,
   };
 };
