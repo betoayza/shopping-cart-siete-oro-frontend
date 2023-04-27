@@ -10,34 +10,39 @@ export const ShoppingCartTable = ({
   setShoppingCart,
   userCode,
 }) => {
-  const [toBuy, setToBuy] = useState(1);
+  const [itemCounter, setItemCounter] = useState(null);
   const [itemIndex, setItemIndex] = useState(null);
   const [isError, setIsError] = useState(false);
   const [isModalActivated, setIsModalActivated] = useState(false);
 
   let navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const updateItemToBuyCounter = async (toBuy, itemIndex) => {
-  //     const shoppingCartUpdated = await helpAxios().changeItemToBuyCounter(
-  //       userCode,
-  //       toBuy,
-  //       itemIndex
-  //     );
+  // se ejecuta cada vez que se modifica el contador de items
+  useEffect(() => {
+    const updateItemCounter = async (userCode, counter, index) => {
+      const shoppingCartUpdated = await helpAxios().updateItemCounter(
+        userCode,
+        counter,
+        index
+      );
 
-  //     if (shoppingCartUpdated instanceof Error) setIsError(true);
-  //     else setShoppingCart(shoppingCartUpdated);
-  //   };
+      console.log(shoppingCartUpdated);
 
-  //   updateItemToBuyCounter(toBuy, itemIndex);
-  // }, [toBuy, itemIndex]);
+      if (shoppingCartUpdated instanceof Error) setIsError(true);
+      else setShoppingCart(shoppingCartUpdated);
+    };
+
+    console.log(itemCounter, itemIndex)
+    if (itemCounter!==null && itemIndex!==null)
+      updateItemCounter(userCode, itemCounter, itemIndex);
+  }, [itemCounter, itemIndex]);
 
   const handleClose = () => {
     setIsModalActivated(false);
   };
 
-  const handleUpdateToBuy = (quantity, index) => {
-    setToBuy(quantity);
+  const handleUpdateItemCounter = (itemCounter, index) => {
+    setItemCounter(itemCounter);
     setItemIndex(index);
   };
 
@@ -116,16 +121,22 @@ export const ShoppingCartTable = ({
   };
 
   const removeItem = async (prodCode, userCode, index) => {
-    const shoppingCartUpdated = await helpAxios().removeItem(prodCode, userCode, index)
-        if (shoppingCartUpdated instanceof Error) setIsError(true)
-        else setShoppingCart(shoppingCartUpdated);      
+    const shoppingCartUpdated = await helpAxios().removeItem(
+      prodCode,
+      userCode,
+      index
+    );
+
+    if (shoppingCartUpdated instanceof Error) setIsError(true);
+    else setShoppingCart(shoppingCartUpdated);
   };
 
   const removeAllItems = async () => {
     const shoppingCartEmpty = await helpAxios().cleanShoppingCart(userCode);
+
     if (shoppingCartEmpty instanceof Error) setIsError(true);
     else {
-      setIsModalActivated(true)
+      setIsModalActivated(true);
       setShoppingCart(shoppingCartEmpty);
     }
   };
@@ -161,12 +172,12 @@ export const ShoppingCartTable = ({
             {shoppingCart.products.map((product, index) => {
               return (
                 <ShoppingCartTableRow
-                  key={index}
+                  key={product.code}
                   product={product}
                   userCode={userCode}
                   removeItem={removeItem}
-                  index={index}
-                  handleUpdateToBuy={handleUpdateToBuy}
+                  itemIndex={index}
+                  handleUpdateItemCounter={handleUpdateItemCounter}
                 />
               );
             })}

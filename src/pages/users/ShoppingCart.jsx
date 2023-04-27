@@ -8,9 +8,9 @@ import { helpAxios } from "../../helpers/helpAxios";
 const ShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
   const params = useParams();
   const { userCode, username } = params; //userCode = shoppingCart.code
-  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getShoppingCart = async (userCode) => {
@@ -23,7 +23,7 @@ const ShoppingCart = () => {
       setIsLoading(false);
     };
 
-    getShoppingCart(userCode);
+    userCode && getShoppingCart(userCode);
   }, [userCode]);
 
   return isLoading ? (
@@ -34,7 +34,7 @@ const ShoppingCart = () => {
     <div className={"h-100 w-100"}>
       <NavBarUser
         code={userCode}
-        counterCart={shoppingCart.products.length}
+        counterCart={shoppingCart.products.length || 0}
         username={username}
       />
 

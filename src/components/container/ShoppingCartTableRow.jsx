@@ -4,28 +4,19 @@ export const ShoppingCartTableRow = ({
   product,
   userCode,
   removeItem,
-  index,
-  handleUpdateToBuy,
+  itemIndex,
+  handleUpdateItemCounter,
 }) => {
-  const [toBuy, setToBuy] = useState(product.toBuy);
+  const [itemCounter, setItemCounter] = useState(product.toBuy);
 
+  // maneja la asincronicidad del useState
   useEffect(() => {
-    handleUpdateToBuy(toBuy, index);
-  }, [toBuy]);
+    handleUpdateItemCounter(itemCounter, itemIndex);
+  }, [itemCounter]);
 
-  //console.log(product.image.data);
-
-  // const toBase64 = (arr) => {
-  //   //arr = new Uint8Array(arr) if it's an ArrayBuffer
-  //   return btoa(
-  //     arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
-  //   );
-  // };
-
-  const handleChangeToBuy = (e) => {
-    if (e.target.value === "") setToBuy(1);
-    else setToBuy(parseInt(e.target.value));
-    handleUpdateToBuy(toBuy, index);
+  const handleChangeItemCounter = (e) => {
+    if (e.target.value === "") setItemCounter(1);
+    else setItemCounter(parseInt(e.target.value));
   };
 
   return (
@@ -41,8 +32,8 @@ export const ShoppingCartTableRow = ({
             style={{ width: "100px" }}
             max={product.stock}
             min={1}
-            value={toBuy}
-            onChange={handleChangeToBuy}
+            value={itemCounter}
+            onChange={handleChangeItemCounter}
             required
           />
         </div>
