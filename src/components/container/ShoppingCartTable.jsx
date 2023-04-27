@@ -16,8 +16,7 @@ export const ShoppingCartTable = ({
   const [isModalActivated, setIsModalActivated] = useState(false);
 
   let navigate = useNavigate();
-
-  // se ejecuta cada vez que se modifica el contador de items
+  
   useEffect(() => {
     const updateItemCounter = async (userCode, counter, index) => {
       const shoppingCartUpdated = await helpAxios().updateItemCounter(
@@ -26,13 +25,10 @@ export const ShoppingCartTable = ({
         index
       );
 
-      console.log(shoppingCartUpdated);
-
       if (shoppingCartUpdated instanceof Error) setIsError(true);
       else setShoppingCart(shoppingCartUpdated);
     };
 
-    console.log(itemCounter, itemIndex)
     if (itemCounter!==null && itemIndex!==null)
       updateItemCounter(userCode, itemCounter, itemIndex);
   }, [itemCounter, itemIndex]);

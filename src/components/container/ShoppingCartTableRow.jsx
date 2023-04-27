@@ -9,7 +9,7 @@ export const ShoppingCartTableRow = ({
 }) => {
   const [itemCounter, setItemCounter] = useState(product.toBuy);
 
-  // maneja la asincronicidad del useState
+  // manejar la asincronicidad del useState
   useEffect(() => {
     handleUpdateItemCounter(itemCounter, itemIndex);
   }, [itemCounter]);

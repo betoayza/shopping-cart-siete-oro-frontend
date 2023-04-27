@@ -411,8 +411,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
-        
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -583,19 +581,16 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
-  // Pendiente
   const updateItemCounter = async (userCode, toBuy, itemIndex) => {
-    // console.log("Quantity: ", toBuy, " | Index: ", itemIndex);
-
     const url = `${import.meta.env.VITE_API}/user/shopping-cart/update/toBuy`;
     const options = {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 3000,
       data: { userCode, toBuy, itemIndex },
     };
@@ -603,10 +598,7 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
-
         if (res.status === 200) {
-          console.log("Contador de item actualizado");
           return res.data;
         } else throw new Error(res.statusText);
       })
