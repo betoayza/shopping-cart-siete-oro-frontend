@@ -11,10 +11,14 @@ const AllProductsUser = ({ code, username }) => {
   useEffect(() => {
     const getAllProducts = async () => {
       const allProducts = await helpAxios().getAllProducts();
-      console.log(allProducts)
 
       if (allProducts instanceof Error) setIsError(true);
-      else setProducts(allProducts);
+      else {
+        const productsWithValidStock = allProducts.filter(
+          (product) => product.stock > 0
+        );
+        setProducts(productsWithValidStock);
+      }
 
       setIsLoading(false);
     };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { helpAxios } from "../../helpers/helpAxios";
-import { Modal } from "./Modal";
+import { helpAxios } from "../../../helpers/helpAxios";
+import { Modal } from "../Modal";
 
 const initialForm = {
   data: "",
@@ -24,10 +24,8 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
     const user = await helpAxios().login(form);
 
-    console.log(user);
     if (user instanceof Error) setIsError(true);
     else {
       //case generic user

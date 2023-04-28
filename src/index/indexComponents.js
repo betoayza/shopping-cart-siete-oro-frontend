@@ -23,8 +23,8 @@ import DeleteUser from "../components/container/DeleteUser";
 import SearchingBar from "../components/container/SearchingBar";
 
 import UserProfile from "../components/container/UserProfile";
-import Login from "../components/pure/Login";
-import SignUp from "../components/pure/SignUp";
+import Login from "../components/pure/forms/Login";
+import SignUp from "../components/pure/forms/SignUp";
 
 import { Contact } from "../pages/contact/Contact";
 

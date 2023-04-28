@@ -15,7 +15,6 @@ const ShoppingCart = () => {
   useEffect(() => {
     const getShoppingCart = async (userCode) => {
       const userShoppingCart = await helpAxios().getShoppingCart(userCode);
-      console.log(userShoppingCart);
 
       if (userShoppingCart instanceof Error) setIsError(true);
       else setShoppingCart(userShoppingCart);

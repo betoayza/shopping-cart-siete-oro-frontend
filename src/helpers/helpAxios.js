@@ -18,7 +18,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -41,7 +40,6 @@ export const helpAxios = () => {
     return await axios
       .delete(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return true;
         else throw new Error(res.statusText);
       })
@@ -51,7 +49,7 @@ export const helpAxios = () => {
   const activateUser = async (code) => {
     const url = `${import.meta.env.VITE_API}/admin/users/activate`;
     const options = {
-      method: "put",
+      method: "PUT",
       // headers: {
       //   "Content-Type": "application/json",
       //   "Access-Control-Allow-Origin": "*",
@@ -86,7 +84,6 @@ export const helpAxios = () => {
     return await axios
       .get(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -95,7 +92,7 @@ export const helpAxios = () => {
 
   // PRODUCTS MANAGEMENT
   const getAllProducts = async () => {
-    // TO USERS TOO
+    // USED FOR USERS TOO
     const url = `${import.meta.env.VITE_API}/products/all`;
     const options = {
       // headers: {
@@ -110,7 +107,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -132,7 +128,6 @@ export const helpAxios = () => {
 
     return await axios(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -155,7 +150,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -178,9 +172,8 @@ export const helpAxios = () => {
 
     return await axios(url, options)
       .then((res) => {
-        if (!res.ok) throw new Error(res.statusText);
-
-        return true;
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
       })
       .catch((error) => error);
   };
@@ -222,7 +215,6 @@ export const helpAxios = () => {
     return await axios
       .delete(`${import.meta.env.VITE_API}/admin/products/delete`, options)
       .then((res) => {
-        console.log(res.data);
         if (res.status === 200) return true;
         else throw new Error(res.statusText);
       })
@@ -232,7 +224,7 @@ export const helpAxios = () => {
   const activateProduct = async (code) => {
     const url = `${import.meta.env.VITE_API}/admin/products/activate`;
     const options = {
-      method: "put",
+      method: "PUT",
       // headers: {
       //   "Content-Type": "application/json",
       //   "Access-Control-Allow-Origin": "*",
@@ -246,13 +238,10 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return true;
         else throw new Error(res.statusText);
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch((error) => error);      
   };
 
   // ORDERS MANAGEMENT
@@ -271,7 +260,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res.data);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -295,7 +283,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -318,7 +305,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new error(res.statusText);
       })
@@ -341,7 +327,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -387,7 +372,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -433,7 +417,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -456,7 +439,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -480,8 +462,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
-
         if (res.status === 200) return true;
         else throw new Error(res.statusText);
       })
@@ -504,7 +484,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -550,8 +529,6 @@ export const helpAxios = () => {
     return await axios
       .delete(url, options)
       .then((res) => {
-        console.log(res);
-
         if (res.status === 200) return true;
         else throw new Error(res.statusText);
       })
@@ -573,8 +550,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res);
-
         if (res.status === 200) return true;
         else throw new Error(res.statusText);
       })
@@ -621,7 +596,6 @@ export const helpAxios = () => {
     return await axios
       .delete(url, options)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -644,8 +618,6 @@ export const helpAxios = () => {
     return await axios
       .delete(url, options)
       .then((res) => {
-        console.log(res);
-
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })

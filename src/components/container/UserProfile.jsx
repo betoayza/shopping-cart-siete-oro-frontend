@@ -29,7 +29,6 @@ const UserProfile = () => {
   useEffect(() => {
     const getUserProfile = async () => {
       const userProfile = await helpAxios().getUserProfile(code);
-      console.log(userProfile);
 
       if (userProfile instanceof Error) setIsError(true);
       else setForm(userProfile);

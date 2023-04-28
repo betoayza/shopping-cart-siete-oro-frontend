@@ -1,47 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../img/logo-siete-oro.png";
-import axios from "axios";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const NavBarUser = ({ code, counterCart = 0, username }) => {
   const [itemsCounter, setItemsCounter] = useState(counterCart);
 
   useEffect(() => {
-    let userCode = code;
-
-    const getShoppingCart = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/user/shopping-cart`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        params: { userCode },
-      };
-
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) setItemsCounter(res.data.products.length);
-          else setItemsCounter(0);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    const userCode = code;
+    const getShoppingCart = async (userCode) => {
+      const shoppingCart = await helpAxios().getShoppingCart(userCode);
+      // if (shoppingCart instanceof Error) --> itemsCounter holds 0
+      if (shoppingCart) setItemsCounter(shoppingCart.products.length);
     };
-    getShoppingCart();
-  }, [counterCart]); //always running
+
+    getShoppingCart(userCode);
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <NavLink className="navbar-brand" href="#">
           <img src={logo} style={{ width: 50, height: 50 }} alt="Logo" />
-        </a>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -58,33 +39,33 @@ export const NavBarUser = ({ code, counterCart = 0, username }) => {
             <li className="nav-item">
               <NavLink to={`/user/${username}/${code}`}>
                 {({ isActive }) => (
-                  <a
+                  <p
                     className={isActive ? "nav-link active" : "nav-link active"}
                   >
                     <i
                       className="bi-house-door-fill"
                       style={{ color: "white", fontSize: "20px" }}
                     ></i>
-                  </a>
+                  </p>
                 )}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to={`/user/${username}/${code}/profile`}>
                 {({ isActive }) => (
-                  <a className={isActive ? "nav-link" : "nav-link"}>
+                  <p className={isActive ? "nav-link" : "nav-link"}>
                     <i
                       className="bi-person-circle"
                       style={{ color: "white", fontSize: "20px" }}
                     ></i>
-                  </a>
+                  </p>
                 )}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to={`/user/${username}/shopping-cart/${code}`}>
                 {({ isActive }) => (
-                  <a className={isActive ? "nav-link" : "nav-link"}>
+                  <p className={isActive ? "nav-link" : "nav-link"}>
                     <span className="position-relative">
                       <i
                         className="bi-cart-fill"
@@ -94,43 +75,43 @@ export const NavBarUser = ({ code, counterCart = 0, username }) => {
                         {itemsCounter}
                       </span>
                     </span>
-                  </a>
+                  </p>
                 )}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to={`/user/${username}/${code}/orders`}>
                 {({ isActive }) => (
-                  <a className={isActive ? "nav-link" : "nav-link"}>
+                  <p className={isActive ? "nav-link" : "nav-link"}>
                     <i
                       className="bi-box-seam-fill"
                       style={{ color: "white", fontSize: "20px" }}
                     ></i>
-                  </a>
+                  </p>
                 )}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to={`/contact/${username}/${code}`}>
                 {({ isActive }) => (
-                  <a className={isActive ? "nav-link" : "nav-link"}>
+                  <p className={isActive ? "nav-link" : "nav-link"}>
                     <i
                       className="bi-telephone-forward-fill"
                       style={{ color: "white", fontSize: "20px" }}
                     ></i>
-                  </a>
+                  </p>
                 )}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to={`/`}>
                 {({ isActive }) => (
-                  <a className={isActive ? "nav-link" : "nav-link"}>
+                  <p className={isActive ? "nav-link" : "nav-link"}>
                     <i
                       className="bi-box-arrow-right"
                       style={{ color: "white", fontSize: "20px" }}
                     ></i>
-                  </a>
+                  </p>
                 )}
               </NavLink>
             </li>

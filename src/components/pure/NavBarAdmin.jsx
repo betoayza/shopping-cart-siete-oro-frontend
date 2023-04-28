@@ -3,12 +3,16 @@ import { NavLink } from "react-router-dom";
 import logo from "../../img/logo-siete-oro.png";
 
 export const NavBarAdmin = () => {
+  const optionStyle = {
+    textDecoration: "none",
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <NavLink className="navbar-brand" href="#">
           <img src={logo} style={{ width: 50, height: 50 }} alt="Logo" />
-        </a>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -32,15 +36,21 @@ export const NavBarAdmin = () => {
             </li>
 
             <li className="nav-item">
-              <NavLink to="/admin/products/all">Productos</NavLink>
+              <NavLink to="/admin/products/all" style={optionStyle}>
+                Productos
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/admin/users/all">Usuarios</NavLink>
+              <NavLink to="/admin/users/all" style={optionStyle}>
+                Usuarios
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/admin/orders/all">Pedidos</NavLink>
+              <NavLink to="/admin/orders/all" style={optionStyle}>
+                Pedidos
+              </NavLink>
             </li>
 
             <li className="nav-item">

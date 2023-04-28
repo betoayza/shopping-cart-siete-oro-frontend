@@ -49,7 +49,7 @@ export const ShoppingCartTableRow = ({
       <td>
         <button
           className={"btn btn-danger"}
-          onClick={(e) => removeItem(product.code, userCode, index)}
+          onClick={(e) => removeItem(product.code, userCode, itemIndex)}
         >
           <i
             className="bi-trash-fill"
