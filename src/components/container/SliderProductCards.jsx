@@ -1,23 +1,29 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ProductCardNotUser } from "./ProductCardNotUser";
 import { helpAxios } from "../../helpers/helpAxios";
+import { Loader } from "../../components/pure/Loader";
 
 export const SliderProductCards = () => {
   const [products, setProducts] = useState([]);
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
-      const result = await helpAxios().getActiveProducts();
+      const activeProducts = await helpAxios().getActiveProducts();
 
-      if (result instanceof Error) setIsError(true);
-      else setProducts(result);
+      if (activeProducts instanceof Error) setIsError(true);
+      else setProducts(activeProducts);
+
+      setIsLoading(false);
     };
-    getProducts();
-  }, []);
 
-  return isError ? (
+    getProducts();
+  }, [products]);
+
+  return isLoading ? (
+    <Loader />
+  ) : isError ? (
     <h2 className="text-center">Error en la conexión :(</h2>
   ) : products.length ? (
     <div
@@ -58,6 +64,6 @@ export const SliderProductCards = () => {
       </button>
     </div>
   ) : (
-    <h5 className="text-center">No hay productos disponibles aún :(</h5>
+    <h3 className="text-center">No hay productos disponibles aún :(</h3>
   );
 };

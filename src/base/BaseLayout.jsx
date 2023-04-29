@@ -3,10 +3,7 @@ import { Outlet } from "react-router-dom";
 
 export const BaseLayout = () => {
   return (
-    <div className={"text-center"}>
-      {/* <header> */}
-      {/* Barra de navegación principal (ni usuario ni admin)*/}
-      {/* </header> */}
+    <div className={"text-center"}>    
       <main style={{ marginBottom: "60px" }}>
         <Outlet />
       </main>

@@ -241,7 +241,7 @@ export const helpAxios = () => {
         if (res.status === 200) return true;
         else throw new Error(res.statusText);
       })
-      .catch((error) => error);      
+      .catch((error) => error);
   };
 
   // ORDERS MANAGEMENT
@@ -372,6 +372,7 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
+        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })

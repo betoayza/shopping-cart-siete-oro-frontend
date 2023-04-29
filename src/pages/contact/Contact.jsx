@@ -3,8 +3,7 @@ import { NavBarUser } from "../../components/container/NavBarUser";
 import { Modal } from "../../components/pure/Modal";
 import { helpAxios } from "../../helpers/helpAxios";
 import { Loader } from "../../components/pure/Loader";
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 
 const initialForm = {
   name: "",
@@ -19,6 +18,9 @@ export const Contact = () => {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { username, code } = useParams();
+  const navigate = useNavigate();
+
+  console.log(username, code);
 
   const handleClean = () => {
     setForm(initialForm);
@@ -125,6 +127,15 @@ export const Contact = () => {
           <button type="submit" className="btn btn-primary">
             Enviar
           </button>
+          {username === "0" && code === "0" && (
+            <button
+              type="submit"
+              className="btn btn-dark"
+              onClick={() => navigate(-1)}
+            >
+              Volver
+            </button>
+          )}
         </div>
       </form>
     </div>
