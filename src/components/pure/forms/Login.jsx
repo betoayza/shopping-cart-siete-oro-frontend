@@ -30,7 +30,7 @@ const Login = () => {
     if (user instanceof Error) setIsError(true);
     else {
       if (!user) setIsModalActivated(true); // not found user
-      else {        
+      else {
         if (user.type === "Estandar")
           navigate(`/user/${user.username}/${user.code}`);
         else navigate("/admin");
@@ -42,7 +42,7 @@ const Login = () => {
 
   const handleClose = () => {
     setIsError(false);
-    setIsModalActivated(false)
+    setIsModalActivated(false);
   };
 
   return isModalActivated ? (
@@ -92,6 +92,13 @@ const Login = () => {
             <div className={"d-flex m-1"}>
               <button type="submit" className="btn btn-primary">
                 Entrar
+              </button>
+              <button
+                type="button"
+                className="btn btn-dark"
+                onClick={() => navigate(-1)}
+              >
+                Volver
               </button>
             </div>
           </form>
