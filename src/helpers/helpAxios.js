@@ -356,6 +356,32 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
+  const signup = async (form) => {
+    const url = `${import.meta.env.VITE_API}/signup`;
+    const options = {
+      method: "POST",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: form,
+    };
+    console.log(form);
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+
+        if (res.status === 200) return res.data;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
   //*******************NON USER*******
   const getActiveProducts = async () => {
     const url = `${import.meta.env.VITE_API}/products/active/all`;
@@ -655,5 +681,6 @@ export const helpAxios = () => {
     cleanShoppingCart,
     removeItem,
     login,
+    signup
   };
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../Modal";
+import { helpAxios } from "../../../helpers/helpAxios";
 
 const initialForm = {
   code: Date.now(),
@@ -21,48 +21,25 @@ const initialForm = {
 const SignUp = () => {
   const [form, setForm] = useState(initialForm);
   const [modal, setModal] = useState(false);
-  const [isSuccessful, setIsSuccessful] = useState(false);
   const [newUser, setNewUser] = useState(null);
-
+  const [isError, setIsError] = useState(false);
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const options = {
-      url: `${import.meta.env.VITE_API}/signup`,
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      data: form,
-    };
-    console.log(form);
+    const addedUser = await helpAxios().signup(form);
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        setModal(true);
-        if (res.data) {
-          if (res.data && res.data.type === "Admin") {
-            setNewUser("Admin");
-            setIsSuccessful(true);
-          } else {
-            if (res.data && res.data.type === "Estandar") {
-              setNewUser(res.data.username);
-              setIsSuccessful(true);
-            }
-          }
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (addedUser instanceof Error) {
+      setModal(true);
+      setIsError(true);
+    } else {
+      if (addedUser.type === "Admin") setNewUser("Admin");
+      else if (addedUser.type === "Estandar") setNewUser(addedUser.username);
+
+      setModal(true);
+    }
+
     handleClean();
   };
 
@@ -72,33 +49,30 @@ const SignUp = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-  };  
+  };
 
   const handleClose = () => {
     setModal(false);
-    setIsSuccessful(false);
+    setIsError(false);
   };
 
   return modal ? (
     <Modal>
-      {isSuccessful ? (
-        <div>
+      <div>
+        {isError ? (
+          <h2 style={{ color: "#ff4500" }}>
+            Error: nombre de usuario y/o email ya registrado :(
+          </h2>
+        ) : (
           <h2>
             Registro exitoso! Bienvenido/a{" "}
-            <span style={{ color: "#39ff14" }}>@{newUser}</span> ;)
+            <span style={{ color: "#f5f5f5" }}>@{newUser}!</span> ;)
           </h2>
-          <button className={"btn btn-danger"} onClick={handleClose}>
-            Cerrar
-          </button>
-        </div>
-      ) : (
-        <div>
-          <h2>Error: nombre de usuario y/o email ya registrado :(</h2>
-          <button className={"btn btn-danger"} onClick={handleClose}>
-            Cerrar
-          </button>
-        </div>
-      )}
+        )}
+        <button className={"btn btn-danger"} onClick={handleClose}>
+          Cerrar
+        </button>
+      </div>
     </Modal>
   ) : (
     <div
@@ -222,7 +196,14 @@ const SignUp = () => {
           <div className="m-1">
             <button type="submit" className="btn btn-primary">
               Registrar
-            </button>           
+            </button>
+            <button
+              type="button"
+              className="btn btn-dark"
+              onClick={() => navigate(-1)}
+            >
+              Volver
+            </button>
           </div>
         </form>
       </div>
