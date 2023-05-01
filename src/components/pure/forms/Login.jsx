@@ -11,6 +11,7 @@ const initialForm = {
 const Login = () => {
   const [form, setForm] = useState(initialForm);
   const [isError, setIsError] = useState(false);
+  const [isModalActivated, setIsModalActivated] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,11 +29,12 @@ const Login = () => {
 
     if (user instanceof Error) setIsError(true);
     else {
-      //case generic user
-      if (user.type === "Estandar")
-        navigate(`/user/${user.username}/${user.code}`);
-      //case admin
-      else navigate("/admin");
+      if (!user) setIsModalActivated(true); // not found user
+      else {        
+        if (user.type === "Estandar")
+          navigate(`/user/${user.username}/${user.code}`);
+        else navigate("/admin");
+      }
     }
 
     handleClean();
@@ -40,16 +42,23 @@ const Login = () => {
 
   const handleClose = () => {
     setIsError(false);
+    setIsModalActivated(false)
   };
 
-  return isError ? (
+  return isModalActivated ? (
     <Modal>
-      <div>
-        <h2>Error: credenciales incorrectas o usuario banneado :(</h2>
-        <button className={"btn btn-danger"} onClick={handleClose}>
-          Cerrar
-        </button>
-      </div>
+      {isError ? (
+        <h2 style={{ color: "#ff4500" }}>Error en la conexión :(</h2>
+      ) : (
+        <div>
+          <h2 style={{ color: "#ff4500" }}>
+            Error: credenciales incorrectas o usuario banneado :(
+          </h2>
+          <button className={"btn btn-danger"} onClick={handleClose}>
+            Cerrar
+          </button>
+        </div>
+      )}
     </Modal>
   ) : (
     <div className={"vw-75 vh-100 d-grid align-items-center"}>
