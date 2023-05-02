@@ -2,38 +2,24 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Modal } from "../pure/Modal";
 import { ProductCommentStyle } from "../pure/ProductCommentStyle";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const ProductCardNotUser = ({ product }) => {
   const [isCommentsClicked, setIsCommentsClicked] = useState(false);
   const [comments, setComments] = useState(product.comments);
+  // const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     const getProductComments = async () => {
-      let productCode = product.code;
-      const options = {
-        url: `${import.meta.env.VITE_API}/product/code`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        params: { productCode },
-      };
+      const productCode = product.code;
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) setComments(res.data.comments);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      const productComments = await helpAxios().getProductComments(productCode);
+      if (productComments instanceof Error) setComments([]);
+      else setComments(productComments);
     };
+
     getProductComments();
-  }, [comments]);
+  }, []);
 
   const toBase64 = (arr) => {
     //arr = new Uint8Array(arr) if it's an ArrayBuffer
@@ -61,13 +47,12 @@ export const ProductCardNotUser = ({ product }) => {
         {comments.length &&
         comments.filter((comment) => comment.status === "Active").length ? (
           <div className={"mt-2"} style={{ maxHeight: "150px" }}>
-            <h3>Comentarios</h3>
+            <h3 style={{ color: "green" }}>Comentarios</h3>
             <div
               className={"overflow-auto w-100"}
               style={{ width: "100%", height: "200px" }}
             >
               {comments.map((comment, index) => {
-                console.log(comment);
                 return (
                   comment.status === "Active" && (
                     <ProductCommentStyle

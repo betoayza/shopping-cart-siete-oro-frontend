@@ -10,7 +10,7 @@ export const SliderProductCards = () => {
 
   useEffect(() => {
     const getProducts = async () => {
-      const activeProducts = await helpAxios().getActiveProducts();
+      const activeProducts = await helpAxios().getAllActiveProducts();
 
       if (activeProducts instanceof Error) setIsError(true);
       else setProducts(activeProducts);

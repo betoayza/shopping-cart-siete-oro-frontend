@@ -383,7 +383,7 @@ export const helpAxios = () => {
   };
 
   //*******************NON USER*******
-  const getActiveProducts = async () => {
+  const getAllActiveProducts = async () => {
     const url = `${import.meta.env.VITE_API}/products/active/all`;
     const options = {
       // headers: {
@@ -652,6 +652,29 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
+  // ******** CARDS **********
+  const getProductComments = async (productCode) => {
+    const url = `${import.meta.env.VITE_API}/product/code`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      params: { productCode },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        if (res.status === 200) return res.data.comments;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
   // RETURN ALL FUNCTIONS
   return {
     getAllUsers,
@@ -669,7 +692,7 @@ export const helpAxios = () => {
     getOrderProducts,
     getOrders,
     getProduct,
-    getActiveProducts,
+    getAllActiveProducts,
     getShoppingCart,
     getAllUserOrders,
     getOrderItems,
@@ -681,6 +704,7 @@ export const helpAxios = () => {
     updateItemCounter,
     cleanShoppingCart,
     removeItem,
+    getProductComments,
     login,
     signup,
   };
