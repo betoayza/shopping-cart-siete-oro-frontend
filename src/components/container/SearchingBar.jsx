@@ -12,7 +12,7 @@ const SearchingBar = ({
 
   useEffect(() => {
     const getProductsUser = async () => {
-      const productsUser = await helpAxios().getProductsUser(term);
+      const productsUser = await helpAxios().findProducts(term);
 
       if (productsUser instanceof Error) setIsError(true);
       else {

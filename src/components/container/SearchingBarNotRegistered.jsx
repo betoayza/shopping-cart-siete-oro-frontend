@@ -1,44 +1,36 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Modal } from "../pure/Modal";
 import { ProductsTableNotUsers } from "../pure/ProductsTableNotUsers";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const SearchingBarNotRegistered = () => {
   const [term, setTerm] = useState("");
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(null);
+  const [isModalActivated, setIsModalActivated] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const getProducts = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/products/get`,
+    const findProducts = async (term) => {
+      const foundProducts = await helpAxios().findProducts(term);
 
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        params: { term },
-      };
+      if (foundProducts instanceof Error) setIsError(true);
+      else setProducts(foundProducts);
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setProducts(res.data);
-          }
-        })
-        .catch((error) => error);
+      setIsModalActivated(true);
     };
-    if (term !== "") getProducts();
-    else setProducts(null);
+
+    if (term !== "") findProducts(term);
+    else handleClose();
   }, [term]);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setTerm(e.target.value);
+  };
+
+  const handleClose = () => {
+    setIsModalActivated(false);
+    setProducts(null);
+    setIsError(false);
   };
 
   return (
@@ -50,26 +42,43 @@ export const SearchingBarNotRegistered = () => {
         placeholder={"¿Qué está buscando?..."}
         onChange={handleChange}
       />
-      {products ? (
+      {isModalActivated ? (
         <Modal>
-          <div className={"col container vh-100"}>
-            <div className={"w-100 d-flex flex-wrap justify-content-center"}>
-              <input
-                className={"form-control"}
-                style={{ width: "50%" }}
-                value={term}
-                placeholder={"¿Qué está buscando?..."}
-                onChange={handleChange}
-              />
+          {isError ? (
+            <div>
+              <h2 style={{ color: "#ff4500" }}>Error en la conexión :(</h2>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={handleClose}
+              >
+                Cerrar
+              </button>
             </div>
-            <div className={"row"}>
-              {products.length ? (
-                <ProductsTableNotUsers products={products} />
-              ) : (
-                <h2>Sin resultados :(</h2>
-              )}
-            </div>
-          </div>
+          ) : (
+            products && (
+              <div className={"col container vh-100"}>
+                <div
+                  className={"w-100 d-flex flex-wrap justify-content-center"}
+                >
+                  <input
+                    className={"form-control"}
+                    style={{ width: "50%" }}
+                    value={term}
+                    placeholder={"¿Qué está buscando?..."}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={"row"}>
+                  {products.length ? (
+                    <ProductsTableNotUsers products={products} />
+                  ) : (
+                    <h2>Sin resultados :(</h2>
+                  )}
+                </div>
+              </div>
+            )
+          )}
         </Modal>
       ) : null}
     </div>

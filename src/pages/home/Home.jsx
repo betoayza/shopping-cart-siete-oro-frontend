@@ -8,7 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className={"vh-100 w-100 border"}>
+    <div className={"vh-100 w-100"}>
       <div className={"d-flex justify-content-end"}>
         <button
           className="btn btn-dark"
@@ -30,12 +30,12 @@ const Home = () => {
 
       <div
         className={
-          "border border-success mt-5 d-grid justify-content-center align-content-space-around"
+          "mt-5 d-grid justify-content-center align-content-space-around"
         }
         style={{ display: "grid", placeItems: "center" }}
       >
         <div
-          className={"container border"}
+          className={"container"}
           style={{ display: "grid", placeItems: "center" }}
         >
           <img src={logo} className={"img-fluid"} alt="Logo" />

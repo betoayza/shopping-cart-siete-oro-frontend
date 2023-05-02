@@ -428,7 +428,8 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
-  const getProductsUser = async (term) => {
+  const findProducts = async (term) => {
+    // and for anonymous user too
     const url = `${import.meta.env.VITE_API}/products/get`;
     const options = {
       // headers: {
@@ -673,7 +674,7 @@ export const helpAxios = () => {
     getAllUserOrders,
     getOrderItems,
     cancelOrder,
-    getProductsUser,
+    findProducts,
     getUserProfile,
     modifyProfile,
     contactSupport,
@@ -681,6 +682,6 @@ export const helpAxios = () => {
     cleanShoppingCart,
     removeItem,
     login,
-    signup
+    signup,
   };
 };
