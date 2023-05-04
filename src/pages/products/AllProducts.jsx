@@ -10,7 +10,7 @@ const AllProducts = () => {
 
   useEffect(() => {
     const getAllProducts = async () => {
-      const allProducts = await helpAxios().getAllProducts();      
+      const allProducts = await helpAxios().getAllProducts();
 
       if (allProducts instanceof Error) setIsError(true);
       else setProducts(allProducts);

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Modal } from "../pure/Modal";
 import { ProductCommentStyle } from "../pure/ProductCommentStyle";
 import { helpAxios } from "../../helpers/helpAxios";

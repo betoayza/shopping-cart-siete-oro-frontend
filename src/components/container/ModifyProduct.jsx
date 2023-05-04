@@ -21,13 +21,14 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
 
   useEffect(() => {
     const getProduct = async () => {
-      const result = helpAxios().getProduct(code);
+      const result = await helpAxios().getProduct(code);
 
-      if (result) {
+      if (!(result instanceof Error)) {
         setForm(result);
         setFound(true);
-        setLoader(false);
       }
+
+      setLoader(false);
     };
 
     getProduct();
@@ -50,9 +51,9 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
     data.append("image", form.image);
     console.log(data);
 
-    const result = helpFetchs().modifyProduct(data);
+    const result = await helpFetchs().modifyProduct(data);
 
-    if (result) setUpdated(result);
+    if (!(result instanceof Error)) setUpdated(result);
 
     handleClean2();
   };

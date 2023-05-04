@@ -9,21 +9,23 @@ const AllProductsUser = ({ code, username }) => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const getAllProducts = async () => {
-      const allProducts = await helpAxios().getAllProducts();
+    const getAvailableProducts = async () => {
+      const allActiveProducts = await helpAxios().getAllActiveProducts();
+      console.log(allActiveProducts);
 
-      if (allProducts instanceof Error) setIsError(true);
+      if (allActiveProducts instanceof Error) setIsError(true);
       else {
-        const productsWithValidStock = allProducts.filter(
+        const availableProducts = allActiveProducts.filter(
           (product) => product.stock > 0
         );
-        setProducts(productsWithValidStock);
+
+        setProducts(availableProducts);
       }
 
       setIsLoading(false);
     };
 
-    getAllProducts();
+    getAvailableProducts();
   }, []);
 
   return isLoading ? (

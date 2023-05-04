@@ -13,9 +13,8 @@ export const ProductsTableUsers = ({
       <div className={"w-100 row row-cols-auto container mx-auto"}>
         {products.map((product, index) => {
           return (
-            <div className={"col col-md-auto"}>
+            <div className={"col col-md-auto"} key={product.code}>
               <ProductCard
-                key={product.code}
                 index={index}
                 product={product}
                 userCode={userCode}

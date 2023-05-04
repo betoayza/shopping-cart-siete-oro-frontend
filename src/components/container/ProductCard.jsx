@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { Modal } from "../pure/Modal";
 import { ProductCommentStyle } from "../pure/ProductCommentStyle";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const ProductCard = ({
   index,
@@ -17,87 +17,32 @@ export const ProductCard = ({
 
   //check if item is already added to cart
   useEffect(() => {
-    const isItemAdded = async () => {
-      let prodCode = product.code;
-      const options = {
-        url: `${import.meta.env.VITE_API}/user/shopping-cart/check-item-added`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
-        timeout: 3000,
-        params: { userCode, prodCode },
-      };
+    const checkIsIteminCart = async () => {
+      const prodCode = product.code;
+      const result = await helpAxios().checkIsItemInCart(userCode, prodCode);
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            setIsAdded(true);
-          } else {
-            setIsAdded(false);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      if (!(result instanceof Error)) setIsAdded(true);
     };
-    isItemAdded();
+
+    checkIsIteminCart();
   }, []);
 
   const addToCart = async () => {
-    let productCode = product.code;
-    const options = {
-      url: `${import.meta.env.VITE_API}/user/shopping-cart/add`,
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      data: { productCode, userCode },
-    };
+    const productCode = product.code;
+    const result = await helpAxios().addItemToCart(productCode, userCode);
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          setIsAdded(true);
-        } else {
-          setIsAdded(false);
-        }
-      })
-      .catch((error) => error);
-  }; //working
+    if (!(result instanceof Error)) setIsAdded(true);
+  };
 
-  const removeFromCart = async () => {
-    let prodCode = product.code;
-    const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      data: { prodCode, userCode, index },
-    };
+  const removeItemFromCart = async () => {
+    const prodCode = product.code;
+    const result = await helpAxios().removeItemFromCart(
+      prodCode,
+      userCode,
+      index
+    );
 
-    await axios
-      .delete(`${import.meta.env.VITE_API}/user/shopping-cart/delete`, options)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          setIsAdded(false);
-        } else setIsAdded(true);
-      })
-      .catch((error) => error);
+    if (!(result instanceof Error)) setIsAdded(false);
   };
 
   const toBase64 = (arr) => {
@@ -119,59 +64,25 @@ export const ProductCard = ({
     e.preventDefault();
     console.log(refComment.current.value); // CHEQUEAR ESTO
 
-    let comment = refComment.current.value;
+    const comment = refComment.current.value;
     console.log(comment.length);
-    let productCode = product.code;
 
-    const options = {
-      url: `${import.meta.env.VITE_API}/user/comment/add`,
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      data: { userCode, comment, productCode },
-    };
+    const productCode = product.code;
+    const isCommentAdded = await helpAxios().postItemComment(
+      userCode,
+      comment,
+      productCode
+    );
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res);
-        if (res.data) {
-          const getProductComments = async (productCode) => {
-            const options = {
-              url: `${import.meta.env.VITE_API}/product/code`,
-              headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "*",
-                Accept: "application/json",
-              },
-              timeout: 3000,
-              params: { productCode },
-            };
+    if (isCommentAdded) {
+      const getProductComments = async (productCode) => {
+        const commentsList = await helpAxios().getProductComments(productCode);
+        
+        if (!(commentsList instanceof Error)) setComments(commentsList);
+      };
 
-            await axios
-              .request(options)
-              .then((res) => {
-                console.log(res.data);
-                if (res.data) setComments(res.data.comments);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-          };
-          getProductComments(productCode);
-        } else {
-          alert("Ocurrio un error :(");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      getProductComments(productCode);
+    }
   };
 
   return isCommentClicked && comments ? (
@@ -265,7 +176,7 @@ export const ProductCard = ({
         <h3 style={{ color: "green" }}>${product.price}</h3>
         {showButton &&
           (isAdded ? (
-            <button className={"btn btn-danger"} onClick={removeFromCart}>
+            <button className={"btn btn-danger"} onClick={removeItemFromCart}>
               <i
                 className="bi-dash-lg"
                 style={{ color: "white", fontSize: "20px" }}

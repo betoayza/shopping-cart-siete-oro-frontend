@@ -11,15 +11,21 @@ export const SliderProductCards = () => {
   useEffect(() => {
     const getProducts = async () => {
       const activeProducts = await helpAxios().getAllActiveProducts();
+      console.log(activeProducts)
 
       if (activeProducts instanceof Error) setIsError(true);
-      else setProducts(activeProducts);
+      else {
+        const availableProducts = activeProducts.filter(
+          (product) => product.stock > 0
+        );
+        setProducts(availableProducts);
+      }
 
       setIsLoading(false);
     };
 
     getProducts();
-  }, [products]);
+  }, []);
 
   return isLoading ? (
     <Loader />

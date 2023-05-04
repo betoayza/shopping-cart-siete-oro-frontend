@@ -107,6 +107,8 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
+        console.log(res);
+
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -399,6 +401,7 @@ export const helpAxios = () => {
       .request(url, options)
       .then((res) => {
         console.log(res);
+
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })
@@ -675,6 +678,106 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
+  const checkIsItemInCart = async (userCode, prodCode) => {
+    const url = `${
+      import.meta.env.VITE_API
+    }/user/shopping-cart/check-item-added`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      params: { userCode, prodCode },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res.data);
+
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
+  const addItemToCart = async (productCode, userCode) => {
+    const url = `${import.meta.env.VITE_API}/user/shopping-cart/add`;
+    const options = {
+      method: "PUT",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { productCode, userCode },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res.data);
+
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
+  const removeItemFromCart = async (prodCode, userCode, index) => {
+    const url = `${import.meta.env.VITE_API}/user/shopping-cart/delete`;
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { prodCode, userCode, index },
+    };
+
+    return await axios
+      .delete(url, options)
+      .then((res) => {
+        console.log(res.data);
+
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
+  const postItemComment = async (userCode, comment, productCode) => {
+    const url = `${import.meta.env.VITE_API}/user/comment/add`;
+    const options = {
+      method: "POST",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { userCode, comment, productCode },
+    };
+
+    return await axios
+      .request(url, options)
+      .then((res) => {
+        console.log(res);
+
+        if (res.status === 200) return true;
+        else throw new Error(res.statusText);
+      })
+      .catch((error) => error);
+  };
+
   // RETURN ALL FUNCTIONS
   return {
     getAllUsers,
@@ -705,6 +808,10 @@ export const helpAxios = () => {
     cleanShoppingCart,
     removeItem,
     getProductComments,
+    checkIsItemInCart,
+    addItemToCart,
+    removeItemFromCart,
+    postItemComment,
     login,
     signup,
   };

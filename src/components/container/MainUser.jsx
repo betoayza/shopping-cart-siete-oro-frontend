@@ -16,8 +16,8 @@ const MainUser = () => {
   const [term, setTerm] = useState("");
   const [shoppingCart, setShoppingCart] = useState({ products: [] });
   const [isLoading, setIsLoading] = useState(true);
-  const { code, username } = useParams();
   const [isError, setIsError] = useState(false);
+  const { code, username } = useParams();
 
   useEffect(() => {
     const userCode = code;

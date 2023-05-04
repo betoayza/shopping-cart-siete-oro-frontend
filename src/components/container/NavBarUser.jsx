@@ -10,8 +10,8 @@ export const NavBarUser = ({ code, counterCart = 0, username }) => {
     const userCode = code;
     const getShoppingCart = async (userCode) => {
       const shoppingCart = await helpAxios().getShoppingCart(userCode);
-      // if (shoppingCart instanceof Error) --> itemsCounter holds 0
-      if (shoppingCart) setItemsCounter(shoppingCart.products.length);
+      if (!(shoppingCart instanceof Error))
+        setItemsCounter(shoppingCart.products.length);
     };
 
     getShoppingCart(userCode);
