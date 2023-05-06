@@ -5,7 +5,6 @@ import ShoppingCart from "../../src/pages/users/ShoppingCart";
 
 import { AllOrders } from "../pages/orders/AllOrders";
 import { OrderByCode } from "../components/container/OrderByCode";
-import UsersOrdersAdmin from "../components/container/UsersOrdersAdmin";
 import { AllOrdersUser } from "../pages/orders/AllOrdersUser";
 import DeleteOrder from "../components/container/DeleteOrder";
 
@@ -56,7 +55,6 @@ export {
   Error404,
   Login,
   SignUp,
-  UsersOrdersAdmin,
   UserProfile,
   FailedPayment,
   SuccessPayment,

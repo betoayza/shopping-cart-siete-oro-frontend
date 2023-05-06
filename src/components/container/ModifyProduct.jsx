@@ -51,7 +51,7 @@ export const ModifyProduct = ({ code, setModal, setModalModifyProduct }) => {
     data.append("image", form.image);
     console.log(data);
 
-    const result = await helpFetchs().modifyProduct(data);
+    const result = await helpAxios().modifyProduct(data);
 
     if (!(result instanceof Error)) setUpdated(result);
 

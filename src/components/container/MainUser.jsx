@@ -37,7 +37,7 @@ const MainUser = () => {
   return isLoading ? (
     <Loader />
   ) : isError ? (
-    <h3>Error en la conexión :(</h3>
+    <h3 style={{ color: "maroon" }}>Error en la conexión :(</h3>
   ) : modal ? (
     <Modal>
       {modalSearchProducts && (

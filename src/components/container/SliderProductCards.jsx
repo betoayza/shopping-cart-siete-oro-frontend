@@ -11,7 +11,7 @@ export const SliderProductCards = () => {
   useEffect(() => {
     const getProducts = async () => {
       const activeProducts = await helpAxios().getAllActiveProducts();
-      console.log(activeProducts)
+      console.log(activeProducts);
 
       if (activeProducts instanceof Error) setIsError(true);
       else {
@@ -43,8 +43,9 @@ export const SliderProductCards = () => {
             <div
               className={`carousel-item ${index === 0 && "active"}`}
               data-bs-interval="3000"
+              key={product.code}
             >
-              <ProductCardNotUser key={product.code} product={product} />
+              <ProductCardNotUser product={product} />
             </div>
           );
         })}

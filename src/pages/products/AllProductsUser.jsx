@@ -20,21 +20,24 @@ const AllProductsUser = ({ code, username }) => {
         );
 
         setProducts(availableProducts);
+        setIsError(false);
       }
 
       setIsLoading(false);
     };
 
     getAvailableProducts();
-  }, []);
+  }, [products]);
 
   return isLoading ? (
     <Loader />
   ) : isError ? (
-    <h3 className="text-center">Error en la conexión :(</h3>
+    <h3 className="text-center" style={{ color: "maroon" }}>
+      Error en la conexión :(
+    </h3>
   ) : (
     <div className={"h-auto vw-100 text-center"}>
-      {products.length ? (
+      {products && products.length ? (
         <ProductsTableUsers
           products={products}
           setProducts={setProducts}

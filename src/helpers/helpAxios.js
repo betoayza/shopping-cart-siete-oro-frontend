@@ -101,7 +101,7 @@ export const helpAxios = () => {
       //   "Access-Control-Allow-Headers": "*",
       //   Accept: "application/json",
       // },
-      timeout: 3000,
+      timeout: 5000,
     };
 
     return await axios
@@ -308,7 +308,7 @@ export const helpAxios = () => {
       .request(url, options)
       .then((res) => {
         if (res.status === 200) return res.data;
-        else throw new error(res.statusText);
+        else throw new Error(res.statusText);
       })
       .catch((error) => error);
   };
@@ -394,7 +394,7 @@ export const helpAxios = () => {
       //   "Access-Control-Allow-Headers": "*",
       //   Accept: "application/json",
       // },
-      timeout: 3000,
+      timeout: 5000,
     };
 
     return await axios

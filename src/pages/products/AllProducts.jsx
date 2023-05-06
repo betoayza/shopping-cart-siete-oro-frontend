@@ -11,15 +11,19 @@ const AllProducts = () => {
   useEffect(() => {
     const getAllProducts = async () => {
       const allProducts = await helpAxios().getAllProducts();
+      console.log(allProducts);
 
       if (allProducts instanceof Error) setIsError(true);
-      else setProducts(allProducts);
+      else {
+        setProducts(allProducts);
+        setIsError(false);
+      }
 
       setIsLoading(false);
     };
 
     getAllProducts();
-  }, []);
+  }, [products]);
 
   return isLoading ? (
     <Loader />
@@ -29,7 +33,7 @@ const AllProducts = () => {
         <h2>
           <span style={{ color: "maroon" }}>Error en la conexión :(</span>
         </h2>
-      ) : products.length ? (
+      ) : products && products.length ? (
         <ProductsTable products={products} setProducts={setProducts} />
       ) : (
         <h2>No hay productos :(</h2>
