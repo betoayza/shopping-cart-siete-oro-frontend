@@ -24,7 +24,7 @@ export const SearchingBarOrders = ({
       }
     };
 
-    if (term !== "") getOrders();
+    if (term != "") getOrders();
     else {
       setModal(false);
       setModalSearchOrder(false);

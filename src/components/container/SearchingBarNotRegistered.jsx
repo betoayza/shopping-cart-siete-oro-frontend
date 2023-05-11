@@ -24,7 +24,7 @@ export const SearchingBarNotRegistered = () => {
       setIsModalActivated(true);
     };
 
-    if (term !== "") findProducts(term);
+    if (term != "") findProducts(term);
     else handleClose();
   }, [term]);
 
@@ -61,24 +61,28 @@ export const SearchingBarNotRegistered = () => {
               </button>
             </div>
           ) : (
-            <div className={"col container vh-100"}>
-              <div className={"w-100 d-flex flex-wrap justify-content-center"}>
-                <input
-                  className={"form-control"}
-                  style={{ width: "50%" }}
-                  value={term}
-                  placeholder={"¿Qué está buscando?..."}
-                  onChange={handleChange}
-                />
+            products && (
+              <div className={"col container vh-100"}>
+                <div
+                  className={"w-100 d-flex flex-wrap justify-content-center"}
+                >
+                  <input
+                    className={"form-control"}
+                    style={{ width: "50%" }}
+                    value={term}
+                    placeholder={"¿Qué está buscando?..."}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={"row"}>
+                  {products.length ? (
+                    <ProductsTableNotUsers products={products} />
+                  ) : (
+                    <h2>Sin resultados :(</h2>
+                  )}
+                </div>
               </div>
-              <div className={"row"}>
-                {products.length ? (
-                  <ProductsTableNotUsers products={products} />
-                ) : (
-                  <h2>Sin resultados :(</h2>
-                )}
-              </div>
-            </div>
+            )
           )}
         </Modal>
       ) : null}

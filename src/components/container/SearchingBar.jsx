@@ -22,7 +22,7 @@ const SearchingBar = ({
       }
     };
 
-    if (term !== "") getProductsUser();
+    if (term != "") getProductsUser();
     else {
       setProducts([]);
       setModal(false);

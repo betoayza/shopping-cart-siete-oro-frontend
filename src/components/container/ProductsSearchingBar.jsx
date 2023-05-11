@@ -25,7 +25,7 @@ export const ProductsSearchingBar = ({
       }
     };
 
-    if (term !== "") getProduct();
+    if (term != "") getProduct();
     else {
       setProducts(null);
       setModal(false);
