@@ -14,7 +14,12 @@ export const SearchingBarNotRegistered = () => {
       const foundProducts = await helpAxios().findProducts(term);
 
       if (foundProducts instanceof Error) setIsError(true);
-      else setProducts(foundProducts);
+      else {
+        const validProducts = foundProducts.filter(
+          (product) => product.stock > 0
+        );
+        setProducts(validProducts);
+      }
 
       setIsModalActivated(true);
     };
@@ -56,28 +61,24 @@ export const SearchingBarNotRegistered = () => {
               </button>
             </div>
           ) : (
-            products && (
-              <div className={"col container vh-100"}>
-                <div
-                  className={"w-100 d-flex flex-wrap justify-content-center"}
-                >
-                  <input
-                    className={"form-control"}
-                    style={{ width: "50%" }}
-                    value={term}
-                    placeholder={"¿Qué está buscando?..."}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className={"row"}>
-                  {products.length ? (
-                    <ProductsTableNotUsers products={products} />
-                  ) : (
-                    <h2>Sin resultados :(</h2>
-                  )}
-                </div>
+            <div className={"col container vh-100"}>
+              <div className={"w-100 d-flex flex-wrap justify-content-center"}>
+                <input
+                  className={"form-control"}
+                  style={{ width: "50%" }}
+                  value={term}
+                  placeholder={"¿Qué está buscando?..."}
+                  onChange={handleChange}
+                />
               </div>
-            )
+              <div className={"row"}>
+                {products.length ? (
+                  <ProductsTableNotUsers products={products} />
+                ) : (
+                  <h2>Sin resultados :(</h2>
+                )}
+              </div>
+            </div>
           )}
         </Modal>
       ) : null}

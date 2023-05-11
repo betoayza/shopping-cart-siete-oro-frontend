@@ -394,7 +394,7 @@ export const helpAxios = () => {
       //   "Access-Control-Allow-Headers": "*",
       //   Accept: "application/json",
       // },
-      timeout: 5000,
+      timeout: 3000,
     };
 
     return await axios
@@ -425,6 +425,7 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
+        console.log(res);
         if (res.status === 200) return res.data;
         else throw new Error(res.statusText);
       })

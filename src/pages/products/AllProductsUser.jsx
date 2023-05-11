@@ -27,7 +27,7 @@ const AllProductsUser = ({ code, username }) => {
     };
 
     getAvailableProducts();
-  }, [products]);
+  }, []);
 
   return isLoading ? (
     <Loader />
