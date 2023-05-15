@@ -45,11 +45,11 @@ export const ProductCardNotUser = ({ product }) => {
       >
         {comments.length &&
         comments.filter((comment) => comment.status === "Active").length ? (
-          <div className={"mt-2"} style={{ maxHeight: "150px" }}>
-            <h3 style={{ color: "green" }}>Comentarios</h3>
+          <div className={"mt-2"} style={{ maxHeight: "190px" }}>
+            <h4>Comentarios</h4>
             <div
               className={"overflow-auto w-100"}
-              style={{ width: "100%", height: "200px" }}
+              style={{ width: "100%", maxHeight: "200px" }}
             >
               {comments.map((comment, index) => {
                 return (
@@ -65,19 +65,17 @@ export const ProductCardNotUser = ({ product }) => {
                 );
               })}
             </div>
-            <div className={"mt-2"}>
-              <button
-                type={"button"}
-                className={"btn btn-danger w-20"}
-                onClick={handleClose}
-              >
-                Cerrar
-              </button>
-            </div>
+            <button
+              type={"button"}
+              className={"btn btn-danger w-20 mt-2 mb-2"}
+              onClick={handleClose}
+            >
+              Cerrar
+            </button>
           </div>
         ) : (
           <div>
-            <h3>No hay comentarios</h3>
+            <h4>No hay comentarios</h4>
             <div className={"mt-2"}>
               <button
                 type={"button"}

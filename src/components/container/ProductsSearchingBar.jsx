@@ -15,7 +15,6 @@ export const ProductsSearchingBar = ({
   useEffect(() => {
     const getProduct = async () => {
       const result = await helpAxios().getProductsAdmin(term);
-      console.log("ASDASDASD", result);
 
       if (result instanceof Error) setIsError(true);
       else {
@@ -34,7 +33,6 @@ export const ProductsSearchingBar = ({
   }, [term]);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setTerm(e.target.value);
   };
 

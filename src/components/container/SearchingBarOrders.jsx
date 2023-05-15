@@ -17,7 +17,6 @@ export const SearchingBarOrders = ({
 
       if (result instanceof Error) setIsError(true);
       else {
-        console.log(result);
         setOrders(result);
         setModal(true);
         setModalSearchOrder(true);
@@ -33,7 +32,6 @@ export const SearchingBarOrders = ({
   }, [term]);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setTerm(e.target.value);
   };
 
@@ -59,7 +57,7 @@ export const SearchingBarOrders = ({
       </div>
 
       {orders.length
-        ? term !== "" && (
+        ? term != "" && (
             <div className="text-center">
               <OrdersTable
                 orders={orders}

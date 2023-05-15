@@ -31,7 +31,6 @@ const SearchingBar = ({
   }, [term]);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     setTerm(e.target.value);
   };
 

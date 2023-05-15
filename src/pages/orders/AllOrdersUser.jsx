@@ -16,7 +16,6 @@ export const AllOrdersUser = () => {
   useEffect(() => {
     const getAllUserOrders = async () => {
       const allOrders = await helpAxios().getAllUserOrders(code);
-      console.log(allOrders);
 
       if (allOrders instanceof Error) setIsError(true);
       else {
@@ -34,7 +33,7 @@ export const AllOrdersUser = () => {
   ) : isError ? (
     <h2>Error en la conexión :(</h2>
   ) : (
-    <div className="">
+    <div>
       <NavBarUser code={code} counterCart={0} username={username} />
       <h1>Mis pedidos</h1>
       {orders.length ? (

@@ -30,9 +30,8 @@ export const OrderItemsTableUser = ({
         {products.map((product, index) => {
           return (
             product.stock > 0 && (
-              <div className={"col col-md-auto"}>
+              <div className={"col col-md-auto"} key={index}>
                 <ProductCardOrderItem
-                  key={index}
                   index={index}
                   product={product}
                   userCode={userCode}

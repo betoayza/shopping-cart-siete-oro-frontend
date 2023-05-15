@@ -62,7 +62,6 @@ export const ProductCard = ({
 
   const handlePostComment = async (e) => {
     e.preventDefault();
-    console.log(refComment.current.value); // CHEQUEAR ESTO
 
     const comment = refComment.current.value;
     console.log(comment.length);
@@ -77,7 +76,7 @@ export const ProductCard = ({
     if (isCommentAdded) {
       const getProductComments = async (productCode) => {
         const commentsList = await helpAxios().getProductComments(productCode);
-        
+
         if (!(commentsList instanceof Error)) setComments(commentsList);
       };
 
@@ -93,7 +92,7 @@ export const ProductCard = ({
         }
         style={{ borderRadius: "1rem" }}
       >
-        <h3>Comentarios</h3>
+        <h4>Comentarios</h4>
         <div className={"row row-cols-auto"}>
           <div className={"col col-md-auto mx-auto w-100"}>
             <form className={"w-100"} onSubmit={handlePostComment}>
@@ -128,18 +127,28 @@ export const ProductCard = ({
         </div>
         {comments.length &&
         comments.filter((comment) => comment.status === "Active").length ? (
-          <div className={"mt-2"} style={{ maxHeight: "150px" }}>
+          <div
+            className={"mt-2 d-flex justify-content-center"}
+            style={{ maxHeight: "200px" }}
+          >
             <div
               className={"overflow-auto"}
-              style={{ width: "100%", height: "200px" }}
+              style={{
+                width: "100%",
+                maxHeight: "200px",
+                display: "grid",
+                placeItems: "center",
+              }}
             >
               {comments.map((comment, index) => {
-                console.log(comment);
                 return (
                   comment.status === "Active" && (
-                    <div className={"row w-100"}>
+                    <div
+                      className={"row"}
+                      style={{ width: "100%" }}
+                      key={index}
+                    >
                       <ProductCommentStyle
-                        key={index}
                         index={index}
                         comment={comment}
                         setComments={setComments}

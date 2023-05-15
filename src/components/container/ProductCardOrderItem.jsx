@@ -18,15 +18,15 @@ export const ProductCardOrderItem = ({
   //check if item is already added to cart
   useEffect(() => {
     const isItemAdded = async () => {
-      let prodCode = product.code;
+      const prodCode = product.code;
       const options = {
         url: `${import.meta.env.VITE_API}/user/shopping-cart/check-item-added`,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-          Accept: "application/json",
-        },
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   "Access-Control-Allow-Origin": "*",
+        //   "Access-Control-Allow-Headers": "*",
+        //   Accept: "application/json",
+        // },
         params: { userCode, prodCode },
         timeout: 3000,
       };
@@ -34,16 +34,13 @@ export const ProductCardOrderItem = ({
       await axios
         .request(options)
         .then((res) => {
-          console.log(res.data);
           if (res.data) {
             setIsAdded(true);
           } else {
             setIsAdded(false);
           }
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch((error) => error);
     };
     isItemAdded();
   }, []);
@@ -67,19 +64,18 @@ export const ProductCardOrderItem = ({
     e.preventDefault();
 
     console.log(refComment.current.value);
-    let comment = refComment.current.value;
-    console.log(comment.length);
-    let productCode = product.code;
-    
+    const comment = refComment.current.value;
+    const productCode = product.code;
+
     const options = {
       url: `${import.meta.env.VITE_API}/user/comment/add`,
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
+      method: "POST",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
       timeout: 3000,
       data: { userCode, comment, productCode },
     };
@@ -93,12 +89,12 @@ export const ProductCardOrderItem = ({
           const getProductComments = async (productCode) => {
             const options = {
               url: `${import.meta.env.VITE_API}/product/code`,
-              headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "*",
-                Accept: "application/json",
-              },
+              // headers: {
+              //   "Content-Type": "application/json",
+              //   "Access-Control-Allow-Origin": "*",
+              //   "Access-Control-Allow-Headers": "*",
+              //   Accept: "application/json",
+              // },
               timeout: 3000,
               params: { productCode },
             };
@@ -118,9 +114,7 @@ export const ProductCardOrderItem = ({
           alert("Ocurrio un error :(");
         }
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .catch((error) => error);
   };
 
   return isCommentClicked && comments ? (
@@ -131,7 +125,7 @@ export const ProductCardOrderItem = ({
         }
         style={{ borderRadius: "1rem" }}
       >
-        <h3>Comentarios</h3>
+        <h4>Comentarios</h4>
         <div className={"row row-cols-auto"}>
           <div className={"col col-md-auto mx-auto w-100"}>
             <form className={"w-100"} onSubmit={handlePostComment}>
@@ -172,7 +166,6 @@ export const ProductCardOrderItem = ({
               style={{ width: "100%", height: "200px" }}
             >
               {comments.map((comment, index) => {
-                console.log(comment);
                 return (
                   comment.status === "Active" && (
                     <div className={"row w-100"}>

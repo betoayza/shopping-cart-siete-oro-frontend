@@ -20,8 +20,6 @@ export const Contact = () => {
   const { username, code } = useParams();
   const navigate = useNavigate();
 
-  console.log(username, code);
-
   const handleClean = () => {
     setForm(initialForm);
   };

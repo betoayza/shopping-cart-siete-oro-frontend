@@ -20,9 +20,7 @@ const MainUser = () => {
   const { code, username } = useParams();
 
   useEffect(() => {
-    const userCode = code;
-
-    const getShoppingCart = async () => {
+    const getShoppingCart = async (userCode) => {
       const userShoppingCart = await helpAxios().getShoppingCart(userCode);
 
       if (userShoppingCart instanceof Error) setIsError(true);
@@ -31,8 +29,8 @@ const MainUser = () => {
       setIsLoading(false);
     };
 
-    getShoppingCart();
-  }, []);
+    getShoppingCart(code);
+  }, [code]);
 
   return isLoading ? (
     <Loader />
