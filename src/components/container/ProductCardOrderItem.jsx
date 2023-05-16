@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { Modal } from "../pure/Modal";
 import { ProductCommentStyle } from "../pure/ProductCommentStyle";
+import { helpAxios } from "../../helpers/helpAxios";
 
 export const ProductCardOrderItem = ({
-  index,
   product,
   userCode,
   showButton = true,
@@ -17,40 +16,18 @@ export const ProductCardOrderItem = ({
 
   //check if item is already added to cart
   useEffect(() => {
-    const isItemAdded = async () => {
+    const checkIsItemAdded = async () => {
       const prodCode = product.code;
-      const options = {
-        url: `${import.meta.env.VITE_API}/user/shopping-cart/check-item-added`,
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   "Access-Control-Allow-Origin": "*",
-        //   "Access-Control-Allow-Headers": "*",
-        //   Accept: "application/json",
-        // },
-        params: { userCode, prodCode },
-        timeout: 3000,
-      };
+      const isItemAdded = await helpAxios().checkIsItemInCart(
+        userCode,
+        prodCode
+      );
 
-      await axios
-        .request(options)
-        .then((res) => {
-          if (res.data) {
-            setIsAdded(true);
-          } else {
-            setIsAdded(false);
-          }
-        })
-        .catch((error) => error);
+      if (isItemAdded) setIsAdded(true);
     };
-    isItemAdded();
-  }, []);
 
-  // const toBase64 = (arr) => {
-  //   //arr = new Uint8Array(arr) if it's an ArrayBuffer
-  //   return btoa(
-  //     arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
-  //   );
-  // };
+    checkIsItemAdded();
+  }, []);
 
   const handleComments = () => {
     setIsCommentClicked(true);
@@ -63,58 +40,19 @@ export const ProductCardOrderItem = ({
   const handlePostComment = async (e) => {
     e.preventDefault();
 
-    console.log(refComment.current.value);
     const comment = refComment.current.value;
     const productCode = product.code;
+    const isItemCommented = await helpAxios().postItemComment(
+      userCode,
+      comment,
+      productCode
+    );
 
-    const options = {
-      url: `${import.meta.env.VITE_API}/user/comment/add`,
-      method: "POST",
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   "Access-Control-Allow-Origin": "*",
-      //   "Access-Control-Allow-Headers": "*",
-      //   Accept: "application/json",
-      // },
-      timeout: 3000,
-      data: { userCode, comment, productCode },
-    };
+    if (isItemCommented) {
+      const itemComments = await helpAxios().getProductComments(productCode);
 
-    await axios
-      .request(options)
-      .then((res) => {
-        console.log(res);
-
-        if (res.data) {
-          const getProductComments = async (productCode) => {
-            const options = {
-              url: `${import.meta.env.VITE_API}/product/code`,
-              // headers: {
-              //   "Content-Type": "application/json",
-              //   "Access-Control-Allow-Origin": "*",
-              //   "Access-Control-Allow-Headers": "*",
-              //   Accept: "application/json",
-              // },
-              timeout: 3000,
-              params: { productCode },
-            };
-
-            await axios
-              .request(options)
-              .then((res) => {
-                console.log(res.data);
-                if (res.data) setComments(res.data.comments);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-          };
-          getProductComments(productCode);
-        } else {
-          alert("Ocurrio un error :(");
-        }
-      })
-      .catch((error) => error);
+      if (itemComments) setComments(itemComments);
+    }
   };
 
   return isCommentClicked && comments ? (
@@ -160,17 +98,16 @@ export const ProductCardOrderItem = ({
         </div>
         {comments.length &&
         comments.filter((comment) => comment.status === "Active").length ? (
-          <div className={"mt-2"} style={{ maxHeight: "150px" }}>
+          <div className={"mt-2"} style={{ maxHeight: "200px" }}>
             <div
               className={"overflow-auto w-100"}
-              style={{ width: "100%", height: "200px" }}
+              style={{ width: "100%", maxHeight: "200px" }}
             >
               {comments.map((comment, index) => {
                 return (
                   comment.status === "Active" && (
-                    <div className={"row w-100"}>
+                    <div className={"row w-100"} key={index}>
                       <ProductCommentStyle
-                        key={index}
                         index={index}
                         comment={comment}
                         setComments={setComments}
