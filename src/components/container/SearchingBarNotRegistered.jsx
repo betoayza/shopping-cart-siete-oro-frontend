@@ -79,7 +79,7 @@ export const SearchingBarNotRegistered = () => {
                     <ProductsTableNotUsers products={products} />
                   ) : (
                     <h2>Sin resultados :(</h2>
-                  )}
+                  )}                  
                 </div>
               </div>
             )

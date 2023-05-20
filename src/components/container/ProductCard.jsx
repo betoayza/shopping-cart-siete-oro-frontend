@@ -75,9 +75,9 @@ export const ProductCard = ({
 
     if (isCommentAdded) {
       const getProductComments = async (productCode) => {
-        const commentsList = await helpAxios().getProductComments(productCode);
+        const listComments = await helpAxios().getProductComments(productCode);
 
-        if (!(commentsList instanceof Error)) setComments(commentsList);
+        if (!(listComments instanceof Error)) setComments(listComments);
       };
 
       getProductComments(productCode);
@@ -184,7 +184,7 @@ export const ProductCard = ({
         </h5>
         <h3 style={{ color: "green" }}>${product.price}</h3>
         {showButton &&
-          (isAdded ? (
+          (product.isInCart ? (
             <button className={"btn btn-danger"} onClick={removeItemFromCart}>
               <i
                 className="bi-dash-lg"

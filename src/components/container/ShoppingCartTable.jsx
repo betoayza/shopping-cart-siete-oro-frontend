@@ -16,7 +16,7 @@ export const ShoppingCartTable = ({
   const [isModalActivated, setIsModalActivated] = useState(false);
 
   let navigate = useNavigate();
-  
+
   useEffect(() => {
     const updateItemCounter = async (userCode, counter, index) => {
       const shoppingCartUpdated = await helpAxios().updateItemCounter(
@@ -27,9 +27,10 @@ export const ShoppingCartTable = ({
 
       if (shoppingCartUpdated instanceof Error) setIsError(true);
       else setShoppingCart(shoppingCartUpdated);
+      console.log(itemCounter, itemIndex);
     };
 
-    if (itemCounter!==null && itemIndex!==null)
+    if (itemCounter !== null && itemIndex !== null)
       updateItemCounter(userCode, itemCounter, itemIndex);
   }, [itemCounter, itemIndex]);
 
@@ -125,7 +126,7 @@ export const ShoppingCartTable = ({
 
     if (shoppingCartUpdated instanceof Error) setIsError(true);
     else setShoppingCart(shoppingCartUpdated);
-  };
+  }; // falta modificar backend y registro producto por isInCart
 
   const removeAllItems = async () => {
     const shoppingCartEmpty = await helpAxios().cleanShoppingCart(userCode);
@@ -147,52 +148,54 @@ export const ShoppingCartTable = ({
       </button>
     </Modal>
   ) : (
-    <div className={"w-100 d-flex justify-content-center"}>
-      <div
-        className={"table-responsive overflow-auto pb-3"}
-        style={{ width: "75%", maxHeight: "500px" }}
-      >
-        <table className={"table table-hover table-sm"}>
-          <thead>
-            <tr>
-              <th scope="col">Item</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Precio /u</th>
-              <th scope="col">A llevar</th>
-              <th scope="col">Max</th>
-              <th scope="col">Imagen</th>
-              <th scope="col">Accion</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shoppingCart.products.map((product, index) => {
-              return (
-                <ShoppingCartTableRow
-                  key={product.code}
-                  product={product}
-                  userCode={userCode}
-                  removeItem={removeItem}
-                  itemIndex={index}
-                  handleUpdateItemCounter={handleUpdateItemCounter}
-                />
-              );
-            })}
-          </tbody>
-        </table>
+    shoppingCart && (
+      <div className={"w-100 d-flex justify-content-center"}>
+        <div
+          className={"table-responsive overflow-auto pb-3"}
+          style={{ width: "75%", maxHeight: "500px" }}
+        >
+          <table className={"table table-hover table-sm"}>
+            <thead>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio /u</th>
+                <th scope="col">A llevar</th>
+                <th scope="col">Max</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Accion</th>
+              </tr>
+            </thead>
+            <tbody>
+              {shoppingCart.products.map((product, index) => {
+                return (
+                  <ShoppingCartTableRow
+                    key={product.code}
+                    product={product}
+                    userCode={userCode}
+                    removeItem={removeItem}
+                    itemIndex={index}
+                    handleUpdateItemCounter={handleUpdateItemCounter}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
 
-        <button className="btn btn-dark" onClick={removeAllItems}>
-          <i
-            className="bi-cart-x-fill"
-            style={{ color: "white", fontSize: "20px" }}
-          ></i>
-        </button>
-        <button className="btn btn-success" onClick={handlePurchase}>
-          <i
-            className="bi-credit-card"
-            style={{ color: "white", fontSize: "20px" }}
-          ></i>
-        </button>
+          <button className="btn btn-dark" onClick={removeAllItems}>
+            <i
+              className="bi-cart-x-fill"
+              style={{ color: "white", fontSize: "20px" }}
+            ></i>
+          </button>
+          <button className="btn btn-success" onClick={handlePurchase}>
+            <i
+              className="bi-credit-card"
+              style={{ color: "white", fontSize: "20px" }}
+            ></i>
+          </button>
+        </div>
       </div>
-    </div>
+    )
   );
 };
