@@ -8,7 +8,7 @@ export const ActivateProduct = ({
   setModalActivateProduct,
 }) => {
   const [isActivated, setIsActivated] = useState(false);
-  const [loader, setLoader] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   const handleClose = () => {
@@ -18,34 +18,33 @@ export const ActivateProduct = ({
 
   useEffect(() => {
     const activateProduct = async () => {
-      const result = await helpAxios().activateProduct(code);
-
-      if (result instanceof Error) setIsError(true);
-      else {
+      try{
+        const result = await helpAxios().activateProduct(code);
+  
+        /// if (result instanceof Error) setIsError(true);
+        
         setIsActivated(true);
-        setLoader(false);
-      }
+        setIsLoading(false);
+      }catch(error){
+        console.error("La respuesta fue error: ", error)
+        setIsError(true)
+      }      
     };
     activateProduct();
   }, []);
 
-  return loader ? (
+  return isLoading ? (
     <Loader />
   ) : isError ? (
     <h2>Error en la conexión :(</h2>
-  ) : isActivated ? (
-    <div>
-      <h3>Activado :)</h3>
-      <button className={"btn btn-danger"} onClick={handleClose}>
-        Cerrar
-      </button>
-    </div>
   ) : (
-    <div>
-      <h3>No hace falta activar</h3>
-      <button className={"btn btn-danger"} onClick={handleClose}>
-        Cerrar
-      </button>
-    </div>
+    isActivated && (
+      <div>
+        <h3>Activado :)</h3>
+        <button className={"btn btn-danger"} onClick={handleClose}>
+          Cerrar
+        </button>
+      </div>
+    )
   );
 };

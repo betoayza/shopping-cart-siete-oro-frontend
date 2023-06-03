@@ -101,18 +101,18 @@ export const helpAxios = () => {
       //   "Access-Control-Allow-Headers": "*",
       //   Accept: "application/json",
       // },
-      timeout: 5000,
+      timeout: 3000,
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        console.log(res);
+    try {
+      const result = await axios.request(url, options);
 
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error("Error al obtener los productos: ", error);
+      throw new Error("Falló al obtener los productos");
+    }
   };
 
   const getProductsAdmin = async (term) => {

@@ -24,11 +24,7 @@ export const ProductsTable = ({
   const [modalActivateProduct, setModalActivateProduct] = useState(false);
   const [modalDeleteProduct, setModalDeleteProduct] = useState(false);
   const [term, setTerm] = useState("");
-
-  // if (!Array.isArray(products)) {
-  //   products = [products];
-  // }
-
+ 
   const handleUpdate = (prodCode) => {
     setModal(true);
     setProductCode(prodCode);

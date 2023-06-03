@@ -14,19 +14,27 @@ export const AllOrdersUser = () => {
   const { code, username } = params;
 
   useEffect(() => {
-    const getAllUserOrders = async () => {
+    const interval = setInterval(() => {
+      getAllUserOrders();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getAllUserOrders = async () => {
+    try {
       const allOrders = await helpAxios().getAllUserOrders(code);
 
-      if (allOrders instanceof Error) setIsError(true);
-      else {
-        setOrders(allOrders);
-        setIsLoading(false);
-      }
-      setIsLoading(false);
-    };
+      // if (allOrders instanceof Error) setIsError(true);
 
-    getAllUserOrders();
-  }, []);
+      setOrders(allOrders);
+      setIsLoading(false);
+    } catch (error) {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return isLoading ? (
     <Loader />

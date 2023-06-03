@@ -9,17 +9,26 @@ export const AllOrders = () => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const getAllOrders = async () => {
+    const interval = setInterval(() => {
+      getAllOrders();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getAllOrders = async () => {
+    try {
       const allOrders = await helpAxios().getAllOrders();
 
-      if (allOrders instanceof Error) setIsError(true);
-      else setOrders(allOrders);
+      // if (allOrders instanceof Error) setIsError(true);
 
+      setOrders(allOrders);
+    } catch (error) {
+      setIsError(true);
+    } finally {
       setIsLoading(false);
-    };
-
-    getAllOrders();
-  }, []);
+    }
+  };
 
   return isLoading ? (
     <Loader />
