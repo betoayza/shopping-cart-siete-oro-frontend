@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { OrdersTable } from "./OrdersTable";
 import { helpAxios } from "../../helpers/helpAxios";
+import { Loader } from "../pure/Loader";
 
 export const SearchingBarOrders = ({
   term,
@@ -11,25 +12,21 @@ export const SearchingBarOrders = ({
   const [orders, setOrders] = useState([]);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    const getOrders = async () => {
+  const getOrders = useCallback(async () => {
+    if (term != "") {
       const result = await helpAxios().getOrders(term);
 
-      if (result instanceof Error) setIsError(true);
-      else {
-        setOrders(result);
-        setModal(true);
-        setModalSearchOrder(true);
-      }
-    };
-
-    if (term != "") getOrders();
-    else {
+      setOrders(result);
+      setModal(true);
+      setModalSearchOrder(true);
+    } else {
       setModal(false);
       setModalSearchOrder(false);
       setOrders([]);
     }
   }, [term]);
+
+  useEffect(() => getOrders, [getOrders]);
 
   const handleChange = (e) => {
     setTerm(e.target.value);
@@ -43,7 +40,7 @@ export const SearchingBarOrders = ({
   };
 
   return isError ? (
-    <h3 className="text-center">Error en la conexión :(</h3>
+    <Loader />
   ) : (
     <div className={"searching-bar"}>
       <div className={"w-50"}>

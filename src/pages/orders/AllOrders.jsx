@@ -1,50 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { OrdersTable } from "../../components/container/OrdersTable";
 import { Loader } from "../../components/pure/Loader";
 import { helpAxios } from "../../helpers/helpAxios";
 
 export const AllOrders = () => {
   const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(true);
+  const intervalTime = 3000;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      getAllOrders();
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const getAllOrders = async () => {
+  const getAllOrders = useCallback(async () => {
+    setIsError(false);
     try {
       const allOrders = await helpAxios().getAllOrders();
-
-      // if (allOrders instanceof Error) setIsError(true);
 
       setOrders(allOrders);
     } catch (error) {
       setIsError(true);
-    } finally {
-      setIsLoading(false);
     }
-  };
+  }, []);
 
-  return isLoading ? (
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAllOrders();
+    };
+    fetchData();
+
+    const interval = setInterval(fetchData, intervalTime);
+
+    return () => clearInterval(interval);
+  }, [getAllOrders, intervalTime]);
+
+  return isError ? (
     <Loader />
-  ) : isError ? (
-    <h2>Error en la conexión :(</h2>
-  ) : orders.length ? (
+  ) : (
     <div className={"vw-100 h-auto"}>
-      {orders && (
+      {orders.length ? (
         <OrdersTable
           orders={orders}
           setOrders={setOrders}
           isLoadingActivated={false}
         />
+      ) : (
+        <h2>No hay órdenes aún :(</h2>
       )}
     </div>
-  ) : (
-    <h2>No hay órdenes aún :(</h2>
   );
 };

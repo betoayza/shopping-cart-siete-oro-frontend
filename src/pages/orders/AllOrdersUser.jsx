@@ -13,14 +13,6 @@ export const AllOrdersUser = () => {
   const params = useParams();
   const { code, username } = params;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      getAllUserOrders();
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   const getAllUserOrders = async () => {
     try {
       const allOrders = await helpAxios().getAllUserOrders(code);
@@ -35,6 +27,14 @@ export const AllOrdersUser = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getAllUserOrders();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return isLoading ? (
     <Loader />
