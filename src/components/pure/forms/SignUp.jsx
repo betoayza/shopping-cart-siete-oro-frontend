@@ -28,19 +28,20 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const addedUser = await helpAxios().signup(form);
+    try {
+      const addedUser = await helpAxios().signup(form);
 
-    if (addedUser instanceof Error) {
-      setModal(true);
-      setIsError(true);
-    } else {
       if (addedUser.type === "Admin") setNewUser("Admin");
       else if (addedUser.type === "Estandar") setNewUser(addedUser.username);
 
       setModal(true);
+      setIsError(false);
+    } catch (error) {
+      setModal(true);
+      setIsError(true);
+    } finally {
+      handleClean();
     }
-
-    handleClean();
   };
 
   const handleClean = (e) => {
@@ -76,7 +77,7 @@ const SignUp = () => {
     </Modal>
   ) : (
     <div
-      className={"h-100 w-100 text-center border"}
+      className={"h-100 w-100 text-center"}
       style={{ display: "grid", placeItems: "center" }}
     >
       <div className="form-group">

@@ -1,32 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Modal } from "../pure/Modal";
 import { ProductsTableNotUsers } from "../pure/ProductsTableNotUsers";
 import { helpAxios } from "../../helpers/helpAxios";
 
 export const SearchingBarNotRegistered = () => {
   const [term, setTerm] = useState("");
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
   const [isModalActivated, setIsModalActivated] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    const findProducts = async (term) => {
+  const findProducts = useCallback(async (term) => {
+    try {
       const foundProducts = await helpAxios().findProducts(term);
+      const validProducts = foundProducts.filter(
+        (product) => product.stock > 0
+      );
 
-      if (foundProducts instanceof Error) setIsError(true);
-      else {
-        const validProducts = foundProducts.filter(
-          (product) => product.stock > 0
-        );
-        setProducts(validProducts);
-      }
-
+      setProducts(validProducts);
+      setIsError(false);
+    } catch (error) {
+      setIsError(true);
+    } finally {
       setIsModalActivated(true);
-    };
+    }
+  }, []);
 
-    if (term != "") findProducts(term);
+  useEffect(() => {
+    if (term !== "") findProducts(term);
     else handleClose();
-  }, [term]);
+  }, [term, findProducts]);
 
   const handleChange = (e) => {
     setTerm(e.target.value);
@@ -34,8 +36,9 @@ export const SearchingBarNotRegistered = () => {
 
   const handleClose = () => {
     setIsModalActivated(false);
-    setProducts(null);
+    setProducts([]);
     setIsError(false);
+    setTerm("")
   };
 
   return (
@@ -61,28 +64,24 @@ export const SearchingBarNotRegistered = () => {
               </button>
             </div>
           ) : (
-            products && (
-              <div className={"col container vh-100"}>
-                <div
-                  className={"w-100 d-flex flex-wrap justify-content-center"}
-                >
-                  <input
-                    className={"form-control"}
-                    style={{ width: "50%" }}
-                    value={term}
-                    placeholder={"¿Qué está buscando?..."}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className={"row"}>
-                  {products.length ? (
-                    <ProductsTableNotUsers products={products} />
-                  ) : (
-                    <h2>Sin resultados :(</h2>
-                  )}
-                </div>
+            <div className={"col container vh-100"}>
+              <div className={"w-100 d-flex flex-wrap justify-content-center"}>
+                <input
+                  className={"form-control"}
+                  style={{ width: "50%" }}
+                  value={term}
+                  placeholder={"¿Qué está buscando?..."}
+                  onChange={handleChange}
+                />
               </div>
-            )
+              <div className={"row"}>
+                {products.length ? (
+                  <ProductsTableNotUsers products={products} />
+                ) : (
+                  <h2 style={{ color: "white" }}>Sin resultados :(</h2>
+                )}
+              </div>
+            </div>
           )}
         </Modal>
       ) : null}

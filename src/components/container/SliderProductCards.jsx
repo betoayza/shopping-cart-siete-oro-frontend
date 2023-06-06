@@ -1,36 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ProductCardNotUser } from "./ProductCardNotUser";
 import { helpAxios } from "../../helpers/helpAxios";
 import { Loader } from "../../components/pure/Loader";
 
 export const SliderProductCards = () => {
   const [products, setProducts] = useState([]);
-  const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(true);
+  const intervalTime = 3000;
 
-  useEffect(() => {
-    const getProducts = async () => {
+  const getProducts = useCallback(async () => {
+    try {
       const activeProducts = await helpAxios().getAllActiveProducts();
-      console.log(activeProducts);
+      const availableProducts = activeProducts.filter(
+        (product) => product.stock > 0
+      );
 
-      if (activeProducts instanceof Error) setIsError(true);
-      else {
-        const availableProducts = activeProducts.filter(
-          (product) => product.stock > 0
-        );
-        setProducts(availableProducts);
-      }
-
-      setIsLoading(false);
-    };
-
-    getProducts();
+      setProducts(availableProducts);
+      setIsError(false);
+    } catch (error) {
+      setIsError(true);
+    }
   }, []);
 
-  return isLoading ? (
+  useEffect(() => {
+    const fetchData = async () => {
+      await getProducts();
+    };
+    fetchData();
+
+    const interval = setInterval(fetchData, intervalTime);
+
+    return () => clearInterval(interval);
+  }, [getProducts]);
+
+  return isError ? (
     <Loader />
-  ) : isError ? (
-    <h2 className="text-center">Error en la conexión :(</h2>
   ) : products.length ? (
     <div
       id="carouselExampleControls"
@@ -71,6 +75,8 @@ export const SliderProductCards = () => {
       </button>
     </div>
   ) : (
-    <h3 className="text-center">No hay productos disponibles aún :(</h3>
+    <h4 className="text-center" style={{ color: "maroon" }}>
+      No hay productos disponibles aún :(
+    </h4>
   );
 };
