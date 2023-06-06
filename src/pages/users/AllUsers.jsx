@@ -8,15 +8,13 @@ export const AllUsers = () => {
   const [isError, setIsError] = useState(true);
   const intervalTime = 5000;
 
-  const getAllUsers = useCallback(async () => {    
+  const getAllUsers = useCallback(async () => {
     try {
       const allUsers = await helpAxios().getAllUsers();
-      console.log(allUsers)
 
       setUsers(allUsers);
       setIsError(false);
     } catch (error) {
-      console.error("ASDASDASASDASD")
       setIsError(true);
     }
   }, []);

@@ -8,11 +8,11 @@ const AllProducts = () => {
   const [isError, setIsError] = useState(true);
 
   const getAllProducts = useCallback(async () => {
-    setIsError(false);
     try {
       const allProducts = await helpAxios().getAllProducts();
-
+      
       setProducts(allProducts);
+      setIsError(false);
     } catch {
       setIsError(true);
     } finally {

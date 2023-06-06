@@ -9,12 +9,12 @@ export const AllOrders = () => {
   const intervalTime = 5000;
 
   const getAllOrders = useCallback(async () => {
-    setIsError(false);
-
+    
     try {
       const allOrders = await helpAxios().getAllOrders();
-
+      
       setOrders(allOrders);
+      setIsError(false);      
     } catch (error) {
       setIsError(true);
     }
