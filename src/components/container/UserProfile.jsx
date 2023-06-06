@@ -20,20 +20,17 @@ const UserProfile = () => {
   const [form, setForm] = useState(initialForm);
   const [modal, setModal] = useState(false);
   const [isError, setIsError] = useState(false);
-
   const params = useParams();
-  // console.log(params);
   const { code, username } = params;
-  // console.log(code);
+
+  const getUserProfile = async () => {
+    const userProfile = await helpAxios().getUserProfile(code);
+
+    if (userProfile instanceof Error) setIsError(true);
+    else setForm(userProfile);
+  };
 
   useEffect(() => {
-    const getUserProfile = async () => {
-      const userProfile = await helpAxios().getUserProfile(code);
-
-      if (userProfile instanceof Error) setIsError(true);
-      else setForm(userProfile);
-    };
-
     getUserProfile();
   }, []);
 
