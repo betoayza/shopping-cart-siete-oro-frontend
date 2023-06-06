@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { OrdersTableUser } from "../../components/container/OrdersTableUser";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "../../components/container/NavBarUser";
@@ -7,39 +7,35 @@ import { helpAxios } from "../../helpers/helpAxios";
 
 export const AllOrdersUser = () => {
   const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-
+  const intervalTime = 3000;
   const params = useParams();
   const { code, username } = params;
 
-  const getAllUserOrders = async () => {
+  const getAllUserOrders = useCallback(async () => {
     try {
       const allOrders = await helpAxios().getAllUserOrders(code);
 
-      // if (allOrders instanceof Error) setIsError(true);
-
       setOrders(allOrders);
-      setIsLoading(false);
+      setIsError(false);
     } catch (error) {
       setIsError(true);
-    } finally {
-      setIsLoading(false);
     }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      getAllUserOrders();
-    }, 5000);
-
-    return () => clearInterval(interval);
   }, []);
 
-  return isLoading ? (
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAllUserOrders();
+    }
+    fetchData();
+
+    const interval = setInterval(fetchData, intervalTime);
+
+    return () => clearInterval(interval);
+  }, [getAllUserOrders]);
+
+  return isError ? (
     <Loader />
-  ) : isError ? (
-    <h2>Error en la conexión :(</h2>
   ) : (
     <div>
       <NavBarUser code={code} counterCart={0} username={username} />
