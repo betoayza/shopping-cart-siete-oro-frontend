@@ -6,10 +6,11 @@ import { helpAxios } from "../../helpers/helpAxios";
 export const AllOrders = () => {
   const [orders, setOrders] = useState([]);
   const [isError, setIsError] = useState(true);
-  const intervalTime = 3000;
+  const intervalTime = 5000;
 
   const getAllOrders = useCallback(async () => {
     setIsError(false);
+
     try {
       const allOrders = await helpAxios().getAllOrders();
 
@@ -20,6 +21,7 @@ export const AllOrders = () => {
   }, []);
 
   useEffect(() => {
+    // first call doesn't delay
     const fetchData = async () => {
       await getAllOrders();
     };
@@ -28,7 +30,7 @@ export const AllOrders = () => {
     const interval = setInterval(fetchData, intervalTime);
 
     return () => clearInterval(interval);
-  }, [getAllOrders, intervalTime]);
+  }, [getAllOrders]);
 
   return isError ? (
     <Loader />
