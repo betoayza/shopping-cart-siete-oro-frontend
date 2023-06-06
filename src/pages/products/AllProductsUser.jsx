@@ -36,21 +36,19 @@ const AllProductsUser = ({ code, username }) => {
   return isError ? (
     <Loader />
   ) : (
-    products && (
-      <div className={"h-auto vw-100 text-center"}>
-        {products.length ? (
-          <ProductsTableUsers
-            products={products}
-            setProducts={setProducts}
-            userCode={code}
-            showButton={true}
-            username={username}
-          />
-        ) : (
-          <h2>No hay productos :(</h2>
-        )}
-      </div>
-    )
+    <div className={"h-auto vw-100 text-center"}>
+      {products.length ? (
+        <ProductsTableUsers
+          products={products}
+          setProducts={setProducts}
+          userCode={code}
+          showButton={true}
+          username={username}
+        />
+      ) : (
+        <h2>No hay productos :(</h2>
+      )}
+    </div>
   );
 };
 
