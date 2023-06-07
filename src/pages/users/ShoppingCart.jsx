@@ -23,8 +23,10 @@ const ShoppingCart = () => {
       setIsError(false);
     } catch (error) {
       setIsError(true);
+      setShoppingCart({ products: [] });
     }
   }, []);
+  
 
   useEffect(() => {
     const fetchData = async () => {

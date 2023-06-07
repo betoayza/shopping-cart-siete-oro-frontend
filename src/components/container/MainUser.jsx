@@ -23,6 +23,8 @@ const MainUser = () => {
     try {
       const userShoppingCart = await helpAxios().getShoppingCart(code);
 
+      console.log(userShoppingCart);
+
       if (Object.prototype.toString.call(userShoppingCart) === "[object Error]")
         throw new Error();
 
@@ -31,6 +33,7 @@ const MainUser = () => {
     } catch (error) {
       console.error("ATRAPÓ EL ERROR ", error);
       setIsError(true);
+      setShoppingCart({ products: [] });
     }
   }, []);
 

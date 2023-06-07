@@ -10,39 +10,38 @@ export const ProductCard = ({
   showButton = true,
   username,
 }) => {
-  const [isAdded, setIsAdded] = useState(false);
   const [isCommentClicked, setIsCommentClicked] = useState(false);
   const [comments, setComments] = useState(product.comments);
   const refComment = useRef("");
 
   //check if item is already added to cart
-  useEffect(() => {
-    const checkIsIteminCart = async () => {
-      const prodCode = product.code;
-      const result = await helpAxios().checkIsItemInCart(userCode, prodCode);
+  // useEffect(() => {
+  //   const checkIsIteminCart = async () => {
+  //     const prodCode = product.code;
+  //     const result = await helpAxios().checkIsItemInCart(userCode, prodCode);
 
-      if (!(result instanceof Error)) setIsAdded(true);
-    };
+  //     if (!(result instanceof Error)) setIsAdded(true);
+  //   };
 
-    checkIsIteminCart();
-  }, []);
+  //   checkIsIteminCart();
+  // }, []);
 
   const addToCart = async () => {
     const productCode = product.code;
-    const result = await helpAxios().addItemToCart(productCode, userCode);
-
-    if (!(result instanceof Error)) setIsAdded(true);
+    try {
+      await helpAxios().addItemToCart(productCode, userCode);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const removeItemFromCart = async () => {
     const prodCode = product.code;
-    const result = await helpAxios().removeItemFromCart(
-      prodCode,
-      userCode,
-      index
-    );
-
-    if (!(result instanceof Error)) setIsAdded(false);
+    try {
+      await helpAxios().removeItemFromCart(prodCode, userCode, index);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const toBase64 = (arr) => {
@@ -60,29 +59,42 @@ export const ProductCard = ({
     setIsCommentClicked(false);
   };
 
+  const getProductComments = async (productCode) => {
+    try {
+      const listComments = await helpAxios().getProductComments(productCode);
+
+      if (Object.prototype.toString.call(listComments) === "[object Error]")
+        throw new Error();
+
+      setComments(listComments);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handlePostComment = async (e) => {
     e.preventDefault();
 
-    const comment = refComment.current.value;
-    console.log(comment.length);
+    try {
+      const comment = refComment.current.value;
+      console.log(comment);
 
-    const productCode = product.code;
-    const isCommentAdded = await helpAxios().postItemComment(
-      userCode,
-      comment,
-      productCode
-    );
+      const productCode = product.code;
+      const isCommentAdded = await helpAxios().postItemComment(
+        userCode,
+        comment,
+        productCode
+      );
 
-    if (isCommentAdded) {
-      const getProductComments = async (productCode) => {
-        const listComments = await helpAxios().getProductComments(productCode);
-
-        if (!(listComments instanceof Error)) setComments(listComments);
-      };
+      if (Object.prototype.toString.call(isCommentAdded) === "[object Error]")
+        throw new Error();
 
       getProductComments(productCode);
+    } catch (error) {
+      console.error(error);
     }
   };
+
 
   return isCommentClicked && comments ? (
     <Modal>
