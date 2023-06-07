@@ -16,6 +16,9 @@ export const AllOrdersUser = () => {
     try {
       const allOrders = await helpAxios().getAllUserOrders(code);
 
+      if (Object.prototype.toString.call(allOrders) === "[object Error]")
+        throw new Error();
+
       setOrders(allOrders);
       setIsError(false);
     } catch (error) {
@@ -26,7 +29,7 @@ export const AllOrdersUser = () => {
   useEffect(() => {
     const fetchData = async () => {
       await getAllUserOrders();
-    }
+    };
     fetchData();
 
     const interval = setInterval(fetchData, intervalTime);

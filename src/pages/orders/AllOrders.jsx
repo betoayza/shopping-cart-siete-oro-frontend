@@ -8,11 +8,13 @@ export const AllOrders = () => {
   const [isError, setIsError] = useState(true);
   const intervalTime = 5000;
 
-  const getAllOrders = useCallback(async () => {
-    
+  const getAllOrders = useCallback(async () => {    
     try {
       const allOrders = await helpAxios().getAllOrders();
-      
+
+      if(Object.prototype.toString.call(allOrders) === "[object Error]")
+        throw new Error()
+
       setOrders(allOrders);
       setIsError(false);      
     } catch (error) {

@@ -23,12 +23,12 @@ export const SearchingBarNotRegistered = () => {
     } finally {
       setIsModalActivated(true);
     }
-  }, []);
+  }, [term]);
 
   useEffect(() => {
     if (term !== "") findProducts(term);
     else handleClose();
-  }, [term, findProducts]);
+  }, [findProducts]);
 
   const handleChange = (e) => {
     setTerm(e.target.value);
@@ -38,7 +38,6 @@ export const SearchingBarNotRegistered = () => {
     setIsModalActivated(false);
     setProducts([]);
     setIsError(false);
-    setTerm("")
   };
 
   return (

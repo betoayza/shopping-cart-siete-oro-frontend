@@ -422,14 +422,14 @@ export const helpAxios = () => {
       params: { userCode },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      return error;
+    }
   };
 
   const findProducts = async (term) => {

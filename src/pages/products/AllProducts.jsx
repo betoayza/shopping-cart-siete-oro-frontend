@@ -10,10 +10,14 @@ const AllProducts = () => {
   const getAllProducts = useCallback(async () => {
     try {
       const allProducts = await helpAxios().getAllProducts();
-      
+
+      if (Object.prototype.toString.call(allProducts) === "[object Error]")
+        throw new Error();
+
       setProducts(allProducts);
       setIsError(false);
     } catch {
+      console.error("SE ATRAPÓ EL ERROR");
       setIsError(true);
     } finally {
       setIsError(false);

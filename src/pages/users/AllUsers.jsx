@@ -12,6 +12,9 @@ export const AllUsers = () => {
     try {
       const allUsers = await helpAxios().getAllUsers();
 
+      if (Object.prototype.toString.call(allUsers) === "[object Error]")
+        throw new Error();
+
       setUsers(allUsers);
       setIsError(false);
     } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ShoppingCartTable } from "../../components/container/ShoppingCartTable";
 import { useParams } from "react-router-dom";
 import { NavBarUser } from "../../components/container/NavBarUser";
@@ -6,34 +6,44 @@ import { Loader } from "../../components/pure/Loader";
 import { helpAxios } from "../../helpers/helpAxios";
 
 const ShoppingCart = () => {
-  const [shoppingCart, setShoppingCart] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [shoppingCart, setShoppingCart] = useState({ products: [] });
   const [isError, setIsError] = useState(false);
   const params = useParams();
   const { userCode, username } = params; //userCode = shoppingCart.code
+  const intervalTime = 3000;
 
-  useEffect(() => {
-    const getShoppingCart = async (userCode) => {
+  const getShoppingCart = useCallback(async (userCode) => {
+    try {
       const userShoppingCart = await helpAxios().getShoppingCart(userCode);
 
-      if (userShoppingCart instanceof Error) setIsError(true);
-      else setShoppingCart(userShoppingCart);
+      if (Object.prototype.toString.call(userShoppingCart) === "[Object Error]")
+        throw new Error();
 
-      setIsLoading(false);
+      setShoppingCart(userShoppingCart);
+      setIsError(false);
+    } catch (error) {
+      setIsError(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getShoppingCart(userCode);
     };
+    fetchData();
 
-    userCode && getShoppingCart(userCode);
-  }, [userCode]);
+    const interval = setInterval(fetchData, intervalTime);
 
-  return isLoading ? (
+    return () => clearInterval(interval);
+  }, [getShoppingCart]);
+
+  return isError ? (
     <Loader />
-  ) : isError ? (
-    <h2 className="text-center">Error en la conexión :(</h2>
   ) : (
     <div className={"h-100 w-100"}>
       <NavBarUser
         code={userCode}
-        counterCart={shoppingCart.products.length || 0}
+        counterCart={shoppingCart.products.length}
         username={username}
       />
 
