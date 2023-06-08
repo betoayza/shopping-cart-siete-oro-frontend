@@ -15,13 +15,15 @@ export const helpAxios = () => {
       timeout: 3000,
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const deleteUser = async (code) => {
@@ -37,13 +39,15 @@ export const helpAxios = () => {
       data: { code },
     };
 
-    return await axios
-      .delete(url, options)
-      .then((res) => {
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.delete(url, options);
+
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const activateUser = async (code) => {
@@ -60,12 +64,15 @@ export const helpAxios = () => {
       data: { code },
     };
 
-    return await axios(url, options)
-      .then((res) => {
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios(url, options);
+
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const getUser = async (code) => {
@@ -81,13 +88,15 @@ export const helpAxios = () => {
       params: { code },
     };
 
-    return await axios
-      .get(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.get(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   // PRODUCTS MANAGEMENT
@@ -110,8 +119,8 @@ export const helpAxios = () => {
       if (result.status === 200) return result.data;
       else throw new Error(result.statusText);
     } catch (error) {
-      console.error("Error al obtener los productos: ", error);
-      throw new Error("Falló al obtener los productos");
+      console.error(error);
+      throw new Error();
     }
   };
 
@@ -128,12 +137,15 @@ export const helpAxios = () => {
       params: { term },
     };
 
-    return await axios(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const getProduct = async (code) => {
@@ -149,13 +161,15 @@ export const helpAxios = () => {
       params: { code },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const modifyProduct = async (data) => {
@@ -172,18 +186,21 @@ export const helpAxios = () => {
       data: data,
     };
 
-    return await axios(url, options)
-      .then((res) => {
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios(url, options);
+
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const addProduct = async (data) => {
     const url = `${import.meta.env.VITE_API}/admin/product/add`;
     const options = {
-      method: "post",
+      method: "POST",
       // headers: {
       //   "Content-Type": "application/json",
       //   "Access-Control-Allow-Origin": "*",
@@ -194,12 +211,15 @@ export const helpAxios = () => {
       data: data,
     };
 
-    return await axios(url, options)
-      .then((res) => {
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios(url, options);
+
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const deleteProduct = async (code) => {
@@ -214,13 +234,18 @@ export const helpAxios = () => {
       data: { code },
     };
 
-    return await axios
-      .delete(`${import.meta.env.VITE_API}/admin/products/delete`, options)
-      .then((res) => {
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.delete(
+        `${import.meta.env.VITE_API}/admin/products/delete`,
+        options
+      );
+
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const activateProduct = async (code) => {
@@ -237,13 +262,15 @@ export const helpAxios = () => {
       data: { code },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   // ORDERS MANAGEMENT
@@ -259,13 +286,15 @@ export const helpAxios = () => {
       timeout: 3000,
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const changeOrderState = async (code, newState) => {
@@ -282,13 +311,15 @@ export const helpAxios = () => {
       data: { code, newState },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const getOrderProducts = async (itemsIDs) => {
@@ -304,13 +335,15 @@ export const helpAxios = () => {
       params: { itemsIDs },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const getOrders = async (term) => {
@@ -326,13 +359,15 @@ export const helpAxios = () => {
       params: { term },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   //**************LOGIN & SIGNUP********
@@ -349,13 +384,15 @@ export const helpAxios = () => {
       params: form,
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const signup = async (form) => {
@@ -371,17 +408,16 @@ export const helpAxios = () => {
       timeout: 3000,
       data: form,
     };
-    console.log(form);
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        console.log(res);
+    try {
+      const result = await axios.request(url, options);
 
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   //*******************NON USER*******
@@ -397,15 +433,15 @@ export const helpAxios = () => {
       timeout: 3000,
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        console.log(res);
+    try {
+      const result = await axios.request(url, options);
 
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   // **************USERS*************
@@ -428,7 +464,8 @@ export const helpAxios = () => {
       if (result.status === 200) return result.data;
       else throw new Error(result.statusText);
     } catch (error) {
-      return error;
+      console.error(error);
+      throw new Error();
     }
   };
 
@@ -446,13 +483,15 @@ export const helpAxios = () => {
       params: { term },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const getUserProfile = async (code) => {
@@ -468,13 +507,15 @@ export const helpAxios = () => {
       params: { code },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const modifyProfile = async (form) => {
@@ -491,13 +532,15 @@ export const helpAxios = () => {
       data: form,
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const getAllUserOrders = async (userCode) => {
@@ -513,13 +556,15 @@ export const helpAxios = () => {
       timeout: 3001,
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const getOrderItems = async (orderItems) => {
@@ -535,14 +580,15 @@ export const helpAxios = () => {
       params: { orderItems },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const cancelOrder = async (code, userCode, orderItemsData) => {
@@ -558,13 +604,15 @@ export const helpAxios = () => {
       data: { code, userCode, orderItemsData },
     };
 
-    return await axios
-      .delete(url, options)
-      .then((res) => {
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.delete(url, options);
+
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const contactSupport = async (form) => {
@@ -579,13 +627,15 @@ export const helpAxios = () => {
       data: form,
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const updateItemCounter = async (userCode, toBuy, itemIndex) => {
@@ -602,14 +652,16 @@ export const helpAxios = () => {
       data: { userCode, toBuy, itemIndex },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) {
-          return res.data;
-        } else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) {
+        return result.data;
+      } else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const cleanShoppingCart = async (userCode) => {
@@ -625,13 +677,15 @@ export const helpAxios = () => {
       data: { userCode },
     };
 
-    return await axios
-      .delete(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.delete(url, options);
+
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const removeItem = async (prodCode, userCode, index) => {
@@ -647,13 +701,14 @@ export const helpAxios = () => {
       data: { prodCode, userCode, index },
     };
 
-    return await axios
-      .delete(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.delete(url, options);
+      if (result.status === 200) return result.data;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   // ******** CARDS **********
@@ -670,13 +725,15 @@ export const helpAxios = () => {
       params: { productCode },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return res.data.comments;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+
+      if (result.status === 200) return result.data.comments;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const checkIsItemInCart = async (userCode, prodCode) => {
@@ -694,13 +751,14 @@ export const helpAxios = () => {
       params: { userCode, prodCode },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+    try {
+      const result = await axios.request(url, options);
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const addItemToCart = async (productCode, userCode) => {
@@ -717,15 +775,15 @@ export const helpAxios = () => {
       data: { productCode, userCode },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        console.log(res.data);
+    try {
+      const result = await axios.request(url, options);
 
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const removeItemFromCart = async (prodCode, userCode, index) => {
@@ -741,15 +799,15 @@ export const helpAxios = () => {
       data: { prodCode, userCode, index },
     };
 
-    return await axios
-      .delete(url, options)
-      .then((res) => {
-        console.log(res.data);
+    try {
+      const result = await axios.delete(url, options);
 
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const postItemComment = async (userCode, comment, productCode) => {
@@ -766,15 +824,15 @@ export const helpAxios = () => {
       data: { userCode, comment, productCode },
     };
 
-    return await axios
-      .request(url, options)
-      .then((res) => {
-        console.log(res);
+    try {
+      const result = await axios.request(url, options);
 
-        if (res.status === 200) return true;
-        else throw new Error(res.statusText);
-      })
-      .catch((error) => error);
+      if (result.status === 200) return true;
+      else throw new Error(result.statusText);
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
   };
 
   const removeItemComment = async (index, productCode) => {
