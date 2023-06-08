@@ -1,21 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../img/logo-siete-oro.png";
 import { helpAxios } from "../../helpers/helpAxios";
 
 export const NavBarUser = ({ code, counterCart = 0, username }) => {
   const [itemsCounter, setItemsCounter] = useState(counterCart);
+  const userCode = code;
+  const intervalTime = 3000;
+
+  const getCartItemsCounter = useCallback(async (userCode) => {
+    try {
+      const shoppingCart = await helpAxios().getShoppingCart(userCode);
+
+      if (
+        Object.prototype.toString.call(shoppingCart) === "[object Error]" ||
+        shoppingCart.name === "AxiosError"
+      )
+        throw new Error();
+
+      setItemsCounter(shoppingCart.products.length);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   useEffect(() => {
-    const userCode = code;
-    const getShoppingCart = async (userCode) => {
-      const shoppingCart = await helpAxios().getShoppingCart(userCode);
-      if (!(shoppingCart instanceof Error))
-        setItemsCounter(shoppingCart.products.length);
+    const fetchData = async () => {
+      await getCartItemsCounter(userCode);
     };
+    fetchData();
 
-    getShoppingCart(userCode);
-  }, []);
+    const interval = setInterval(fetchData, intervalTime);
+
+    return () => clearInterval(interval);
+  }, [getCartItemsCounter]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

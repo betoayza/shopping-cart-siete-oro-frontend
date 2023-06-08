@@ -23,9 +23,10 @@ const MainUser = () => {
     try {
       const userShoppingCart = await helpAxios().getShoppingCart(code);
 
-      console.log(userShoppingCart);
-
-      if (Object.prototype.toString.call(userShoppingCart) === "[object Error]")
+      if (
+        Object.prototype.toString.call(userShoppingCart) === "[object Error]" ||
+        userShoppingCart.name === "AxiosError"
+      )
         throw new Error();
 
       setShoppingCart(userShoppingCart);
@@ -83,8 +84,7 @@ const MainUser = () => {
     <div className={"vw-100 h-100"}>
       <div className={"col"}>
         <NavBarUser
-          code={code}
-          counterCart={shoppingCart.products.length}
+          code={code}   
           username={username}
         />
         <h2 className={"fw-bold"} style={{ color: "#6610f2" }}>
