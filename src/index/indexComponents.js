@@ -4,7 +4,6 @@ import Home from "../pages/home/Home";
 import ShoppingCart from "../../src/pages/users/ShoppingCart";
 
 import { AllOrders } from "../pages/orders/AllOrders";
-import { OrderByCode } from "../components/container/OrderByCode";
 import { AllOrdersUser } from "../pages/orders/AllOrdersUser";
 import DeleteOrder from "../components/container/DeleteOrder";
 
@@ -40,8 +39,7 @@ export {
   MainUser,
   Home,
   ShoppingCart,
-  AllOrders,
-  OrderByCode,
+  AllOrders,  
   AllOrdersUser,
   DeleteOrder,
   AllProducts,

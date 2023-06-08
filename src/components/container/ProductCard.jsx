@@ -77,8 +77,6 @@ export const ProductCard = ({
 
     try {
       const comment = refComment.current.value;
-      console.log(comment);
-
       const productCode = product.code;
       const isCommentAdded = await helpAxios().postItemComment(
         userCode,
