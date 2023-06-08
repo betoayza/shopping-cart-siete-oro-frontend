@@ -27,7 +27,6 @@ export const ShoppingCartTable = ({
 
       if (shoppingCartUpdated instanceof Error) setIsError(true);
       else setShoppingCart(shoppingCartUpdated);
-      console.log(itemCounter, itemIndex);
     };
 
     if (itemCounter !== null && itemIndex !== null)

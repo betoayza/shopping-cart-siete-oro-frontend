@@ -697,8 +697,6 @@ export const helpAxios = () => {
     return await axios
       .request(url, options)
       .then((res) => {
-        console.log(res.data);
-
         if (res.status === 200) return true;
         else throw new Error(res.statusText);
       })
@@ -779,6 +777,32 @@ export const helpAxios = () => {
       .catch((error) => error);
   };
 
+  const removeItemComment = async (index, productCode) => {
+    const options = {
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { index, productCode },
+    };
+
+    try {
+      const result = await axios.delete(
+        `${import.meta.env.VITE_API}/user/comment/delete`,
+        options
+      );
+
+      if (result.status === 200) return result.data;
+      else throw new Error();
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
+  };
+
   // RETURN ALL FUNCTIONS
   return {
     getAllUsers,
@@ -813,6 +837,7 @@ export const helpAxios = () => {
     addItemToCart,
     removeItemFromCart,
     postItemComment,
+    removeItemComment,
     login,
     signup,
   };

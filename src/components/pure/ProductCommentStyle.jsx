@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { helpAxios } from "../../helpers/helpAxios";
 
 //comment prop is {username: 'comment'}
 export const ProductCommentStyle = ({
@@ -10,49 +11,28 @@ export const ProductCommentStyle = ({
   username = "",
 }) => {
   const handleDeleteComment = async () => {
-    const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        Accept: "application/json",
-      },
-      timeout: 3000,
-      data: { index, productCode },
-    };
+    try {
+      const isDeleted = await helpAxios().removeItemComment(index, productCode);
 
-    await axios
-      .delete(`${import.meta.env.VITE_API}/user/comment/delete`, options)
-      .then((res) => {
-        console.log(res);
-        if (res.data) {
-          const getProductComments = async () => {
-            const options = {
-              url: `${import.meta.env.VITE_API}/product/code`,
-              headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "*",
-                Accept: "application/json",
-              },
-              timeout: 3000,
-              params: { productCode },
-            };
+      if (
+        Object.prototype.toString.call(isDeleted) === "[object Error]" ||
+        isDeleted.name === "AxiosError"
+      )
+        throw new Error();
 
-            await axios
-              .request(options)
-              .then((res) => {
-                console.log(res.data);
-                if (res.data) setComments(res.data.comments);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-          };
-          getProductComments();
-        }
-      })
-      .catch((error) => error);
+      const productComments = await helpAxios().getProductComments(productCode);
+
+      if (
+        Object.prototype.toString.call(productComments) ===
+          "[object Error]" ||
+        productComments.name === "AxiosError"
+      )
+        throw new Error();
+
+      setComments(productComments);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
