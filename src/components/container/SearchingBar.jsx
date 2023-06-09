@@ -15,7 +15,10 @@ const SearchingBar = ({
     try {
       const productsUser = await helpAxios().findProducts(term);
 
-      if (Object.prototype.toString.call(productUser) === "[object Error]")
+      if (
+        Object.prototype.toString.call(productsUser) === "[object Error]" ||
+        productsUser.name === "AxiosError"
+      )
         throw new Error();
 
       setProducts(productsUser);

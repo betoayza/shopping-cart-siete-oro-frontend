@@ -11,6 +11,14 @@ const AllProductsUser = ({ code, username }) => {
   const getAvailableProducts = useCallback(async () => {
     try {
       const allActiveProducts = await helpAxios().getAllActiveProducts();
+
+      if (
+        Object.prototype.toString.call(allActiveProducts) ===
+          "[object Error]" ||
+        AllProductsUser.name === "AxiosError"
+      )
+        throw new Error();
+
       const availableProducts = allActiveProducts.filter(
         (product) => product.stock > 0
       );

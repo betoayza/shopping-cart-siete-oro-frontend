@@ -32,7 +32,6 @@ const MainUser = () => {
       setShoppingCart(userShoppingCart);
       setIsError(false);
     } catch (error) {
-      console.error("ATRAPÓ EL ERROR ", error);
       setIsError(true);
       setShoppingCart({ products: [] });
     }
@@ -83,10 +82,7 @@ const MainUser = () => {
   ) : (
     <div className={"vw-100 h-100"}>
       <div className={"col"}>
-        <NavBarUser
-          code={code}   
-          username={username}
-        />
+        <NavBarUser code={code} username={username} />
         <h2 className={"fw-bold"} style={{ color: "#6610f2" }}>
           Bienvenido {username}!
         </h2>
