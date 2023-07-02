@@ -22,7 +22,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -46,7 +46,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -71,7 +71,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -95,7 +95,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -120,7 +120,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -144,7 +144,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -168,7 +168,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -193,7 +193,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -218,7 +218,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -244,7 +244,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -269,7 +269,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -293,7 +293,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -318,7 +318,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -342,7 +342,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -366,7 +366,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -391,7 +391,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -416,7 +416,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -440,7 +440,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -465,7 +465,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -490,7 +490,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -514,7 +514,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -539,7 +539,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -563,7 +563,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -587,7 +587,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -611,7 +611,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -634,7 +634,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -660,7 +660,7 @@ export const helpAxios = () => {
       } else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -684,7 +684,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -707,7 +707,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -757,7 +757,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -782,7 +782,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -806,7 +806,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -831,7 +831,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
     }
   };
 
@@ -854,10 +854,37 @@ export const helpAxios = () => {
       );
 
       if (result.status === 200) return result.data;
-      else return new Error()
+      else return new Error();
     } catch (error) {
       console.error(error);
-      return new Error()
+      return new Error();
+    }
+  };
+
+  // PAYMENT
+  const doPayment = async (items, userCode) => {
+    const options = {
+      url: `${import.meta.env.VITE_API}/payment`,
+      method: "POST",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Access-Control-Allow-Headers": "*",
+      //   Accept: "application/json",
+      // },
+      timeout: 3000,
+      data: { items, userCode },
+    };
+
+    try {
+      await axios.request(options);
+      if (res.data) {
+        window.location.href = res.data.init_point;
+      } else {
+        navigate(res.data.back_urls.failure);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -898,5 +925,6 @@ export const helpAxios = () => {
     removeItemComment,
     login,
     signup,
+    doPayment,
   };
 };

@@ -7,7 +7,7 @@ import { helpAxios } from "../../helpers/helpAxios";
 
 const ShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState({ products: [] });
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(true);
   const params = useParams();
   const { userCode, username } = params; //userCode = shoppingCart.code
   const intervalTime = 3000;
@@ -16,7 +16,10 @@ const ShoppingCart = () => {
     try {
       const userShoppingCart = await helpAxios().getShoppingCart(userCode);
 
-      if (Object.prototype.toString.call(userShoppingCart) === "[Object Error]")
+      if (
+        Object.prototype.toString.call(userShoppingCart) === "[object Error]" ||
+        userShoppingCart.name === "AxiosError"
+      )
         throw new Error();
 
       setShoppingCart(userShoppingCart);
@@ -26,7 +29,6 @@ const ShoppingCart = () => {
       setShoppingCart({ products: [] });
     }
   }, []);
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +47,7 @@ const ShoppingCart = () => {
     <div className={"h-100 w-100"}>
       <NavBarUser
         code={userCode}
-        counterCart={shoppingCart.products.length}
+        counterCart={shoppingCart.products.length ?? 0}
         username={username}
       />
 

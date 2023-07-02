@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ShoppingCartTableRow } from "./ShoppingCartTableRow";
 import { useNavigate } from "react-router-dom";
@@ -12,23 +11,32 @@ export const ShoppingCartTable = ({
 }) => {
   const [itemCounter, setItemCounter] = useState(null);
   const [itemIndex, setItemIndex] = useState(null);
-  const [isError, setIsError] = useState(false);
   const [isModalActivated, setIsModalActivated] = useState(false);
+  // let navigate = useNavigate();
 
-  let navigate = useNavigate();
-
-  useEffect(() => {
-    const updateItemCounter = async (userCode, counter, index) => {
+  const updateItemCounter = async (userCode, counter, index) => {
+    try {
+      // Each time user updateds item counter, give back shopping cart updated
       const shoppingCartUpdated = await helpAxios().updateItemCounter(
         userCode,
         counter,
         index
       );
 
-      if (shoppingCartUpdated instanceof Error) setIsError(true);
-      else setShoppingCart(shoppingCartUpdated);
-    };
+      if (
+        Object.prototype.toString.call(shoppingCartUpdated) ===
+          "[object Error]" ||
+        shoppingCartUpdated.name === "AxiosError"
+      )
+        throw new Error();
 
+      setShoppingCart(shoppingCartUpdated);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
     if (itemCounter !== null && itemIndex !== null)
       updateItemCounter(userCode, itemCounter, itemIndex);
   }, [itemCounter, itemIndex]);
@@ -43,77 +51,22 @@ export const ShoppingCartTable = ({
   };
 
   const handlePurchase = async () => {
-    //get shopping cart refreshed
-    const getShoppingCart = async () => {
-      const options = {
-        url: `${import.meta.env.VITE_API}/user/shopping-cart`,
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   "Access-Control-Allow-Origin": "*",
-        //   "Access-Control-Allow-Headers": "*",
-        //   Accept: "application/json",
-        // },
-        timeout: 3000,
-        params: { userCode },
-      };
+    if (shoppingCart) {
+      const cart = shoppingCart.products;
 
-      await axios
-        .request(options)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data) {
-            const cart = res.data.products;
+      const items = cart.map((product) => ({
+        ...product,
+        ["image"]: "",
+      }));
 
-            let items = cart.map((product) => ({
-              ...product,
-              ["image"]: "",
-            }));
-
-            //alert(JSON.stringify(items));
-
-            if (
-              items.filter((item) => {
-                return item.toBuy > item.stock;
-              }).length
-            ) {
-              alert("Cantidad incorrecta :(");
-            } else {
-              const doPayment = async () => {
-                const options = {
-                  url: `${import.meta.env.VITE_API}/payment`,
-                  method: "POST",
-                  // headers: {
-                  //   "Content-Type": "application/json",
-                  //   "Access-Control-Allow-Origin": "*",
-                  //   "Access-Control-Allow-Headers": "*",
-                  //   Accept: "application/json",
-                  // },
-                  timeout: 3000,
-                  data: { items, userCode },
-                };
-
-                await axios
-                  .request(options)
-                  .then((res) => {
-                    console.log(res.data);
-                    if (res.data) {
-                      window.location.href = res.data.init_point;
-                    } else {
-                      navigate(res.data.back_urls.failure);
-                    }
-                  })
-                  .catch((error) => error);
-              };
-              doPayment();
-            }
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
-
-    getShoppingCart();
+      if (
+        items.filter((item) => {
+          return item.toBuy > item.stock;
+        }).length
+      ) {
+        alert("Cantidad incorrecta :(");
+      } else await helpAxios().doPayment(items, userCode);
+    }
   };
 
   const removeItem = async (prodCode, userCode, index) => {
@@ -128,18 +81,26 @@ export const ShoppingCartTable = ({
   }; // falta modificar backend y registro producto por isInCart
 
   const removeAllItems = async () => {
-    const shoppingCartEmpty = await helpAxios().cleanShoppingCart(userCode);
+    try {
+      const shoppingCartEmpty = await helpAxios().cleanShoppingCart(userCode);
 
-    if (shoppingCartEmpty instanceof Error) setIsError(true);
-    else {
+      if (
+        Object.prototype.toString.call(shoppingCartEmpty) ===
+          "[object Error]" ||
+        shoppingCartEmpty.name === "AxiosError"
+      )
+        throw new Error();
+
       setIsModalActivated(true);
       setShoppingCart(shoppingCartEmpty);
+    } catch (error) {
+      console.error(error);
     }
+
+    // if (shoppingCartEmpty instanceof Error) console.error(shoppingCartEmpty);
   };
 
-  return isError ? (
-    <h2>Error en la conexión :(</h2>
-  ) : isModalActivated ? (
+  return isModalActivated ? (
     <Modal>
       <h3>Carrito limpio ;)</h3>
       <button className="btn btn-danger" onClick={handleClose}>

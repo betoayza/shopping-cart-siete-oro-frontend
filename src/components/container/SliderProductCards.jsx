@@ -11,6 +11,13 @@ export const SliderProductCards = () => {
   const getProducts = useCallback(async () => {
     try {
       const activeProducts = await helpAxios().getAllActiveProducts();
+
+      if (
+        Object.prototype.toString.call(activeProducts) === "[object Error]" ||
+        activeProducts.name === "AxiosError"
+      )
+        throw new Error();
+
       const availableProducts = activeProducts.filter(
         (product) => product.stock > 0
       );

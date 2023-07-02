@@ -93,7 +93,6 @@ export const ProductCard = ({
     }
   };
 
-
   return isCommentClicked && comments ? (
     <Modal>
       <div
