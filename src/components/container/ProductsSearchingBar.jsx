@@ -12,18 +12,26 @@ export const ProductsSearchingBar = ({
   const [products, setProducts] = useState(null);
   const [isError, setIsError] = useState(false);
 
+  const getProduct = async () => {
+    try {
+      const allProducts = await helpAxios().getProductsAdmin(term);
+
+      if (
+        Object.prototype.toString.call(allProducts) === "[object Error]" ||
+        allProducts.name === "AxiosError"
+      )
+        throw new Error();
+
+      setProducts(allProducts);
+      setModal(true);
+      setModalSearchProduct(true);
+    } catch (error) {
+      console.error(error);
+      setIsError(true);
+    }
+  };
+
   useEffect(() => {
-    const getProduct = async () => {
-      const result = await helpAxios().getProductsAdmin(term);
-
-      if (result instanceof Error) setIsError(true);
-      else {
-        setProducts(result);
-        setModal(true);
-        setModalSearchProduct(true);
-      }
-    };
-
     if (term != "") getProduct();
     else {
       setProducts(null);

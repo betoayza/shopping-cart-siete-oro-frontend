@@ -24,7 +24,7 @@ export const ProductsTable = ({
   const [modalActivateProduct, setModalActivateProduct] = useState(false);
   const [modalDeleteProduct, setModalDeleteProduct] = useState(false);
   const [term, setTerm] = useState("");
- 
+
   const handleUpdate = (prodCode) => {
     setModal(true);
     setProductCode(prodCode);
@@ -92,34 +92,30 @@ export const ProductsTable = ({
   ) : (
     <div className={"vw-100 h-auto"}>
       {showAddAndSearch && (
-        <div className={"w-100"}>
+        <div className={"w-100 mb-2"}>
           <NavBarAdmin />
           <div
-            className={"w-100"}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
+            className={"w-100 row-cols-auto"}
+            // style={{
+            //   display: "flex",
+            //   justifyContent: "center",
+            // }}
           >
-            <div className={""}>
-              <button
-                className={"btn btn-primary w-10"}
-                onClick={handleAddProduct}
-              >
-                Alta
-              </button>
-            </div>
+            <button
+              className={"btn btn-primary w-10 mb-1 mt-1"}
+              onClick={handleAddProduct}
+            >
+              Alta
+            </button>
 
-            <div className={""}>
-              <ProductsSearchingBar
-                term={term}
-                setTerm={setTerm}
-                products={products}
-                setProducts={setProducts}
-                setModal={setModal}
-                setModalSearchProduct={setModalSearchProduct}
-              />
-            </div>
+            <ProductsSearchingBar
+              term={term}
+              setTerm={setTerm}
+              products={products}
+              setProducts={setProducts}
+              setModal={setModal}
+              setModalSearchProduct={setModalSearchProduct}
+            />
           </div>
         </div>
       )}
