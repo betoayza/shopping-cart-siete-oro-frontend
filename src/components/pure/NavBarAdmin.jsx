@@ -5,6 +5,8 @@ import logo from "../../img/logo-siete-oro.png";
 export const NavBarAdmin = () => {
   const optionStyle = {
     textDecoration: "none",
+    color: "yellowgreen",
+    margin: "3px",
   };
 
   return (
@@ -30,7 +32,7 @@ export const NavBarAdmin = () => {
               <NavLink to="/admin">
                 <i
                   className="bi-house-door-fill"
-                  style={{ color: "white", fontSize: "20px" }}
+                  style={{ color: "white", fontSize: "20px", margin: "3px" }}
                 ></i>
               </NavLink>
             </li>
@@ -57,7 +59,7 @@ export const NavBarAdmin = () => {
               <NavLink to="/">
                 <i
                   className="bi-box-arrow-right"
-                  style={{ color: "white", fontSize: "20px" }}
+                  style={{ color: "white", fontSize: "20px", margin: "3px" }}
                 ></i>
               </NavLink>
             </li>

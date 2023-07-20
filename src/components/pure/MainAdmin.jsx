@@ -5,7 +5,7 @@ import logo from "../../img/logo-siete-oro.png";
 const MainAdmin = () => {
   return (
     <div className={"vw-100 vh-100"}>
-      <div className="border">
+      <div className="">
         <NavBarAdmin />
       </div>
       <h2 className={"fw-bold"} style={{ color: "purple" }}>

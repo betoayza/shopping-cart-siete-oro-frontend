@@ -15,15 +15,15 @@ export const ProductsTable = ({
   seeActions = true,
   isModalStyle = false,
 }) => {
-  const [modal, setModal] = useState(false);
   const [productCode, setProductCode] = useState(null);
+  const [term, setTerm] = useState("");
+  const [showAddAndSearch, setShowAddAndSearch] = useState(addAndSearch);
+  const [modal, setModal] = useState(false);
   const [modalSearchProduct, setModalSearchProduct] = useState(false);
   const [modalModifyProduct, setModalModifyProduct] = useState(false);
-  const [showAddAndSearch, setShowAddAndSearch] = useState(addAndSearch);
   const [modalAddProduct, setModalAddProduct] = useState(false);
   const [modalActivateProduct, setModalActivateProduct] = useState(false);
   const [modalDeleteProduct, setModalDeleteProduct] = useState(false);
-  const [term, setTerm] = useState("");
 
   const handleUpdate = (prodCode) => {
     setModal(true);
@@ -94,13 +94,7 @@ export const ProductsTable = ({
       {showAddAndSearch && (
         <div className={"w-100 mb-2"}>
           <NavBarAdmin />
-          <div
-            className={"w-100 row-cols-auto"}
-            // style={{
-            //   display: "flex",
-            //   justifyContent: "center",
-            // }}
-          >
+          <div className={"w-100 row-cols-auto"}>
             <button
               className={"btn btn-primary w-10 mb-1 mt-1"}
               onClick={handleAddProduct}

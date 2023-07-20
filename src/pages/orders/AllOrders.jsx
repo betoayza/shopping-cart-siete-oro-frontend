@@ -6,19 +6,25 @@ import { helpAxios } from "../../helpers/helpAxios";
 export const AllOrders = () => {
   const [orders, setOrders] = useState([]);
   const [isError, setIsError] = useState(true);
-  const intervalTime = 5000;
+  const intervalTime = 3000;
 
-  const getAllOrders = useCallback(async () => {    
+  const getAllOrders = useCallback(async () => {
     try {
       const allOrders = await helpAxios().getAllOrders();
 
-      if(Object.prototype.toString.call(allOrders) === "[object Error]")
-        throw new Error()
+      console.log(allOrders);
+
+      if (
+        Object.prototype.toString.call(allOrders) === "[object Error]" ||
+        allOrders.name === "AxiosError"
+      )
+        throw new Error();
 
       setOrders(allOrders);
-      setIsError(false);      
+      // setIsError(false);
     } catch (error) {
-      setIsError(true);
+      console.error("asdasdadajsda");
+      // setIsError(true);
     }
   }, []);
 
@@ -34,16 +40,14 @@ export const AllOrders = () => {
     return () => clearInterval(interval);
   }, [getAllOrders]);
 
-  return isError ? (
-    <Loader />
-  ) : (
+  // return isError ? (
+  //   <Loader />
+  // ) :
+
+  return (
     <div className={"vw-100 h-auto"}>
       {orders.length ? (
-        <OrdersTable
-          orders={orders}
-          setOrders={setOrders}
-          isLoadingActivated={false}
-        />
+        <OrdersTable orders={orders} setOrders={setOrders} />
       ) : (
         <h2>No hay órdenes aún :(</h2>
       )}

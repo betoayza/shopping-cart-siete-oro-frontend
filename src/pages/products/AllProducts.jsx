@@ -11,7 +11,10 @@ const AllProducts = () => {
     try {
       const allProducts = await helpAxios().getAllProducts();
 
-      if (Object.prototype.toString.call(allProducts) === "[object Error]")
+      if (
+        Object.prototype.toString.call(allProducts) === "[object Error]" ||
+        allProducts.name === "AxiosError"
+      )
         throw new Error();
 
       setProducts(allProducts);
@@ -19,8 +22,6 @@ const AllProducts = () => {
     } catch {
       console.error("SE ATRAPÓ EL ERROR");
       setIsError(true);
-    } finally {
-      setIsError(false);
     }
   }, []);
 

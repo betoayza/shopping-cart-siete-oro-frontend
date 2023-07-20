@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "../pure/Modal";
 import { NavBarAdmin } from "../pure/NavBarAdmin";
 import { OrderTableRow } from "../pure/OrderTableRow";
@@ -13,22 +13,16 @@ export const OrdersTable = ({
   setOrders,
   showSearchingBar = true,
   isModalStyle = false,
-  isLoadingActivated = true,
 }) => {
   const [orderProducts, setOrderProducts] = useState([]);
   const [term, setTerm] = useState("");
+  const [userCode, setUserCode] = useState(null);
+  // const [isError, setIsError] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalSearchOrder, setModalSearchOrder] = useState(false);
   const [modalSeeProducts, setModalSeeProducts] = useState(false);
   const [modalSearchUser, setModalSearchUser] = useState(false);
   const [modalIsStateChanged, setModalIsStateChanged] = useState(false);
-  const [userCode, setUserCode] = useState(null);
-  const [isLoading, setIsLoading] = useState(isLoadingActivated);
-  const [isError, setIsError] = useState(false);
-
-  if (!Array.isArray(orders)) {
-    orders = [orders];
-  }
 
   const handleSearchUser = (userCode) => {
     setModal(true);
@@ -37,21 +31,28 @@ export const OrdersTable = ({
   };
 
   const handleSeeOrderProducts = async (products) => {
-    setModal(true);
-
-    let itemsIDs = products.map((product) => {
+    const itemsIDs = products.map((product) => {
       return product.id;
     });
-    console.log(itemsIDs);
 
-    const result = await helpAxios().getOrderProducts(itemsIDs);
+    try {
+      const ordProducts = await helpAxios().getOrderProducts(itemsIDs);
 
-    if (result instanceof Error) setIsError(true);
-    else {
-      setOrderProducts(result);
+      console.log(ordProducts);
+
+      if (
+        Object.prototype.toString.call(ordProducts) === "[object Error]" ||
+        ordProducts.name === "AxiosError"
+      ) {
+        throw new Error();
+      }
+
+      setModal(true);
       setModalSeeProducts(true);
+      setOrderProducts(ordProducts);
+    } catch (error) {
+      console.error(error);
     }
-    setIsLoading(false);
   };
 
   const handleCloseProducts = () => {
@@ -76,76 +77,68 @@ export const OrdersTable = ({
     }
   };
 
+  // useEffect(() => {
+  //   setModal(true);
+  // }, [modalSeeProducts]);
+
   return modal ? (
     <Modal>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <div>
-          {modalSeeProducts && (
-            <div
-              className={"text-center"}
-              style={{ color: "green", maxHeight: "100vh" }}
-            >
-              {isError ? (
-                <h3>Error en la conexión :(</h3>
-              ) : (
-                <ProductsTable
-                  products={orderProducts}
-                  setProducts={setOrderProducts}
-                  addAndSearch={false}
-                  seeActions={false}
-                  isModalStyle={true}
-                />
-              )}
-              <button
-                className={"btn btn-danger"}
-                onClick={handleCloseProducts}
-              >
-                Cerrar
-              </button>
-            </div>
-          )}
-          {modalSearchUser && (
-            <div
-              className={"w-100"}
-              style={{
-                display: "grid",
-                placeItems: "center",
-                maxHeight: "100vh",
-              }}
-            >
-              <SearchUser
-                code={userCode}
-                setModal={setModal}
-                setModalSearchUser={setModalSearchUser}
-              />
-            </div>
-          )}
-          {modalSearchOrder && (
-            <SearchingBarOrders
-              term={term}
-              setTerm={setTerm}
-              setModal={setModal}
-              setModalSearchOrder={setModalSearchOrder}
-            />
-          )}
-          {modalIsStateChanged && (
-            <div className="text-center">
-              <h3>Estado cambiado ;)</h3>
-              <button
-                className={"btn btn-danger"}
-                onClick={handleCloseChangeState}
-              >
-                Cerrar
-              </button>
-            </div>
-          )}
+      {modalSeeProducts && (
+        <div
+          className={"text-center"}
+          style={{ color: "green", maxHeight: "100vh" }}
+        >
+          <ProductsTable
+            products={orderProducts}
+            setProducts={setOrderProducts}
+            addAndSearch={false}
+            seeActions={false}
+            isModalStyle={true}
+          />
+
+          <button
+            type="button"
+            className={"btn btn-danger"}
+            onClick={handleCloseProducts}
+          >
+            Cerrar
+          </button>
         </div>
       )}
+      {modalSearchUser && (
+        <div
+          className={"w-100"}
+          style={{
+            display: "grid",
+            placeItems: "center",
+            maxHeight: "100vh",
+          }}
+        >
+          <SearchUser
+            code={userCode}
+            setModal={setModal}
+            setModalSearchUser={setModalSearchUser}
+          />
+        </div>
+      )}
+      {modalSearchOrder && (
+        <SearchingBarOrders
+          term={term}
+          setTerm={setTerm}
+          setModal={setModal}
+          setModalSearchOrder={setModalSearchOrder}
+        />
+      )}
+      {modalIsStateChanged && (
+        <div className="text-center">
+          <h3>Estado cambiado ;)</h3>
+          <button className={"btn btn-danger"} onClick={handleCloseChangeState}>
+            Cerrar
+          </button>
+        </div>
+      )}
+      )
     </Modal>
-  ) : isLoading ? (
-    <Loader />
   ) : (
     <div className={"d-grid align-content-center vw-100 h-auto"}>
       {showSearchingBar && (

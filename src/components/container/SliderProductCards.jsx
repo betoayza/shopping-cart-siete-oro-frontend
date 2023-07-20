@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { ProductCardNotUser } from "./ProductCardNotUser";
 import { helpAxios } from "../../helpers/helpAxios";
-import { Loader } from "../../components/pure/Loader";
+// import { Loader } from "../../components/pure/Loader";
 
 export const SliderProductCards = () => {
   const [products, setProducts] = useState([]);
-  const [isError, setIsError] = useState(true);
   const intervalTime = 3000;
 
   const getProducts = useCallback(async () => {
@@ -23,9 +22,8 @@ export const SliderProductCards = () => {
       );
 
       setProducts(availableProducts);
-      setIsError(false);
     } catch (error) {
-      setIsError(true);
+      console.error("JCJABDAJSBDJASBDJASDBJSAD");
     }
   }, []);
 
@@ -40,9 +38,7 @@ export const SliderProductCards = () => {
     return () => clearInterval(interval);
   }, [getProducts]);
 
-  return isError ? (
-    <Loader />
-  ) : products.length ? (
+  return products.length ? (
     <div
       id="carouselExampleControls"
       className="carousel slide"
@@ -83,7 +79,8 @@ export const SliderProductCards = () => {
     </div>
   ) : (
     <h4 className="text-center" style={{ color: "maroon" }}>
-      No hay productos disponibles aún :(
+      {/* No hay productos disponibles aún :( */}
+      ...
     </h4>
   );
 };
