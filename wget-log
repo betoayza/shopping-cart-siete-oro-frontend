@@ -1,7 +1,0 @@
-/home/alber/Descargas: Falta esquema.
---2023-05-19 21:26:02--  https://code.visualstudio.com/sha/download?build=stable
-Resolviendo code.visualstudio.com (code.visualstudio.com)... 2620:1ec:4f:1::33, 2620:1ec:4e:1::33, 13.107.238.33, ...
-Conectando con code.visualstudio.com (code.visualstudio.com)[2620:1ec:4f:1::33]:443... conectado.
-Petición HTTP enviada, esperando respuesta... 404 Not Found
-2023-05-19 21:26:03 ERROR 404: Not Found.
-
