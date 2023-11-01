@@ -120,7 +120,12 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error();
+
+      if (axios.isAxiosError(error)) {
+        throw new Error(`Request failed with status: ${error.response.status}`);
+      } else if (axios.isTimeoutError(error))
+        throw new Error(`Request timed out`);
+      else throw new Error("An error occurred :(");
     }
   };
 
@@ -440,7 +445,7 @@ export const helpAxios = () => {
       else throw new Error(result.statusText);
     } catch (error) {
       console.error(error);
-      return new Error();
+      throw new Error(error);
     }
   };
 

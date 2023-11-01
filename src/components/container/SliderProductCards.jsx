@@ -5,25 +5,23 @@ import { helpAxios } from "../../helpers/helpAxios";
 
 export const SliderProductCards = () => {
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
   const intervalTime = 3000;
 
   const getProducts = useCallback(async () => {
     try {
       const activeProducts = await helpAxios().getAllActiveProducts();
 
-      if (
-        Object.prototype.toString.call(activeProducts) === "[object Error]" ||
-        activeProducts.name === "AxiosError"
-      )
-        throw new Error();
+      console.log(activeProducts, typeof activeProducts);
 
       const availableProducts = activeProducts.filter(
         (product) => product.stock > 0
       );
 
       setProducts(availableProducts);
+      setError(null);
     } catch (error) {
-      console.error("JCJABDAJSBDJASBDJASDBJSAD");
+      setError(error);
     }
   }, []);
 
@@ -31,14 +29,16 @@ export const SliderProductCards = () => {
     const fetchData = async () => {
       await getProducts();
     };
-    fetchData();
+    fetchData(); // initial execution
 
-    const interval = setInterval(fetchData, intervalTime);
+    const interval = setInterval(fetchData, intervalTime); // run every 5 secs
 
     return () => clearInterval(interval);
-  }, [getProducts]);
+  }, []);
 
-  return products.length ? (
+  return error ? (
+    <div className="error">Error: {error.message}</div>
+  ) : products.length ? (
     <div
       id="carouselExampleControls"
       className="carousel slide"
@@ -79,8 +79,7 @@ export const SliderProductCards = () => {
     </div>
   ) : (
     <h4 className="text-center" style={{ color: "maroon" }}>
-      {/* No hay productos disponibles aún :( */}
-      ...
+      Loading...
     </h4>
   );
 };

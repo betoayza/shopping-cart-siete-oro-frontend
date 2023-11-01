@@ -81,3 +81,10 @@ input {
   justify-content: space-between;
   padding: 2rem;
 }
+
+.error {
+  color: red;
+  background-color: black;
+  border-radius: 1rem;
+  padding: 0.25rem;
+}
