@@ -7,23 +7,26 @@ export const SearchingBarNotRegistered = () => {
   const [term, setTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [isModalActivated, setIsModalActivated] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState(null);
 
-  const findProducts = useCallback(async (term) => {
-    try {
-      const foundProducts = await helpAxios().findProducts(term);
-      const validProducts = foundProducts.filter(
-        (product) => product.stock > 0
-      );
+  const findProducts = useCallback(
+    async (term) => {
+      try {
+        const foundProducts = await helpAxios().findProducts(term);
+        const validProducts = foundProducts.filter(
+          (product) => product?.stock > 0
+        );
 
-      setProducts(validProducts);
-      setIsError(false);
-    } catch (error) {
-      setIsError(true);
-    } finally {
-      setIsModalActivated(true);
-    }
-  }, [term]);
+        setProducts(validProducts);
+        setError(null);
+      } catch (error) {
+        setError("No hay conexión.");
+      } finally {
+        setIsModalActivated(true);
+      }
+    },
+    [term]
+  );
 
   useEffect(() => {
     if (term !== "") findProducts(term);
@@ -37,7 +40,7 @@ export const SearchingBarNotRegistered = () => {
   const handleClose = () => {
     setIsModalActivated(false);
     setProducts([]);
-    setIsError(false);
+    setError(null);
   };
 
   return (
@@ -51,9 +54,9 @@ export const SearchingBarNotRegistered = () => {
       />
       {isModalActivated ? (
         <Modal>
-          {isError ? (
+          {error ? (
             <div>
-              <h2 style={{ color: "#ff4500" }}>Error en la conexión :(</h2>
+              <h2 style={{ color: "#ff4500" }}>Error:{error}</h2>
               <button
                 type="button"
                 className="btn btn-danger"

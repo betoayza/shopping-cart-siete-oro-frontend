@@ -6,6 +6,7 @@ import { helpAxios } from "../../helpers/helpAxios";
 export const SliderProductCards = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const intervalTime = 3000;
 
   const getProducts = useCallback(async () => {
@@ -21,20 +22,23 @@ export const SliderProductCards = () => {
       setProducts(availableProducts);
       setError(null);
     } catch (error) {
+      console.error(error);
       setError(error);
     }
   }, []);
 
   useEffect(() => {
+    // don't use useCallback() hook, because getProducts() already does
     const fetchData = async () => {
       await getProducts();
     };
+
     fetchData(); // initial execution
 
     const interval = setInterval(fetchData, intervalTime); // run every 5 secs
 
     return () => clearInterval(interval);
-  }, []);
+  }, [getProducts]);
 
   return error ? (
     <div className="error">Error: {error.message}</div>
@@ -78,8 +82,10 @@ export const SliderProductCards = () => {
       </button>
     </div>
   ) : (
-    <h4 className="text-center" style={{ color: "maroon" }}>
-      Loading...
-    </h4>
+    isLoading && (
+      <h4 className="text-center" style={{ color: "maroon" }}>
+        Loading...
+      </h4>
+    )
   );
 };
