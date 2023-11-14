@@ -444,7 +444,7 @@ export const helpAxios = () => {
       if (result.status === 200) return result.data;
       else throw new Error(result.statusText);
     } catch (error) {
-      if (axios.isTimeoutError(error)) {
+      if (error.code === "ECONNABORTED") {
         throw new Error("Timeout error");
       }
       throw new Error(error);

@@ -3,6 +3,9 @@ import { ProductCardNotUser } from "./ProductCardNotUser";
 import { helpAxios } from "../../helpers/helpAxios";
 // import { Loader } from "../../components/pure/Loader";
 
+// Estoy probando codespaces 
+
+
 export const SliderProductCards = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
